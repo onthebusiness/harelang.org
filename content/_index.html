@@ -31,8 +31,15 @@ Hare fits on a 3½" floppy disc, one of which you may
 
 <span class="keyword">export fn</span> main <span class="type">int</span> =
 {
-    <span class="keyword">for</span> (<span class="keyword">let</span> x: <span class="type">int</span> = 0; x &lt; 10; x += 1) {
-        io::println(<span class="string">"Hello, world!"</span>);
+    <span class="keyword">let</span> greetings: [5]<span class="type">str</span> = [
+        <span class="string">"Hello, world!"</span>,
+        <span class="string">"¡Hola Mundo!"</span>,
+        <span class="string">"Γειά σου Κόσμε!"</span>,
+        <span class="string">"Привет мир!"</span>,
+        <span class="string">"こんにちは世界！"</span>,
+    ];
+    <span class="keyword">for</span> (<span class="keyword">let</span> x: <span class="type">int</span> = 0; x &lt; <span class="keyword">len</span>(greetings); x += 1) {
+        io::println(greetings[i]);
     };
     0;
 };
