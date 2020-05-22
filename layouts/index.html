@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.Title}}</title>
+    {{ $style := resources.Get "main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+  </head>
+  <body>
+    {{ partial "nav.html" }}
+    <main>
+      <p class="alert">
+        <strong>Notice</strong>
+        This project is under active development. Please do not share this
+        webpage with others until we believe it's ready for broader
+        distribution. Feel free to try out the language and provide feedback
+        as you see fit, but keep it to yourself.
+      </p>
+      {{.Content}}
+    </main>
+  </body>
+</html>

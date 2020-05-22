@@ -1,0 +1,6 @@
+baseURL = "https://harelang.org/"
+title = "The Hare programming language"
+pygmentsUseClasses = true
+
+[markup.goldmark.renderer]
+unsafe = true

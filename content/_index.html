@@ -1,0 +1,36 @@
+---
+title: The Hare programming language
+---
+
+<p>
+Hare is a statically typed programming language which compiles to machine code.
+It has no runtime, manual memory management, and it uses the C ABI. Hare is
+designed for systems programming, and is well-suited to writing operating
+systems, system tools, compilers, and other low-level, high-performance tasks.
+
+<!-- TODO: Hare patch for whatever highlighter Hugo uses -->
+<pre>
+<span class="preprocessor">use io;</span>
+
+<span class="keyword">export fn</span> main <span class="type">int</span> =
+{
+    <span class="keyword">for</span> (<span class="keyword">let</span> x: <span class="type">int</span> = 0; x &lt; 10; x += 1) {
+        io::println(<span class="string">"Hello, world!"</span>);
+    };
+    0;
+};
+</pre>
+
+<h2>Design principles</h2>
+<ol>
+  <li>Trust the programmer.</li>
+  <li>But, provide tools the programmer may use when they don't trust themselves.</li>
+  <li>Prefer explicit behavior over implicit behavior.</li>
+  <li>Defined behavior is better than undefined behavior.</li>
+  <li>In order for a program to be correct, it must be simple.</li>
+</ol>
+
+<h2>Getting started</h2>
+<p>
+Read <a href="/installation">Installation</a> to get Hare for your system, then
+read the <a href="/tutorial">Tutorial</a>.
