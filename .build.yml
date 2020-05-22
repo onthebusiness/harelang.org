@@ -1,0 +1,16 @@
+image: alpine/latest
+packages:
+  - rsync
+  - hugo
+sources:
+  - https://git.sr.ht/~sircmpwn/harelang.org
+secrets:
+  - 160a72cf-34d6-47b7-928b-c13b42b4d4f6
+tasks:
+- build: |
+    cd harelang.org
+    hugo
+- upload: |
+    cd harelang.org
+    echo "StrictHostKeyChecking=no" >> ~/.ssh/config
+    rsync -rP public/ deploy@drewdevault.com:/var/www/harelang.org/
