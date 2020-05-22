@@ -4,6 +4,10 @@ title: Community resources
 
 We have a small community, but we're happy to talk to you.
 
+**Notice**: While Hare is still under private development, access to these
+mailing lists is restricted. Please [email Drew DeVault](mailto:sir@cmpwn.com)
+to request list access.
+
 ### User mailing list
 
 To ask questions about Hare, please email [hare-users][hare-users], or [browse
