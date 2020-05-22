@@ -14,7 +14,7 @@ To ask questions about Hare, please email [hare-users][hare-users], or [browse
 the archives][hare-users-archive].
 
 [hare-users]: mailto:~sircmpwn/hare-users@lists.sr.ht
-[hare-users-archive]: https://lists.sr.ht/~sircmpwn/hare-users@lists.sr.ht
+[hare-users-archive]: https://lists.sr.ht/~sircmpwn/hare-users
 
 ### Development mailing list
 
@@ -22,7 +22,7 @@ Please send patches and development questions for the Hare standard library and
 compilers to [hare-dev][hare-dev], or [browse the archives][hare-dev].
 
 [hare-dev]: mailto:~sircmpwn/hare-dev@lists.sr.ht
-[hare-dev-archive]: https://lists.sr.ht/~sircmpwn/hare-dev@lists.sr.ht
+[hare-dev-archive]: https://lists.sr.ht/~sircmpwn/hare-dev
 
 ### Real-time chat
 
