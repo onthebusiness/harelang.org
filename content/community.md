@@ -19,7 +19,7 @@ the archives][hare-users-archive].
 ### Development mailing list
 
 Please send patches and development questions for the Hare standard library and
-compilers to [hare-dev][hare-dev], or [browse the archives][hare-dev].
+compilers to [hare-dev][hare-dev], or [browse the archives][hare-dev-archive].
 
 [hare-dev]: mailto:~sircmpwn/hare-dev@lists.sr.ht
 [hare-dev-archive]: https://lists.sr.ht/~sircmpwn/hare-dev
