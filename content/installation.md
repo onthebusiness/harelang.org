@@ -23,6 +23,8 @@ Optionally, to run the test suite, run `make check`. Now, you can run `.
 ./localenv.sh` to configure your shell to use the new toolchain. To avoid this
 and install to `/usr/local`, run `make install` as root.
 
+Optionally, [install a plugin for your editor](/editors).
+
 Run `hare -h` to learn how to build Hare programs, or continue to the
 [Tutorial](/tutorial).
 
