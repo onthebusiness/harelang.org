@@ -20,7 +20,7 @@ Hare (will) support a variety of platforms. Adding new (Unix-like) platforms and
       <td><span class="yes">✓</span> Supported</td>
     </tr>
     <tr>
-      <td>arm64</td>
+      <td>aarch64</td>
       <td><span class="todo">…</span> Planned</td>
     </tr>
     <tr>
