@@ -119,3 +119,30 @@ main img {
   margin: 0.5rem auto;
   max-width: 80%;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+  }
+
+  td, th {
+    border-bottom: 1px solid black;
+  }
+
+  .yes, .todo {
+    display: inline-block;
+    width: 1rem;
+    text-align: center;
+  }
+
+  .yes {
+    color: green;
+  }
+
+  .todo {
+    color: red;
+  }
+}
