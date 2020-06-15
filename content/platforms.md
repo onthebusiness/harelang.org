@@ -21,7 +21,7 @@ Hare (will) support a variety of platforms. Adding new (Unix-like) platforms and
     </tr>
     <tr>
       <td>aarch64</td>
-      <td><span class="todo">…</span> Planned</td>
+      <td><span class="yes">✓</span> Supported</td>
     </tr>
     <tr>
       <td>riscv64</td>
