@@ -39,7 +39,7 @@ Hare (will) support a variety of platforms. Adding new (Unix-like) platforms and
 <table>
   <thead>
     <tr>
-      <th>Architecture</th>
+      <th>Operating system</th>
       <th>Support status</th>
     </tr>
   </thead>
