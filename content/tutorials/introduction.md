@@ -522,14 +522,6 @@ array, will abort the program.
 The length of an array may be obtained with the `len` operator. In this case,
 `len(x)` would return 5.
 
-#### Unbounded arrays
-
-It may occasionally be useful (especially when interoperating with another
-programming language) to use an array of undefined length, which is not
-bounds-checked at runtime. You may declare an array whose length is `*` to
-produce an array type which is not bounds-checked, i.e. `[*]int`. Use this
-feature with care.
-
 #### Array initializer shorthand
 
 Hare requires that you provide an initializer for all variables, and this may
@@ -557,6 +549,14 @@ let x: [4096]int = [1, 2, 3...];
 
 In this case, the first item is one, the second is two, and all remaining items
 are three.
+
+#### Unbounded arrays
+
+It may occasionally be useful (especially when interoperating with another
+programming language) to use an array of undefined length, which is not
+bounds-checked at runtime. You may declare an array whose length is `*` to
+produce an array type which is not bounds-checked, i.e. `[*]int`. Use this
+feature with care.
 
 ### Slices
 
