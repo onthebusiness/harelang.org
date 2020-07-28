@@ -77,8 +77,8 @@ export fn main void =
 ```
 
 <p class="alert"><strong>Notice</strong><br />
-<code>/* ... */</code> is used for <em>comments</em> &mdash; these are ignored
-by the compiler, but useful to anyone reading your code.</p>
+<code>/* ... */</code> is used for comments &mdash; these are ignored by the
+compiler, but useful to anyone reading your code.</p>
 
 In this case, the type of the variable is *inferred* from its *initializer*,
 which is the value to which it is initially set. Initializers are mandatory when
@@ -454,13 +454,7 @@ types of each struct field, and may specify them out of order.
 
 ### Type promotion
 
-## Advanced expressions
-
-### switch
-
-### match
-
-### defer
+### C compatibility
 
 ## Memory management
 
@@ -469,6 +463,26 @@ types of each struct field, and may specify them out of order.
 ### alloc & free
 
 ### Pointer transfers
+
+## Advanced functions
+
+### Function pointers
+
+### Test functions
+
+### Static bindings
+
+## Advanced expressions
+
+### switch
+
+### match
+
+### defer
+
+### Assertions
+
+## Error handling
 
 ## Modules
 
@@ -486,6 +500,11 @@ statements alphabetically at the top of your program.
 ### Module path resolution
 
 #### Vendoring dependencies
+
+### Build tags
+
+Some build tags are built-in &mdash; they vary depending on your platform and
+are printed when you run `hare version`.
 
 ### Writing new modules
 
