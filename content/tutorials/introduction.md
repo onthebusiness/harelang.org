@@ -467,6 +467,12 @@ Numeric constants are supported in Hare with an explicit precision. The constant
 precision as well: `1234u16` is a `u16`, and `12f32` is `12.0` represented as an
 `f32`.
 
+Alternate numeric constant formats include hexadecmial using `0x` notation (e.g.
+`0xDEADBEEF`), binary via the `0b` notation (e.g. `0b101010`), and octal with a
+leading zero (e.g. `0644`).
+
+TODO: Add scientific form
+
 Additionally, the following primitive types have special semantics:
 
 **void** is a type of size zero. It is used only in special cases, and a
@@ -773,18 +779,6 @@ export fn main void =
 By specifying the type name in the struct initializer, you need not write the
 types of each struct field, and may specify them out of order.
 
-## Type compatibility
-
-### Assignment
-
-### Explicit casts
-
-### Implicit casts
-
-### Type promotion
-
-### C compatibility
-
 ## Memory management
 
 ### Pointer types
@@ -792,6 +786,83 @@ types of each struct field, and may specify them out of order.
 ### alloc & free
 
 ### Pointer transfers
+
+## Type compatibility
+
+TODO: This section is written for people already familiar with casts in other
+languages, it's a bit too thick for noobs
+
+### Implicit casts
+
+It is possible to use a value of one type in a context where another type is
+called for, in a limited set of circumstances.
+
+For **integer** types (`int`, `uint`, `i8-i64`, `u8-u64`, `size`, and
+`uintptr`), a value can be implicitly cast only if it would not cause a loss of
+precision. For example, an `i8` can be assigned to an `i32`, but not the
+inverse. Unsigned and signed integer types are not mutually assignable.
+
+```hare
+let x: i32 = 10i8; /* Acceptable */
+let y: i32 = 10u8; /* Not acceptable */
+let z: i8 = 12345; /* Not acceptable */
+```
+
+A **tagged union** may be assigned from value of any of its member types.
+
+```hare
+let x: (int | *str | void) = 1234; /* Acceptable */
+```
+
+### Explicit casts
+
+Explicit casts are to be used with caution, as they are one mechanism by which
+the programmer can override the best judgement of the compiler. The syntax for
+an explicit cast is similar to a variable declaration:
+<code><em>expression</em>: <em>type</em></code>, e.g. `1234: i8`.
+
+```hare
+let x: int = 1234;
+let y = x: f64;
+```
+
+When casting **numeric** types, a loss in precision will result in the value
+being truncated towards the least significant bits. For example, casting
+`0x1234` to `u8` will produce `0x34`.
+
+**Struct** types cannot be cast to any other struct type. **Union** types may be
+cast to any of their member types.
+
+Any **pointer** type may be cast to any other pointer type, or to and from
+`uintptr`. This may also be used to cast owned pointers to borrowed pointers and
+vice versa; use this feature with great caution. The semantics of casting
+between the referent types of each pointer type (the referent type being `int`
+in the example of `*int`) is not taken into account; normally impossible
+casts are permitted through pointer indirection.
+
+```hare
+let x: int = 1234;
+let y = &x: *io::file; /* Acceptable (but ill-advised) */
+```
+
+**Tagged unions** may be cast to any of their member types. This will not cause
+a runtime type assertion to be emitted.
+
+### Type promotion
+
+*Type promotion* is used in arithmetic expressions to "promote" numeric types to
+avoid precision loss. If two numeric types which can be implicitly cast to one
+another appear as the left and right values to a binary operator (such as `+`,
+addition), the lower precision value is implicitly cast (or "promoted") to the
+higher precision type.
+
+```hare
+let x: i8 = 42;
+let y: i16 = 1337;
+let z = x + y; /* z's type is i16 */
+```
+
+### C compatibility
 
 ## Advanced function usage
 
