@@ -787,14 +787,6 @@ types of each struct field, and may specify them out of order.
 
 ### Pointer transfers
 
-## Advanced function usage
-
-### Test functions
-
-### Function pointers
-
-### Static bindings
-
 ## Advanced expressions
 
 ### switch
@@ -885,6 +877,14 @@ static assert(size(*void) == 8, "This module only supports 64-bit systems");
 ```
 
 Static assertions may be used outside of function bodies.
+
+## Advanced function usage
+
+### Test functions
+
+### Function pointers
+
+### Static bindings
 
 ## Type casting
 
