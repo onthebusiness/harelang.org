@@ -716,6 +716,18 @@ io::println(strconv::i32tos(x as f32));
 There is a third way to use tagged unions, and you will likely use it more often
 than the others: [match expressions](#match).
 
+#### Tagged void types
+
+Tagged unions are one of the few places where `void` types may be used to
+indicate the absence of a value. The following code is valid:
+
+```hare
+let x: (i32 | f32 | void) = void;
+if (x is void) {
+	io::println("There's nothing here!");
+};
+```
+
 ### Enums
 
 TODO
