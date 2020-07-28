@@ -273,7 +273,60 @@ export fn main void =
 
 ### Loop expressions: for & while
 
-TODO
+Hare also supports *loops*, which come in two forms: `for` loops and `while`
+loops. The former is a more structured loop, and the latter is more free-form.
+Both cases always return the `void` type.
+
+A for loop has three parts: the initializer, the predicate, and the
+afterthought. At the start of the loop, the initializer is run; at the start of
+each iteration, the predicate is evaluated to determine if the loop shall
+continue; and at the end of each iteration, the afterthought is run.
+
+```hare
+for (let x = 0; x < 10; x += 1) {
+	io::println(strconv::itos(x));
+};
+```
+
+This program will print the numbers zero through nine.
+
+<p class="alert"><strong>Notice</strong><br />
+See the <code>x += 1</code> operator there? <code>+=</code> is short for "add,
+then assign", and this expression adds 1 to x and then assigns the result to x;
+it is shorthand for <code>x = x + 1</code>.
+</p>
+
+While loops only have a predicate, and have neither an initializer nor
+afterthought. The following loop is similar to the for loop in the previous
+example:
+
+```hare
+let x = 0;
+while (x < 10) {
+	io::println(strconv::itos(x));
+	x += 1;
+};
+```
+
+#### Loop control operators
+
+The `break` and `continue` keywords are provided to influence the loop flow
+outside of the predicate. The `break` keyword will terminate the loop
+immediately, and the `continue` keyword will immediately begin the next
+iteration, skipping the remainder of the code in that loop. The following for
+loop will print the numbers zero through nine, but skip five:
+
+```hare
+for (let x = 0; x < 10; x += 1) {
+	if (x == 5) {
+		continue;
+	};
+	io::println(strconv::itos(x));
+};
+```
+
+Replace `continue` with `break` and this loop will terminate at five, printing
+only the numbers 0, 1, 2, 3, and 4.
 
 ### Functions
 
@@ -347,6 +400,8 @@ fn add_ints(a: int, b: int) int =
 ```
 
 #### Variadic parameters
+
+TODO
 
 ### Constants
 
