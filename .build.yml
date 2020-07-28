@@ -14,7 +14,7 @@ tasks:
     sudo cp hugo /usr/local/bin/
 - build: |
     cd harelang.org
-    hugo
+    /usr/local/bin/hugo
 - upload: |
     cd harelang.org
     echo "StrictHostKeyChecking=no" >> ~/.ssh/config
