@@ -1,11 +1,14 @@
 ---
 # vim: ts=8 sw=8 noet :
 title: An introduction to the Hare programming language
-summary: >
+summary: |
   This tutorial will introduce you to the Hare programming language. It
   should take about an hour to complete. If you are already familiar with
   programming in other languages, it might take even less time — feel free to
   jump around as you see fit.
+
+  After you complete this tutorial, you should move on to the
+  [standard library introduction](/tutorials/stdlib).
 ---
 
 ## Before you start
@@ -478,7 +481,11 @@ statements alphabetically at the top of your program.
 
 [Documentation is available](/documentation) for the standard library.
 
+### Using third-party dependencies
+
 ### Module path resolution
+
+#### Vendoring dependencies
 
 ### Writing new modules
 
