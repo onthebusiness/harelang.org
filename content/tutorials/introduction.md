@@ -879,7 +879,7 @@ static assert(size(*void) == 8, "This module only supports 64-bit systems");
 
 Static assertions may be used outside of function bodies.
 
-## Type compatibility
+## Type casting
 
 TODO: This section is written for people already familiar with casts in other
 languages, it's a bit too thick for noobs
