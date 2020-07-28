@@ -657,8 +657,9 @@ let coords = struct {
 ```
 
 You may use `coords.z` as if you would use any other field. This example is
-somewhat contrived. This becomes more useful when combined with user-defined
-types, which [we will cover](#type-aliases--user-defined-types) momentarily.
+somewhat contrived &mdash; this becomes more useful when combined with
+user-defined types, which [we will cover](#type-aliases--user-defined-types)
+momentarily.
 
 #### Union types
 
