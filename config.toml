@@ -4,3 +4,6 @@ pygmentsUseClasses = true
 
 [markup.goldmark.renderer]
 unsafe = true
+
+[markup.tableOfContents]
+ordered = true

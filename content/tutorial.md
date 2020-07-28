@@ -10,7 +10,7 @@ The Hare language introduction is a good start for new Hare users. It should
 take about an hour to complete and aquaints you with all of the basic features
 of the language.
 
-<a href="#TODO" class="tutorial-link">General langauge introduction</a>
+<a href="/tutorials/introduction" class="tutorial-link">General langauge introduction</a>
 
 ### Using dependencies
 
