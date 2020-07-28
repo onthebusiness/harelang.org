@@ -787,6 +787,98 @@ types of each struct field, and may specify them out of order.
 
 ### Pointer transfers
 
+## Advanced function usage
+
+### Test functions
+
+### Function pointers
+
+### Static bindings
+
+## Advanced expressions
+
+### switch
+
+A switch expression can be thought of as a specialized "if" expression. Given a
+value, it tests it against a number of possibilities and takes the appropriate
+branch.
+
+```hare
+io::println(switch (x) {
+	1 => "one",
+	2 => "many",
+	* => "lots",
+});
+```
+
+Switch expressions are required to be *exhaustive*, meaning that every possible
+case is present. The `*` case can be used to match with any case not otherwise
+tested for.
+
+If all cases have the same type, the type of the switch expression is that type.
+Otherwise, the type is void. However, any branches which *terminate* are not
+considered in this respect.
+
+```hare
+io::println(switch (x) {
+	1 => "one",
+	2 => "many",
+	* => {
+		log::errorln("too many!");
+		return;
+	},
+});
+```
+
+### match
+
+A match expression is similar to a switch expression, but instead of switching
+on *values*, it matches on *types*. It is used with
+[tagged unions](#tagged-unions), especially for
+[error handling](#error-handling).
+
+```hare
+fn print(val: (int | str)) void =
+{
+	match (val) {
+		int => io::println("(int)"),
+		s: str => io::println(s),
+	};
+};
+```
+
+Like switch statements, match statements must be exhaustive. Note as well that
+you may *bind* the value to a new variable of the matched type, as in the `str`
+case shown here.
+
+### defer
+
+TODO
+
+### assert
+
+The `assert` keyword can be used to validate your assumptions at runtime.
+
+```hare
+fn sqrt(x: f32) f32 =
+{
+	assert(x > 0, "Cannot take square root of negative number");
+	/* ... */
+};
+```
+
+If the condition fails, the program is aborted and the message is printed. If
+you omit this message, a more generic error message is shown.
+
+You can also do *static* assertions to validate your assumptions at
+compile-time.
+
+```hare
+static assert(size(*void) == 8, "This module only supports 64-bit systems");
+```
+
+Static assertions may be used outside of function bodies.
+
 ## Type compatibility
 
 TODO: This section is written for people already familiar with casts in other
@@ -864,23 +956,53 @@ let z = x + y; /* z's type is i16 */
 
 ### C compatibility
 
-## Advanced function usage
+Hare types are a strict superset of C types, and Hare is compatible with the C99
+ABI. It is possible to represent any Hare type as a C type.
 
-### Test functions
+Primitive types, pointers, structs, and unions are directly compatible with
+their C counterparts. Tagged unions may be represented in C as follows:
 
-### Function pointers
+```hare
+def my_union = (int | *io::file | void);
+```
 
-### Static bindings
+```c
+enum my_union_tag {
+	INT = 0,
+	IO_FILE = 1,
+	VOID = 2,
+};
 
-## Advanced expressions
+struct my_union {
+	size_t tag;
+	union {
+		int i;
+		struct io_file *f;
+	};
+};
+```
 
-### switch
+Strings are represented as follows:
 
-### match
+```c
+struct hare_string {
+	size_t length;
+	char utf8_data[];
+};
+```
 
-### defer
+Slices are represented as follows:
 
-### Assertions
+```hare
+def my_slice = []int;
+```
+
+```c
+struct my_slice {
+	size_t length, capacity;
+	int *data;
+};
+```
 
 ## Error handling
 
