@@ -391,17 +391,279 @@ globals.
 
 ## Types
 
+Hare's type system is relatively small and straightforward.
+
 ### Primitive types
+
+The following primitive types are available:
+
+- `int`, `uint`: native-precision signed and unsigned integer, respectively
+- `i8`, `i16`, `i32`, `i64`: explicit-precision signed integers
+- `u8`, `u16`, `u32`, `u64`: explicit-precision unsigned integers
+- `f32`, `f64`: floating point numbers, 32- and 64-bit respectively
+- `bool`: boolean type (either true or false)
+
+"Native-precision" types vary in their specific precision according to the
+target architecture; usually they are 32 or 64 bits. Explicit-precision types
+use the precision in bits specified by the numeric suffix in the type name, i.e.
+i8 is an 8-bit signed integer and u32 is a 32-bit unsigned integer.
+
+Numeric constants are supported in Hare with an explicit precision. The constant
+`1234` is of type `int`, and `1234u` is of type `uint`. You can use an explicit
+precision as well: `1234u16` is a `u16`, and `12f32` is `12.0` represented as an
+`f32`.
+
+Additionally, the following primitive types have special semantics:
+
+**void** is a type of size zero. It is used only in special cases, and a
+variable of this type may not be declared.
+
+**size** is an unsigned integer which can specify a size at least as large as
+the native address space. It is the result type of the `size` operator and is
+used for array and slice indicies.
+
+**uintptr** is an unsigned integer capable of representing a pointer type
+numerically. This is used for pointer arithmetic, though its use is discouraged.
+
+**char** is similar to u8 and is available for compatibility with C. It is not
+used directly.
+
+### Strings
+
+The `str` type represents an immutable string (immutable meaning it cannot be
+changed, or *mutated*) with a fixed length. Strings are stored prefixed with
+their length (as `size`), followed by the string contents as UTF-8, then a NUL
+terminator (which is not included in the length).
+
+String manipulation in Hare deserves special treatment, we'll discuss it in
+depth in the [standard library introduction](/tutorials/stdlib) later on.
 
 ### Arrays
 
+An array stores many items of a type, and has a fixed length. The syntax is
+<code>[<em>length</em>]<em>type</em></code>, e.g. `[5]int`. A specific member of
+an array can be accessed by *indexing* the array, like so:
+
+```hare
+let x: [5]int = [1, 2, 3, 4, 5];
+x[3]; /* 4 */
+x[3] = 10;
+```
+
+Note that Hare arrays are *zero-indexed*, meaning the first item in the array is
+at index zero. Also take note of the array initialization syntax shown here.
+
+Array accesses like this are bounds-checked at runtime. Attempting to access an
+item beyond the end of the array, or before the beginning of the array, will
+abort the program.
+
+The length of an array may be obtained with the `len` operator. In this case,
+`len(x)` would return 5.
+
+#### Unbounded arrays
+
+It may occasionally be useful (especially when interoperating with another
+programming language) to use an array of undefined length, which is not
+bounds-checked at runtime. You may declare an array whose length is `*` to
+produce an array type which is not bounds-checked, i.e. `[*]int`. Use this
+feature with care.
+
+#### Array initializer shorthand
+
+Hare requires that you provide an initializer for all variables, and this may
+often be cumbersome when working with large arrays. The following code would
+become tiresome quickly:
+
+```hare
+let x: [4096]int = [0, 0, 0, 0, 0, 0, 0, 0, /* ... */];
+```
+
+Hare offers a syntax for filling out the remainder of an array for you via the
+`...` operator:
+
+```hare
+let x: [4096]int = [0...];
+```
+
+In this example, Hare will populate the remainder of the array with zeros.
+Note that it needn't be zeros, nor the first item that is extended; the
+following is also valid:
+
+```hare
+let x: [4096]int = [1, 2, 3...];
+```
+
+In this case, the first item is one, the second is two, and all remaining items
+are three.
+
 ### Slices
+
+A slice is an indirect view of an array. It is used for two purposes: as a
+subset of another array or slice, or as an array which can grow at runtime. A
+slice has three properties: its length, its *capacity*, and an indirect
+reference to the underlying storage.
+
+Like arrays, the length of a slice may be obtained with the `len` operator.
+
+TODO: Go into more detail on slices
+
+#### Sub-slicing
+
+You can use the `..` indexing operator to obtain a subset of another slice, also
+known as a *sub-slice*. The subslice operator may also be used on an array, but
+such slices are immutable.
+
+For illustrative purposes, consider the following array:
+
+```hare
+let x: [5]int = [1, 2, 3, 4, 5];
+```
+
+To create a subslice, use the syntax `x[start..end]`, where start is the index
+of the first element, and end is the index of the last element. "Start" is
+*inclusive*, meaning that it includes the item at that index, and "end" is
+*exclusive*, meaning that it includes items *up to*, but not including, the
+"end" index.
+
+The start or end index may be omitted entirely. If omitted, zero is used for
+start, and `len(array)-1` is used for end. `x[..]` creates a sub-slice of the
+entire slice.
+
+```hare
+x[1..4]; /* 2, 3, 4 */
+x[2..4]; /* 3, 4 */
+x[..2];  /* 1, 2 */
+x[2..];  /* 3, 4, 5 */
+x[..];   /* 1, 2, 3, 4, 5 */
+```
 
 ### Structs & unions
 
+A "struct" type is used to create an aggregate type encapsulating several other
+types. They are declared with the following syntax:
+
+<pre><code>struct {
+	<em>field</em>: <em>type</em>,
+	<em>field</em>: <em>type</em>,
+	/* ... */
+}</code></pre>
+
+A simple example could be used to store coordinates in a 2D plane:
+
+```hare
+let coords: struct {
+	x: int,
+	y: int,
+} = /* ... */;
+```
+
+A *struct initializer* is very similar, but also provides initializers for the
+values:
+
+```hare
+let coords = struct {
+	x: int = 10,
+	y: int = 20,
+};
+```
+
+Thus, a fully qualified declaration & initialization of this variable would be:
+
+```hare
+let coords: struct {
+	x: int,
+	y: int,
+} = struct {
+	x: int = 10,
+	y: int = 20,
+};
+```
+
+Evidently, this is somewhat redundant, so type inference is preferred for this
+case. To access a struct field, the `.` operator is used.
+
+```hare
+coords.x; /* 10 */
+coords.x = 42;
+```
+
+#### Struct embedding
+
+Structs may also "embed" another struct type directly into itself, by specifying
+the type without naming a field. For example:
+
+```hare
+let coords = struct {
+	x: int = 10,
+	y: int = 20,
+	struct {
+		z: int = 30
+	},
+};
+```
+
+You may use `coords.z` as if you would use any other field. This example is
+somewhat contrived. This becomes more useful when combined with user-defined
+types, which [we will cover](#type-aliases--user-defined-types) momentarily.
+
+#### Union types
+
+Union types, or "untagged" unions, use the same syntax as structs with the
+"union" keyword instead of the struct keyword. In a struct, each field is laid
+out in memory one after another, creating a type whose size is the sum of its
+members (well, not exactly, but this approximation will be sufficient for now).
+
+A union differs in that it creates a type whose size is the *maximum* size among
+its field types, rather than the *sum* of its field types, and all of the fields
+are stored at the same location in memory.
+
+If you don't know why this is useful, you probably don't need it.
+
 ### Tagged unions
 
+A tagged union is an aggregate type whose value is exactly one of its subtypes.
+The syntax for a tagged union type is <code>(<em>type</em> | <em>type</em> |
+...)</code>, e.g. `(i32 | f32)`. A type of `(i32 | f32)` can store either an
+i32 or an f32. The representation of a tagged union in memory is a `size`
+representing which of the fields is selected (called the "tag"), followed value
+itself, which is allocated with sufficient space to store any of the valid
+types.
+
+The `is` operators is provided to examine the tag of a tagged union; it will be
+return true if the value in a tagged union is of the desired type.
+
+```hare
+let x: (i32 | f32) = 13.37;
+if (x is i32) {
+	io::println("x is an i32");
+} else if (x is f32) {
+	io::println("x is an f32");
+};
+```
+
+The `as` operator is a type assertion on a tagged union. It's used when you
+*know* that a tagged union has a specific value, and converts it to that
+representation. For example:
+
+```hare
+let x: (i32 | f32) = 1337i32;
+io::println(strconv::i32tos(x as i32));
+```
+
+The program will abort if your assertion does not hold. For example, this
+program will crash:
+
+```hare
+let x: (i32 | f32) = 1337i32;
+io::println(strconv::i32tos(x as f32));
+```
+
+There is a third way to use tagged unions, and you will likely use it more often
+than the others: [match expressions](#match).
+
 ### Enums
+
+TODO
 
 ### Type aliases & user-defined types
 
@@ -464,11 +726,11 @@ types of each struct field, and may specify them out of order.
 
 ### Pointer transfers
 
-## Advanced functions
-
-### Function pointers
+## Advanced function usage
 
 ### Test functions
+
+### Function pointers
 
 ### Static bindings
 
