@@ -989,15 +989,6 @@ struct my_union {
 };
 ```
 
-Strings are represented as follows:
-
-```c
-struct hare_string {
-	size_t length;
-	char utf8_data[];
-};
-```
-
 Slices are represented as follows:
 
 ```hare
@@ -1009,6 +1000,46 @@ struct my_slice {
 	size_t length, capacity;
 	int *data;
 };
+```
+
+#### Strings
+
+Strings are represented as follows:
+
+```c
+struct hare_string {
+	size_t length;
+	char utf8_data[];
+};
+```
+
+In Hare, `str` types may be cast to `*char`, producing a pointer compatible with
+C's `char*` type.
+
+#### Namespaces
+
+Hare namespaces are not compatible with C. However, the `@symbol` attribute is
+provided, which allows you to override the symbol used for a function or global
+in its external linkage. For example:
+
+```hare
+export @symbol("foobar") fn my_function void =
+{
+	/* ... */
+};
+```
+
+This will cause the symbol to be named "foobar" in the global namespace. Hare
+linkage will still refer to this as `my_namespace::my_function`, but external
+code can refer to this as "foobar".
+
+#### Variadic functions
+
+Hare programs cannot implement C-style variadic functions. However, Hare
+programs can call these functions. Forward declare them like so:
+
+```hare
+fn printf(fmt: *char, ...) int;
 ```
 
 ## Error handling
