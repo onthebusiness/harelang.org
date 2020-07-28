@@ -513,9 +513,11 @@ x[3] = 10;
 Note that Hare arrays are *zero-indexed*, meaning the first item in the array is
 at index zero. Also take note of the array initialization syntax shown here.
 
-Array accesses like this are bounds-checked at runtime. Attempting to access an
-item beyond the end of the array, or before the beginning of the array, will
-abort the program.
+<p class="alert"><strong>Notice</strong><br />
+Array accesses like this are <em>bounds-checked</em> at runtime. Attempting to
+access an item beyond the end of the array, or before the beginning of the
+array, will abort the program.
+</p>
 
 The length of an array may be obtained with the `len` operator. In this case,
 `len(x)` would return 5.
@@ -690,8 +692,12 @@ representing which of the fields is selected (called the "tag"), followed value
 itself, which is allocated with sufficient space to store any of the valid
 types.
 
-The `is` operators is provided to examine the tag of a tagged union; it will be
-return true if the value in a tagged union is of the desired type.
+There are a number of ways to examine the tag of a tagged union. The most common
+approach is to use [match expressions](#match), which are explained later. Two
+additional ways exist: the `is` and `as` operators.
+
+The `is` operator is a boolean expression which tests tag of a tagged union
+against a type.
 
 ```hare
 let x: (i32 | f32) = 13.37;
@@ -711,16 +717,10 @@ let x: (i32 | f32) = 1337i32;
 io::println(strconv::i32tos(x as i32));
 ```
 
-The program will abort if your assertion does not hold. For example, this
-program will crash:
-
-```hare
-let x: (i32 | f32) = 1337i32;
-io::println(strconv::i32tos(x as f32));
-```
-
-There is a third way to use tagged unions, and you will likely use it more often
-than the others: [match expressions](#match).
+<p class="alert"><strong>Notice</strong><br />
+This assumption is checked at runtime, and the program will abort if it is
+wrong.
+</p>
 
 #### Tagged void types
 
@@ -811,9 +811,11 @@ io::println(switch (x) {
 });
 ```
 
-Switch expressions are required to be *exhaustive*, meaning that every possible
-case is present. The `*` case can be used to match with any case not otherwise
-tested for.
+<p class="alert"><strong>Notice</strong><br />
+Switch expressions are required to be <em>exhaustive</em>, meaning that all
+possible cases are handled. The <code>*</code> case is used to match any case
+which is not explicitly handled.
+</p>
 
 If all cases have the same type, the type of the switch expression is that type.
 Otherwise, the type is void. However, any branches which *terminate* are not
@@ -847,9 +849,14 @@ fn print(val: (int | str)) void =
 };
 ```
 
-Like switch statements, match statements must be exhaustive. Note as well that
-you may *bind* the value to a new variable of the matched type, as in the `str`
-case shown here.
+In each match case, you may *bind* the value to a new variable of the matched
+type. In this example, the `str` case is bound to `s` and is passed into
+`io::println`.
+
+<p class="alert"><strong>Notice</strong><br />
+Like switch expressions, match cases must be exhaustive. Match expressions may
+also include a <code>*</code> case for this purpose.
+</p>
 
 ### defer
 
