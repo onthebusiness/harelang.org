@@ -191,8 +191,7 @@ if (2 == 4 && crash_the_program()) {
 
 In this code, `crash_the_program()` will never be evaluated.
 
-The constants `true` and `false` are also provided by the language; they are
-always true or always false.
+The constants `true` and `false` are also provided by the language.
 
 ```hare
 let a: bool = true;
