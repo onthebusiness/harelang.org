@@ -719,7 +719,7 @@ io::println(strconv::i32tos(x as i32));
 
 <p class="alert"><strong>Notice</strong><br />
 This assumption is checked at runtime, and the program will abort if it is
-wrong.
+wrong. To circumvent this, use a <a href="#explicit-casts">cast</a>.
 </p>
 
 #### Tagged void types
