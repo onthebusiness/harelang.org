@@ -25,25 +25,23 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
 Hare fits on a 3½" floppy disc, which are
 <a href="/floppies">available for purchase</a>.
 
-<!-- TODO: Hare patch for whatever highlighter Hugo uses -->
-<pre>
-<span class="preprocessor">use io;</span>
+{{< highlight hare >}}
+use io;
 
-<span class="keyword">export fn</span> main <span class="type">int</span> =
+export fn main int =
 {
-	<span class="keyword">let</span> greetings: [5]<span class="type">str</span> = [
-		<span class="string">"Hello, world!"</span>,
-		<span class="string">"¡Hola Mundo!"</span>,
-		<span class="string">"Γειά σου Κόσμε!"</span>,
-		<span class="string">"Привет мир!"</span>,
-		<span class="string">"こんにちは世界！"</span>,
+	let greetings: [5]str = [
+		"Hello, world!",
+		"¡Hola Mundo!",
+		"Γειά σου Κόσμε!",
+		"Привет мир!",
+		"こんにちは世界！",
 	];
-	<span class="keyword">for</span> (<span class="keyword">let</span> i = 0; i &lt; <span class="keyword">len</span>(greetings); i += 1) {
+	for (let i = 0; i < len(greetings); i += 1) {
 		io::println(greetings[i]);
 	};
-	<span class="keyword">return</span> 0;
-};
-</pre>
+	return 0;
+};{{< / highlight >}}
 
 <p>
 <span style="text-decoration: line-through">Hare is considered suitable for

@@ -55,19 +55,19 @@ pre {
   padding: 0.25rem 1rem;
   margin: 0 -1rem;
 
-  .preprocessor {
+  .cp {
     color: #800;
   }
 
-  .keyword {
+  .k {
     color: #008;
   }
 
-  .type {
+  .kt {
     color: #44F;
   }
 
-  .string {
+  .s {
     color: #484;
     font-style: italic;
   }
@@ -112,6 +112,10 @@ code {
   font-size: 1.1rem;
   background: #eee;
   padding: 0 0.3rem;
+}
+
+pre code {
+  font-size: inherit;
 }
 
 main img {
