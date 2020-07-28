@@ -573,11 +573,11 @@ For illustrative purposes, consider the following array:
 let x: [5]int = [1, 2, 3, 4, 5];
 ```
 
-To create a subslice, use the syntax `x[start..end]`, where start is the index
-of the first element, and end is the index of the last element. "Start" is
-*inclusive*, meaning that it includes the item at that index, and "end" is
-*exclusive*, meaning that it includes items *up to*, but not including, the
-"end" index.
+To create a subslice, use the syntax
+<code>x[<em>start</em>..<em>end</em>]</code>, where start is the index of the
+first element, and end is the index of the last element. "Start" is *inclusive*,
+meaning that it includes the item at that index, and "end" is *exclusive*,
+meaning that it includes items *up to*, but not including, the "end" index.
 
 The start or end index may be omitted entirely. If omitted, zero is used for
 start, and `len(array)-1` is used for end. `x[..]` creates a sub-slice of the
