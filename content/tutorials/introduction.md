@@ -1136,7 +1136,35 @@ let y: i16 = 1337;
 let z = x + y; /* z's type is i16 */
 ```
 
-### C compatibility
+## Error handling
+
+## Modules
+
+### Importing modules
+
+You may have noticed that we have a few `use` statements at the top of each of
+our example files. These are used to import modules from the standard library,
+or from your program's third-party dependencies. The convention is to sort use
+statements alphabetically at the top of your program.
+
+[Documentation is available](/documentation) for the standard library.
+
+### Using third-party dependencies
+
+### Module path resolution
+
+#### Vendoring dependencies
+
+### Build tags
+
+Some build tags are built-in &mdash; they vary depending on your platform and
+are printed when you run `hare version`.
+
+### Writing new modules
+
+### Documentation
+
+## C compatibility
 
 Hare types are a strict superset of C types, and Hare is compatible with the C99
 ABI. It is possible to represent any Hare type as a C type.
@@ -1177,7 +1205,7 @@ struct my_slice {
 };
 ```
 
-#### Strings
+### Strings
 
 Strings are represented as follows:
 
@@ -1191,7 +1219,7 @@ struct hare_string {
 In Hare, `str` types may be cast to `*char`, producing a pointer compatible with
 C's `char*` type.
 
-#### Namespaces
+### Namespaces
 
 Hare namespaces are not compatible with C. However, the `@symbol` attribute is
 provided, which allows you to override the symbol used for a function or global
@@ -1208,7 +1236,7 @@ This will cause the symbol to be named "foobar" in the global namespace. Hare
 linkage will still refer to this as `my_namespace::my_function`, but external
 code can refer to this as "foobar".
 
-#### Variadic functions
+### Variadic functions
 
 Hare programs cannot implement C-style variadic functions. However, Hare
 programs can call these functions. Forward declare them like so:
@@ -1216,31 +1244,3 @@ programs can call these functions. Forward declare them like so:
 ```hare
 fn printf(fmt: *char, ...) int;
 ```
-
-## Error handling
-
-## Modules
-
-### Importing modules
-
-You may have noticed that we have a few `use` statements at the top of each of
-our example files. These are used to import modules from the standard library,
-or from your program's third-party dependencies. The convention is to sort use
-statements alphabetically at the top of your program.
-
-[Documentation is available](/documentation) for the standard library.
-
-### Using third-party dependencies
-
-### Module path resolution
-
-#### Vendoring dependencies
-
-### Build tags
-
-Some build tags are built-in &mdash; they vary depending on your platform and
-are printed when you run `hare version`.
-
-### Writing new modules
-
-### Documentation
