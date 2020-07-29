@@ -588,7 +588,7 @@ meaning that it includes the item at that index, and "end" is *exclusive*,
 meaning that it includes items *up to*, but not including, the "end" index.
 
 The start or end index may be omitted entirely. If omitted, zero is used for
-start, and `len(array)-1` is used for end. `x[..]` creates a sub-slice of the
+start, and `len(array)` is used for end. `x[..]` creates a sub-slice of the
 entire slice.
 
 ```hare
