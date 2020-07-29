@@ -272,11 +272,11 @@ export fn main void =
 
 ### Loop expressions: for & while
 
-Hare also supports *loops*, which come in two forms: `for` loops and `while`
+Hare also supports *loops*, which come in two forms: "for" loops and "while"
 loops. The former is a more structured loop, and the latter is more free-form.
 Both cases always return the `void` type.
 
-A for loop has three parts: the initializer, the predicate, and the
+A "for" loop has three parts: the initializer, the predicate, and the
 afterthought. At the start of the loop, the initializer is run; at the start of
 each iteration, the predicate is evaluated to determine if the loop shall
 continue; and at the end of each iteration, the afterthought is run.
@@ -291,12 +291,12 @@ This program will print the numbers zero through nine.
 
 <p class="alert"><strong>Notice</strong><br />
 See the <code>x += 1</code> operator there? <code>+=</code> is short for "add,
-then assign", and this expression adds 1 to x and then assigns the result to x;
-it is shorthand for <code>x = x + 1</code>.
+then assign". This expression adds 1 to x and assigns the result to x; it is
+shorthand for <code>x = x + 1</code>.
 </p>
 
-While loops only have a predicate, and have neither an initializer nor
-afterthought. The following loop is similar to the for loop in the previous
+"While" loops only have a predicate, and have neither an initializer nor
+afterthought. The following loop is similar to the "for" loop in the previous
 example:
 
 ```hare
