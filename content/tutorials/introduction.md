@@ -798,7 +798,8 @@ branch.
 ```hare
 io::println(switch (x) {
 	1 => "one",
-	2 => "many",
+	2 => "two",
+	3 => "many",
 	* => "lots",
 });
 ```
@@ -816,7 +817,8 @@ considered in this respect.
 ```hare
 io::println(switch (x) {
 	1 => "one",
-	2 => "many",
+	2 => "two",
+	3 => "many",
 	* => {
 		log::errorln("too many!");
 		return;
