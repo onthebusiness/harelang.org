@@ -198,7 +198,7 @@ let a: bool = true;
 let b: bool = false;
 ```
 
-#### "if" use as an expression
+#### "if" as an expression
 
 Hare is an *expression-based* programming language. The result of an if
 expression has a type and a value, and you can use it as such. For example,
