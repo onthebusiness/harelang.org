@@ -160,12 +160,13 @@ The "precedence" of an operator determines which operator is evaluated first in
 an expression &mdash; in the case of `x * y + z`, is `x * y` added to `z`, or is
 `x` multiplied with `y + z`? In Hare, it is the former.
 
-<p class="alert"><strong>Notice</strong>
-The parenthesis operators `()` can be used to address precedence issues in Hare
-expressions. For example, if you did want to multiply `x` by `y + z`, you could
-write `x * (y + z)`. Generally, Hare programmers are encouraged to learn the
-precedence of the operators and avoid using unnecessary parenthesis in their
-expressions.
+<p class="alert"><strong>Notice</strong><br />
+The parenthesis operators <code>()</code> can be used to address precedence
+issues in Hare expressions. For example, if you did want to multiply
+<code>x</code> by <code>y&nbsp;+&nbsp;z</code>, you could write
+<code>x&nbsp;*&nbsp;(y&nbsp;+&nbsp;z)</code>.  Generally, Hare programmers are
+encouraged to learn the precedence of the operators and avoid using unnecessary
+parenthesis in their expressions.
 </p>
 
 These "binary" operators compute a result from two *operands*. We also support a
@@ -218,9 +219,9 @@ exactly two of these, the first branch of the if expression is taken and the
 argument is printed. Otherwise, the second branch is taken, and "No argument
 provided" is printed.
 
-<p class="alert"><strong>Notice</strong><br />Take note of the semicolon (`;`)
-at the end of the if expression &mdash; semicolons are required after
-<strong>all</strong> expressions. There's also a semicolon after the
+<p class="alert"><strong>Notice</strong><br />Take note of the semicolon
+(<code>;</code>) at the end of the if expression &mdash; semicolons are required
+after <strong>all</strong> expressions. There's also a semicolon after the
 function!</p>
 
 You can try this program like so:
@@ -439,6 +440,13 @@ status will be discussed more when we cover modules; the short explanation is
 that it determines whether or not the function is visible from outside this
 module.
 
+<p class="alert"><strong>Notice</strong><br />
+Hare does not require <em>forward declarations</em> like C does &mdash; you can
+declare and use functions in any order. However, forward declarations are still
+possible for declaring functions which are externally defined, such as in a
+third-party C library.
+</p>
+
 The two functions in this example accept no parameters, but we could define one
 that does:
 
@@ -648,11 +656,12 @@ feature with care.
 A slice is an indirect view of an array. It is used for two purposes: as a
 subset of another array or slice, or as an array which can grow at runtime. A
 slice has three properties: its length, its *capacity*, and an indirect
-reference to the underlying storage.
+reference to the underlying storage. Like arrays, the length of a slice may be
+obtained with the `len` operator.
 
-Like arrays, the length of a slice may be obtained with the `len` operator.
-
-TODO: Go into more detail on slices
+As with strings, slices merit a more in-depth discussion in the [standard
+library introduction](/tutorials/stdlib). We'll keep it brief for this
+tutorial and stick to the features provided by the language.
 
 #### Sub-slicing
 
