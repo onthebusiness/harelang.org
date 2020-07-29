@@ -105,10 +105,99 @@ type inference is *not* used throughout Hare, but simple variable bindings are
 an exception. We'll explain the other cases later, but if in doubt, add the
 type.
 
+### Arithmetic expressions
+
+We glossed over the use of the addition operator (`+`) in the previous example,
+so let's quickly address the arithmetic operations available in Hare. The
+following *binary arithmetic* operations are supported:
+
+<table>
+	<thead>
+		<tr>
+			<th>Operator</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td><code>+</code></td><td>Addition</td></tr>
+		<tr><td><code>-</code></td><td>Subtraction</td></tr>
+		<tr><td><code>*</code></td><td>Multiplication</td></tr>
+		<tr><td><code>/</code></td><td>Division</td></tr>
+		<tr><td><code>%</code></td><td>Modulus</td></tr>
+		<tr><td><code>|</code></td><td>Binary OR</td></tr>
+		<tr><td><code>&</code></td><td>Binary AND</td></tr>
+		<tr><td><code>^</code></td><td>Binary XOR</td></tr>
+		<tr><td><code>&lt;&lt;</code></td><td>Left shift</td></tr>
+		<tr><td><code>&gt;&gt;</code></td><td>Right shift</td></tr>
+	</tbody>
+</table>
+
+Some operators are *logical* operators, which produce a *boolean* result &mdash;
+either true or false:
+
+<table>
+	<thead>
+		<tr>
+			<th>Operator</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td><code>==</code></td><td>Logical equality</td></tr>
+		<tr><td><code>!=</code></td><td>Logical inequality</td></tr>
+		<tr><td><code>&lt;</code></td><td>Less than</td></tr>
+		<tr><td><code>&lt;=</code></td><td>Less than or equal to</td></tr>
+		<tr><td><code>&gt;</code></td><td>Greater than</td></tr>
+		<tr><td><code>&gt;=</code></td><td>Greater than or equal to</td></tr>
+		<tr><td><code>||</code></td><td>Logical OR</td></tr>
+		<tr><td><code>&&</code></td><td>Logical AND</td></tr>
+	</tbody>
+</table>
+
+The *precedence* of these operators is the same as
+[C precedence](https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B#Operator_precedence).
+The "precedence" of an operator determines which operator is evaluated first in
+an expression &mdash; in the case of `x * y + z`, is `x * y` added to `z`, or is
+`x` multiplied with `y + z`? In Hare, it is the former.
+
+<p class="alert"><strong>Notice</strong>
+The parenthesis operators `()` can be used to address precedence issues in Hare
+expressions. For example, if you did want to multiply `x` by `y + z`, you could
+write `x * (y + z)`. Generally, Hare programmers are encouraged to learn the
+precedence of the operators and avoid using unnecessary parenthesis in their
+expressions.
+</p>
+
+These "binary" operators compute a result from two *operands*. We also support a
+number of *unary* arithmetic operations:
+
+<table>
+	<thead>
+		<tr>
+			<th>Operator</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td><code>-</code></td><td>Negation</td></tr>
+		<tr><td><code>+</code></td><td>(no effect)</td></tr>
+		<tr><td><code>~</code></td><td>Binary NOT</td></tr>
+		<tr><td><code>!</code></td><td>Logical NOT</td></tr>
+		<tr><td><code>*</code></td><td>Pointer dereference</td></tr>
+		<tr><td><code>&</code></td><td>Addressing operator</td></tr>
+		<tr><td><code>^</code></td><td>Transfer operator</td></tr>
+	</tbody>
+</table>
+
+Binary operators use *infix* notation, e.g. `2 + 2`. Unary operators use
+*prefix* notation, e.g. `-10`. The last three unary operators listed here are
+used with pointer types, which are [discussed later](#memory-management).
+
 ### Conditional expressions: if
 
-Hare offers an `if` operator which may be used to implement conditional logic.
-For example, consider the following:
+We can utilize logical operators to implement conditional logic with the `if`
+expression. `if` expressions allow your program to take a different *branch* for
+each case, true or false. Consider the following example:
 
 ```hare
 use io;
@@ -124,17 +213,17 @@ export fn main void =
 };
 ```
 
+`os::args` is the list of arguments passed into your program. If there are
+exactly two of these, the first branch of the if expression is taken and the
+argument is printed. Otherwise, the second branch is taken, and "No argument
+provided" is printed.
+
 <p class="alert"><strong>Notice</strong><br />Take note of the semicolon (`;`)
 at the end of the if expression &mdash; semicolons are required after
 <strong>all</strong> expressions. There's also a semicolon after the
 function!</p>
 
-`os::args` is the list of arguments passed into your program. If there are
-exactly two of these, the first *branch* of the if expression is taken and the
-argument is printed. Otherwise, the second branch is taken, and "No argument
-provided" is printed.
-
-You can try this like so:
+You can try this program like so:
 
 ```
 $ hare run main.ha
@@ -164,17 +253,13 @@ $ ./example
 ./example
 ```
 
-#### Boolean expressions
+#### A note on logical operators
 
-The expression between the parenthesis `()` in an if expression is required to
-have a boolean type (known as `bool` in Hare). Certain arithmetic operators have
-a boolean result: `==` (equals), `!=` (not equal), `>` (greater than), `<` (less
-than), and `>=` and `<=` (greater than or equal to, and less than or equal to).
-Additionally, `||` and `&&` are used to compare two boolean values, respectively
-they are the "or" and "and" operators. The former results in true if *either*
-expression is true; the latter is true if *both* expressions are true.
+`||` and `&&` are used to compare two boolean values, respectively they are the
+"or" and "and" operators. The former results in true if *either* expression is
+true; the latter is true if *both* expressions are true.
 
-These two operators may *short-circuit*. If the result can be inferred from the
+These two operators may *short-circuit*: if the result can be inferred from the
 first expression, the second expression is *not* evaluated. In the case of `||`,
 if the first expression is true, we can infer that the result will be true
 regardless of the second expression. In the case of `&&`, if the first
@@ -884,9 +969,81 @@ Static assertions may be used outside of function bodies.
 
 ### Test functions
 
+You may write a "test" function by decorating it with the `@test` attribute,
+like so:
+
+```hare
+fn add_two(x: int) int = x + 2;
+
+@test fn add_two_test void =
+{
+	assert(add_two(5) == 7, "5 + 2");
+	assert(add_two(10) == 12, "10 + 2");
+	assert(add_two(-5) == -3, "-5 + 2");
+};
+```
+
+The function signature must match this, i.e. it shall take no parameters and
+return `void`. To run this test, use the following command:
+
+```
+$ hare test add_two.ha
+add_two_test....		OK
+```
+
+You could choose to run only this test with the following:
+
+```
+$ hare test -n add_two_test add_two.ha
+add_two_test....		OK
+```
+
+See the [hare(1)](#TODO) man page for more details.
+
 ### Function pointers
 
+Function pointers allow you to store a reference to a function in a variable.
+The syntax for a function pointer is <code>*fn<em>(parameters...)</em>
+<em>type</em></code>. The parameter list is optional. Some examples include
+`*fn void` and `*fn(int, int) int`. You may take the address of a function with
+the `&` operator, like any other variable.
+
+```hare
+fn add(x: int, y: int) int = x + y;
+fn sub(x: int, y: int) int = x - y;
+
+fn ten(op: *fn(int, int) int, x: int) int = op(10, x);
+
+export fn main void =
+{
+	let f: *fn(int, int) int = &add;
+	assert(ten(f, 3) == 13);
+	f = &sub;
+	assert(ten(f, 3) == 7);
+};
+```
+
 ### Static bindings
+
+In the context of a function, you may create *static* bindings. These variables
+are initialized once &mdash; and *only* once &mdash; and keep their value in
+subsequent calls to the same function.
+
+```hare
+fn counter int =
+{
+	static let x = 0;
+	x += 1;
+	return x;
+};
+
+export fn main void =
+{
+	assert(counter() == 1);
+	assert(counter() == 2);
+	assert(counter() == 3);
+};
+```
 
 ## Type casting
 
