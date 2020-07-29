@@ -1013,6 +1013,29 @@ add_two_test....		OK
 
 See the [hare(1)](#TODO) man page for more details.
 
+### Initialization functions
+
+You may declare initialization (or "init") functions, which are executed before
+"main" on your program startup, with the `@init` attribute:
+
+```hare
+let x: int = 0;
+
+@init fn init void =
+{
+	x = 10;
+};
+
+export fn main void =
+{
+	assert(x == 10);
+};
+```
+
+Like `@test` functions, init functions must take no parameters and return
+`void`. Finalizers are also available via `@fini`, which are run before the
+program terminates.
+
 ### Function pointers
 
 Function pointers allow you to store a reference to a function in a variable.
