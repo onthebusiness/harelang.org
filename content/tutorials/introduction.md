@@ -776,6 +776,10 @@ are stored at the same location in memory.
 
 If you don't know why this is useful, you probably don't need it.
 
+<p class="alert"><strong>Notice</strong><br />
+Both structs and unions in Hare are byte-for-byte compatible with C.
+<p>
+
 ### Tagged unions
 
 A tagged union is an aggregate type whose value is exactly one of its subtypes.
