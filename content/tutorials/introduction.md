@@ -913,6 +913,9 @@ A **tagged union** may be assigned from value of any of its member types.
 let x: (int | *str | void) = 1234; /* Acceptable */
 ```
 
+**Strings** may be implicitly cast to `*char`, for easier use with C functions.
+See [C compatibility](#c-compatibility) for details.
+
 ### Explicit casts
 
 Explicit casts are to be used with caution, as they are one mechanism by which
