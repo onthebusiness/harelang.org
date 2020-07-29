@@ -58,8 +58,10 @@ Let's go over some basic features of Hare.
 ### Variable bindings
 
 Variable give names to values, and are bound using the `let` and `const`
-keywords, and assigned to with the `=` keyword. You can define and use them like
-so:
+keywords, and assigned to with the `=` keyword. Variables defined with `let` are
+*mutable*, and can be changed later. Variables defined with `const` are
+*immutable*, and may not be modified after their initialization. You can define
+and use variables like so:
 
 ```hare
 use io;
