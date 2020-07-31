@@ -28,8 +28,7 @@ contents:
 ```hare
 use io;
 
-export fn main void =
-{
+export fn main void = {
 	io::println("Hello, world!");
 };
 ```
@@ -67,8 +66,7 @@ and use variables like so:
 use io;
 use strconv;
 
-export fn main void =
-{
+export fn main void = {
 	const x = 10;
 	let y = 20, z = 30;
 	/* Print our variables: */
@@ -92,8 +90,7 @@ explicitly:
 use io;
 use strconv;
 
-export fn main void =
-{
+export fn main void = {
 	const x: int = 10;
 	let y: int = 20, z = 30;
 	io::println(strconv::itos(x + y + z));
@@ -206,8 +203,7 @@ each case, true or false. Consider the following example:
 use io;
 use os;
 
-export fn main void =
-{
+export fn main void = {
 	if (len(os::args) == 2) {
 		io::println(os::args[1]);
 	} else {
@@ -296,8 +292,7 @@ consider the following:
 use io;
 use os;
 
-export fn main void =
-{
+export fn main void = {
 	const message: str = if (len(os::args) == 1) {
 		"Program was run without args";
 	} else {
@@ -320,8 +315,7 @@ also eliminate the variable and use the if expression directly:
 use io;
 use os;
 
-export fn main void =
-{
+export fn main void = {
 	io::println(if (len(os::args) == 1) {
 		"Program was run without args";
 	} else {
@@ -346,8 +340,7 @@ accomplished with the `else if` keyword.
 use io;
 use os;
 
-export fn main void =
-{
+export fn main void = {
 	io::println(if (len(os::args) == 1) {
 		"Program was run without args";
 	} else if (len(os:args) == 2) {
@@ -424,13 +417,11 @@ functions, like so:
 ```hare
 use io;
 
-fn say_hello void =
-{
+fn say_hello void = {
 	io::println("Hello, world!");
 };
 
-export fn main void =
-{
+export fn main void = {
 	say_hello();
 };
 ```
@@ -458,8 +449,7 @@ use strconv;
 
 fn add_ints(a: int, b: int) int = a + b;
 
-export fn main void =
-{
+export fn main void = {
 	let x = add_ints(2, 4);
 	io::println(strconv::itos(x)); /* 6 */
 };
@@ -473,8 +463,7 @@ has multiple *branches*, it is considered *complex*; otherwise it is usually
 wish:
 
 ```hare
-fn add_ints(a: int, b: int) int =
-{
+fn add_ints(a: int, b: int) int = {
 	return a + b;
 };
 ```
@@ -483,8 +472,7 @@ However, if we do, we must use the `return` keyword to explicitly "return" the
 value to the caller. This can also be used at any time to "return" early:
 
 ```hare
-fn add_ints(a: int, b: int) int =
-{
+fn add_ints(a: int, b: int) int = {
 	if (a == 3 || b == 3) {
 		/* 3 is evil */
 		return -1;
@@ -509,8 +497,7 @@ use strconv;
 
 def THE_ANSWER: int = 42;
 
-export fn main void =
-{
+export fn main void = {
 	io::println(strconv::itos(THE_ANSWER));
 };
 ```
@@ -529,8 +516,7 @@ use strconv;
 
 let x: int = 1337;
 
-export fn main void =
-{
+export fn main void = {
 	io::println(strconv::itos(x));
 };
 ```
@@ -849,8 +835,7 @@ use strconv;
 
 def my_int = int;
 
-export fn main void =
-{
+export fn main void = {
 	const x: my_int = 1337;
 	io::println(strconv::itos(x));
 };
@@ -868,8 +853,7 @@ def coordinates = struct {
 	y: int,
 };
 
-export fn main void =
-{
+export fn main void = {
 	const coords = coordinates { y = 10, x = 20 };
 	io::println(strconv::itos(coords.x));
 	io::println(strconv::itos(coords.y));
@@ -934,8 +918,7 @@ on *values*, it matches on *types*. It is used with
 [error handling](#error-handling).
 
 ```hare
-fn print(val: (int | str)) void =
-{
+fn print(val: (int | str)) void = {
 	match (val) {
 		int => io::println("(int)"),
 		s: str => io::println(s),
@@ -961,8 +944,7 @@ TODO
 The `assert` keyword can be used to validate your assumptions at runtime.
 
 ```hare
-fn sqrt(x: f32) f32 =
-{
+fn sqrt(x: f32) f32 = {
 	assert(x > 0, "Cannot take square root of negative number");
 	/* ... */
 };
@@ -990,8 +972,7 @@ like so:
 ```hare
 fn add_two(x: int) int = x + 2;
 
-@test fn add_two_test void =
-{
+@test fn add_two_test void = {
 	assert(add_two(5) == 7, "5 + 2");
 	assert(add_two(10) == 12, "10 + 2");
 	assert(add_two(-5) == -3, "-5 + 2");
@@ -1023,13 +1004,11 @@ You may declare initialization (or "init") functions, which are executed before
 ```hare
 let x: int = 0;
 
-@init fn init void =
-{
+@init fn init void = {
 	x = 10;
 };
 
-export fn main void =
-{
+export fn main void = {
 	assert(x == 10);
 };
 ```
@@ -1052,8 +1031,7 @@ fn sub(x: int, y: int) int = x - y;
 
 fn ten(op: *fn(int, int) int, x: int) int = op(10, x);
 
-export fn main void =
-{
+export fn main void = {
 	let f: *fn(int, int) int = &add;
 	assert(ten(f, 3) == 13);
 	f = &sub;
@@ -1068,15 +1046,13 @@ are initialized once &mdash; and *only* once &mdash; and keep their value in
 subsequent calls to the same function.
 
 ```hare
-fn counter int =
-{
+fn counter int = {
 	static let x = 0;
 	x += 1;
 	return x;
 };
 
-export fn main void =
-{
+export fn main void = {
 	assert(counter() == 1);
 	assert(counter() == 2);
 	assert(counter() == 3);
@@ -1251,8 +1227,7 @@ provided, which allows you to override the symbol used for a function or global
 in its external linkage. For example:
 
 ```hare
-export @symbol("foobar") fn my_function void =
-{
+export @symbol("foobar") fn my_function void = {
 	/* ... */
 };
 ```
