@@ -238,8 +238,7 @@ instead:
 use io;
 use os;
 
-export fn main void =
-{
+export fn main void = {
 	io::println(os::args[0]);
 };
 ```
