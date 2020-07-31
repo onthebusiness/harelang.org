@@ -28,7 +28,7 @@ Hare fits on a 3½" floppy disc, which are
 {{< highlight hare >}}
 use io;
 
-export fn main int = {
+export fn main void = {
 	let greetings: [5]str = [
 		"Hello, world!",
 		"¡Hola Mundo!",
@@ -39,7 +39,6 @@ export fn main int = {
 	for (let i = 0; i < len(greetings); i += 1) {
 		io::println(greetings[i]);
 	};
-	return 0;
 };{{< / highlight >}}
 
 <p>
