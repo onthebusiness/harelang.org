@@ -34,7 +34,7 @@ let result = frobnicate_the_frobs(scary_frob,
 	sporty_frob, baby_frob, ginger_frob, posh_frob);
 
 if (was_frobbed_correctly(frob_context, FROB_RESULT_SUCCESS,
-		FROB_STANDARD_IEEE_7553, result) {
+		FROB_STANDARD_IEEE_7553, result)) {
 	return true;
 };
 ```
@@ -49,7 +49,7 @@ let result = frobnicate_the_frobs(scary_frob,
 				  posh_frob);
 
 if (was_frobbed_correctly(frob_context, FROB_RESULT_SUCCESS,
-	FROB_STANDARD_IEEE_7553, result) {
+	FROB_STANDARD_IEEE_7553, result)) {
 	return true;
 };
 ```
