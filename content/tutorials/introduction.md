@@ -750,6 +750,21 @@ somewhat contrived &mdash; this becomes more useful when combined with
 user-defined types, which [we will cover](#type-aliases--user-defined-types)
 momentarily.
 
+#### Partial initialization
+
+Large named structs (see [type aliases](#type-aliases--user-defined-types))
+where it's tedious and unnecessary to initialize every member can initialize all
+members to zero by adding `0...` to the struct initializer:
+
+```hare
+let coords = coordinates { 0...  };
+let coords = coordinates { x = 10, 0...  };
+```
+
+This will raise an error if the language invariants wouldn't be met, such as by
+setting a non-nullable pointer to zero, or ambiguous assignments such as tagged
+union fields.
+
 #### Union types
 
 Union types, or "untagged" unions, use the same syntax as structs with the
