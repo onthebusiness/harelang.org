@@ -69,16 +69,16 @@ use strconv;
 export fn main void = {
 	const x = 10;
 	let y = 20, z = 30;
-	/* Print our variables: */
+	// Print our variables:
 	io::println(strconv::itos(x + y + z));
 	y = 30;
 	io::println(strconv::itos(x + y + z));
 };
 ```
 
-<p class="alert"><strong>Notice</strong><br />
-<code>/* ... */</code> is used for comments &mdash; these are ignored by the
-compiler, but useful to anyone reading your code.</p>
+<p class="alert"><strong>Notice</strong><br /> <code>// ...</code> is used for
+comments &mdash; these are ignored by the compiler, but useful to anyone reading
+your code.</p>
 
 In this case, the type of the variable is *inferred* from its *initializer*,
 which is the value to which it is initially set. Initializers are mandatory when
@@ -266,9 +266,9 @@ important if the second expression has side effects, for example:
 
 ```hare
 if (2 == 4 && crash_the_program()) {
-	/* ... */
+	// ...
 } else if (2 == 2 || crash_the_program()) {
-	/* ... */
+	// ...
 };
 ```
 
@@ -450,7 +450,7 @@ fn add_ints(a: int, b: int) int = a + b;
 
 export fn main void = {
 	let x = add_ints(2, 4);
-	io::println(strconv::itos(x)); /* 6 */
+	io::println(strconv::itos(x)); // 6
 };
 ```
 
@@ -473,7 +473,7 @@ value to the caller. This can also be used at any time to "return" early:
 ```hare
 fn add_ints(a: int, b: int) int = {
 	if (a == 3 || b == 3) {
-		/* 3 is evil */
+		// 3 is evil
 		return -1;
 	};
 	return a + b;
@@ -586,7 +586,7 @@ an array can be accessed by *indexing* the array, like so:
 
 ```hare
 let x: [5]int = [1, 2, 3, 4, 5];
-x[3]; /* 4 */
+x[3]; // 4
 x[3] = 10;
 ```
 
@@ -609,7 +609,7 @@ often be cumbersome when working with large arrays. The following code would
 become tiresome quickly:
 
 ```hare
-let x: [4096]int = [0, 0, 0, 0, 0, 0, 0, 0, /* ... */];
+let x: [4096]int = [0, 0, 0, 0, 0, 0, 0, 0, ...];
 ```
 
 Hare offers a syntax for filling out the remainder of an array for you via the
@@ -673,11 +673,11 @@ start, and `len(array)` is used for end. `x[..]` creates a sub-slice of the
 entire slice.
 
 ```hare
-x[1..4]; /* 2, 3, 4 */
-x[2..4]; /* 3, 4 */
-x[..2];  /* 1, 2 */
-x[2..];  /* 3, 4, 5 */
-x[..];   /* 1, 2, 3, 4, 5 */
+x[1..4]; // 2, 3, 4
+x[2..4]; // 3, 4
+x[..2];  // 1, 2
+x[2..];  // 3, 4, 5
+x[..];   // 1, 2, 3, 4, 5
 ```
 
 ### Structs & unions
@@ -688,7 +688,7 @@ types. They are declared with the following syntax:
 <pre><code>struct {
 	<em>field</em>: <em>type</em>,
 	<em>field</em>: <em>type</em>,
-	/* ... */
+	// ...
 }</code></pre>
 
 A simple example could be used to store coordinates in a 2D plane:
@@ -697,7 +697,7 @@ A simple example could be used to store coordinates in a 2D plane:
 let coords: struct {
 	x: int,
 	y: int,
-} = /* ... */;
+} = // ... 
 ```
 
 A *struct initializer* is very similar, but also provides initializers for the
@@ -726,7 +726,7 @@ Evidently, this is somewhat redundant, so type inference is preferred for this
 case. To access a struct field, the `.` operator is used.
 
 ```hare
-coords.x; /* 10 */
+coords.x; // 10
 coords.x = 42;
 ```
 
@@ -960,7 +960,7 @@ The `assert` keyword can be used to validate your assumptions at runtime.
 ```hare
 fn sqrt(x: f32) f32 = {
 	assert(x > 0, "Cannot take square root of negative number");
-	/* ... */
+	// ...
 };
 ```
 
@@ -1089,15 +1089,15 @@ precision. For example, an `i8` can be assigned to an `i32`, but not the
 inverse. Unsigned and signed integer types are not mutually assignable.
 
 ```hare
-let x: i32 = 10i8; /* Acceptable */
-let y: i32 = 10u8; /* Not acceptable */
-let z: i8 = 12345; /* Not acceptable */
+let x: i32 = 10i8; // Acceptable
+let y: i32 = 10u8; // Not acceptable
+let z: i8 = 12345; // Not acceptable
 ```
 
 A **tagged union** may be assigned from value of any of its member types.
 
 ```hare
-let x: (int | *str | void) = 1234; /* Acceptable */
+let x: (int | *str | void) = 1234; // Acceptable
 ```
 
 **Strings** may be implicitly cast to `*char`, for easier use with C functions.
@@ -1131,7 +1131,7 @@ casts are permitted through pointer indirection.
 
 ```hare
 let x: int = 1234;
-let y = &x: *io::file; /* Acceptable (but ill-advised) */
+let y = &x: *io::file; // Acceptable (but ill-advised)
 ```
 
 **Tagged unions** may be cast to any of their member types. This will not cause
@@ -1148,7 +1148,7 @@ higher precision type.
 ```hare
 let x: i8 = 42;
 let y: i16 = 1337;
-let z = x + y; /* z's type is i16 */
+let z = x + y; // z's type is i16
 ```
 
 ## Error handling
@@ -1242,7 +1242,7 @@ in its external linkage. For example:
 
 ```hare
 export @symbol("foobar") fn my_function void = {
-	/* ... */
+	// ...
 };
 ```
 

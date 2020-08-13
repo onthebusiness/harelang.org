@@ -82,11 +82,11 @@ def my_type = struct {
 };
 
 fn foobar void = {
-	/* ... */
+	// ...
 };
 
 export fn main void = {
-	/* ... */
+	// ...
 };
 ```
 
@@ -112,7 +112,7 @@ export fn main void = {
 };
 
 fn do_work(x: int, y: int) void = {
-	/* ... */
+	// ...
 };
 
 fn many_parameters(
@@ -122,7 +122,7 @@ fn many_parameters(
 	param_four: int,
 	param_five: int,
 ) void = {
-	/* ... */
+	// ...
 };
 ```
 
@@ -444,20 +444,20 @@ size(int);
 
 ```hare
 if (x == y) {
-	/* ... */
+	// ...
 };
 
 for (let x = 0; x < 10; x += 1) {
-	/* ... */
+	// ...
 };
 
 while (x < y) {
-	/* ... */
+	// ...
 };
 
 if (do_work(x) == y
 		&& do_work(y) == z
 		&& do_work(z) == q) {
-	/* ... */
+	// ...
 };
 ```
