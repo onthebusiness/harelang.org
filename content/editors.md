@@ -3,7 +3,7 @@ title: Editor integrations
 ---
 
 - Vim: [hare.vim](https://git.sr.ht/~sircmpwn/hare.vim)
-- Emacs: TODO
+- Emacs: [hare-mode](https://git.sr.ht/~bbuccianti/hare-mode)
 - VS Code/LSP: TODO
 - YouCompleteMe: TODO
 
