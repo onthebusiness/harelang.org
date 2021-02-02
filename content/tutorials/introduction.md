@@ -9,6 +9,11 @@ summary: |
 
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
+# TODO:
+# - Drop vague allusions to simple/complex expression types; introduce type
+#   hinting instead
+# - Variadic functions
+# - Match on nullable pointer types
 ---
 
 ## Before you start
@@ -28,7 +33,7 @@ contents:
 ```hare
 use io;
 
-export fn main void = {
+export fn main() void = {
 	io::println("Hello, world!");
 };
 ```
@@ -66,7 +71,7 @@ and use variables like so:
 use io;
 use strconv;
 
-export fn main void = {
+export fn main() void = {
 	const x = 10;
 	let y = 20, z = 30;
 	// Print our variables:
@@ -90,7 +95,7 @@ explicitly:
 use io;
 use strconv;
 
-export fn main void = {
+export fn main() void = {
 	const x: int = 10;
 	let y: int = 20, z = 30;
 	io::println(strconv::itos(x + y + z));
@@ -150,14 +155,38 @@ either true or false:
 		<tr><td><code>&gt;=</code></td><td>Greater than or equal to</td></tr>
 		<tr><td><code>||</code></td><td>Logical OR</td></tr>
 		<tr><td><code>&&</code></td><td>Logical AND</td></tr>
+		<tr><td><code>^^</code></td><td>Logical XOR</td></tr>
 	</tbody>
 </table>
 
-The *precedence* of these operators is the same as
-[C precedence](https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B#Operator_precedence).
-The "precedence" of an operator determines which operator is evaluated first in
-an expression &mdash; in the case of `x * y + z`, is `x * y` added to `z`, or is
-`x` multiplied with `y + z`? In Hare, it is the former.
+The precedence of the operators is similar to the [C precedence
+rules][precedence] that are used in many other programming languages. The main
+difference is that we've given higher precedence to binary arithmetic than
+logical equality. This change should never trip you up &mdash; it just makes
+some expressions easier to write.
+
+[precedence]: https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B#Operator_precedence
+
+<details>
+<summary>Click here to read an explanation anyway</summary>
+<p>
+The main difference from C precedence is that we've given a higher precedence to
+binary arithmetic than to logical arithmetic. This fixes a long-standing issue
+with C precedence when doing math with bitfields.
+</p>
+<p>
+For example, consider <code>x & BIT_FOO != 0</code>. In C, this is interpreted
+as <code>x & (BIT_FOO != 0)</code>, but in Hare, we view it as <code>(x &
+BIT_FOO) != 0</code>. The latter is generally what you want.
+</p>
+<p>
+If you're worried about mixing up precedence when writing Hare expressions,
+don't. Unlike C, arithmetic operations like `&` and `<` only work on numeric
+operands, and not booleans; and the logical operations like `&&` and `==` only
+work on booleans, and not numeric operands. If you make a mistake, you will
+always get a compiler error &mdash; but not the wrong behavior.
+</p>
+</details>
 
 <p class="alert"><strong>Notice</strong><br />
 The parenthesis operators <code>()</code> can be used to address precedence
@@ -203,7 +232,7 @@ each case, true or false. Consider the following example:
 use io;
 use os;
 
-export fn main void = {
+export fn main() void = {
 	if (len(os::args) == 2) {
 		io::println(os::args[1]);
 	} else {
@@ -238,7 +267,7 @@ instead:
 use io;
 use os;
 
-export fn main void = {
+export fn main() void = {
 	io::println(os::args[0]);
 };
 ```
@@ -254,15 +283,18 @@ $ ./example
 #### A note on logical operators
 
 `||` and `&&` are used to compare two boolean values, respectively they are the
-"or" and "and" operators. The former results in true if *either* expression is
-true; the latter is true if *both* expressions are true.
+"or" and "and" operators. The former is <strong>true</strong> if *either*
+expression is true and <strong>false</strong>; the latter is true if *both*
+expressions are true. The `^^` operator is logical XOR, which gives true if the
+values are different, and false if they are the same (`!=` does the same thing).
 
-These two operators may *short-circuit*: if the result can be inferred from the
-first expression, the second expression is *not* evaluated. In the case of `||`,
-if the first expression is true, we can infer that the result will be true
-regardless of the second expression. In the case of `&&`, if the first
-expression is false, we can infer that the result will be false. This can be
-important if the second expression has side effects, for example:
+Logical OR and logical AND are special: they can *short-circuit*. If the result
+can be inferred from the first expression, the second expression is *not*
+evaluated. In the case of `||`, if the first expression is true, we can infer
+that the result will be true regardless of the second expression. In the case of
+`&&`, if the first expression is false, we can infer that the result will be
+false. This can be important if the second expression has side effects, for
+example:
 
 ```hare
 if (2 == 4 && crash_the_program()) {
@@ -274,13 +306,6 @@ if (2 == 4 && crash_the_program()) {
 
 In this code, `crash_the_program()` will never be evaluated.
 
-The constants `true` and `false` are also provided by the language.
-
-```hare
-let a: bool = true;
-let b: bool = false;
-```
-
 #### "if" as an expression
 
 Hare is an *expression-based* programming language. The result of an if
@@ -291,8 +316,8 @@ consider the following:
 use io;
 use os;
 
-export fn main void = {
-	const message: str = if (len(os::args) == 1) {
+export fn main() void = {
+	const message = if (len(os::args) == 1) {
 		"Program was run without args";
 	} else {
 		"Program was run with args";
@@ -302,38 +327,22 @@ export fn main void = {
 ```
 
 The result of an if expression is taken from the last value in each branch, in
-this case a string. If the types of each branch are not compatible, the result
-is `void`: nothing. Additionally, an `if` expression with just one branch
-&mdash; that is, no "else" &mdash; always has the `void` type.
+this case a string. If these values are all the same, the result type is that
+type. Otherwise, the result type is a *tagged union* of the possible types; this
+is explained more later. An `if` expression with just one branch &mdash; that
+is, no "else" &mdash; always has the `void` type.
 
-Note that the variable we've used here is given an explicit type. As a rule of
-thumb: if an expression has *branches*, the type must be explicit. You could
-also eliminate the variable and use the if expression directly:
+One other detail: any branches which cause the function to *terminate* are not
+considered for the result type:
 
 ```hare
-use io;
-use os;
-
-export fn main void = {
-	io::println(if (len(os::args) == 1) {
-		"Program was run without args";
-	} else {
-		"Program was run with args";
-	});
-};
+const message = if (len(os::args) == 1) {
+	io::errorln("Usage: myprog <argument>");
+	return;
+} else os::args[1];
 ```
 
-The behavior is the same.
-
-<p class="alert"><strong>Notice</strong><br />
-Hare does not have a <em>ternary</em> operator like C's
-<code>cond : x ?  y</code>, preferring the use of expressions like
-<code>if (cond) x else y</code>. The braces (<code>{}</code>) may be omitted for
-simple cases such as this.
-</p>
-
-We mentioned earlier that if expressions can have multiple branches; this is
-accomplished with the `else if` keyword.
+Speaking of *branches*, you can get more than two with `else if`:
 
 ```hare
 use io;
@@ -350,16 +359,20 @@ export fn main void = {
 };
 ```
 
-### Loop expressions: for & while
+<p class="alert"><strong>Notice</strong><br />
+Hare does not have a <em>ternary</em> operator like C's
+<code>cond : x ?  y</code>, preferring the use of expressions like
+<code>if (cond) x else y</code>. The braces (<code>{}</code>) may be omitted for
+simple cases such as this.
+</p>
 
-Hare also supports *loops*, which come in two forms: "for" loops and "while"
-loops. The former is a more structured loop, and the latter is more free-form.
-Both cases always return the `void` type.
+### For loops
 
-A "for" loop has three parts: the initializer, the predicate, and the
-afterthought. At the start of the loop, the initializer is run; at the start of
-each iteration, the predicate is evaluated to determine if the loop shall
-continue; and at the end of each iteration, the afterthought is run.
+Hare supports just one kind of loop: for loops. A "for" loop has three parts:
+the binding, the predicate, and the afterthought. At the start of the loop, the
+binding is set; at the start of each iteration, the predicate is evaluated to
+determine if the loop shall continue; and at the end of each iteration, the
+afterthought is run.
 
 ```hare
 for (let x = 0; x < 10; x += 1) {
@@ -375,17 +388,27 @@ then assign". This expression adds 1 to x and assigns the result to x; it is
 shorthand for <code>x = x + 1</code>.
 </p>
 
-"While" loops only have a predicate, and have neither an initializer nor
-afterthought. The following loop is similar to the "for" loop in the previous
-example:
+There are two additional forms of for loops that you may wish to use at times.
+First, you may omit the binding:
 
 ```hare
 let x = 0;
-while (x < 10) {
+for (x < 10; x += 1) {
 	io::println(strconv::itos(x));
-	x += 1;
 };
 ```
+
+This is useful if you want to access the final value of a loop variable after
+the loop ends. You may also omit the afterthought:
+
+```hare
+for (true) {
+	io::println("10 PRINT \"HELLO\"");
+	io::println("GOTO 10");
+};
+```
+
+This is an infinite loop.
 
 #### Loop control operators
 
@@ -448,7 +471,7 @@ use strconv;
 
 fn add_ints(a: int, b: int) int = a + b;
 
-export fn main void = {
+export fn main() void = {
 	let x = add_ints(2, 4);
 	io::println(strconv::itos(x)); // 6
 };
@@ -480,10 +503,6 @@ fn add_ints(a: int, b: int) int = {
 };
 ```
 
-#### Variadic parameters
-
-TODO
-
 ### Constants
 
 It's often convenient to assign a name to a constant value, such as Pi. The
@@ -496,7 +515,7 @@ use strconv;
 
 def THE_ANSWER: int = 42;
 
-export fn main void = {
+export fn main() void = {
 	io::println(strconv::itos(THE_ANSWER));
 };
 ```
@@ -515,7 +534,7 @@ use strconv;
 
 let x: int = 1337;
 
-export fn main void = {
+export fn main() void = {
 	io::println(strconv::itos(x));
 };
 ```
@@ -536,6 +555,7 @@ The following primitive types are available:
 - `u8`, `u16`, `u32`, `u64`: explicit-precision unsigned integers
 - `f32`, `f64`: floating point numbers, 32- and 64-bit respectively
 - `bool`: boolean type (either true or false)
+- `rune`: a single Unicode character (like 'q' or '和')
 
 "Native-precision" types vary in their specific precision according to the
 target architecture; usually they are 32 or 64 bits. Explicit-precision types
@@ -590,6 +610,15 @@ x[3]; // 4
 x[3] = 10;
 ```
 
+You can also use an underscore instead of the number of items as a short-hand:
+
+```hare
+let x: [_]int = [1, 2, 3, 4, 5];
+```
+
+This is an array of fixed length, 5 items long, but the length is inferred from
+the value.
+
 Note that Hare arrays are *zero-indexed*, meaning the first item in the array is
 at index zero. Also take note of the array initialization syntax shown here.
 
@@ -609,7 +638,7 @@ often be cumbersome when working with large arrays. The following code would
 become tiresome quickly:
 
 ```hare
-let x: [4096]int = [0, 0, 0, 0, 0, 0, 0, 0, ...];
+let x: [4096]int = [0, 0, 0, 0, 0, 0, 0, 0, // and so on
 ```
 
 Hare offers a syntax for filling out the remainder of an array for you via the
@@ -628,15 +657,14 @@ let x: [4096]int = [1, 2, 3...];
 ```
 
 In this case, the first item is one, the second is two, and all remaining items
-are three.
+are three. For obvious reasons, the use of an inferred array length (`[_]int`)
+is not allowed here.
 
 #### Unbounded arrays
 
-It may occasionally be useful (especially when interoperating with another
-programming language) to use an array of undefined length, which is not
-bounds-checked at runtime. You may declare an array whose length is `*` to
-produce an array type which is not bounds-checked, i.e. `[*]int`. Use this
-feature with care.
+It may occasionally be useful to use an array of undefined length, which is not
+bounds-checked at runtime. You can do this by using `*` in place of the length
+in the type, e.g. `[*]int`. Use this feature with care.
 
 ### Slices
 
@@ -650,7 +678,7 @@ As with strings, slices merit a more in-depth discussion in the [standard
 library introduction](/tutorials/stdlib). We'll keep it brief for this
 tutorial and stick to the features provided by the language.
 
-#### Sub-slicing
+#### Slicing expressions
 
 You can use the `..` indexing operator to obtain a subset of another slice, also
 known as a *sub-slice*. The subslice operator may also be used on an array, but
@@ -659,7 +687,7 @@ such slices are immutable.
 For illustrative purposes, consider the following array:
 
 ```hare
-let x: [5]int = [1, 2, 3, 4, 5];
+let x: [_]int = [1, 2, 3, 4, 5];
 ```
 
 To create a subslice, use the syntax
@@ -754,16 +782,15 @@ momentarily.
 
 Large named structs (see [type aliases](#type-aliases--user-defined-types))
 where it's tedious and unnecessary to initialize every member can initialize all
-members to zero by adding `0...` to the struct initializer:
+members to their default values by adding `...` to the struct initializer:
 
 ```hare
-let coords = coordinates { 0...  };
-let coords = coordinates { x = 10, 0...  };
+let coords = coordinates { ... };
+let coords = coordinates { x = 10, ... };
 ```
 
-This will raise an error if the language invariants wouldn't be met, such as by
-setting a non-nullable pointer to zero, or ambiguous assignments such as tagged
-union fields.
+Not all types have a default value &mdash; the compiler will tell you if there's
+anything you're required to fill out yourself.
 
 #### Union types
 
@@ -779,7 +806,7 @@ are stored at the same location in memory.
 If you don't know why this is useful, you probably don't need it.
 
 <p class="alert"><strong>Notice</strong><br />
-Both structs and unions in Hare are byte-for-byte compatible with C.
+The ABI representation of structs and unions in Hare is compatible with C.
 <p>
 
 ### Tagged unions
@@ -787,14 +814,37 @@ Both structs and unions in Hare are byte-for-byte compatible with C.
 A tagged union is an aggregate type whose value is exactly one of its subtypes.
 The syntax for a tagged union type is <code>(<em>type</em> | <em>type</em> |
 ...)</code>, e.g. `(i32 | f32)`. A type of `(i32 | f32)` can store either an
-i32 or an f32. The representation of a tagged union in memory is a `size`
-representing which of the fields is selected (called the "tag"), followed value
-itself, which is allocated with sufficient space to store any of the valid
-types.
+i32 or an f32. The representation of a tagged union in memory is a `uint` which
+indicates which of the types is selected (called the "tag"), followed by the
+value itself, with sufficient space to store any of the possible types.
 
-There are a number of ways to examine the tag of a tagged union. The most common
-approach is to use [match expressions](#match), which are explained later. Two
-additional ways exist: the `is` and `as` operators.
+#### Matching
+
+The most common way to use a tagged union is with a match expressions. Given a
+tagged union value, you can provide several options to execute for each of the
+possible types.
+
+```hare
+let x: (int | str) = 1234;
+match (val) {
+	int => io::printf("int\n"),
+	s: str => io::printf("str: {}\n", s),
+};
+```
+
+In each match case, you may *bind* the value to a new variable of the matched
+type. In this example, the `str` case is bound to `s` to be passed to
+`io::printf`.
+
+<p class="alert"><strong>Notice</strong><br />
+Match expressions are required to be <em>exhaustive</em>, meaning that all
+possible cases are handled. The <code>*</code> case can be used to match any
+case which is not explicitly handled: <code>* => ...</code>
+</p>
+
+TODO: Explain the rules for the result type
+
+#### Type assertions
 
 The `is` operator is a boolean expression which tests tag of a tagged union
 against a type.
@@ -822,10 +872,9 @@ This assumption is checked at runtime, and the program will abort if it is
 wrong. To circumvent this, use a <a href="#explicit-casts">cast</a>.
 </p>
 
-#### Tagged void types
+#### Using void in a tagged union
 
-Tagged unions are one of the few places where `void` types may be used to
-indicate the absence of a value. The following code is valid:
+The `void` type can be used to indicate the absence of a value:
 
 ```hare
 let x: (i32 | f32 | void) = void;
@@ -838,36 +887,38 @@ if (x is void) {
 
 TODO
 
-### Type aliases & user-defined types
+### User-defined types
 
-You can create a user-defined type, also known as a "type alias", with the `def`
-operator. For example:
+You can create a user-defined type, also known as a "type alias", with the
+`type` keyword. For example:
 
 ```hare
 use io;
 use strconv;
 
-def my_int = int;
+type my_int = int;
 
-export fn main void = {
+export fn main() void = {
 	const x: my_int = 1337;
 	io::println(strconv::itos(x));
 };
 ```
 
-There are also some extra semantics around user-defined struct types which can
-save you some typing:
+#### Type aliases and structs
+
+There are some extra semantics around user-defined struct types which can save
+you some typing:
 
 ```hare
 use io;
 use strconv;
 
-def coordinates = struct {
+type coordinates = struct {
 	x: int,
 	y: int,
 };
 
-export fn main void = {
+export fn main() void = {
 	const coords = coordinates { y = 10, x = 20 };
 	io::println(strconv::itos(coords.x));
 	io::println(strconv::itos(coords.y));
@@ -877,6 +928,41 @@ export fn main void = {
 By specifying the type name in the struct initializer, you need not write the
 types of each struct field, and may specify them out of order.
 
+#### Type aliases and tagged unions
+
+The `...` operator can be used to "unwrap" a type alias into its underlying
+type. Consider the following example:
+
+```hare
+type my_int = int;
+let x: ...my_int = 10;
+```
+
+The type of `x` is `int`, not `my_int`. Kind of silly here, but check out these
+tagged unions:
+
+```hare
+type signed = (i8 | i16 | i32 | i64);
+type unsigned = (u8 | u16 | u32 | u64);
+type integer = (...signed | ...unsigned);
+```
+
+The `interger` type can store any of `i8`, `i16`, `u8`, `u64`, and so on.  But,
+if you didn't unwrap these aliases, it would be a tagged union *of* tagged
+unions, storing either a signed tagged union or an unsigned tagged union.
+
+You don't always want to do this, though. Here's another example:
+
+```hare
+type error_a = void;
+type error_b = void;
+type error_c = str;
+type error_d = (error_a | error_b | error_c);
+```
+
+If you had unwrapped these, it would reduce to `(void | str)`, and you wouldn't
+be able to distinguish between `error_a` and `error_b`.
+
 ## Memory management
 
 ### Pointer types
@@ -885,7 +971,7 @@ types of each struct field, and may specify them out of order.
 
 ### Pointer transfers
 
-## Advanced expressions
+## More expressions
 
 ### switch
 
@@ -924,31 +1010,6 @@ io::println(switch (x) {
 });
 ```
 
-### match
-
-A match expression is similar to a switch expression, but instead of switching
-on *values*, it matches on *types*. It is used with
-[tagged unions](#tagged-unions), especially for
-[error handling](#error-handling).
-
-```hare
-fn print(val: (int | str)) void = {
-	match (val) {
-		int => io::println("(int)"),
-		s: str => io::println(s),
-	};
-};
-```
-
-In each match case, you may *bind* the value to a new variable of the matched
-type. In this example, the `str` case is bound to `s` and is passed into
-`io::println`.
-
-<p class="alert"><strong>Notice</strong><br />
-Like switch expressions, match cases must be exhaustive. Match expressions may
-also include a <code>*</code> case for this purpose.
-</p>
-
 ### defer
 
 TODO
@@ -968,15 +1029,17 @@ If the condition fails, the program is aborted and the message is printed. If
 you omit this message, a more generic error message is shown.
 
 You can also do *static* assertions to validate your assumptions at
-compile-time.
+compile-time. This will cause the build to fail on a 32-bit system:
 
 ```hare
 static assert(size(*void) == 8, "This module only supports 64-bit systems");
 ```
 
-Static assertions may be used outside of function bodies.
+You can also use the `abort()` keyword to simply abort without any fanfare. This
+is most often useful to cause one of your branches to *terminate* &mdash; see
+[matching](#matching).
 
-## Advanced function usage
+## More functions
 
 ### Test functions
 
@@ -986,7 +1049,7 @@ like so:
 ```hare
 fn add_two(x: int) int = x + 2;
 
-@test fn add_two_test void = {
+@test fn add_two_test() void = {
 	assert(add_two(5) == 7, "5 + 2");
 	assert(add_two(10) == 12, "10 + 2");
 	assert(add_two(-5) == -3, "-5 + 2");
@@ -1018,11 +1081,11 @@ You may declare initialization (or "init") functions, which are executed before
 ```hare
 let x: int = 0;
 
-@init fn init void = {
+@init fn init() void = {
 	x = 10;
 };
 
-export fn main void = {
+export fn main() void = {
 	assert(x == 10);
 };
 ```
@@ -1045,7 +1108,7 @@ fn sub(x: int, y: int) int = x - y;
 
 fn ten(op: *fn(int, int) int, x: int) int = op(10, x);
 
-export fn main void = {
+export fn main() void = {
 	let f: *fn(int, int) int = &add;
 	assert(ten(f, 3) == 13);
 	f = &sub;
@@ -1060,13 +1123,13 @@ are initialized once &mdash; and *only* once &mdash; and keep their value in
 subsequent calls to the same function.
 
 ```hare
-fn counter int = {
+fn counter() int = {
 	static let x = 0;
 	x += 1;
 	return x;
 };
 
-export fn main void = {
+export fn main() void = {
 	assert(counter() == 1);
 	assert(counter() == 2);
 	assert(counter() == 3);
@@ -1185,38 +1248,19 @@ Hare types are a strict superset of C types, and Hare is compatible with the C99
 ABI. It is possible to represent any Hare type as a C type.
 
 Primitive types, pointers, structs, and unions are directly compatible with
-their C counterparts. Tagged unions may be represented in C as follows:
-
-```hare
-def my_union = (int | *io::file | void);
-```
-
-```c
-enum my_union_tag {
-	INT = 0,
-	IO_FILE = 1,
-	VOID = 2,
-};
-
-struct my_union {
-	size_t tag;
-	union {
-		int i;
-		struct io_file *f;
-	};
-};
-```
+their C counterparts. Slices, strings, and tagged unions require some extra work
+for ABI compatibility.
 
 Slices are represented as follows:
 
 ```hare
-def my_slice = []int;
+type my_slice = []int;
 ```
 
 ```c
 struct my_slice {
-	size_t length, capacity;
 	int *data;
+	size_t length, capacity;
 };
 ```
 
@@ -1226,13 +1270,15 @@ Strings are represented as follows:
 
 ```c
 struct hare_string {
-	size_t length;
-	char utf8_data[];
+	const char *data;
+	size_t length, capacity;
 };
 ```
 
-In Hare, `str` types may be cast to `*char`, producing a pointer compatible with
-C's `char*` type.
+In Hare programs, `str` can be cast to `*const char`, producing a pointer
+compatible with C's `const char *` type.
+
+TODO: Tagged unions
 
 ### Namespaces
 
@@ -1241,7 +1287,7 @@ provided, which allows you to override the symbol used for a function or global
 in its external linkage. For example:
 
 ```hare
-export @symbol("foobar") fn my_function void = {
+export @symbol("foobar") fn my_function() void = {
 	// ...
 };
 ```
@@ -1253,7 +1299,8 @@ code can refer to this as "foobar".
 ### Variadic functions
 
 Hare programs cannot implement C-style variadic functions. However, Hare
-programs can call these functions. Forward declare them like so:
+programs can call these functions if they're implemented in C. Forward declare
+them like so:
 
 ```hare
 fn printf(fmt: *char, ...) int;
