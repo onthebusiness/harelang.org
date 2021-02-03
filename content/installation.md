@@ -2,30 +2,49 @@
 title: Hare Installation
 ---
 
-Are you a distribution packager? We have a [special page for you][distributions].
+Additional resources:
 
-[distributions]: /distributions
+- [Editor plugins](/editors)
+- [Hare tutorials](/tutorials)
+- [Information for package maintainers](/distributions)
 
-### Building Hare from source
+### Installing from packages
 
-**Note**: These instructions are due for an update once the hosted compiler is
-available.
+TODO: Once Hare is made public this will be the preferred installation method
 
-1. Install our [qbe](https://git.sr.ht/~sircmpwn/qbe) fork, as well as an
-   assembler, a linker, yacc, and lex.[^1]
-2. Clone the [bootstrap compiler](https://git.sr.ht/~sircmpwn/hare):
-   `git clone https://git.sr.ht/~sircmpwn/hare`
-3. `cd hare`, `mkdir build`, and `cd build`
-4. `../configure`
-5. `make`
+### Bootstrapping Hare from source
 
-Optionally, to run the test suite, run `make check`. Now, you can run `.
-./localenv.sh` to configure your shell to use the new toolchain. To avoid this
-and install to `/usr/local`, run `make install` as root.
+While Hare is under active development, bootstrapping is more involved than it
+will be in the future. Right now, the build driver is incomplete, and the
+bootstrapping process ends there.
 
-Optionally, [install a plugin for your editor](/editors).
+#### Pre-requisites
 
-Run `hare -h` to learn how to build Hare programs, or continue to the
-[Tutorial](/tutorial).
+- A POSIX-compatible environment with a C11 compiler
+- Our fork of [qbe](https://git.sr.ht/~sircmpwn/qbe)
 
-[^1]: Your distribution probably provides the latter four tools in its basic development tools package. For Alpine Linux, `alpine-sdk`; Arch Linux, `base-devel`; for Debian & Ubuntu, `build-essential`; and so on.
+#### Building the bootstrap compiler
+
+1. Obtain [the bootstrap compiler source code](https://git.sr.ht/~sircmpwn/harec)
+2. `mkdir build && cd build`
+3. `../configure`
+4. `make`
+
+Optionally run `make check` to build & run the test suite as well.
+
+This will produce a Hare compiler at `./harec`. Run `make install` to install it
+to the prefix selected with `configure`, or add it to your PATH by some other
+means.
+
+#### Building the build driver
+
+1. Obtain [the standard library source code](https://git.sr.ht/~sircmpwn/stdlib)
+2. Obtain [the build driver source code](https://git.sr.ht/~sircmpwn/hare)
+3. Copy `config.example.mk` to `config.mk` and edit to taste. At a minimum,
+   update the `STDLIB` variable to the path to your copy of the standard
+   library.
+4. Run `make`.
+
+This is currently the end of the bootstrapping procedure. The build driver is
+incomplete, but the `hare` binary should have been built from `main.ha`. You can
+edit `main.ha` to experiment with Hare.
