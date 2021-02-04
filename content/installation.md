@@ -45,6 +45,9 @@ means.
    library.
 4. Run `make`.
 
+Optionally run `make check` to build & run the standard library test suite as
+well.
+
 This is currently the end of the bootstrapping procedure. The build driver is
 incomplete, but the `hare` binary should have been built from `main.ha`. You can
 edit `main.ha` to experiment with Hare.
