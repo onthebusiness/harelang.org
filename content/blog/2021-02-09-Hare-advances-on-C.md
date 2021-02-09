@@ -8,7 +8,7 @@ The Hare programming language makes a number of improvements compared to the
 language from which it draws much of its inspiration. Like C, Hare has a very
 small runtime, manual memory access, direct access to pointers, and dangerous
 features which you are free to point at your feet and shoot, albeit only after
-signing a waver.
+signing a waiver.
 
 Despite the veneration with which we look upon C, those who look upon it with
 scorn do have some valid concerns. A complete lack of memory-safe features and a
