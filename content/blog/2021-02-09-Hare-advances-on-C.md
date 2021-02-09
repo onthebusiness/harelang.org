@@ -156,7 +156,7 @@ or use `sizeof` on the wrong object. This is a common cause of buffer overflows.
 We also introduce a `len` operator, which removes the need for distinguishing
 between array size and array length.
 
-## No undefined behavior
+## Getting a handle on undefined behavior
 
 Okay, we have a *little bit* of undefined behavior. The word "undefined" has a
 special meaning in our specification, and is almost always used to describe a
@@ -202,6 +202,11 @@ There are many areas that C leaves undefined that we've decided to define. An
 octet is always 8 bits. Shifting greater than the width of a value is defined.
 Signed overflow and underflow is defined. Hare programs always have predictable
 behavior.
+
+Of course, we still allow you to shoot yourself in the foot, because any system
+which prevents you from doing dangerous things also prevents you from doing
+clever things. If you cast `null` to a non-nullable pointer and write to it,
+something bad will probably happen.
 
 ## Better strings
 
