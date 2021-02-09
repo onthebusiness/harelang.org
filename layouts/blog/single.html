@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Hare programming language blog</title>
+  {{ $style := resources.Get "main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+</head>
+{{ partial "nav.html" }}
+<main>
+  <h2>
+    {{.Title}}
+    <small>
+      {{.Date.Format "January 2, 2006"}}
+      by {{.Params.author}}
+    </small>
+  </h2>
+  {{.Content}}
+<main>

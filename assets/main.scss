@@ -60,8 +60,9 @@ pre {
   padding: 0.25rem 1rem;
   margin: 0 -1rem 1rem;
 
-  .cp {
-    color: #800;
+  .cp, .c1 {
+    color: #222;
+    font-weight: bold;
   }
 
   .k {
@@ -176,4 +177,22 @@ details {
     border-left: 5px solid #eee;
     background: white;
   }
+}
+
+.stub h2 {
+  margin-bottom: 0;
+}
+
+h2 small {
+  font-weight: normal;
+  font-size: 1.2rem;
+  display: block;
+  border-bottom: 1px solid #555;
+  margin-top: 0.5rem;
+}
+
+blockquote {
+  border-left: 4px solid #888;
+  margin-left: 0;
+  padding-left: 1rem;
 }
