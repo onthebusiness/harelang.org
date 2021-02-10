@@ -79,9 +79,9 @@ occasionally necessary, for example, to initialize pointer globals during
 
 ## No uninitialized values
 
-Uninitialized values is another big source of frustration for C programmers, and
-a source of undefined behavior. In Hare, every time a variable is initialized,
-you are required to provide a value for it.
+Uninitialized values are another big source of frustration for C programmers,
+and a source of undefined behavior. In Hare, every time a variable is
+initialized, you are required to provide a value for it.
 
 ```hare
 let x: int; // Syntax error: unexpected ';' at main.ha:2:19, expected '='
