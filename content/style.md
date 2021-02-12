@@ -18,7 +18,7 @@ These apply generally to constructs found throughout Hare programs.
    columns.
 2. Lines SHOULD be limited to 80 columns in width, unless it would break up an
    error string, which would prevent grepping for errors.
-3. When breaking a long line into several, subsequent lines MUST be intended
+3. When breaking a long line into several, subsequent lines MUST be indented
    once &mdash; and MUST NOT be aligned vertically to align with features on the
    previous line. If the following line would be indented due to the
    introduction of a new block, the continuation line MUST be indented twice to
