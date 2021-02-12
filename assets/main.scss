@@ -42,11 +42,6 @@ nav:not(#TableOfContents) {
   }
 }
 
-#TableOfContents {
-  border-left: 2px solid gray;
-  padding-left: 0;
-}
-
 main {
   padding: 0 128px;
 
@@ -195,4 +190,22 @@ blockquote {
   border-left: 4px solid #888;
   margin-left: 0;
   padding-left: 1rem;
+}
+
+ol li {
+  line-height: 1.3;
+
+  &:not(:last-child) {
+    margin-bottom: 0.35rem;
+  }
+}
+
+#TableOfContents {
+  border-left: 2px solid gray;
+  padding-left: 0;
+
+  ol li {
+    margin: auto;
+    line-height: auto;
+  }
 }

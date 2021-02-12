@@ -12,20 +12,25 @@ summary: |
 
 ## A. General conventions
 
+These apply generally to constructs found throughout Hare programs.
+
 1. Hare source files MUST be indented with tabs. The tab size SHOULD be 8
    columns.
 2. Lines SHOULD be limited to 80 columns in width, unless it would break up an
    error string, which would prevent grepping for errors.
 3. When breaking a long line into several, subsequent lines MUST be intended
-   once &mdash; and MUST NOT be aligned vertically with features from the
-   previous line.
-4. When breaking a long line into several, items SHOULD be distributed to
-   achieve "balance", so that if a line were drawn down the middle of the
-   expression, an approximately equal number of characters would fall to either
-   side.
-5. The `;` following the end of an expression shall be placed on the final line
+   once &mdash; and MUST NOT be aligned vertically to align with features on the
+   previous line. If the following line would be indented due to the
+   introduction of a new block, the continuation line MUST be indented twice to
+   visually distinguish it from the block.
+4. (*subjective*) When breaking a long line into several, items SHOULD be
+   distributed to achieve "balance", such that if a line were drawn down the
+   middle of the expression, an approximately equal number of characters would
+   fall to either side.
+5. The `;` following the end of an expression MUST be placed on the final line
    of that expression with no space between `;` and the last token of that
    expression.
+6. All lines MUST NOT end in a whitespace character (space or tab).
 
 **CORRECT**
 
@@ -56,12 +61,17 @@ if (was_frobbed_correctly(frob_context, FROB_RESULT_SUCCESS,
 
 ## B. Source file organization
 
+A Hare module is made up of one or more files in a directory.
+
 1. Hare source files SHOULD be named in `lower_underscore_case`, with the `.ha`
    file extension. Their mimetype is `text/x-hare`.
-2. Each Hare source file MUST list its imports, followed by its declarations,
-   with one empty line between them.
-3. Use statements MUST be sorted alphabetically.
-4. Declarations which require a single line MAY follow one after the other; but
+2. Hare source files may be named with only a tag (e.g. `+linux.ha`) if
+   appropriate, but MUST not be named `.ha`.
+3. Each Hare source file MUST list its imports, followed by its declarations,
+   with one empty line between them. This empty line MUST not be included if
+   there are no imports.
+4. Use statements MUST be sorted alphabetically.
+5. Declarations which require a single line MAY follow one after the other; but
    declarations which require multiple lines MUST be separated by a single
    empty line.
 
@@ -75,31 +85,35 @@ use foo;
 let x: int = 10;
 let y: int = 10;
 
-def my_type = struct {
+type my_type = struct {
 	x: int,
 	y: int,
 	z: int,
 };
 
-fn foobar void = {
+fn foobar() void = {
 	// ...
 };
 
-export fn main void = {
+export fn main() void = {
 	// ...
 };
 ```
 
 ## C. Function declarations
 
-1. Function declarations MUST omit the parameter list `()` if empty.
-2. The export status, `fn` keyword, name, parameter list, return type, and the
+These rules govern the declaration of Hare functions and function prototypes.
+
+1. The export status, `fn` keyword, name, parameter list, return type, and the
    `=` and `{` tokens, MUST be on the same line if they fit within 80 columns.
-3. If these tokens would *not* fit on the same line, the export status, `fn`
+2. If these tokens would *not* fit on the same line, the export status, `fn`
    keyword, name, and opening parenthesis of the parameter list MUST be placed
-   on the first line, then each parameter placed on subsequent lines, indented
-   once, followed by the `)`, return type, `=`, and `{` tokens on the final
-   line. In this case, the final parameter shall end with an extra `,` token.
+   on the first line; then each parameter placed on subsequent lines, indented
+   once; and on their own line, the `)`, return type, `=`, and `{` tokens. In
+   this case, the final parameter MUST end with an extra `,` token, unless the
+   function is variadic.
+3. Prototypes MUST obey the same rules, but will omit the `=` and `{` tokens,
+   and MUST place the semi-colon on the final line following the return type.
 4. Function bodies MUST be indented once.
 5. Functions whose bodies are not an expression list `{ ... }` MAY place their
    bodies on the next line, indented once.
@@ -107,7 +121,7 @@ export fn main void = {
 **CORRECT**
 
 ```hare
-export fn main void = {
+export fn main() void = {
 	do_work(1, 2);
 };
 
@@ -124,21 +138,36 @@ fn many_parameters(
 ) void = {
 	// ...
 };
+
+fn many_variadic(
+	param_one: int,
+	param_two: int,
+	param_three: int,
+	param_four: int,
+	params: int...
+) void = {
+	// ...
+};
 ```
 
 ## D. Type declarations
 
-1. Spaces MUST be placed between the `def` token, the type name, the `=` token,
+Rules governing the declarations of types. For details on style for specific
+type subclasses, see [Type specifiers](#g-type-specifiers).
+
+1. Spaces MUST be placed between the `type` token, the type name, the `=` token,
    and the type specifier. All of these tokens MUST be on the same line.
 2. Type aliases MUST be named in `lower_underscore_case`.
 
 **CORRECT**
 
 ```hare
-def my_type = int;
+type my_type = int;
 ```
 
 ## E. Constant declarations
+
+Rules governing constant declarations.
 
 1. A space MUST NOT be placed between the constant name and the `:` token. A
    space MUST be placed between the `:` token and the type specifier.
@@ -153,10 +182,13 @@ def MY_CONSTANT: int = 1234;
 
 ## F. Global declarations
 
-1. The use of globals is discouraged.
-2. A space MUST NOT be placed between the constant name and the `:` token. A
+Rules governing global variable declarations. Note that the use of globals is
+often undesirable, as may limit your ability to expand upon or compartmentalize
+an interface later.
+
+1. A space MUST NOT be placed between the constant name and the `:` token. A
    space MUST be placed between the `:` token and the type specifier.
-3. Spaces MUST be placed both before and after the `=` token.
+2. Spaces MUST be placed both before and after the `=` token.
 
 **CORRECT**
 
@@ -166,12 +198,16 @@ let my_global: int = 1234;
 
 ## G. Type specifiers
 
+Rules governing the format of types. Not to be confused with the rules governing
+[type declarations](#d-type-declarations).
+
 ### i. Struct types
 
 1. Structs MUST be defined with a space between the `struct` and `{` tokens.
 3. Structs MAY be defined in either a single-line form or a multi-line form.
 4. In the multi-line form, a newline MUST follow the `{` token, followed by the
    struct fields indented once, followed by the `}` token without indentation.
+   The final field MUST include the optional `,` token in this form.
 5. In the single-line form, the `{` token MUST be followed by a space, followed
    by the struct fields (each separated by a space following the `,` token,
    except for the final field, which MUST omit the `,` token), then a space and
@@ -181,7 +217,7 @@ let my_global: int = 1234;
 7. Struct fields MAY be grouped by purpose, with each groups separated by a
    single empty line.
 8. Within each group of struct fields, fields MAY be alphabetized by name if the
-   subsequent impact on the internal storage of the struct fields is not of
+   subsequent impact on the struct's storage representation is not of
    consequence.
 
 **CORRECT**
@@ -202,13 +238,15 @@ struct {
 
 ### ii. Union types
 
-1. Union types shall be considered equivalent to struct types for matters of
+1. Union types are considered equivalent to struct types for matters of
    style, with the `union` token used in place of the `struct` token.
 
 ### iii. Array & slice types
 
 1. There MUST NOT be a space the `[` token, length expression (if present), `]`
    token, and member type.
+2. The use of arrays is preferred when possible, as the extra indirection of a
+   slice type incurs a performance cost.
 
 **CORRECT**
 
@@ -217,6 +255,7 @@ struct {
 [5]int
 [2 + 2]int
 [*]int
+[_]int
 ```
 
 **INCORRECT**
@@ -236,55 +275,91 @@ struct {
    token and the member type list.
 3. In the single-line style, there MUST be a space between the `|` tokens and
    each member type.
-4. In the multi-line style, a newline MUST follow the `(` token. On each
-   subsequent line, an indentation MUST be followed by one member type, a space,
-   and the `|` token. The last type MAY omit the `|` token.
-5. In the multi-line style, member types MAY be grouped. Each group MUST be
-   separated by a single empty line. However, this is discouraged for tagged
-   unions with fewer than 10 members.
+4. (*subjective*) In the multi-line style, the programmer MAY use their
+   discretion to distribute the member types to achieve "balance" as described
+   by rule A.4.
+5. When breaking to a new line, place the `|` on the first line. Place the final
+   `)` token on the same line as the final members.
+6. (*subjective*) When using a tagged union with many member types, consider
+   categorizing them into additional aliases and using the `...` operator to
+   unwrap them.
 
 **CORRECT**
 
 ```hare
-def my_union = (type_a | type_b | type_c);
+type my_union = (type_a | type_b | type_d | type_e | type_f | type_g);
 
-def my_union = (
-	type_a |
-	type_b |
-	type_d |
-	type_e |
-	type_f |
-	type_g
-);
+type my_results = (result_type_a | result_type_b | result_type_c |
+	result_type_d | result_type_e);
 
-def my_union = (
-	result_type_a |
-	result_type_b |
-	result_type_c |
-	result_type_d |
-	result_type_e |
+type my_errors = (error_type_a | error_type_b | error_type_d | error_type_c);
 
-	error_type_a |
-	error_type_b |
-	error_type_d |
-	error_type_c
-);
+type my_union = (...my_results | ...my_errors);
 ```
 
-### v. Pointer types
+### v. Tuple types
 
-1. Pointer types MUST NOT have a space between the `*` or `&` token and the
-   referent type.
+1. Tuple types may be specified in either a single-line or multi-line style. If
+   the type would fit on a single line within 80 columns, the single-line style
+   must be used.
+2. A tuple type MUST NOT place a space after `(` or before `)`.
+3. In the short form, a tuple type MUST NOT place a space before each `,`, and
+   MUST place a space after each `,`, except for the last, which MUST be
+   omitted.
+5. In the long form, a tuple type MUST NOT place a space before each `,`, and
+   MUST place a space after each `,`, except for the last, which MUST NOT be
+   omitted.
+4. (*subjective*) In the multi-line style, the programmer MAY use their
+   discretion to distribute the member types to achieve "balance" as described
+   by rule A.4.
+5. When breaking to a new line, place the `,` on the first line. Place the final
+   `)` token on the same line as the final members.
+
+**CORRECT**
+
+```hare
+type my_tuple = (int, uint);
+type my_tuple = (type_a, type_b, type_c,
+	type_d, type_e, type_f);
+```
+
+### vi. Pointer types
+
+1. Pointer types MUST NOT have a space between the `*` token and the secondary
+   type.
 2. Nullable pointer types MUST have a space between the `nullable` token and the
-   `*` or `&` token.
+   `*` token.
 3. Function pointer types MUST NOT have a space between the `fn` token and the
-   parameter list, if present.
-4. Function pointer types MUST omit the parameter list if no parameters are
-   specified.
-5. Function pointer types MAY omit the parameter name from each parameter in the
+   parameter list.
+4. Function pointer types MAY omit the parameter name from each parameter in the
    parameter list.
 
 ## H. Values
+
+Rules governing the style for representations of values.
+
+1. When choosing between explicit and hinted types, prefer whichever produces a
+   shorter program.
+
+**CORRECT**
+
+```hare
+let x = 0z;
+
+let y: [_]u8 = [1, 2, 3];
+
+let z: nullable *size = [&x, null];
+```
+
+**INCORRECT**
+
+```hare
+let x: size = 0;
+
+let y = [1u8, 2u8, 3u8];
+
+let z = [&x: nullable *size, null: nullable *size];
+```
 
 ### i. Struct values
 
@@ -353,6 +428,43 @@ let x = [
 	1, 2, 3, 4, 5,
 ];
 let x: [10]int = [1, 2, 3, 4, 5...];
+```
+
+### iii. Tuple values
+
+1. Tuple values may be specified in either a single-line or multi-line style. If
+   the value would fit on a single line within 80 columns, the single-line style
+   must be used.
+2. A tuple value MUST NOT place a space after `(` or before `)`.
+3. In the short form, a tuple value MUST NOT place a space before each `,`, and
+   MUST place a space after each `,`, except for the last, which MUST be
+   omitted.
+5. In the long form, a tuple value MUST NOT place a space before each `,`, and
+   MUST place a space after each `,`, except for the last, which MUST NOT be
+   omitted.
+4. (*subjective*) In the multi-line style, the programmer MAY use their
+   discretion to distribute the member value to achieve "balance" as described
+   by rule A.4.
+5. When breaking to a new line, place the `,` on the first line. Place the final
+   `)` token on the same line as the final members.
+
+**CORRECT**
+
+```hare
+let x = (1, 2);
+let x = (
+	1,
+	2,
+	3,
+	4,
+	5,
+);
+let x = (foo(), bar());
+let x = (
+	foo(),
+	bar(),
+	1337,
+);
 ```
 
 ## I. Variables
@@ -435,10 +547,6 @@ size(int);
    the expression.
 3. In `for` loops, each `;` token of the predicate MUST be followed by a space,
    or a newline.
-4. When breaking a long expression which is the predicate of a conditional
-   expression (`if`, `for`, `while`), it MUST be indented *twice*, to
-   distinguish the continuation line from the body of the conditional
-   expression.
 
 **CORRECT**
 
@@ -451,7 +559,7 @@ for (let x = 0; x < 10; x += 1) {
 	// ...
 };
 
-while (x < y) {
+for (x < y) {
 	// ...
 };
 
@@ -459,5 +567,44 @@ if (do_work(x) == y
 		&& do_work(y) == z
 		&& do_work(z) == q) {
 	// ...
+};
+```
+
+## N. Match and switch expressions
+
+1. (*subjective*) Match and switch expressions MAY align the `=>` tokens on
+   subsequent lines, using spaces, if the programmer finds it to achieve better
+   balance.
+2. The optional alignment of `=>` tokens MAY be grouped into discrete alignment
+   sections as necessary to prevent overlong lines from placing an excessive
+   alignment burden on subsequent lines.
+3. A match or switch case MAY place the branch expression on the next line if it
+   were to exceed 80 columns. When breaking to a newline, place the `=>` token
+   on the first line, and indent the continuation line by one additional indent.
+4. If a default case (`* =>`) is given, it MUST be the last case.
+5. (*subjective*) It is preferred to arrange any terminal cases (i.e. those that
+   return, continue, break, call `os::exit` or `abort()`, etc) before any
+   non-terminal cases. This groups the code which does not terminate closer to
+   the code which logically follows it after the match or switch expression.
+
+**CORRECT**
+
+```hare
+match (x) {
+	foo => // ...
+	foobar => // ...
+	foobarbaz => // ...
+};
+
+match (x) {
+	foo    => // ...
+	foobar => // ...
+	foobaz => // ...
+};
+
+match (x) {
+	(foo | bar) => // ...
+	foobar => // ...
+	foobaz => // ...
 };
 ```
