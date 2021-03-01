@@ -348,7 +348,7 @@ Speaking of *branches*, you can get more than two with `else if`:
 use io;
 use os;
 
-export fn main void = {
+export fn main() void = {
 	io::println(if (len(os::args) == 1) {
 		"Program was run without args";
 	} else if (len(os:args) == 2) {
@@ -439,11 +439,11 @@ functions, like so:
 ```hare
 use io;
 
-fn say_hello void = {
+fn say_hello() void = {
 	io::println("Hello, world!");
 };
 
-export fn main void = {
+export fn main() void = {
 	say_hello();
 };
 ```
