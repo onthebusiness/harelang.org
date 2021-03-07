@@ -947,7 +947,7 @@ type unsigned = (u8 | u16 | u32 | u64);
 type integer = (...signed | ...unsigned);
 ```
 
-The `interger` type can store any of `i8`, `i16`, `u8`, `u64`, and so on.  But,
+The `integer` type can store any of `i8`, `i16`, `u8`, `u64`, and so on.  But,
 if you didn't unwrap these aliases, it would be a tagged union *of* tagged
 unions, storing either a signed tagged union or an unsigned tagged union.
 
