@@ -37,12 +37,10 @@ sections:
           $ hare build -o example main.ha
           $ ./example
           Hello world!
-
-      <p class="alert">
-      <strong>Note</strong>: Hare programs use 8-column-wide tab characters for
-      indentation. See the <a href="/style">style guide</a> for details, and
-      consider installing an <a href="/editors">editor plugin</a>.
-      </p>
+      
+      Hare programs use 8-column-wide tab characters for indentation. See the <a
+      href="/style">style guide</a> for details, and consider installing an <a
+      href="/editors">editor plugin</a>.
 - title: Using variables
   sample: |
       use fmt;
@@ -62,16 +60,25 @@ sections:
       	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z);
       };
   details: |
-      You can assign names to values by using variables. The `let` keyword
-      creates variables which are *mutable*, and can be changed later. The
-      `const` keyword creates *immutable* variables, which cannot be modified.
+      Our tour of Hare will begin by explaining how Hare's type system works and
+      how values are represented. Let's first introduce variables to help with
+      this explanation.
 
-      We've also changed `fmt::println` to `fmt::printfln`, which allows us to
-      use a *format string*, so each instance of `{}` is replaced with one of
-      the parameters.
+      Variables allow you to assign names to values. The `let` keyword creates
+      variables which are *mutable*, and can be changed later. The `const`
+      keyword creates *immutable* variables, which cannot be modified. Every
+      variable has a specific **type** that defines what kind of values it can
+      store and the semantics for its use in the program.
 
-      <p class="alert"><strong>Note</strong>: "//" is used for writing comments:
-      all text is ignored until the end of the line.</p>
+
+      <p class="alert">
+      <strong>Note</strong>:
+      "//" is used for writing comments: all text is ignored until the end of
+      the line. We also changed <code>fmt::println</code> to
+      <code>fmt::printfln</code>, a function which allows us to use a <em>format
+      string</em>. Each instance of <code>{}</code> is replaced with one of the
+      parameters.
+      </p>
 - title: Constants & globals
   sample: |
       use fmt;
@@ -92,10 +99,9 @@ sections:
       available to other functions &mdash; and later, we'll show how to make
       these available to other modules.
 
-      Note also the use of the fully qualified syntax with the inclusion of the
-      `int` type in the global and constant bindings. Every varaible in Hare has
-      a **type**, which defines what kind of values it can store and the
-      semantics for its use in the program.
+      Note also the use of the fully qualified syntax that adds the `int` type
+      in the global and constant bindings. This is optional for variables
+      (optional, but often useful), but required for constants and globals.
 
       Hare is a strong, statically typed language, meaning that type semantics
       are strongly enforced, and checked when compiling your program. Let's
@@ -374,4 +380,48 @@ sections:
       let x: [*]int = [1, 2, 3];
       x[4]; // Undefined behavior!
       ```
+- title: Enums
+  sample: |
+      type colors = enum {
+      	RED,
+      	ORANGE,
+      	YELLOW,
+      	GREEN,
+      	BLUE,
+      	INDIGO = BLUE, // Indigo is a fake color
+      	VIOLET,
+      };
+      
+      type bits = enum u8 {
+      	FEE = 1 << 0,
+      	FIE = 1 << 1,
+      	FOE = 1 << 2,
+      	FUM = 1 << 3,
+      };
+      
+      export fn main() void = {
+      	let color = colors::RED;
+      	let flags = bits::FEE | bits::FIE;
+      };
+  details: |
+      One last type class to introduce: **enums**, short for *enumerated
+      values*. An enum type is a kind of constrained integer, providing names
+      for a specific set of possible values. If omitted, the integer type is
+      presumed to be **int**, but you can also specify it explicitly &mdash;
+      check out the "bits" type in the sample. Enclosed within the braces, you
+      can name each possible value, and optionally assign it a *specific* value.
+      If omitted, the values start from zero and increment for each subsequent
+      value.
+
+      Though Hare makes *some* attempts to ensure that an enum value only
+      contains values valid for its type, these guarantees are somewhat loose.
+      This flexibility allows for things like bitfields, but can also be abused
+      (deliberately or by mistake) to create unexpected situations. One common
+      situation is when reading an enum value from an external source when
+      the list of valid values known to each party has become out of sync
+      &mdash; Hare won't detect this for you.
+
+      There *is* one more type class we need to talk about: tagged unions. These
+      are one of Hare's flagship features and require a much deeper
+      introduction, so we'll be saving those for their own section.
 ---

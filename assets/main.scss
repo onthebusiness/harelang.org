@@ -278,10 +278,8 @@ ol li {
         max-width: 75%;
       }
 
-      @media(min-width: 1200px) {
-        .alert {
-          margin: 0 -1rem;
-        }
+      .alert {
+        margin: 0;
       }
     }
   }
