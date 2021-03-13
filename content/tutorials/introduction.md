@@ -240,12 +240,12 @@ sections:
         };
         
         // User-defined type - more on these later
-        type coordinates = {
+        type coordinates = struct {
         	x: int,
         	y: int,
         };
         
-        type coordinates3D = {
+        type coordinates3D = struct {
         	// You can embed one struct into another, and its fields are added
         	// to the new struct:
         	coordinates,
