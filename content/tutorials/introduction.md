@@ -627,4 +627,58 @@ sections:
       `continue`. You can also label the loops &mdash; see the final example
       &mdash; and "break" or "continue" to any loop when working with nested
       loops.
+
+      <p class="alert">
+      <strong>Note</strong>: <code>for (true)</code> creates an <em>infinite
+      loop</em>, or a loop which never terminates. You can terminate an infinite
+      loop with <code>break</code>, which is often useful for certain loop
+      designs. The sample code contains an infinite loop; use Ctrl+C to stop it.
+      </p>
+- title: Switch statements
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	let x = 10;
+      	switch (x) {
+      		1 => fmt::println("one"),
+      		2 => fmt::println("many"),
+      		3 => fmt::println("lots"),
+      		* => fmt::println("too much"),
+      	};
+      
+      	let color = colors::RED;
+      	let number = switch (x) {
+      		colors::RED    => 1,
+      		colors::ORANGE => 2,
+      		colors::YELLOW => 3,
+      		colors::GREEN  => abort("green is not a creative color"),
+      		colors::BLUE   => 5,
+      		colors::VIOLET => 6,
+      	};
+      	fmt::printfln("color number: {}", number);
+      };
+      
+      type colors = enum {
+      	RED,
+      	ORANGE,
+      	YELLOW,
+      	GREEN,
+      	BLUE,
+      	VIOLET,
+      };
+  details: |
+      Switch statements allow you to "switch" branches on a single value. You
+      place each possible value in the switch body, followed by `=>` and the
+      expression to use for that *case*. A special `*` case is available for
+      when none of the options match.
+
+      Like if statements, switch statements are expressions, and you can use the
+      result. Also similar to if statements, any branches which terminate are
+      not considered for the result.
+
+      One important note about switch statements in Hare is that they must be
+      *exhaustive* &mdash; every possible case *must* be handled in some way, or
+      the compiler will raise an error. If you are quite certain that a
+      particular case will never occur, use `abort()`.
 ---
