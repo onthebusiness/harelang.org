@@ -8,9 +8,17 @@
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 </head>
 {{ partial "nav.html" }}
-<main>
+<main class="code-tutorial">
   <h2>{{.Title}}</h2>
   {{.Summary}}
   {{.TableOfContents}}
-  {{.Content}}
+  {{ range .Params.sections }}
+  <section>
+    <h2>{{.title}}</h2>
+    {{ highlight .sample "hare" "" }}
+    <div class="details">
+      {{ .details | markdownify }}
+    </div>
+  </section>
+  {{ end }}
 </main>
