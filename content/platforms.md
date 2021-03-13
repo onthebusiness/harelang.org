@@ -3,7 +3,9 @@ title: Supported platforms
 ---
 
 Hare (will) support a variety of platforms. Adding new (Unix-like) platforms and
-(64-bit) architectures is relatively straightforward.
+architectures is relatively straightforward.
+
+Hare does not, and will not, support any proprietary operating systems.
 
 ## Architectures
 
@@ -29,6 +31,14 @@ Hare (will) support a variety of platforms. Adding new (Unix-like) platforms and
     </tr>
     <tr>
       <td>ppc64le</td>
+      <td><span class="todo">…</span> Planned</td>
+    </tr>
+    <tr>
+      <td>i686</td>
+      <td><span class="todo">…</span> Planned</td>
+    </tr>
+    <tr>
+      <td>arm32</td>
       <td><span class="todo">…</span> Planned</td>
     </tr>
   </tbody>
@@ -58,6 +68,10 @@ Hare (will) support a variety of platforms. Adding new (Unix-like) platforms and
     </tr>
     <tr>
       <td>FreeBSD</td>
+      <td><span class="todo">…</span> Planned</td>
+    </tr>
+    <tr>
+      <td>Illumos</td>
       <td><span class="todo">…</span> Planned</td>
     </tr>
     <tr>
