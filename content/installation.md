@@ -40,8 +40,8 @@ make it temporarily available in your shell before moving on to the next step.
 #### Building the build driver
 
 1. Obtain [the build driver source code](https://git.sr.ht/~sircmpwn/hare)
-2. Copy `config.example.mk` to `config.mk` and edit to taste.
-3. Run `make`.
+2. Copy `config.example.mk` to `config.mk` and edit to taste
+3. Run `make`
 
 <!-- TODO: make stage-2 -->
 
