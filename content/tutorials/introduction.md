@@ -681,4 +681,10 @@ sections:
       *exhaustive* &mdash; every possible case *must* be handled in some way, or
       the compiler will raise an error. If you are quite certain that a
       particular case will never occur, use `abort()`.
+
+      <p class="alert">
+      <strong>Note</strong>: You may have already noticed this in earlier
+      examples, but Hare does not require forward declarations like C. The
+      "colors" type here is declared after its first use.
+      </p>
 ---
