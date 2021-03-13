@@ -568,4 +568,63 @@ sections:
 
       One other note: the first if statement, with no "else" part &mdash; it
       always has a **void** result type.
+- title: For loops
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	const input = [1, 3, 3, 7];
+      	
+      	for (let i = 0z; i < len(input); i += 1) {
+      		fmt::printfln("input[{}]: {}", i, input[i]);
+      	};
+      
+      	let i = 0z;
+      	for (i < len(input); i += 1) {
+      		if (input[i] == 3) {
+      			break;
+      		};
+      	};
+      	fmt::printfln("index of '3': {}", i);
+      
+      	for (true) {
+      		fmt::println("Hello world!");
+      	};
+      
+      	:outer for (let i = 0z; i < 5; i += 1) {
+      		:inner for (let j = 0z; j < 5; j += 1) {
+      			fmt::printfln("i: {}, j: {}", i, j);
+      			if (j == 3) {
+      				continue :outer;
+      			};
+      		};
+      	};
+      };
+  details: |
+      Where if statements provide *branching* logic, for statements provide
+      *looping* logic, allowing your control flow to repeat back on itself. Some
+      languages have other loop types &mdash; while, do...while, etc &mdash; but
+      Hare rolls it all up into a single loop: the for loop.
+
+      The essential parts of a for loop are the *binding*, the *condition*, the
+      *afterthought*, and the *body*. The binding allows you to declare a
+      variable whose scope is limited to the body of the for loop. The condition
+      tells the loop whether or not to repeat on each iteration. The
+      afterthought is run after the body completes, and the body is the actual
+      code which is repeatedly run.
+
+      You can omit some of these to create different sorts of loops. The
+      permissible combinations are:
+
+      <pre>
+      for (<em>binding</em>; <em>condition</em>; <em>afterthought</em>) <em>body</em>;
+      for (<em>condition</em>; <em>afterthought</em>) <em>body</em>;
+      for (<em>condition</em>) <em>body</em>;
+      </pre>
+
+      You can terminate a loop early by using a `break` expression anywhere in
+      the loop body, and can skip to the next iteration early by using
+      `continue`. You can also label the loops &mdash; see the final example
+      &mdash; and "break" or "continue" to any loop when working with nested
+      loops.
 ---
