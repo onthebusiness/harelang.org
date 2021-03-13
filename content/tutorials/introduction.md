@@ -232,6 +232,10 @@ sections:
         	};
         
         	fmt::printfln("x: {}, y: {}", target.x, target.y);
+
+        	// User-defined structs can also be "auto-filled":
+        	let target = coords { ... };
+        	fmt::printfln("x: {}, y: {}", target.x, target.y);
         };
         
         // User-defined type - more on these later
@@ -264,7 +268,10 @@ sections:
       can be even terser by using *user-defined types* (we'll cover them in
       detail later). When initializing a named struct type, swap the `struct`
       keyword for the type name, and you can skip specifying the types of the
-      struct fields.
+      struct fields. The third case also demonstrates that some fields can be
+      omitted by using `...`, which sets them to their default values - usually
+      zero. Not all types have a default value; the compiler will complain if it
+      cannot provide one.
 
       At the end we see another feature: embedding structs in other structs.
       This is a useful means of extending one struct type with new fields, or
@@ -424,4 +431,38 @@ sections:
       There *is* one more type class we need to talk about: tagged unions. These
       are one of Hare's flagship features and require a much deeper
       introduction, so we'll be saving those for their own section.
+- title: Type aliases
+  sample: |
+      type my_int = int;
+      
+      type coords = struct {
+      	x: int,
+      	y: int,
+      };
+      
+      type permissions = enum u8 {
+      	READ = 1 << 0,
+      	WRITE = 1 << 1,
+      	EXEC = 1 << 2,
+      };
+      
+      type player = struct {
+      	location: coords,
+      	user: struct {
+      		username: str,
+      		permissions: uint,
+      	},
+      };
+  details: |
+      In addition to each of the built-in type classes we've introduced so far,
+      Hare offers user-defined types, or *type aliases*. Unlike, for example, C,
+      every type in Hare can be represented without explicitly naming it (enums
+      are the exception). It's often useful to name them, however, and you may
+      do so by declaring a type alias. The type alias inherits all of the
+      semantics of the underlying type.
+
+      Note that declaring a type alias doesn't just create a special word which
+      refers to an existing type &mdash; it creates a new, distinct type
+      altogether, which has the same semantics as its secondary type. We'll
+      explain why this is important later.
 ---
