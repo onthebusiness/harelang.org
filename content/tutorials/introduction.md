@@ -313,4 +313,73 @@ sections:
       let x: [*]int = [1, 2, 3];
       x[4]; // Undefined behavior!
       ```
+- title: Struct types
+  sample: |
+        use fmt;
+        
+        export fn main() void = {
+        	// Anonymous struct type, must be specific
+        	let target = struct {
+        		x: int = 10,
+        		y: int = 10,
+        	};
+        
+        	fmt::printfln("x: {}, y: {}", target.x, target.y);
+        
+        	// User-defined struct, can omit the types or re-order fields
+        	let target = coords {
+        		y = 20,
+        		x = 20,
+        	};
+        
+        	fmt::printfln("x: {}, y: {}", target.x, target.y);
+        };
+        
+        // User-defined type - more on these later
+        type coordinates = {
+        	x: int,
+        	y: int,
+        };
+        
+        type coordinates3D = {
+        	// You can embed one struct into another, and its fields are added
+        	// to the new struct:
+        	coordinates,
+        	z: int,
+        };
+  details: |
+      A **struct** type can be used to store a number of named subvalues, or
+      "fields". The `struct` keyword is used to describe a struct type, followed
+      by a comma-delineated list of its fields and the values to initialize them
+      to. Note that in the first example, we're allowing the variable type to be
+      inferred from the struct value, but we could be explicit if we prefer:
+
+      ```
+      let target: struct { x: int, y: int } = struct {
+      	x: int = 10,
+      	y: int = 10,
+      };
+      ```
+
+      Usually this is unnecessarily verbose. The second example shows us that we
+      can be even terser by using *user-defined types* (we'll cover them in
+      detail later). When initializing a named struct type, swap the `struct`
+      keyword for the type name, and you can skip specifying the types of the
+      struct fields.
+
+      At the end we see another feature: embedding structs in other structs.
+      This is a useful means of extending one struct type with new fields, or
+      using anonymous structs to organize sub-fields. It needn't be the first
+      field, by the way - you can add these anywhere in the struct.
+
+      Hare also supports **union** types, but these are not generally used by
+      Hare programs. If you know that you need them, they are compatible with C
+      and are written with the "union" keyword in place of the "struct" keyword.
+
+      <p class="alert">
+      <strong>Note</strong>: We re-used the "target" variable name in the sample
+      code. This is called <em>shadowing</em> the variable. All subsequent
+      references refer to the new variable, and the old variable is no longer
+      accessible.
+      </p>
 ---
