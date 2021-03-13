@@ -34,7 +34,7 @@ Bootstrapping Hare only takes a few minutes.
 
 Optionally run `make check` to compile and run the test suite as well.
 
-This program is not designed to be installed to your system. Run `. env.sh` to
+This program is not designed to be installed to your system. Run `. harec.sh` to
 make it temporarily available in your shell before moving on to the next step.
 
 #### Building the build driver
@@ -43,9 +43,11 @@ make it temporarily available in your shell before moving on to the next step.
 2. Copy `config.example.mk` to `config.mk` and edit to taste.
 3. Run `make`.
 
+<!-- TODO: make stage-2 -->
+
 Optionally run `make check` to build & run the standard library test suite as
 well.
 
-Run `. env.sh` and the new hare toolchain will become available in your shell,
+Run `. hare.sh` and the new hare toolchain will become available in your shell,
 so you can begin using it without a formal installation. If you wish to install
 Hare to your system, run `make install` as root.
