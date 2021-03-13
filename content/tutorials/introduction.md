@@ -428,6 +428,51 @@ sections:
       situation is when reading an enum value from an external source when
       the list of valid values known to each party has become out of sync
       &mdash; Hare won't detect this for you.
+- title: Other simple types
+  sample: |
+      export fn main() void = {
+      	let x = 10, y = 20;
+      
+      	let a: bool = true;	// "true" and "false" are built-in constants
+      	let b: bool = false;
+      
+      	let c = x < y;		// true
+      	let d = x <= y;		// true
+      	let e = x > y;		// false
+      	let f = x >= y;		// false
+      	let g = x == y;		// true
+      	let h = x != y;		// false
+      
+      	c && d;	// logical "and": true if both are true
+      	c && e;	// false
+      
+      	c || d;	// logical "or": true if either is true
+      	c || e;	// true
+      	e || f;	// false
+      
+      	c ^^ e;	// logical "xor": true if they differ
+      	c ^^ d;	// false
+      };
+  details: |
+      Hare also provides a **bool** type, also called a boolean. This type can
+      have either the value **true** or **false**. A number of *logical*
+      arithmetic operators can have this result; ">" tests if one value is
+      greater than another, ">=" greater than or equal to, "==" and "!="
+      respectively test for equality and inequality.
+
+      The &&, ||, and ^^ operators compare booleans to each other. Respectively
+      these are logical "and", "or", and "xor". Note that the first two of these
+      can *short-circuit*, which means the second operand will *not* be
+      evaluated if the result can be determined from the first alone. In the
+      case of &&, we can assume the result is false if the first operand is
+      false, without consulting the second. || can presume the result is true if
+      the first result is true. This may seem trite &mdash; but this becomes
+      important if some operands can have *side effects*, which do not occur if
+      the operator short circuits.
+
+      Another simple type is the **void** type, which you've seen in examples so
+      far as part of the "main" function. This type simply refers to the absence
+      of a value. It has no size and cannot store anything.
 
       There *is* one more type class we need to talk about: tagged unions. These
       are one of Hare's flagship features and require a much deeper
@@ -469,7 +514,58 @@ sections:
 - section: Control flow
 - title: If statements
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	let x = 1337;
+      
+      	if (x > 10) {
+      		fmt::println("x > 10");
+      	};
+      
+      	if (x < 10) {
+      		fmt::println("x < 10");
+      	} else if (x > 20) {
+      		fmt::println("x > 20");
+      	} else {
+      		fmt::println("10 < x < 20");
+      	};
+      
+      	let y = if (x < 10) x else 20;
+      
+      	let z = if (x > 10) {
+      		x += 10;
+      		x;
+      	} else {
+      		fmt::println("Expected x to be greater than 10");
+      		abort();
+      	};
+      };
   details: |
-      TODO
+      So far, we've written only linear programs, which execute each statement
+      from start to end in order. *Control flow* can be used to direct that flow
+      in a non-linear fashion. The first tool of this class we'll examine is the
+      **if** expression. In each of these examples, the *condition*, between the
+      parenthesis, has a [bool type](#other-simple-types). If the type is true,
+      the expression following it &mdash; called the *branch* &mdash; is
+      executed.
+
+      This is also our first example of Hare as an *expression-based* language.
+      In many languages, the "if" statement has no result value, but in Hare,
+      this is not the case. The "y" and "z" variables here are initialized to
+      the result of whichever branch is taken. Hare doesn't have a "ternary"
+      operator like many other languages do &mdash; try this approach instead.
+
+      Take special note of the "z" variable. In the "y" case, both branches of
+      the if statement have the same result type (int). In the "z" case, the
+      first branch gives "x" as the result (after adding ten to it), but the
+      second branch appears to have no result type (void). In the event that the
+      result types of an if statement are non-uniform, a tagged union is
+      typically produced, and we'll go into more detail on these later. But,
+      this case is different: the second branch *terminates*. Any terminating
+      expression, a kind of expression of which `abort()` is a member (also
+      `break`, `return`, and others), will not be considered for the result type.
+
+      One other note: the first if statement, with no "else" part &mdash; it
+      always has a **void** result type.
 ---
