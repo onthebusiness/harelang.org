@@ -111,6 +111,7 @@ sections:
       By convention, constants are named in UPPERCASE. Variables and globals use
       underscore_case.
       </p>
+
 - section: Hare's type system
 - title: Numeric types & arithmetic
   sample: |
@@ -511,6 +512,7 @@ sections:
       refers to an existing type &mdash; it creates a new, distinct type
       altogether, which has the same semantics as its secondary type. We'll
       explain why this is important later.
+
 - section: Control flow
 - title: If statements
   sample: |
@@ -751,4 +753,82 @@ sections:
       slice, in this case `[]str`. We can also pass a slice to this function as
       if we had passed its values as multiple arguments &mdash; see the second
       call to `greet_users` in main.
+
+- section: Tagged union types
+- title: The basics of tagged unions
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Match statements
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Gracefully handling errors
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Handling errors less gracefully
+  sample: |
+      TODO
+  details: |
+      TODO
+
+- section: Memory management
+- title: Pointers & null
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: alloc & free
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Slice allocation
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Function pointers
+  sample: |
+      TODO
+  details: |
+      TODO
+
+- section: Casts & value conversions
+- title: Type promotion
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Useful casts
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Dangerous casts
+  sample: |
+      TODO
+  details: |
+      TODO
+
+- section: Modules
+- title: Using several files
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Organizing code into modules
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Using the stdlib and third-party modules
+  sample: |
+      TODO
+  details: |
+      TODO
 ---
