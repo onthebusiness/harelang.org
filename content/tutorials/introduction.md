@@ -7,7 +7,7 @@ title: An introduction to the Hare programming language
 type: codetutorials
 summary: |
   This tutorial will introduce you to the Hare programming language. It
-  should take about an hour to complete. If you are already familiar with
+  should take an hour or two to complete. If you are already familiar with
   programming in other languages, it might take even less time — feel free to
   jump around as you see fit. Once you're comfortable with the essential
   language semantics, don't be afraid to supplement your knowledge with the
