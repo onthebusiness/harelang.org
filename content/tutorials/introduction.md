@@ -115,30 +115,30 @@ sections:
 - title: Numeric types & arithmetic
   sample: |
       export fn main() void = {
-        let a: size = 1337z;
-        let b: u8 = 42u8;
-        let c: i8 = -42;
-        let d = 13.37;
-
-        a + b; // OK!
-        b + c; // NOT OK!
-        c + d; // NOT OK!
-
-        // Some arithmetic operations
-        2 + 2;
-        2 / 4;
-        3 * 3;
-        8 % 4;	// Modulo
-
-        a += 10;	// Adds and assigns the result to the original object
-        b -= 1;
-
-        32 << 4;	// Left and right shift
-        32 >> 4;
-
-        bin & 0b1111;		// Bitwise AND with a binary constant
-        mode | 0o644;		// Bitwise OR with an octal constant
-        addr & ~0xFFFF;	// Bitwise AND and NOT with a hexadecimal constant
+      	let a: size = 1337z;
+      	let b: u8 = 42u8;
+      	let c: i8 = -42;
+      	let d = 13.37;
+      
+      	a + b; // OK!
+      	b + c; // NOT OK!
+      	c + d; // NOT OK!
+      
+      	// Some arithmetic operations
+      	2 + 2;
+      	2 / 4;
+      	3 * 3;
+      	8 % 4;	// Modulo
+      
+      	a += 10;	// Adds and assigns the result to the original object
+      	b -= 1;
+      
+      	32 << 4;	// Left and right shift
+      	32 >> 4;
+      
+      	bin & 0b1111;	// Bitwise AND with a binary constant
+      	mode | 0o644;	// Bitwise OR with an octal constant
+      	addr & ~0xFFFF;	// Bitwise AND and NOT with a hexadecimal constant
       };
   details: |
       Let's begin with numeric types. There are several kinds of numeric types.
@@ -185,14 +185,14 @@ sections:
       use fmt;
 
       export fn main() void = {
-        let username = "harriet";
-        let japanese = "ハリエット";
-        let rn = '㌫';
+      	let username = "harriet";
+      	let japanese = "ハリエット";
+      	let rn = '㌫';
 
-        fmt::printfln("Hello, {}! Today's rune is {}.", username, rn);
-        fmt::printfln("{}'s username is {} bytes.", len(username));
-        fmt::printfln("{}'s username in Japanese is {}.", japanese);
-        fmt::printfln("The length of \"{}\" is {}.", japanese, len(japanese));
+      	fmt::printfln("Hello, {}! Today's rune is {}.", username, rn);
+      	fmt::printfln("{}'s username is {} bytes.", username, len(username));
+      	fmt::printfln("{}'s username in Japanese is {}.", username, japanese);
+      	fmt::printfln("The length of \"{}\" is {}.", japanese, len(japanese));
       };
   details: |
       Hare has a **string** and **rune** type, which respectively stores a
@@ -227,7 +227,7 @@ sections:
         	fmt::printfln("x: {}, y: {}", target.x, target.y);
         
         	// User-defined struct, can omit the types or re-order fields
-        	let target = coords {
+        	let target = coordinates {
         		y = 20,
         		x = 20,
         	};
@@ -235,7 +235,7 @@ sections:
         	fmt::printfln("x: {}, y: {}", target.x, target.y);
 
         	// User-defined structs can also be "auto-filled":
-        	let target = coords { ... };
+        	let target = coordinates { ... };
         	fmt::printfln("x: {}, y: {}", target.x, target.y);
         };
         
@@ -337,11 +337,11 @@ sections:
       	let e: [4096]int = [1, 2, 3, 4...];
       
       	// Both arrays and slices are zero-indexed
-      	fmt::println("a[0]: {}, d[0]: {}", a[0], d[0]);
+      	fmt::printfln("a[0]: {}, d[0]: {}", a[0], d[0]);
       
       	// An array always has a fixed length at compile time
       	// A slice has an arbitrary length defined at runtime
-      	fmt::println("len(a): {}, len(d): {}", len(a), len(d));
+      	fmt::printfln("len(a): {}, len(d): {}", len(a), len(d));
       
       	// You can use the slicing operator to get a slice for any array or
       	// slice type by specifying the start (inclusive) and end (exclusive):
