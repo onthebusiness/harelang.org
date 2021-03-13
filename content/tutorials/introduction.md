@@ -9,7 +9,9 @@ summary: |
   This tutorial will introduce you to the Hare programming language. It
   should take about an hour to complete. If you are already familiar with
   programming in other languages, it might take even less time — feel free to
-  jump around as you see fit.
+  jump around as you see fit. Once you're comfortable with the essential
+  language semantics, don't be afraid to supplement your knowledge with the
+  [Hare specification](/specification) as needs arise.
 
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
@@ -202,4 +204,91 @@ sections:
       features like `s[n]` or `+`. You can do these tasks in Hare, but we will
       have to save the details for the
       [standard library introduction](/tutorials/stdlib).
+- title: Arrays, slices, and tuples
+  sample: |
+      use fmt;
+
+      export fn main() void = {
+      	// Arrays and slices can be declared with:
+      	// (1) An inferred type (array of inferred length)
+      	// (2) A definite length
+      	// (3) Explicit array of inferred length
+      	// (4) Or as a slice type, with a length determined at runtime
+      	let a = [1, 2, 3, 4, 5];
+      	let b: [4]int = [1, 3, 3, 7];
+      	let c: [_]int = [7, 3, 3, 1];
+      	let d: []int = [1, 3, 3, 7];
+      
+      	// Both arrays and slices are zero-indexed
+      	fmt::println("a[0]: {}, d[0]: {}", a[0], d[0]);
+      
+      	// An array always has a fixed length at compile time
+      	// A slice has an arbitrary length defined at runtime
+      	fmt::println("len(a): {}, len(d): {}", len(a), len(d));
+      
+      	// You can use the slicing operator to get a slice for any array or
+      	// slice type by specifying the start (inclusive) and end (exclusive):
+      	let first3 = a[..3];	// 1, 2, 3
+      	let middle3 = a[1..4];	// 2, 3, 4
+      	let last3 = a[2..];	// 3, 4, 5
+      	let all = a[..];	// 1, 2, 3, 4, 5
+      
+      	// Hare also supports tuples, which have a fixed number of items with
+      	// specific types:
+      	let e: (str, int, int) = ("hiya!", 4, 2);
+      	e.0; // str
+      	e.1; // int
+      	e.2; // int
+      
+      	// Bringing it all together:
+      	let cases = [
+      		("first 3", first3),
+      		("middle 3", middle3),
+      		("last 3", last3),
+      		("all", all),
+      	];
+      	for (let i = 0z; i < len(cases); i += 1) {
+      		fmt::printf("{}: ", cases[i].0);
+      		for (let j = 0z; j < len(cases[i].1); i += 1) {
+      			fmt::printf("{}", cases[i].1[j]);
+      		};
+      		fmt::println();
+      	};
+      };
+  details: |
+      The **array**, **slice**, and **tuple** types are the first *aggregate*
+      types that will be looking at today. An aggregate type can store more than
+      one value, and they are not built-in types like "int". Arrays store a
+      specific (determined at compile-time) number of ordered values of a uniform
+      subtype; slices store an arbitrary (determined at runtime) number of
+      ordered values of a uniform type; and tuples store a specific number of
+      ordered values with a specific, ordered (non-uniform) set of types.
+
+      An array can be declared with a specific length and subtype (e.g.
+      `[5]int`), or in some cases by inferring the length from context using an
+      underscore (e.g.  `[_]int`). A slice type leaves the length unwritten:
+      `[]int`. Values of a slice or array type can be *indexed*, obtaining the
+      value of one of their numbered objects, with the
+      <code>[<em>index</em>]</code> operator as shown in the samples. The first
+      object is assigned the 0th index. Their length can be obtained with the
+      `len` built-in.
+
+      You can also use a *slicing expression* with `..` to create a slice from
+      another array or slice object. This creates a new slice which represents a
+      subset of the source object, such that `x[2..5]` will produce a new slice
+      whose 0th value is the 2nd value of `x`, and with a length of `5 - 3 = 2`.
+
+      Tuple types are declared with parenthesis and commas to specify the
+      ordered set of subtypes they store: `(str, int, int)` stores a string and
+      two integers. The desired value can be obtained with the `.` operator:
+      `x.0`. Unlike arrays and slices, you can only use a constant index to
+      reference values of tuples. Tuple values can be written on the fly with
+      parenthesis as well:
+
+      ```
+      let x: (str, int, int) = ("hello world!", 42, 24);
+      ```
+
+      The final bit of code in this sample uses some constructs we haven't
+      introduced yet, so don't worry if it doesn't make sense yet.
 ---
