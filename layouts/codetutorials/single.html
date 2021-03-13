@@ -11,14 +11,52 @@
 <main class="code-tutorial">
   <h2>{{.Title}}</h2>
   {{.Summary}}
-  {{.TableOfContents}}
+
+  <details>
+    <summary>Table of contents</summary>
+    {{ $n := 0 }}
+    <nav id="TableOfContents">
+      <ol>
+        {{ range .Params.sections }}
+        {{ if .section }}
+
+        {{ if eq $n 1 }}
+        {{ $n = 0 }}
+        </ol>
+        {{ end }}
+
+        {{ $n = 1 }}
+        <li>
+          <a href="#{{ .section | anchorize }}">{{ .section }}</a>
+          <ol>
+
+        {{ else }}
+        <li>
+          <a href="#{{ .title | anchorize }}">{{ .title }}</a>
+        </li>
+        {{ end }}
+
+        {{ end }}
+
+        {{ if ne $n 0 }}
+        {{ $n = 0 }}
+        </ol>
+        {{ end }}
+      </ol>
+    </nav>
+  </details>
+
   {{ range .Params.sections }}
+  {{ if .section }}
+  <h2 id="{{ .section | anchorize }}">{{.section}}</h2>
+  {{ else }}
   <section>
-    <h2>{{.title}}</h2>
+    <h3 id="{{ .title | anchorize }}">{{.title}}</h3>
     {{ highlight .sample "hare" "" }}
     <div class="details">
       {{ .details | markdownify }}
     </div>
   </section>
+  {{ end }}
   {{ end }}
 </main>

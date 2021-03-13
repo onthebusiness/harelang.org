@@ -111,6 +111,7 @@ sections:
       By convention, constants are named in UPPERCASE. Variables and globals use
       underscore_case.
       </p>
+- section: Hare's type system
 - title: Numeric types & arithmetic
   sample: |
       export fn main() void = {
@@ -465,4 +466,10 @@ sections:
       refers to an existing type &mdash; it creates a new, distinct type
       altogether, which has the same semantics as its secondary type. We'll
       explain why this is important later.
+- section: Control flow
+- title: If statements
+  sample: |
+      TODO
+  details: |
+      TODO
 ---
