@@ -273,7 +273,34 @@ sections:
       references refer to the new variable, and the old variable is no longer
       accessible.
       </p>
-- title: Arrays, slices, and tuples
+- title: Tuples
+  # TODO: We're going to expand the syntax for tuples later
+  sample: |
+      use fmt;
+
+      export fn main() void = {
+      	// Tuples have a fixed number of items with specific types:
+      	let f: (str, int, int) = ("hiya!", 4, 2);
+
+      	// You can access each item with the . operator:
+      	f.0; // str
+      	f.1; // int
+      	f.2; // int
+      };
+  details: |
+      Think of tuples as structs with unnamed fields. These types are declared
+      with a parenthesized, comma-delimited ordered list of the subtypes they
+      store: `(str, int, int)` stores a string and two integers. The desired
+      value can be obtained with the `.` operator and the index: `x.0` gets the
+      first value, `x.1` the second, and so on. This cannot be a variable - only
+      constant, positive integers can be used here.
+
+      Tuple *values* are written with parenthesis as well:
+
+      ```
+      let x: (str, int, int) = ("hello world!", 42, 24);
+      ```
+- title: Arrays and slices
   sample: |
       use fmt;
 
@@ -305,39 +332,12 @@ sections:
       	let middle3 = a[1..4];	// 2, 3, 4
       	let last3 = a[2..];	// 3, 4, 5
       	let all = a[..];	// 1, 2, 3, 4, 5
-      
-      	// Hare also supports tuples, which have a fixed number of items with
-      	// specific types:
-      	let f: (str, int, int) = ("hiya!", 4, 2);
-
-      	// You can access each item with the . operator:
-      	f.0; // str
-      	f.1; // int
-      	f.2; // int
-      
-      	// Bringing it all together:
-      	let cases = [
-      		("first 3", first3),
-      		("middle 3", middle3),
-      		("last 3", last3),
-      		("all", all),
-      	];
-      	for (let i = 0z; i < len(cases); i += 1) {
-      		fmt::printf("{}: ", cases[i].0);
-      		for (let j = 0z; j < len(cases[i].1); i += 1) {
-      			fmt::printf("{}", cases[i].1[j]);
-      		};
-      		fmt::println();
-      	};
       };
   details: |
-      The **array**, **slice**, and **tuple** types are the first *aggregate*
-      types that will be looking at today. An aggregate type can store more than
-      one value, and they are not built-in types like "int". Arrays store a
-      specific (determined at compile-time) number of ordered values of a uniform
-      subtype; slices store an arbitrary (determined at runtime) number of
-      ordered values of a uniform type; and tuples store a specific number of
-      ordered values with a specific, ordered (non-uniform) set of types.
+      We'll introduce **array** and **slice** types next. Arrays store a
+      specific (determined at compile-time) number of ordered values of a
+      uniform subtype; slices store an arbitrary (determined at runtime) number
+      of ordered values of a uniform type.
 
       An array can be declared with a specific length and subtype (e.g.
       `[5]int`), or in some cases by inferring the length from context using an
@@ -352,17 +352,6 @@ sections:
       another array or slice object. This creates a new slice which represents a
       subset of the source object, such that `x[2..5]` will produce a new slice
       whose 0th value is the 2nd value of `x`, and with a length of `5 - 3 = 2`.
-
-      Tuple types are declared with parenthesis and commas to specify the
-      ordered set of subtypes they store: `(str, int, int)` stores a string and
-      two integers. The desired value can be obtained with the `.` operator:
-      `x.0`. Unlike arrays and slices, you can only use a constant index to
-      reference values of tuples. Tuple values can be written on the fly with
-      parenthesis as well:
-
-      ```
-      let x: (str, int, int) = ("hello world!", 42, 24);
-      ```
 
       One last note: accesses to arrays and slices are *bounds checked*, which
       means that accessing a value beyond the end of their valid objects will
