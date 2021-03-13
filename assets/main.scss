@@ -218,6 +218,12 @@ ol li {
 .code-tutorial {
   max-width: 1200px;
 
+  .content {
+    margin-bottom: 16rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   section {
     display: grid;
     grid-template-rows: 1fr;
@@ -228,11 +234,6 @@ ol li {
       ;
     margin-bottom: 12rem;
     grid-gap: 0 1rem;
-
-    &:last-child {
-      // Room to breathe on the end of the page
-      margin-bottom: 32rem;
-    }
 
     @media(max-width: 1200px) {
       grid-template-rows: 1fr;
