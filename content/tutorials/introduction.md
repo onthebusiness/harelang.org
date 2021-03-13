@@ -258,7 +258,7 @@ sections:
       to. Note that in the first example, we're allowing the variable type to be
       inferred from the struct value, but we could be explicit if we prefer:
 
-      ```
+      ```hare
       let target: struct { x: int, y: int } = struct {
       	x: int = 10,
       	y: int = 10,
@@ -314,7 +314,7 @@ sections:
 
       Tuple *values* are written with parenthesis as well:
 
-      ```
+      ```hare
       let x: (str, int, int) = ("hello world!", 42, 24);
       ```
 - title: Arrays and slices
@@ -374,7 +374,7 @@ sections:
       means that accessing a value beyond the end of their valid objects will
       cause your program to abort.
 
-      ```
+      ```hare
       let x = [1, 2, 3];
       x[4]; // Abort!
       ```
@@ -384,7 +384,7 @@ sections:
       performance-critical code. To disable bounds checking, use `*` in place of
       the array length:
 
-      ```
+      ```hare
       let x: [*]int = [1, 2, 3];
       x[4]; // Undefined behavior!
       ```
@@ -687,4 +687,68 @@ sections:
       examples, but Hare does not require forward declarations like C. The
       "colors" type here is declared after its first use.
       </p>
+- title: Functions & calls
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	say_hello();
+      	fmt::printfln("2 + 2 = {}", add(2, 2));
+      	greet_users("Jim", "Jane", "JimJane");
+      
+      	let users = ["Jim", "Jane", "JimJane"];
+      	greet_users(users...);
+      };
+      
+      fn say_hello() void = {
+      	fmt::println("Hello!");
+      };
+      
+      fn add(x: int, y: int) int = x + y;
+      
+      fn greet_users(users: str...) void = {
+      	fmt::printf("Hello ");
+      	for (let i = 0z; i < len(users); i += 1) {
+      		fmt::printf("{}{}", users[i],
+      			if (i + 2 < len(users)) ", " 
+      			else if (i + 1 < len(users)) ", and "
+      			else "!");
+      	};
+      	fmt::println();
+      };
+  details: |
+      We've used a few functions so far &mdash; our sample code is in the `main`
+      function, and we've been using `fmt::println`, `fmt::printf`, and
+      `fmt::printfln` to write stuff to stdout. Let's go over how these work in
+      more detail.
+
+      In the sample, we've added `say_hello`, a simple function which takes no
+      parameters and returns `void`. This is fairly self-explanatory: it simply
+      places some useful code in a separate sub-routine.
+
+      `add` is more interesting: it takes two parameters, `x` and `y`, both of
+      type **int**, and returns an **int**. It also has a different style of
+      *function body*: its body is simply an addition expression. This is not
+      actually a special syntax for functions! All of the functions we've seen
+      so far have set their body to an "expression list", which is itself a kind
+      of expression. You can actually use these anywhere! Each one has its own
+      *scope*.
+
+      ```hare
+      export fn main() void = {
+      	let x = 20;
+      	{
+      		let x = 10;
+      		fmt::println(x); // 10
+      	};
+      	fmt::println(x); // 20
+      };
+      ```
+
+      The last example function, `greet_users`, demonstrates *variadic* function
+      parameters. You can use the `...` operator on the last parameter to accept
+      any number of arguments of that type. The parameter is converted into a
+      slice, in this case `[]str`. We can also pass a slice to this function as
+      if we had passed its values as multiple arguments &mdash; see the second
+      call to `greet_users` in main.
 ---
