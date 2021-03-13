@@ -185,13 +185,15 @@ sections:
         fmt::printfln("Hello, {}! Today's rune is {}.", username, rn);
         fmt::printfln("{}'s username is {} bytes.", len(username));
         fmt::printfln("{}'s username in Japanese is {}.", japanese);
-        fmt::printfln("The length of \'{}\' is {}.", japanese, len(japanese));
+        fmt::printfln("The length of \"{}\" is {}.", japanese, len(japanese));
       };
   details: |
       Hare has a **string** and **rune** type, which respectively stores a
       string of UTF-8 text, and a single Unicode character. Hare's strings have
       a defined length in bytes as well, which you may access with the `len()`
-      builtin.
+      builtin. Note also the use of `\"` &mdash; a backslash "escapes" the "
+      character, allowing it to appear in the string (other escape sequences you
+      are familiar with work in Hare, too).
 
       Strings tend to be surprisingly difficult to use correctly in many
       programming languages. Efficiently manipulating strings, handling a
@@ -280,12 +282,13 @@ sections:
 
       export fn main() void = {
       	// Tuples have a fixed number of items with specific types:
-      	let f: (str, int, int) = ("hiya!", 4, 2);
+      	let t: (str, int, int) = ("hiya!", 4, 2);
 
       	// You can access each item with the . operator:
-      	f.0; // str
-      	f.1; // int
-      	f.2; // int
+      	t.0; // str
+      	t.1; // int
+      	t.2; // int
+      	fmt::printfln("({}, {}, {})", t.0, t.1, t.2);
       };
   details: |
       Think of tuples as structs with unnamed fields. These types are declared
