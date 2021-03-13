@@ -10,13 +10,16 @@ Additional resources:
 
 ### Installing from packages
 
-TODO: Once Hare is made public this will be the preferred installation method
+Hare is young, so packages are generally not yet available. Once the language is
+more commonly supported throughout the ecosystem, installing Hare from your
+system package manager will be the recommended approach.
+
+For now, continue to the bootstrapping steps (which, thankfully, are quite
+easy):
 
 ### Bootstrapping Hare from source
 
-While Hare is under active development, bootstrapping is more involved than it
-will be in the future. Right now, the build driver is incomplete, and the
-bootstrapping process ends there.
+Bootstrapping Hare only takes a few minutes.
 
 #### Pre-requisites
 
@@ -26,28 +29,23 @@ bootstrapping process ends there.
 #### Building the bootstrap compiler
 
 1. Obtain [the bootstrap compiler source code](https://git.sr.ht/~sircmpwn/harec)
-2. `mkdir build && cd build`
-3. `../configure`
-4. `make`
+2. `./configure`
+3. `make`
 
-Optionally run `make check` to build & run the test suite as well.
+Optionally run `make check` to compile and run the test suite as well.
 
-This will produce a Hare compiler at `./harec`. Run `make install` to install it
-to the prefix selected with `configure`, or add it to your PATH by some other
-means.
+This program is not designed to be installed to your system. Run `. env.sh` to
+make it temporarily available in your shell before moving on to the next step.
 
 #### Building the build driver
 
-1. Obtain [the standard library source code](https://git.sr.ht/~sircmpwn/stdlib)
-2. Obtain [the build driver source code](https://git.sr.ht/~sircmpwn/hare)
-3. Copy `config.example.mk` to `config.mk` and edit to taste. At a minimum,
-   update the `STDLIB` variable to the path to your copy of the standard
-   library.
-4. Run `make`.
+1. Obtain [the build driver source code](https://git.sr.ht/~sircmpwn/hare)
+2. Copy `config.example.mk` to `config.mk` and edit to taste.
+3. Run `make`.
 
 Optionally run `make check` to build & run the standard library test suite as
 well.
 
-This is currently the end of the bootstrapping procedure. The build driver is
-incomplete, but the `hare` binary should have been built from `main.ha`. You can
-edit `main.ha` to experiment with Hare.
+Run `. env.sh` and the new hare toolchain will become available in your shell,
+so you can begin using it without a formal installation. If you wish to install
+Hare to your system, run `make install` as root.
