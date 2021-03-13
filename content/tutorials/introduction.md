@@ -219,6 +219,10 @@ sections:
       	let c: [_]int = [7, 3, 3, 1];
       	let d: []int = [1, 3, 3, 7];
       
+      	// You can create large arrays with auto-fill, which assigns the last
+      	// value to every subsequent index.
+      	let e: [4096]int = [1, 2, 3, 4...];
+      
       	// Both arrays and slices are zero-indexed
       	fmt::println("a[0]: {}, d[0]: {}", a[0], d[0]);
       
@@ -235,10 +239,12 @@ sections:
       
       	// Hare also supports tuples, which have a fixed number of items with
       	// specific types:
-      	let e: (str, int, int) = ("hiya!", 4, 2);
-      	e.0; // str
-      	e.1; // int
-      	e.2; // int
+      	let f: (str, int, int) = ("hiya!", 4, 2);
+
+      	// You can access each item with the . operator:
+      	f.0; // str
+      	f.1; // int
+      	f.2; // int
       
       	// Bringing it all together:
       	let cases = [
@@ -289,6 +295,22 @@ sections:
       let x: (str, int, int) = ("hello world!", 42, 24);
       ```
 
-      The final bit of code in this sample uses some constructs we haven't
-      introduced yet, so don't worry if it doesn't make sense yet.
+      One last note: accesses to arrays and slices are *bounds checked*, which
+      means that accessing a value beyond the end of their valid objects will
+      cause your program to abort.
+
+      ```
+      let x = [1, 2, 3];
+      x[4]; // Abort!
+      ```
+
+      It is infrequently useful (but dangerous!) to skip the bounds check, for
+      interop with code written in other languages, or in carefully reviewed,
+      performance-critical code. To disable bounds checking, use `*` in place of
+      the array length:
+
+      ```
+      let x: [*]int = [1, 2, 3];
+      x[4]; // Undefined behavior!
+      ```
 ---
