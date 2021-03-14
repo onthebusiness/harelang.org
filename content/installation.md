@@ -5,7 +5,7 @@ title: Hare Installation
 Additional resources:
 
 - [Editor plugins](/editors)
-- [Hare tutorials](/tutorials)
+- [Hare tutorials](/tutorial)
 - [Information for package maintainers](/distributions)
 
 ### Installing from packages
