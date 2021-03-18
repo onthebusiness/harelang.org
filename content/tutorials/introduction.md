@@ -951,10 +951,44 @@ sections:
       end-users.
 - title: Testing your code
   sample: |
-      TODO
+      type invalid = void!;
+      
+      fn fact(n: int) (int | invalid) = {
+      	if (n < 0) {
+      		return invalid;
+      	};
+      
+      	let r = 1;
+      	for (let i = 1; i < n; i += 1) {
+      		r *= i;
+      	};
+      	return r;
+      };
+      
+      @test fn fact() void = {
+      	assert(fact(0) as int == 1);
+      	assert(fact(1) as int == 1);
+      	assert(fact(10) as int == 362880);
+      	assert(fact(-10) is invalid);
+      };
   details: |
-      TODO
+      Hare's build driver (the `hare` command you've been using) has a testing
+      capability as well. Drop this sample code into "main.ha" and give `hare
+      test main.ha` a quick run.
 
+      When writing tests, we generally make generous use of assertions, leaving
+      detailed error handling aside. We can quickly write the tests this way,
+      and any issues that come up are only going to be seen by programmers
+      &mdash; so a minor degredation in error friendliness is welcome in
+      exchange for details like the specific line number affected.
+
+      <p class="alert">
+      <strong>Note</strong>:
+      See how the test function is named "fact"? Normally this would clash with
+      the function that it's testing. @test functions are not required to have
+      unique names. The same is true for @init and @fini functions, which are
+      addressed later.
+      </p>
 - section: Memory management
 - title: Pointers & null
   sample: |
