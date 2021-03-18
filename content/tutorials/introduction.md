@@ -755,16 +755,66 @@ sections:
       call to `greet_users` in main.
 
 - section: Tagged union types
-- title: The basics of tagged unions
+- title: Tagged unions & match statements
   sample: |
-      TODO
+      use fmt;
+
+      type example = void;
+      
+      export fn main() void = {
+      	let x: (str | int | example | void) = "Hello!";
+      
+      	match (x) {
+      		s: str  => fmt::println("x is a str: {}", s);
+      		i: int  => fmt::println("x is an int: {}", i);
+      		example => fmt::println("x is example"),
+      		void    => fmt::println("x is void"),
+      	};
+
+      	x = example;
+      
+      	let y: int = match (x) {
+      		i: int  => i,
+      		example => -1,
+      		*       => abort(),
+      	};
+      	fmt::println("y is {}", y);
+      };
   details: |
-      TODO
-- title: Match statements
-  sample: |
-      TODO
-  details: |
-      TODO
+      One of the most important features of Hare is **tagged unions**. These are
+      a kind of composite type which can store a value of any one of several
+      types, as well as a tag which indicates which type is currently stored. In
+      the sample code, the "x" variable has the type <br />
+      `(str | int | example | void)`, which can store a value of the `str`, or
+      `int`, `example`, or `void` types.
+
+      A *match* expression can be used to examine a value of a tagged union
+      type. It works similarly to a switch statement, but instead of testing
+      against values, we're test against the type. Note as well that we can
+      establish a new binding in each branch &mdash; "s" and "i" in the sample
+      code &mdash; which is initialized to the tagged union's value as the
+      selected type.
+
+      Like an if or switch statement, the result value of a match expression is
+      the value of the selected branch. If all of the branches do not have the
+      same value, the result is another tagged union of the possible results. In
+      the sample, the type of "y" is `int`, and each of the branches have an
+      integer result. Terminating branches are not considered, like the default
+      `*` branch of the second match expression. Like switch, match expressions
+      must be exhaustive &mdash; meaning every possible case is handled, or a
+      default is present.
+
+      Another detail to be aware of: tagged unions are both *communicative* and
+      *reductive*. That means that the following types are equivalent:
+
+      - `(int | str)` and `(str | int)`
+      - `(int | int | str | str)` and `(int | str)`
+      - `(int | uint | str | void)` and `(int | (uint | (str | void)))`
+
+      Type aliases create a *distinct* type from their underlying type, and thus
+      tagged unions can distinguish between them. In the sample code, the
+      `example` type is an alias for `void`, but the tagged union can
+      distinguish it from `void`.
 - title: Gracefully handling errors
   sample: |
       TODO
