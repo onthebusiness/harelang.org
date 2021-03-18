@@ -817,10 +817,139 @@ sections:
       distinguish it from `void`.
 - title: Gracefully handling errors
   sample: |
-      TODO
+      use fmt;
+      use io;
+      
+      export fn main() void = {
+      	match (hello()) {
+      		err: io::error => fmt::fatal("Error: {}", io::errstr(err)),
+      		void => void,
+      	};
+      };
+      
+      fn hello() (io::error | void) = {
+      	fmt::println("Hello, world!")?;
+      	return;
+      };
   details: |
-      TODO
-- title: Handling errors less gracefully
+      The most common use for tagged unions is to gracefully handle errors.
+      Here's an example: `fmt::println` does not always work! If you're on
+      Linux, try running this sample code like so:
+
+      ```
+      $ hare run main.ha >/dev/full
+      Error: No space left on device
+      ```
+
+      Some functions, like our `hello` function in the sample code, can simply
+      pass the error along to the caller to deal with. In this case, the special
+      `?` operator can be used, which will return any error types to the caller.
+      The buck stops somewhere, though: main has to do something useful with the
+      error. In this case, it uses `fmt::fatal` to print it to stderr and exit
+      with a nonzero status code.
+- title: Defining your own error types
+  sample: |
+      use fmt;
+      
+      type invalid = void!;
+      
+      fn fact(n: int) (int | invalid) = {
+      	if (n < 0) {
+      		return invalid;
+      	};
+      
+      	let r = 1;
+      	for (let i = 1; i < n; i += 1) {
+      		r *= i;
+      	};
+      	return r;
+      };
+      
+      export fn main() void = {
+      	match (fact(10)) {
+      		invalid => fmt::println("Invalid factorial"),
+      		n: int  => fmt::printfln("n: {}", n),
+      	};
+      
+      	match (fact(-10)) {
+      		invalid => fmt::println("Invalid factorial"),
+      		n: int  => fmt::printfln("n: {}", n),
+      	};
+      };
+  details: |
+      Any type can be an error type by simply adding the "!" suffix to its
+      declaration, such as the `invalid` type in the sample code. This allows it
+      to be used with the error propagation operator, `?`, but does not do
+      anything else.
+
+      A common convention in most libraries is to define a single `error` type,
+      which is a tagged union of all possible errors that could be returned by
+      that module, and an `errstr` function, which converts any error to a
+      human-readable representation. We saw this in the previous example with
+      the `io::error` type and the `io::errstr` function.
+
+      The `errors` module in the standard library provides several stock error
+      types (such as "invalid" or "access denied") to handle common situations.
+- title: Handling errors less gracefully (with assertions)
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	fmt::println(fact(10) as int);
+
+      	assert(fact(-10) is invalid);
+      	static assert(2 == 2, "wut");
+      };
+      
+      type invalid = void!;
+      
+      fn fact(n: int) (int | invalid) = {
+      	if (n < 0) {
+      		return invalid;
+      	};
+      
+      	let r = 1;
+      	for (let i = 1; i < n; i += 1) {
+      		r *= i;
+      	};
+      	return r;
+      };
+  details: |
+      Occasionally, you will known for certain that a particular scenario is not
+      possible, and you don't need to add detailed error handling for that case.
+      Or, you want to quickly write some code to get something working, and will
+      return to improve the error handling later. You may also want to validate
+      that some constraints documented for your function, but not enforced with
+      types, are being upheld. For each of these cases, Hare provides assertions
+      for the task.
+
+      In the "println" call shown in the sample code, the `as` keyword is a
+      *type assertion*. Hare will emit code which verifies that the return value
+      of `fact(10)` is an `int`, and if so, proceed as if that were the case. If
+      not, the program will come crashing to a halt, aborting the process and
+      displaying an error message with the guilty file name and line number.
+      Change "10" to "-10" here to see this in action.
+
+      The next line gives the more general form of an assertion. The first
+      parameter should be a boolean, and if false, the program will abort in a
+      similar manner. The second, optional argument may be used to provide a
+      string which describes the error. The final line of `main` demonstrates
+      another kind of assertion: the static assertion. Unlike the other two,
+      which are computed at runtime, a static assertion is verified at
+      compile-time, and will cause your program to fail to compile if not
+      upheld. This example is somehwat trite, but there are more legitimate
+      uses. For instance:
+
+      ```hare
+      static assert(size(*void) == 8,
+      	"This module only supports 64-bit systems.");
+      ```
+
+      You should generally only use assertions for situations where the
+      programmer has made an error. They are designed to get the programmer's
+      attention to correct a problem in the code, and are not very friendly for
+      end-users.
+- title: Testing your code
   sample: |
       TODO
   details: |
