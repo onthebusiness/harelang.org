@@ -58,7 +58,7 @@ focus areas we're looking into now are:
   <dd>Parsing • type checker • hosted toolchain • etc</dd>
 
   <dt>Networking</dt>
-  <dd>IP & CDIR handling • sockets • DNS resolver • HTTP • etc</dd>
+  <dd>IP & CIDR handling • sockets • DNS resolver • HTTP • etc</dd>
 
   <dt>Platform support</dt>
   <dd>New platforms and architectures • OS-specific features</dd>
