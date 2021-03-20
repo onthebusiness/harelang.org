@@ -49,5 +49,7 @@ Optionally run `make check` to build & run the standard library test suite as
 well.
 
 Run `. hare.sh` and the new hare toolchain will become available in your shell,
-so you can begin using it without a formal installation. If you wish to install
-Hare to your system, run `make install` as root.
+so you can begin using it without a formal installation. ~~If you wish to
+install Hare to your system, run `make install` as root.~~ An install target is
+not available yet &mdash; stick with `hare.sh` to make it easier to keep your
+system up-to-date while Hare matures.
