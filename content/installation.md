@@ -53,3 +53,6 @@ so you can begin using it without a formal installation. ~~If you wish to
 install Hare to your system, run `make install` as root.~~ An install target is
 not available yet &mdash; stick with `hare.sh` to make it easier to keep your
 system up-to-date while Hare matures.
+
+**Note**: For the time being, you will also need to source `harec.sh` from the
+bootstrap compiler step before using Hare.
