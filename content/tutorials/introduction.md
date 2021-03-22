@@ -765,10 +765,10 @@ sections:
       	let x: (str | int | example | void) = "Hello!";
       
       	match (x) {
-      		s: str  => fmt::println("x is a str: {}", s);
-      		i: int  => fmt::println("x is an int: {}", i);
-      		example => fmt::println("x is example"),
-      		void    => fmt::println("x is void"),
+      		s: str  => fmt::printfln("x is a str: {}", s),
+      		i: int  => fmt::printfln("x is an int: {}", i),
+      		example => fmt::printfln("x is example"),
+      		void    => fmt::printfln("x is void"),
       	};
 
       	x = example;
@@ -778,7 +778,7 @@ sections:
       		example => -1,
       		*       => abort(),
       	};
-      	fmt::println("y is {}", y);
+      	fmt::printfln("y is {}", y);
       };
   details: |
       One of the most important features of Hare is **tagged unions**. These are
