@@ -790,7 +790,7 @@ sections:
 
       A *match* expression can be used to examine a value of a tagged union
       type. It works similarly to a switch statement, but instead of testing
-      against values, we're test against the type. Note as well that we can
+      against values, we're testing against the type. Note as well that we can
       establish a new binding in each branch &mdash; "s" and "i" in the sample
       code &mdash; which is initialized to the tagged union's value as the
       selected type.
@@ -915,7 +915,7 @@ sections:
       	return r;
       };
   details: |
-      Occasionally, you will known for certain that a particular scenario is not
+      Occasionally, you will know for certain that a particular scenario is not
       possible, and you don't need to add detailed error handling for that case.
       Or, you want to quickly write some code to get something working, and will
       return to improve the error handling later. You may also want to validate
