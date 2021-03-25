@@ -150,6 +150,64 @@ fn many_variadic(
 };
 ```
 
+### Informal recommendations for function names
+
+To name a function, first identify its purpose. If you were to describe this
+purpose in a sentence, you should be able to identify up to three grammatical
+items of importance: the verb, the object, and the subject. The subject is
+usually the actor, the object is usually being acted upon, and the verb defines
+the action being taken.
+
+When naming a Hare function, use the format "subject_verbobject", where the
+subject preceeds the verb and object, separated by an underscore, and the object
+directly follows the verb. If you can infer the subject or object from context,
+they may be omitted, so "verbobject", "subject_verb", or simply "verb" may be
+appropriate names.
+
+In the sentence "Sam goes to the store", "Sam" is the subject, "store" is the
+object, and "go" is the verb. The equivalent function name would be
+"sam_gostore". If we have additional context, for example if this is in the
+"sam" module, we could call it "sam::gostore". Or perhaps the object is given by
+a parameter, in which case "go" is sufficient:
+
+```hare
+fn sam::go(to: destination) void;
+```
+
+Abbreviating terms is acceptable, such as "str" for "string" or "tok" for
+"token".
+
+This approach prefers terseness when unambiguous. Here are some real-world
+examples:
+
+```hare
+fn bufio::scantok(stream: *io::stream, delim: u8) ([]u8 | io::EOF | io::error);
+
+fn io::read(stream: *io::stream, buf: []u8) (size | io::EOF | io::error);
+
+fn lex::init(in: *io::stream, path: str) lexer;
+```
+
+### Verbs for allocation strategies
+
+It is useful to communicate the allocation strategy in function names, to lend
+readability to the implications for Hare's manual memory management system. The
+following conventions are recommended.
+
+For functions which initialize a value and return it, either via allocation or
+via the stack, name these functions after the object being initialized. For
+example, to initialize a SHA-256 hash, you use `crypto::sha256::sha256()`.
+If a more specific verb than "allocate" or "initialize" would be appropriate,
+name the function after that verb. For example, "open" or "connect" may be more
+appropriate names than "file" or "client".
+
+If a function accepts a pointer to a value as a parameter, and will initialize
+that value, use the "init" verb to name the function.
+
+For functions which free resources associated with an object, if the object
+itself is freed, use the verb "free". If the object itself is not freed, but
+some other state associated with it, use the verb "finish".
+
 ## D. Type declarations
 
 Rules governing the declarations of types. For details on style for specific
