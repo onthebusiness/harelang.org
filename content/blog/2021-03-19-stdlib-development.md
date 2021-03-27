@@ -9,7 +9,7 @@ development! The standard library is extremely important to Hare's success, and
 building it is a lot of work, which means we need a lot of help to get it done.
 This article should serve as an introduction to the standard library development
 process for new contributors. As a pre-requisite, please complete the
-[Installation procedure](/installation) and the [Hare langauge
+[Installation procedure](/installation) and the [Hare language
 introduction](/tutorials/introduction).
 
 The standard library lives in the main [Hare source
