@@ -84,3 +84,5 @@ Hare does not, and will not, support any proprietary operating systems.
     </tr>
   </tbody>
 </table>
+
+Hare can also on the bare metal, without a host operating system.
