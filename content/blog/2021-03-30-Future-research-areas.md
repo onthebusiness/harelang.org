@@ -49,6 +49,6 @@ language whatsoever, and we won't ever break backwards compatibility with the
 standard library. These research areas will allow us to either provide an
 implementation for the constructs we need now, or evaluate if we can live
 without having them indefinitely. If we make a mistake, it will have to be fixed
-in some future langage which follows Hare, but not in Hare itself. This research
-will be an important step in making Hare a production-ready language, poised for
-general utility and longevity.
+in some future language which follows Hare, but not in Hare itself. This
+research will be an important step in making Hare a production-ready language,
+poised for general utility and longevity.
