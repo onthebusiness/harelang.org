@@ -221,9 +221,8 @@ fraught with footguns when compared to POSIX.
 If you know better than us, though, then again you have options. We provide the
 `ascii` module for asking questions only of the ASCII subset of Unicode, such as
 `ctype.h` equivalents like `ascii::isalnum`. You can also use the (O(1)!)
-`strings::to_utf8` to convert a `str` into a byte slice `[]u8`, which you can
-index and manipulate to your heart's content. You can also cast `str` to `*const
-char` to get a NUL-terminated string in O(1) which you can pass to C functions.
+`strings::toutf8` to convert a `str` into a byte slice `[]u8`, which you can
+index and manipulate to your heart's content.
 
 ## Strongly-typed variadism
 
