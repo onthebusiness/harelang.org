@@ -25,17 +25,17 @@ features.
 
 A short briefing on how to use third-party dependencies in Hare programs.
 
-<a href="#TODO" class="tutorial-link">Using dependencies</a>
+<a href="/tutorials/dependencies" class="tutorial-link">Using dependencies</a>
 
 ### Writing Hare libraries
 
 How to prepare your codebase as a library for other Hare programmers to use.
 
-<a href="#TODO" class="tutorial-link">Writing hare libraries</a>
+<a href="/tutorials/libraries" class="tutorial-link">Writing hare libraries</a>
 
 ### Incremental rewrites of C code
 
 Hare can be used for file-by-file or even function-by-function rewrites of C
 codebases, if you so desire.
 
-<a href="#TODO" class="tutorial-link">Incremental rewrites of C code</a>
+<a href="/tutorials/rewrites" class="tutorial-link">Incremental rewrites of C code</a>
