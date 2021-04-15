@@ -149,65 +149,6 @@ fn many_variadic(
 	// ...
 };
 ```
-
-### Informal recommendations for function names
-
-To name a function, first identify its purpose. If you were to describe this
-purpose in a sentence, you should be able to identify up to three grammatical
-items of importance: the verb, the object, and the subject. The subject is
-usually the actor, the object is usually being acted upon, and the verb defines
-the action being taken.
-
-When naming a Hare function, use the format "subject_verbobject", where the
-subject preceeds the verb and object, separated by an underscore, and the object
-directly follows the verb. If you can infer the subject or object from context,
-they may be omitted, so "verbobject", "subject_verb", or simply "verb" may be
-appropriate names.
-
-In the sentence "Sam goes to the store", "Sam" is the subject, "store" is the
-object, and "go" is the verb. The equivalent function name would be
-"sam_gostore". If we have additional context, for example if this is in the
-"sam" module, we could call it "sam::gostore". Or perhaps the object is given by
-a parameter, in which case "go" is sufficient:
-
-```hare
-fn sam::go(to: destination) void;
-```
-
-Abbreviating terms is acceptable, such as "str" for "string" or "tok" for
-"token".
-
-This approach prefers terseness when unambiguous. Here are some real-world
-examples:
-
-```hare
-fn bufio::scantok(stream: *io::stream, delim: u8) ([]u8 | io::EOF | io::error);
-
-fn io::read(stream: *io::stream, buf: []u8) (size | io::EOF | io::error);
-
-fn lex::init(in: *io::stream, path: str) lexer;
-```
-
-### Verbs for allocation strategies
-
-It is useful to communicate the allocation strategy in function names, to lend
-readability to the implications for Hare's manual memory management system. The
-following conventions are recommended.
-
-For functions which initialize a value and return it, either via allocation or
-via the stack, name these functions after the object being initialized. For
-example, to initialize a SHA-256 hash, you use `crypto::sha256::sha256()`.
-If a more specific verb than "allocate" or "initialize" would be appropriate,
-name the function after that verb. For example, "open" or "connect" may be more
-appropriate names than "file" or "client".
-
-If a function accepts a pointer to a value as a parameter, and will initialize
-that value, use the "init" verb to name the function.
-
-For functions which free resources associated with an object, if the object
-itself is freed, use the verb "free". If the object itself is not freed, but
-some other state associated with it, use the verb "finish".
-
 ## D. Type declarations
 
 Rules governing the declarations of types. For details on style for specific
@@ -666,3 +607,115 @@ match (x) {
 	foobaz => // ...
 };
 ```
+
+## Appendicies
+
+### Informal recommendations for function names
+
+To name a function, first identify its purpose. If you were to describe this
+purpose in a sentence, you should be able to identify up to three grammatical
+items of importance: the verb, the object, and the subject. The subject is
+usually the actor, the object is usually being acted upon, and the verb defines
+the action being taken.
+
+When naming a Hare function, use the format "subject_verbobject", where the
+subject preceeds the verb and object, separated by an underscore, and the object
+directly follows the verb. If you can infer the subject or object from context,
+they may be omitted, so "verbobject", "subject_verb", or simply "verb" may be
+appropriate names.
+
+In the sentence "Sam goes to the store", "Sam" is the subject, "store" is the
+object, and "go" is the verb. The equivalent function name would be
+"sam_gostore". If we have additional context, for example if this is in the
+"sam" module, we could call it "sam::gostore". Or perhaps the object is given by
+a parameter, in which case "go" is sufficient:
+
+```hare
+fn sam::go(to: destination) void;
+```
+
+Abbreviating terms is acceptable, such as "str" for "string" or "tok" for
+"token".
+
+This approach prefers terseness when unambiguous. Here are some real-world
+examples:
+
+```hare
+fn bufio::scantok(stream: *io::stream, delim: u8) ([]u8 | io::EOF | io::error);
+
+fn io::read(stream: *io::stream, buf: []u8) (size | io::EOF | io::error);
+
+fn lex::init(in: *io::stream, path: str) lexer;
+```
+
+### Verbs for allocation strategies
+
+It is useful to communicate the allocation strategy in function names, to lend
+readability to the implications for Hare's manual memory management system. The
+following conventions are recommended.
+
+For functions which initialize a value and return it, either via allocation or
+via the stack, name these functions after the object being initialized. For
+example, to initialize a SHA-256 hash, you use `crypto::sha256::sha256()`.
+If a more specific verb than "allocate" or "initialize" would be appropriate,
+name the function after that verb. For example, "open" or "connect" may be more
+appropriate names than "file" or "client".
+
+If a function accepts a pointer to a value as a parameter, and will initialize
+that value, use the "init" verb to name the function.
+
+For functions which free resources associated with an object, if the object
+itself is freed, use the verb "free". If the object itself is not freed, but
+some other state associated with it, use the verb "finish".
+
+### Informal recommendations for documentation
+
+Consult `man haredoc` for technical details regarding documenting Hare
+interfaces through comments in the source code.
+
+It is useful to have some linguistic conventions for inline documentation.  The
+following guidelines provide such conventions for any programs which wish to be
+consistent with the rest of the Hare ecosystem in their approach to API
+documentation.
+
+1. Write programmer-facing documentation in English.
+1. Document all public (exported) members. Not documenting a member signals that
+   it is not meant to be used by third-party programs.
+1. If you can summarize an interface in one sentence, you may omit the period at
+   the end.  If you need several sentences, include a final period after the
+   last sentence. Regardless of the approach, be consistent with similar members
+   in the same context; if one enum value can be described in one sentence,
+   include the final period if the rest of the values use several sentences.
+1. Function documentation should complete the following thought: "This function
+   [does, will, is used to]...". Examples:
+
+   - "Insert a new entry into the list"
+   - "Parse the next record from the file"
+1. Type documentation should complete the following thought: "This type
+   is..." or "This type $verbs...". Examples:
+
+   - "An error indicating that an invalid sequence was encountered"
+   - "Indicates that more data is required to finish processing"
+   - "Stores the state for an XML parser"
+1. Constant documentation should complete the following thought: "This constant
+   is..."
+
+   - "The size, in bytes, of an MD5 digest"
+   - "The magic string identifying a PNG file"
+
+### Informal recommendations for errors
+
+These recommendations cover programmer-facing errors. User-facing errors are
+addressed separately in [Internationalization recommendations for Hare
+programs](/i18n).
+
+1. Each module should provide an `error` type which is a tagged union of all
+   possible errors which might be returned by functions in that module, and an
+   `strerror` function which explains the error as a string.
+1. Write programmer-facing error messages in English. This includes the return
+   value from `strerror`, and also the error messages used in `abort` and
+   `assert` expressions.
+1. The return value of `strerror` should be written so that it makes sense when
+   passed to `fmt::fatal("Error: {}", example::strerror(err))`.
+1. Error messages should be written with "Sentence case" and should not end with
+   a period.
