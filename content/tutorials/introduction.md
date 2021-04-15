@@ -1026,7 +1026,7 @@ sections:
       shows that x has changed to reflect the assignment to `*y`.
 
       You can also define a pointer which does not point to anything. Such a
-      pointer can poses the special `null` value. "z" is set to the `null`
+      pointer may possess the special `null` value. "z" is set to the `null`
       value in our sample, but take note of the type: `nullable *int`. In Hare,
       you can only set *nullable* pointer types to `null`, which causes some
       additional constraints to apply.
