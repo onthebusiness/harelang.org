@@ -608,7 +608,7 @@ match (x) {
 };
 ```
 
-## Appendicies
+## Appendices
 
 ### Informal recommendations for function names
 
