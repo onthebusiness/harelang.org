@@ -1044,6 +1044,59 @@ sections:
       </p>
 - title: alloc & free
   sample: |
+      use fmt;
+      
+      type coords = struct { x: int, y: int };
+      
+      export fn main() void = {
+      	let x: *int = alloc(1234);
+      	fmt::printfln("x: {}", *x);
+      	*x = 4321;
+      	free(x);
+      
+      	let c: *coords = alloc(coords {
+      		x = 42,
+      		y = 24,
+      	});
+      	fmt::printfln("coords: <{}, {}>", c.x, c.y);
+      	c.x += 10;
+      	fmt::printfln("coords: <{}, {}>", c.x, c.y);
+      	free(c);
+      };
+  details: |
+      Each of the variables we've worked with so far have been allocated on the
+      *stack*. This causes the storage for the variables to be cleaned up when
+      your function exits &mdash; convenient! However, it is sometimes useful to
+      create variables which can outlive our function, or to allocate an
+      arbitrary amount of data &mdash; which we cannot calculate until runtime.
+      Hare provides the `alloc` and `free` built-ins to allocate variables on
+      the *heap* instead.
+
+      If the "y" variable from the previous example outlived our function (if,
+      for example, we returned it to the caller), it would become invalid as it
+      refers to storage which no longer exists &mdash; and, in fact, has almost
+      certainly been re-assigned to something else. Any code which used such a
+      pointer would cause big problems. Storing variables on the *heap* instead
+      can prevent this issue.
+
+      Pass `alloc` the value your variable should be initialized to, and it will
+      allocate some storage on the heap, set it to your *initializer*, and
+      return that pointer. `free` will free up that memory later &mdash; you
+      have to do this at some point, or you will *leak* the memory. Memory on
+      your computer is finite, and if you don't clean up after yourself, you'll
+      eventually run out.
+
+      <p class="alert">
+      <strong>Note</strong>:
+      If you run out of memory, Hare will <strong>abort</strong> your program to
+      prevent further errors from causing unexpected problems (well, anything
+      more unexpected than crashing). If you would prefer to handle allocation
+      failures yourself, just assign to a nullable pointer type: <code>let
+      x: nullable *int = alloc(1234)</code>. If there isn't enough memory to
+      allocate the variable, it's set to null instead.
+      </p>
+- title: defer
+  sample: |
       TODO
   details: |
       TODO
