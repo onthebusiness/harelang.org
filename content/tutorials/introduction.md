@@ -992,9 +992,56 @@ sections:
 - section: Memory management
 - title: Pointers & null
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	let x: int = 1337;
+      	let y: *int = &x;
+      	fmt::printfln("x: {}; &x: {}; y: {}; *y: {}", x, &x, y, *y);
+      	*y = 42;
+      	fmt::printfln("x: {}; &x: {}; y: {}; *y: {}", x, &x, y, *y);
+      
+      	let z: nullable *int = null;
+      	fmt::printfln("z: {}", z);
+      
+      	// *z; // invalid!
+      
+      	z = &x;
+      	match (z) {
+      		null => fmt::println("z is null"),
+      		z: *int => fmt::printfln("z is {}", *z),
+      	};
+      };
   details: |
-      TODO
+      A pointer is a type which *references* another type. All variables in Hare
+      have an *address* in memory that they are stored at, and you can use the
+      `&` operator to obtain this address for an arbitrary variable &mdash;
+      giving you a pointer to that variable. In our sample code, "x" is an
+      `int`, and "y" is `*int` &mdash; a pointer to an int. By using `*y`, we
+      *dereference* the pointer to use the value from the address that the
+      pointer refers to.
+
+      Our first call to `fmt::printfln` *reads* the value. After this, we
+      *write* to that pointer using a similar syntax. The second `fmt::printfln`
+      shows that x has changed to reflect the assignment to `*y`.
+
+      You can also define a pointer which does not point to anything. Such a
+      pointer can poses the special `null` value. "z" is set to the `null`
+      value in our sample, but take note of the type: `nullable *int`. In Hare,
+      you can only set *nullable* pointer types to `null`, which causes some
+      additional constraints to apply.
+
+      Note that, further on in the sample, `*z` is commented out. You cannot
+      dereference a nullable pointer in Hare, because if a pointer is not valid,
+      it would cause undefined behavior. Instead, we have to use a `match`
+      statement to test if it's null, or valid, and handle each case
+      appropriately.
+
+      <p class="alert">
+      <strong>Note</strong>:
+      You can assign a non-nullable pointer to a nullable pointer &mdash; see
+      <code>z = &x</code> here &mdash; but you cannot do the reverse.
+      </p>
 - title: alloc & free
   sample: |
       TODO
