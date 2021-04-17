@@ -678,30 +678,39 @@ following guidelines provide such conventions for any programs which wish to be
 consistent with the rest of the Hare ecosystem in their approach to API
 documentation.
 
-1. Write programmer-facing documentation in English.
-1. Document all public (exported) members. Not documenting a member signals that
-   it is not meant to be used by third-party programs.
-1. If you can summarize an interface in one sentence, you may omit the period at
-   the end.  If you need several sentences, include a final period after the
-   last sentence. Regardless of the approach, be consistent with similar members
-   in the same context; if one enum value can be described in one sentence,
-   include the final period if the rest of the values use several sentences.
-1. Function documentation should complete the following thought: "This function
-   [does, will, is used to]...". Examples:
+All programmer-facing documentation should be written in English, and all public
+(exported) members should be documented. Not documenting an exported member
+signals that it is not designed to be used by third-party programs.
 
-   - "Insert a new entry into the list"
-   - "Parse the next record from the file"
-1. Type documentation should complete the following thought: "This type
-   is..." or "This type $verbs...". Examples:
+Your documentation should be as concise or as long as is necessary. Programmers
+reading the reference documentation are usually in a hurry, but they also
+appreciate comprehensive explanations. Aim to be as short as possible without
+omitting necessary details.
 
-   - "An error indicating that an invalid sequence was encountered"
-   - "Indicates that more data is required to finish processing"
-   - "Stores the state for an XML parser"
-1. Constant documentation should complete the following thought: "This constant
-   is..."
+If you can summarize an interface in one sentence, you may omit the period at
+the end. If you need several sentences, include a final period after the last
+sentence. Regardless of the approach, be consistent with similar members in the
+same context; if one enum value can be described in one sentence, include the
+final period if the rest of the values use several sentences.
 
-   - "The size, in bytes, of an MD5 digest"
-   - "The magic string identifying a PNG file"
+Function documentation should complete the following thought: "This function
+[does, will, is used to]...". Examples:
+
+- "Insert a new entry into the list"
+- "Parse the next record from the file"
+
+Type documentation should complete the following thought: "This type is..." or
+"This type $verbs...". Examples:
+
+- "An error indicating that an invalid sequence was encountered"
+- "Indicates that more data is required to finish processing"
+- "Stores the state for an XML parser"
+
+Constant documentation should complete the following thought: "This constant
+is..."
+
+- "The size, in bytes, of an MD5 digest"
+- "The magic string identifying a PNG file"
 
 ### Informal recommendations for errors
 
@@ -709,13 +718,13 @@ These recommendations cover programmer-facing errors. User-facing errors are
 addressed separately in [Internationalization recommendations for Hare
 programs](/i18n).
 
-1. Each module should provide an `error` type which is a tagged union of all
-   possible errors which might be returned by functions in that module, and an
-   `strerror` function which explains the error as a string.
-1. Write programmer-facing error messages in English. This includes the return
-   value from `strerror`, and also the error messages used in `abort` and
-   `assert` expressions.
-1. The return value of `strerror` should be written so that it makes sense when
-   passed to `fmt::fatal("Error: {}", example::strerror(err))`.
-1. Error messages should be written with "Sentence case" and should not end with
-   a period.
+Each module should provide an `error` type which is a tagged union of all
+possible errors which might be returned by functions in that module, and an
+`strerror` function which explains the error as a string. These strings should
+be written with "Sentence case" and should not end with a period. It should also
+be written so that it makes sense when passed to `fmt::fatal("Error: {}",
+example::strerror(err))`.
+
+Write programmer-facing error messages in English. This includes the return
+value from `strerror`, and also the error messages used in `abort` and `assert`
+expressions.
