@@ -2,19 +2,29 @@
 title: Hare Documentation
 ---
 
-## Manual pages
-
 Hare ships with man pages for its commands. Run `man hare` to get started.
+
+## Standard library reference documentation
+
+The reference documentation is available in your terminal (see haredoc(1) for
+details), or online:
+
+<a href="/tutorials/introduction" class="tutorial-link">Reference documentation</a>
 
 ## Language specification
 
-See [Specification](/specification).
+The language specification is available here:
+
+<a href="/tutorials/introduction" class="tutorial-link">Hare specification</a>
 
 ## Installation procedure
 
-See [Installation](/installation) for the installation procedure.
+The Hare installation procedure is provided here:
+
+<a href="/tutorials/introduction" class="tutorial-link">Installing Hare</a>
 
 ## Hare style guide
 
-See the [Hare style guide](/style) for details on the canonical Hare coding
-style.
+The style guide defines the canonical coding style for Hare programs:
+
+<a href="/tutorials/introduction" class="tutorial-link">Hare style guide</a>
