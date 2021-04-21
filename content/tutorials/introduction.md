@@ -804,8 +804,9 @@ sections:
       must be exhaustive &mdash; meaning every possible case is handled, or a
       default is present.
 
-      Another detail to be aware of: tagged unions are both *commutative* and
-      *reductive*. That means that the following types are equivalent:
+      Another detail to be aware of: tagged unions are *commutative*,
+      *associative*, and *reductive*. That means that the following types are
+      equivalent:
 
       - `(int | str)` and `(str | int)`
       - `(int | int | str | str)` and `(int | str)`
