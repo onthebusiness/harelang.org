@@ -9,22 +9,22 @@ Hare ships with man pages for its commands. Run `man hare` to get started.
 The reference documentation is available in your terminal (see haredoc(1) for
 details), or online:
 
-<a href="/tutorials/introduction" class="tutorial-link">Reference documentation</a>
+<a href="https://docs.harelang.org" class="tutorial-link">Reference documentation</a>
 
 ## Language specification
 
 The language specification is available here:
 
-<a href="/tutorials/introduction" class="tutorial-link">Hare specification</a>
+<a href="/specification" class="tutorial-link">Hare specification</a>
 
 ## Installation procedure
 
 The Hare installation procedure is provided here:
 
-<a href="/tutorials/introduction" class="tutorial-link">Installing Hare</a>
+<a href="/installation" class="tutorial-link">Installing Hare</a>
 
 ## Hare style guide
 
 The style guide defines the canonical coding style for Hare programs:
 
-<a href="/tutorials/introduction" class="tutorial-link">Hare style guide</a>
+<a href="/style" class="tutorial-link">Hare style guide</a>
