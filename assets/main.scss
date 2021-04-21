@@ -10,7 +10,7 @@ body {
 }
 
 nav:not(#TableOfContents) {
-  max-width: 1000px;
+  max-width: calc(800px + 128px * 2); // mascot.jpg
   margin: 1rem auto 0;
   display: grid;
   grid-template-rows: auto auto 1fr;
@@ -37,8 +37,12 @@ nav:not(#TableOfContents) {
     list-style: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
+
+    li {
+      padding-right: 1rem;
+    }
   }
 }
 
