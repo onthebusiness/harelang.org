@@ -369,7 +369,7 @@ sections:
       You can also use a *slicing expression* with `..` to create a slice from
       another array or slice object. This creates a new slice which represents a
       subset of the source object, such that `x[2..5]` will produce a new slice
-      whose 0th value is the 2nd value of `x`, and with a length of `5 - 3 = 2`.
+      whose 0th value is the 2nd value of `x`, and with a length of `5 - 2 = 3`.
 
       One last note: accesses to arrays and slices are *bounds checked*, which
       means that accessing a value beyond the end of their valid objects will
