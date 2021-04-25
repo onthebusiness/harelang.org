@@ -936,12 +936,13 @@ sections:
 
       The `errors` module in the standard library provides several stock error
       types (such as "invalid" or "access denied") to handle common situations.
-- title: Handling errors less gracefully (with assertions)
+- title: Handling errors less gracefully with assertions
   sample: |
       use fmt;
       
       export fn main() void = {
       	fmt::println(fact(10) as int)!;
+      	fmt::println(fact(10)!)!;
 
       	assert(fact(-10) is invalid);
       	static assert(2 == 2, "wut");
@@ -974,7 +975,8 @@ sections:
       of `fact(10)` is an `int`, and if so, proceed as if that were the case. If
       not, the program will come crashing to a halt, aborting the process and
       displaying an error message with the guilty file name and line number.
-      Change "10" to "-10" here to see this in action.
+      Change "10" to "-10" here to see this in action. The next line uses an
+      error assertion (`!`), which is shorthand for the same thing.
 
       The next line gives the more general form of an assertion. The first
       parameter should be a boolean, and if false, the program will abort in a
