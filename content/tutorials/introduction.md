@@ -1143,9 +1143,45 @@ sections:
       </p>
 - title: defer
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	let x: *int = alloc(1234);
+      	defer free(x);
+      
+      	for (let i = 0z; i < 10; i += 1) {
+      		defer fmt::printfln("x + i: {}", *x + i)!;
+      		if (i == 5) {
+      			continue;
+      		};
+      		fmt::printfln("iteration {}", i)!;
+      	};
+      
+      	defer if (*x == 1234) {
+      		fmt::println("x == 1234");
+      	};
+      };
   details: |
-      TODO
+      The `defer` keyword can be used to "defer" an expression to be processed
+      later. We see a good example of how this is useful in practice at the
+      start of our code sample: we can write the code which frees up our
+      allocation right next to the code that does the allocation in the first
+      place. This also lets us to free x only once &mdash; if we, for example,
+      used an early return here, any deferred expressions are executed before
+      returning.
+
+      Our for loop also demonstrates that deferred expressions are constrained
+      to a single scope. If you're used to using defer in Go, this is different
+      from what you already know. The "x + i" format string is printed at every
+      iteration of the loop, not at the end of the function. It's also printed
+      before the "continue" expression on `i == 5`. Any expression which
+      terminates the current scope causes defers to be executed.
+
+      Our last sample shows two things: that any kind of expression can be
+      deferred, and that defers execute in reverse order. The deferred
+      expression shown here uses `*x`, which would be invalid if x were already
+      freed. But because defers execute in reverse order, the deferred "free"
+      expression won't happen until later.
 - title: Slice allocation
   sample: |
       TODO
