@@ -1192,7 +1192,7 @@ sections:
       
       export fn main() void = {
       	let x: []int = [];
-        defer free(x);
+      	defer free(x);
 
       	append(x, 1, 3, 3, 7);
       	printslice(x);
