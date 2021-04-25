@@ -21,7 +21,7 @@ sections:
       use fmt;
       
       export fn main() void = {
-      	fmt::println("Hello world!");
+      	fmt::println("Hello world!")!;
       };
   details: |
       Start by setting up your local development environment according to the
@@ -48,16 +48,16 @@ sections:
       export fn main() void = {
       	// Define two variables, x and y
       	let x = 10, y = 20;
-      	fmt::printfln("{} + {} = {}", x, y, x + y);
+      	fmt::printfln("{} + {} = {}", x, y, x + y)!;
 
       	// Update their values
       	x = 30;
       	y = 40;
-      	fmt::printfln("{} + {} = {}", x, y, x + y);
+      	fmt::printfln("{} + {} = {}", x, y, x + y)!;
 
       	// Constant bindings cannot be assigned to after their declaration
       	const z = 50;
-      	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z);
+      	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z)!;
       };
   details: |
       Our tour of Hare will begin by explaining how Hare's type system works and
@@ -88,10 +88,10 @@ sections:
       
       export fn main() void = {
       	let x = 10, y = 20;
-      	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z);
+      	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z)!;
 
       	z += TWENTY;
-      	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z);
+      	fmt::printfln("{} + {} + {} = {}", x, y, z, x + y + z)!;
       };
   details: |
       We can also define "globals" and "constants", though globals should be
@@ -190,10 +190,10 @@ sections:
       	let japanese = "ハリエット";
       	let rn = '㌫';
 
-      	fmt::printfln("Hello, {}! Today's rune is {}.", username, rn);
-      	fmt::printfln("{}'s username is {} bytes.", username, len(username));
-      	fmt::printfln("{}'s username in Japanese is {}.", username, japanese);
-      	fmt::printfln("The length of \"{}\" is {}.", japanese, len(japanese));
+      	fmt::printfln("Hello, {}! Today's rune is {}.", username, rn)!;
+      	fmt::printfln("{}'s username is {} bytes.", username, len(username))!;
+      	fmt::printfln("{}'s username in Japanese is {}.", username, japanese)!;
+      	fmt::printfln("The length of \"{}\" is {}.", japanese, len(japanese))!;
       };
   details: |
       Hare has a **string** and **rune** type, which respectively stores a
@@ -225,7 +225,7 @@ sections:
         		y: int = 10,
         	};
         
-        	fmt::printfln("x: {}, y: {}", target.x, target.y);
+        	fmt::printfln("x: {}, y: {}", target.x, target.y)!;
         
         	// User-defined struct, can omit the types or re-order fields
         	let target = coordinates {
@@ -233,11 +233,11 @@ sections:
         		x = 20,
         	};
         
-        	fmt::printfln("x: {}, y: {}", target.x, target.y);
+        	fmt::printfln("x: {}, y: {}", target.x, target.y)!;
 
         	// User-defined structs can also be "auto-filled":
         	let target = coordinates { ... };
-        	fmt::printfln("x: {}, y: {}", target.x, target.y);
+        	fmt::printfln("x: {}, y: {}", target.x, target.y)!;
         };
         
         // User-defined type - more on these later
@@ -303,7 +303,7 @@ sections:
       	t.0; // str
       	t.1; // int
       	t.2; // int
-      	fmt::printfln("({}, {}, {})", t.0, t.1, t.2);
+      	fmt::printfln("({}, {}, {})", t.0, t.1, t.2)!;
       };
   details: |
       Think of tuples as structs with unnamed fields. These types are declared
@@ -338,11 +338,11 @@ sections:
       	let e: [4096]int = [1, 2, 3, 4...];
       
       	// Both arrays and slices are zero-indexed
-      	fmt::printfln("a[0]: {}, d[0]: {}", a[0], d[0]);
+      	fmt::printfln("a[0]: {}, d[0]: {}", a[0], d[0])!;
       
       	// An array always has a fixed length at compile time
       	// A slice has an arbitrary length defined at runtime
-      	fmt::printfln("len(a): {}, len(d): {}", len(a), len(d));
+      	fmt::printfln("len(a): {}, len(d): {}", len(a), len(d))!;
       
       	// You can use the slicing operator to get a slice for any array or
       	// slice type by specifying the start (inclusive) and end (exclusive):
@@ -522,15 +522,15 @@ sections:
       	let x = 1337;
       
       	if (x > 10) {
-      		fmt::println("x > 10");
+      		fmt::println("x > 10")!;
       	};
       
       	if (x < 10) {
-      		fmt::println("x < 10");
+      		fmt::println("x < 10")!;
       	} else if (x > 20) {
-      		fmt::println("x > 20");
+      		fmt::println("x > 20")!;
       	} else {
-      		fmt::println("10 < x < 20");
+      		fmt::println("10 < x < 20")!;
       	};
       
       	let y = if (x < 10) x else 20;
@@ -539,7 +539,7 @@ sections:
       		x += 10;
       		x;
       	} else {
-      		fmt::println("Expected x to be greater than 10");
+      		fmt::println("Expected x to be greater than 10")!;
       		abort();
       	};
       };
@@ -578,7 +578,7 @@ sections:
       	const input = [1, 3, 3, 7];
       	
       	for (let i = 0z; i < len(input); i += 1) {
-      		fmt::printfln("input[{}]: {}", i, input[i]);
+      		fmt::printfln("input[{}]: {}", i, input[i])!;
       	};
       
       	let i = 0z;
@@ -587,15 +587,15 @@ sections:
       			break;
       		};
       	};
-      	fmt::printfln("index of '3': {}", i);
+      	fmt::printfln("index of '3': {}", i)!;
       
       	for (true) {
-      		fmt::println("Hello world!");
+      		fmt::println("Hello world!")!;
       	};
       
       	:outer for (let i = 0z; i < 5; i += 1) {
       		:inner for (let j = 0z; j < 5; j += 1) {
-      			fmt::printfln("i: {}, j: {}", i, j);
+      			fmt::printfln("i: {}, j: {}", i, j)!;
       			if (j == 3) {
       				continue :outer;
       			};
@@ -643,10 +643,10 @@ sections:
       export fn main() void = {
       	let x = 10;
       	switch (x) {
-      		1 => fmt::println("one"),
-      		2 => fmt::println("many"),
-      		3 => fmt::println("lots"),
-      		* => fmt::println("too much"),
+      		1 => fmt::println("one")!,
+      		2 => fmt::println("many")!,
+      		3 => fmt::println("lots")!,
+      		* => fmt::println("too much")!,
       	};
       
       	let color = colors::RED;
@@ -658,7 +658,7 @@ sections:
       		colors::BLUE   => 5,
       		colors::VIOLET => 6,
       	};
-      	fmt::printfln("color number: {}", number);
+      	fmt::printfln("color number: {}", number)!;
       };
       
       type colors = enum {
@@ -695,7 +695,7 @@ sections:
       
       export fn main() void = {
       	say_hello();
-      	fmt::printfln("2 + 2 = {}", add(2, 2));
+      	fmt::printfln("2 + 2 = {}", add(2, 2))!;
       	greet_users("Jim", "Jane", "JimJane");
       
       	let users = ["Jim", "Jane", "JimJane"];
@@ -703,20 +703,20 @@ sections:
       };
       
       fn say_hello() void = {
-      	fmt::println("Hello!");
+      	fmt::println("Hello!")!;
       };
       
       fn add(x: int, y: int) int = x + y;
       
       fn greet_users(users: str...) void = {
-      	fmt::printf("Hello ");
+      	fmt::printf("Hello ")!;
       	for (let i = 0z; i < len(users); i += 1) {
       		fmt::printf("{}{}", users[i],
       			if (i + 2 < len(users)) ", " 
       			else if (i + 1 < len(users)) ", and "
-      			else "!");
+      			else "!")!;
       	};
-      	fmt::println();
+      	fmt::println()!;
       };
   details: |
       We've used a few functions so far &mdash; our sample code is in the `main`
@@ -741,9 +741,9 @@ sections:
       	let x = 20;
       	{
       		let x = 10;
-      		fmt::println(x); // 10
+      		fmt::println(x)!; // 10
       	};
-      	fmt::println(x); // 20
+      	fmt::println(x)!; // 20
       };
       ```
 
@@ -765,10 +765,10 @@ sections:
       	let x: (str | int | example | void) = "Hello!";
       
       	match (x) {
-      		s: str  => fmt::printfln("x is a str: {}", s),
-      		i: int  => fmt::printfln("x is an int: {}", i),
-      		example => fmt::printfln("x is example"),
-      		void    => fmt::printfln("x is void"),
+      		s: str  => fmt::printfln("x is a str: {}", s)!,
+      		i: int  => fmt::printfln("x is an int: {}", i)!,
+      		example => fmt::printfln("x is example")!,
+      		void    => fmt::printfln("x is void")!,
       	};
 
       	x = example;
@@ -778,7 +778,7 @@ sections:
       		example => -1,
       		*       => abort(),
       	};
-      	fmt::printfln("y is {}", y);
+      	fmt::printfln("y is {}", y)!;
       };
   details: |
       One of the most important features of Hare is **tagged unions**. These are
@@ -868,13 +868,13 @@ sections:
       
       export fn main() void = {
       	match (fact(10)) {
-      		invalid => fmt::println("Invalid factorial"),
-      		n: int  => fmt::printfln("n: {}", n),
+      		invalid => fmt::println("Invalid factorial")!,
+      		n: int  => fmt::printfln("n: {}", n)!,
       	};
       
       	match (fact(-10)) {
-      		invalid => fmt::println("Invalid factorial"),
-      		n: int  => fmt::printfln("n: {}", n),
+      		invalid => fmt::println("Invalid factorial")!,
+      		n: int  => fmt::printfln("n: {}", n)!,
       	};
       };
   details: |
@@ -896,7 +896,7 @@ sections:
       use fmt;
       
       export fn main() void = {
-      	fmt::println(fact(10) as int);
+      	fmt::println(fact(10) as int)!;
 
       	assert(fact(-10) is invalid);
       	static assert(2 == 2, "wut");
@@ -998,19 +998,19 @@ sections:
       export fn main() void = {
       	let x: int = 1337;
       	let y: *int = &x;
-      	fmt::printfln("x: {}; &x: {}; y: {}; *y: {}", x, &x, y, *y);
+      	fmt::printfln("x: {}; &x: {}; y: {}; *y: {}", x, &x, y, *y)!;
       	*y = 42;
-      	fmt::printfln("x: {}; &x: {}; y: {}; *y: {}", x, &x, y, *y);
+      	fmt::printfln("x: {}; &x: {}; y: {}; *y: {}", x, &x, y, *y)!;
       
       	let z: nullable *int = null;
-      	fmt::printfln("z: {}", z);
+      	fmt::printfln("z: {}", z)!;
       
       	// *z; // invalid!
       
       	z = &x;
       	match (z) {
-      		null => fmt::println("z is null"),
-      		z: *int => fmt::printfln("z is {}", *z),
+      		null => fmt::println("z is null")!,
+      		z: *int => fmt::printfln("z is {}", *z)!,
       	};
       };
   details: |
@@ -1059,9 +1059,9 @@ sections:
       		x = 42,
       		y = 24,
       	});
-      	fmt::printfln("coords: <{}, {}>", c.x, c.y);
+      	fmt::printfln("coords: <{}, {}>", c.x, c.y)!;
       	c.x += 10;
-      	fmt::printfln("coords: <{}, {}>", c.x, c.y);
+      	fmt::printfln("coords: <{}, {}>", c.x, c.y)!;
       	free(c);
       };
   details: |
