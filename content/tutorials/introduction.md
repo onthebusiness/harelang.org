@@ -41,6 +41,51 @@ sections:
       Hare programs use 8-column-wide tab characters for indentation. See the <a
       href="/style">style guide</a> for details, and consider installing an <a
       href="/editors">editor plugin</a>.
+- title: Hello world!
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	fmt::println("Hello world!")!;
+      };
+  details: |
+      Let's break down our "Hello world" program to give you a general feel for
+      how Hare works. We'll go into more detail as we go along.
+
+      At the start of our file, `use fmt` introduces a dependency on the
+      [fmt](https://docs.harelang.org/fmt) module from the standard library,
+      which is used for formatting text. We'll be using this module throughout
+      the tutorial to demonstrate Hare's features.
+
+      `export fn main() void` declares a function named "main". This function is
+      "exported" &mdash; visible to other modules &mdash; and it takes zero
+      parameters (the "()") and returns "void" &mdash; that is, it has no return
+      value at all. The "main" function is a special function which defines the
+      *entry point* of your program. Hare's startup code will pass control to
+      main after it finishes process initialization.
+
+      Following the function declaration, `= { ... }` provides the *body* of the
+      function, or the sequence of instructions that will be executed when the
+      function is *called*. We only have one:
+
+          fmt::println("Hello world!")!;
+
+      This calls the [println](https://docs.harelang.org/fmt#println) function,
+      which prints each of its arguments to the standard output. Note that each
+      statement in the function body ends with a semicolon. Another point of
+      note is the `!` operator: the error assertion operator.
+
+      Printing text can actually fail under the right conditions:
+
+          # Simulate an error:
+          $ hare run main.ha >/dev/full
+          Abort: Assertion failed: Error occured at main.ha:4:3
+
+      Hare programs are *required* to handle any errors that could occur.  Try
+      to remove the `!` operator: the compiler will complain. There are a few
+      ways of handling errors, but this is the simplest. `!` means "I think this
+      error can never happen, and if it does, I don't care". Though often
+      incorrect, this is enough to get the compiler to stop complaining.
 - title: Using variables
   sample: |
       use fmt;
