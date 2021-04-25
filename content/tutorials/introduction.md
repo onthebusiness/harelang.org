@@ -1192,6 +1192,8 @@ sections:
       
       export fn main() void = {
       	let x: []int = [];
+        defer free(x);
+
       	append(x, 1, 3, 3, 7);
       	printslice(x);
       
@@ -1222,11 +1224,13 @@ sections:
       with append, insert, and delete operations.
 
       You can allocate a new slice by just using `[]` &mdash; it will be
-      allocated the first time you append or insert values &mdash; or you can
-      use something like `let x: []int = alloc([1, 2, 3])`. We start by
-      appending several values to the slice using the `append` keyword, which
-      mutates the slice in-place. We also demonstrate a variadic append, which
-      can append the contents of another slice.
+      allocated the first time you append or insert values. Note that you can
+      safely free an empty slice. You can also allocate slices with something
+      like `let x: []int = alloc([1, 2, 3])`.
+
+      We'll start by appending several values to the slice using the `append`
+      keyword, which mutates the slice in-place. Also demonstrated is a variadic
+      append, which appends the contents of another slice.
 
       Insertion works by specifying the index that you want to insert at, and
       will insert new items *before* that index (so, to insert at the start, you
