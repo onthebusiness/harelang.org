@@ -1132,6 +1132,8 @@ sections:
       your computer is finite, and if you don't clean up after yourself, you'll
       eventually run out.
 
+      TODO: Mention using +debug to identify memory leaks
+
       <p class="alert">
       <strong>Note</strong>:
       If you run out of memory, Hare will <strong>abort</strong> your program to
@@ -1184,9 +1186,53 @@ sections:
       expression won't happen until later.
 - title: Slice allocation
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	let x: []int = [];
+      	append(x, 1, 3, 3, 7);
+      	printslice(x);
+      
+      	let y: [_]int = [6, 5, 5, 3, 6];
+      	append(x, y[..2]...);
+      	printslice(x);
+      
+      	insert(x[2], 2, 4);
+      	printslice(x);
+      
+      	delete(x[0]);
+      	printslice(x);
+      
+      	delete(x[..3]);
+      	printslice(x);
+      };
+      
+      fn printslice(x: []int) void = {
+      	fmt::println("contents of x:")!;
+      	for (let i = 0z; i < len(x); i += 1) {
+      		fmt::printfln("x[{}]: {}", i, x[i])!;
+      	};
+      };
   details: |
-      TODO
+      When we [introduced slices](#arrays-and-slices) earlier, we were working
+      with slices of arrays we had allocated on the stack. But, slices in Hare
+      can do more: we provide built-in functionality for heap-allocated slices
+      with append, insert, and delete operations.
+
+      You can allocate a new slice by just using `[]` &mdash; it will be
+      allocated the first time you append or insert values &mdash; or you can
+      use something like `let x: []int = alloc([1, 2, 3])`. We start by
+      appending several values to the slice using the `append` keyword, which
+      mutates the slice in-place. We also demonstrate a variadic append, which
+      can append the contents of another slice.
+
+      Insertion works by specifying the index that you want to insert at, and
+      will insert new items *before* that index (so, to insert at the start, you
+      could use `insert(x[0], ...)`.
+
+      You can delete either a specific item (first example), or a range of items
+      (second example), by respectively using an index or a slice as the first
+      parameter to `delete`.
 - title: Function pointers
   sample: |
       TODO
