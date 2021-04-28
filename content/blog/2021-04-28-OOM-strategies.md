@@ -73,7 +73,7 @@ let buf = match (buf) {
 // ...
 
 let x = buf[..0];
-if (len(x) + 2 >= len(buf)) {
+if (len(x) + 2 > len(buf)) {
     // Handle OOM
 };
 static append(x, 1337);
