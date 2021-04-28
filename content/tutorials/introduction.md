@@ -868,7 +868,7 @@ sections:
       
       export fn main() void = {
       	match (hello()) {
-      		err: io::error => fmt::fatal("Error: {}", io::errstr(err)),
+      		err: io::error => fmt::fatal("Error: {}", io::strerror(err)),
       		void => void,
       	};
       };
@@ -930,9 +930,9 @@ sections:
 
       A common convention in most libraries is to define a single `error` type,
       which is a tagged union of all possible errors that could be returned by
-      that module, and an `errstr` function, which converts any error to a
+      that module, and an `strerror` function, which converts any error to a
       human-readable representation. We saw this in the previous example with
-      the `io::error` type and the `io::errstr` function.
+      the `io::error` type and the `io::strerror` function.
 
       The `errors` module in the standard library provides several stock error
       types (such as "invalid" or "access denied") to handle common situations.
