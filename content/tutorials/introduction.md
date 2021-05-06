@@ -930,7 +930,7 @@ sections:
 
       A common convention in most libraries is to define a single `error` type,
       which is a tagged union of all possible errors that could be returned by
-      that module, and an `strerror` function, which converts any error to a
+      that module, and a `strerror` function, which converts any error to a
       human-readable representation. We saw this in the previous example with
       the `io::error` type and the `io::strerror` function.
 
