@@ -26,6 +26,6 @@ compilers to [hare-dev][hare-dev], or [browse the archives][hare-dev-archive].
 
 ### Real-time chat
 
-We meet on IRC at [#hare on irc.freenode.net][#hare].
+We meet on IRC at [#hare on irc.libera.chat][#hare].
 
-[#hare]: http://webchat.freenode.net/?channels=%23hare&uio=d4
+[#hare]: irc://irc.libera.chat/#hare
