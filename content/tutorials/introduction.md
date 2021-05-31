@@ -1287,8 +1287,8 @@ resources](/community):
 
 - The [hare-users](https://lists.sr.ht/~sircmpwn/hare-users) mailing list is a
   great place to ask questions
-- The [#hare](http://webchat.freenode.net/?channels=%23hare&uio=d4) chat room on
-  irc.freenode.net is a good place for IRC users to idle
+- The [#hare](https://web.libera.chat/#hare) chat room on irc.libera.chat is a
+  good place for IRC users to idle
 - The [stdlib documentation](#TODO) can fill you in on a lot of details about
   the APIs we saw here and others you encounter on your journey
 
