@@ -660,12 +660,13 @@ sections:
       afterthought is run after the body completes, and the body is the actual
       code which is repeatedly run.
 
-      You can omit some of these to create different sorts of loops. The
-      permissible combinations are:
+      You can omit anything but the condition to create different sorts of
+      loops. The permissible combinations are:
 
       <pre>
       for (<em>binding</em>; <em>condition</em>; <em>afterthought</em>) <em>body</em>;
       for (<em>condition</em>; <em>afterthought</em>) <em>body</em>;
+      for (<em>binding</em>; <em>condition</em>) <em>body</em>;
       for (<em>condition</em>) <em>body</em>;
       </pre>
 
