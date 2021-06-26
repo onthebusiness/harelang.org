@@ -924,7 +924,7 @@ sections:
       	};
       };
   details: |
-      Any type can be an error type by simply adding the "!" suffix to its
+      Any type can be an error type by simply adding the "!" prefix to its
       declaration, such as the `invalid` type in the sample code. This allows it
       to be used with the error propagation operator, `?`, but does not do
       anything else.
@@ -949,7 +949,7 @@ sections:
       	static assert(2 == 2, "wut");
       };
       
-      type invalid = void!;
+      type invalid = !void;
       
       fn fact(n: int) (int | invalid) = {
       	if (n < 0) {
@@ -1000,7 +1000,7 @@ sections:
       end-users.
 - title: Testing your code
   sample: |
-      type invalid = void!;
+      type invalid = !void;
       
       fn fact(n: int) (int | invalid) = {
       	if (n < 0) {
