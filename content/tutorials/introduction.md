@@ -1396,15 +1396,46 @@ sections:
 - section: Modules
 - title: Using several files
   sample: |
-      TODO
+      // If we have a directory with "main.ha" and "hello.ha", they are built
+      // into a single module, and can share each other's symbols:
+      $ cat main.ha
+      export fn main() void = hello();
+
+      $ cat hello.ha
+      use io;
+      
+      fn hello() void = io::println("Hello!");
+
+      // The current working directory is assumed if omitted:
+      $ hare run
+      Hello!
+
+      // But we can also run a program from an arbitrary directory:
+      $ mkdir hello
+      $ mv *.ha hello
+      $ hare run hello
+      Hello!
   details: |
-      TODO
+      When we run `hare run main.ha`, we're telling Hare that "main.ha" is our
+      root module. The "root module" is where our main function, and is just the
+      name for the module which does not have a namespace. We can pass either a
+      file, like this, or a directory &mdash; like "cmd/cat/" or ".". The
+      latter, referring to the current directory, is implied if you just use
+      `hare build` or `hare run`.
+
+      When you use the path to a directory, rather than a file, Hare will scan
+      that directory and include any Hare source files (and assembly files, see
+      the `hare(1)` man page for details) in the build. Those files use a shared
+      namespace, and can reference each other's types, functions, constants, and
+      globals. However, each file has a separate *import* namespace, so if you
+      `use fmt` in `./a.ha`, you can't use `fmt` in `./b.ha` without also
+      importing it there.
 - title: Organizing code into modules
   sample: |
       TODO
   details: |
       TODO
-- title: Using the stdlib and third-party modules
+- title: External variables and conditional compilation
   sample: |
       TODO
   details: |
