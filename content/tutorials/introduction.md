@@ -1327,7 +1327,7 @@ sections:
       explicit suffix to declare a constant with a specific type, like the "b"
       binding uses with `42u8`. If this ever fails to make sense (for example,
       `let x: u8 = -10` (sign change), or `let x: u8 = 1337` (insufficient
-      precision)), the compiler will let you know.
+      precision), the compiler will let you know.
 
       Hare has strict guidelines regarding *type promotion*: see the "OK" and
       "NOT OK" comments in the sample code. You can sometimes "promote" one type
