@@ -1425,7 +1425,7 @@ sections:
 
       When you use the path to a directory, rather than a file, Hare will scan
       that directory and include any Hare source files (and assembly files, see
-      the `hare(1)` man page for details) in the build. Those files use a shared
+      the hare(1) man page for details) in the build. Those files use a shared
       namespace, and can reference each other's types, functions, constants, and
       globals. However, each file has a separate *import* namespace, so if you
       `use fmt` in `./a.ha`, you can't use `fmt` in `./b.ha` without also
