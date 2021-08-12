@@ -1489,9 +1489,56 @@ sections:
       same MPL license.
 - title: External variables and conditional compilation
   sample: |
-      TODO
+      $ ls
+      main.ha  version+linux.ha  version.ha
+      $ cat version.ha 
+      export fn os_version() void = abort("Unsupported platform");
+
+      $ cat version+linux.ha
+      use io;
+      use os;
+      
+      // This function is Linux-specific
+      fn os_version() void = {
+      	let file = os::open("/proc/version")!;
+      	defer io::close(file);
+      	io::copy(os::stdout, file)!;
+      };
+
+      $ cat main.ha
+      use fmt;
+      
+      export fn main() void = {
+      	fmt::printfln("Program version: {}", VERSION)!;
+      	fmt::print("Kernel version: ")!;
+      	os_version();
+      };
+      
+      $ hare run -DVERSION:str='"1.0.0"'
+      Program version: 1.0.0
+      Kernel version: Linux version 5.10.57-0-lts...
   details: |
-      TODO
+      It is often desirable to change your program configuration based on
+      external factors, such as the target platform.
+
+      In our sample, we have a function called "os_version" which depends on the
+      platform the program is built on. We provide a general version which just
+      aborts with an "Unsupported platform" error, but we can override this by
+      providing a file with the same name, plus "+linux", to provide a
+      Linux-specific implementation. We can also write a file for everything
+      *except* Linux by naming it "filename<strong>-linux</strong>.ha".
+
+      Hare provides some of these "build tags" by default: run `hare version -v`
+      to see them. On my system, I have +x86_64 (for the CPU architecture), and
+      +linux (for the host operating system). You can also define more of your
+      own by passing the -T flag to hare, for instance using "hare build -T
+      +example" to enable an optional feature.
+
+      The -D flag is also often useful, as shown in our sample. It allows you to
+      define a constant value by the command line, which appears to your Hare
+      program in the appropriate namespace. The syntax is
+      "-D<em>name</em>:<em>type</em>=<em>initializer</em>. Bear in mind that,
+      like in the example shown, you may have to deal with shell quoting issues.
 ---
 
 And that's the Hare programming language! Nice work getting through all of
