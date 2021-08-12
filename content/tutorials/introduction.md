@@ -1051,8 +1051,7 @@ sections:
       <strong>Note</strong>:
       See how the test function is named "fact"? Normally this would clash with
       the function that it's testing. @test functions are not required to have
-      unique names. The same is true for @init and @fini functions, which are
-      addressed later.
+      unique names.
       </p>
 - section: Memory management
 - title: Pointers & null
