@@ -1294,6 +1294,9 @@ sections:
       	a + b; // OK!
       	b + c; // NOT OK!
       	c + d; // NOT OK!
+
+      	let t: (int | uint) = 1337u;
+      	let i: (int | uint | void) = t; // i can store any subtype of t
       };
   details: |
       The type of a constant like "10" (see the initializer for x) is inferred
@@ -1323,21 +1326,50 @@ sections:
       	let u = x: u32: u16; // Multiple lossy steps requires multiple casts
       };
   details: |
+      The syntax for a cast is <code><em>expression</em><strong>:</strong> <em>type</em></code>,
+      where *expression* is the expression you wish to cast and *type* is the
+      desired type.
+
       While Hare will refuse to *implicitly* do any kind of conversion which
       might result in precision loss, you can *explicitly* tell it to do so if
-      you know that the loss will not occur (or is acceptable), by using a
+      you know that the loss will not occur (or is acceptable), by using such a
       *cast*. This allows you to convert between signed and unsigned formats,
       between integer and floating point types, between enums and integers, and
       so on. Some useful examples are shown in the code sample.
 
-      The syntax for a cast is <code><em>expression</em><strong>:</strong> <em>type</em></code>,
-      where *expression* is the expression you wish to cast and *type* is the
-      desired type.
+      This feature requires some forethought, because it can cause information
+      to be lost. For example, `1337: u8` will produce the value 57, because u8
+      lacks the necessary precision to represent such a large number. `-4: u16`
+      produces 65532, because the sign bit is interpreted as a part of the
+      number when converted to an unsigned type. As you can imagine, careless
+      use of casts can lead to some bugs, but these kinds of casts are
+      relatively safe.
 - title: Dangerous casts
   sample: |
-      TODO
+      // No sample provided for this section
   details: |
-      TODO
+      Other kinds of casts are generally less safe, however: those which can
+      cause Hare to reinterpret the same data as if it were a different type. In
+      a systems programming context, this behavior is sometimes required, and as
+      a systems programming langauge, Hare provides a means to do so. However,
+      this is considered deep magic, and some kinds of casts should be used only
+      be the experienced programmer, equipped with a full understanding of why
+      such a cast is called for and the risks of doing so incorrectly.
+
+      The `uintptr` type is an integer type which can be cast to and from a
+      pointer type losslessly, but any arithmetic which uses it will have
+      implementation-defined results. Any pointer types are also mutually
+      castable, which can allow you to treat the object it refers to as if it
+      were a different type. You can also use casts to shake off the `nullable`
+      attribute, or to convert a bounded array into an unbounded array (and
+      vice-versa). You may also cast a tagged union to any of its constituent
+      types without checking that it's actually storing a value of that type.
+
+      These kinds of casts can allow you to break the language invariants that
+      other code may rely upon, and should be used with the appropriate care and
+      scrutiny. Incorrect use of casts can lead to segfaults and undefined
+      behavior. The compiler disregards its best judgement and trusts you
+      unconditionally when using casts.
 - title: Type assertions
   sample: |
       TODO
