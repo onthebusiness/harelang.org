@@ -1,8 +1,5 @@
 ---
 # vim: ts=2 sw=2 et :
-# TODO:
-# - Add table of contents
-# - Organize into a sections & subsections rather than flat structure
 title: An introduction to the Hare programming language
 type: codetutorials
 summary: |
@@ -201,9 +198,19 @@ sections:
       necessary to represent the maximum object size. The details of why these
       are important are not necessary to understand right now.
 
-      Hare also supports the floating-point **f32** and **f64** types, which are
-      respectively 32-bit and 64-bit IEEE-compatible binary floating point
-      types.
+      Beyond integers, Hare also supports the floating-point **f32** and **f64**
+      types, which are respectively compatible with 32-bit and 64-bit
+      IEEE-compatible binary floating point numbers.
+
+      <p class="alert"><strong>Note</strong>: 
+      If you are not already familiar with binary floating point arithmetic, you
+      may be surprised when arithmetic using f32 and f64 types gives unexpected
+      results. Programmers unfamiliar with the subject are encouraged to read
+      the <a
+        href="https://en.wikipedia.org/wiki/Floating-point_arithmetic"
+      >Wikipedia page on Floating-point arithmetic</a>
+      to better understand the theory and tradeoffs.
+      </p>
 
       All of the usual arithmetic operators are supported, with a similar
       precedence to C, with the exception of changes to the precedence of binary
