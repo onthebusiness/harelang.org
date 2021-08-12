@@ -1315,10 +1315,30 @@ sections:
       regard.
 - title: Useful casts
   sample: |
+      export fn main() void = {
+      	let x: i32 = 10;
+      	let y = x: i16;	// Requires cast if large values may be truncated
+      	let z = x: f32; // Requires cast to change format
+      	let q = x: u32; // Requires cast to change sign
+      	let u = x: u32: u16; // Multiple lossy steps requires multiple casts
+      };
+  details: |
+      While Hare will refuse to *implicitly* do any kind of conversion which
+      might result in precision loss, you can *explicitly* tell it to do so if
+      you know that the loss will not occur (or is acceptable), by using a
+      *cast*. This allows you to convert between signed and unsigned formats,
+      between integer and floating point types, between enums and integers, and
+      so on. Some useful examples are shown in the code sample.
+
+      The syntax for a cast is <code><em>expression</em><strong>:</strong> <em>type</em></code>,
+      where *expression* is the expression you wish to cast and *type* is the
+      desired type.
+- title: Dangerous casts
+  sample: |
       TODO
   details: |
       TODO
-- title: Dangerous casts
+- title: Type assertions
   sample: |
       TODO
   details: |
