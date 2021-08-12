@@ -1249,10 +1249,44 @@ sections:
       parameter to `delete`.
 - title: Function pointers
   sample: |
-      TODO
+    use fmt;
+    use os;
+    use strconv;
+    
+    fn add(x: int, y: int) int = x + y;
+    fn sub(x: int, y: int) int = x - y;
+    
+    export fn main() void = {
+    	if (len(os::args) < 4) {
+    		fmt::fatal("Usage: {} <add|sub> <x> <y>", os::args[0]);
+    	};
+    	let x = strconv::stoi(os::args[2])!;
+    	let y = strconv::stoi(os::args[3])!;
+    
+    	let func: *fn(_: int, _: int) int = switch (os::args[1]) {
+    		"add" => &add,
+    		"sub" => &sub,
+    	};
+    
+    	fmt::println(func(x, y))!;
+    };
   details: |
-      TODO
+    Here we have a slightly more complex program to demonstrate the use of
+    function pointers. A function pointer type is defined similarly to a
+    function signature without the name, like so:
 
+    ```hare
+    let x: *fn(params...) type = // ...
+    ```
+
+    You may call a variable which has a function pointer type in the same manner
+    as you call any other function.
+
+    In our sample code, we've prepared an add function and a subtract function,
+    which take the same parameters and return the same result type, but which
+    perform different operations. Based on the user's input (via the command
+    line arguments), we choose add or sub and assign them to a function pointer
+    named "func", which we call later to perform the user's selected operation.
 - section: Casts & value conversions
 - title: Type promotion
   sample: |
