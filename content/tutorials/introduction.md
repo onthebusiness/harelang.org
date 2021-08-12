@@ -856,6 +856,28 @@ sections:
       tagged unions can distinguish between them. In the sample code, the
       `example` type is an alias for `void`, but the tagged union can
       distinguish it from `void`.
+- title: Type assertions
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	let x: (int | uint) = 1337u;
+      	fmt::printfln("x is uint: {}", x is uint);
+      	fmt::printfln("x as uint: {}", x as uint);
+      };
+  details: |
+      Type assertions allow you to "assert" the value of a tagged union is of a
+      certain type, via the `as` operator, or to simply test for a certain type,
+      via the `is` operator.
+
+      The `as` operator will allow you to treat a tagged union as one of its
+      member types without explicitly testing to make sure it's valid first.
+      Hare will check the tag to make sure your assumption holds up, and will
+      terminate the program if the assumption was wrong. Try taking the "u"
+      off of "1337u" in this sample to see this effect in action.
+
+      The `is` operator just checks the tag and returns a boolean, true or
+      false, which states whether or not the tag is selected for the given type.
 - title: Gracefully handling errors
   sample: |
       use fmt;
@@ -1370,11 +1392,6 @@ sections:
       scrutiny. Incorrect use of casts can lead to segfaults and undefined
       behavior. The compiler disregards its best judgement and trusts you
       unconditionally when using casts.
-- title: Type assertions
-  sample: |
-      TODO
-  details: |
-      TODO
 
 - section: Modules
 - title: Using several files
