@@ -1432,9 +1432,61 @@ sections:
       importing it there.
 - title: Organizing code into modules
   sample: |
-      TODO
+      $ ls
+      greetings  main.ha
+      $ cat main.ha 
+      use greetings;
+      
+      export fn main() void = {
+      	greetings::hello();
+      	greetings::goodbye();
+      };
+
+      $ ls greetings/
+      common.ha  goodbye.ha  hello.ha
+      $ cat greetings/common.ha 
+      use io;
+      
+      fn say(what: str) void = io::println(what);
+
+      $ cat greetings/hello.ha 
+      // Prints "Hello!" to the standard output.
+      export fn hello() void = say("Hello!");
+
+      $ cat greetings/goodbye.ha 
+      // Prints "Goodbye!" to the standard output.
+      export fn goodbye() void = say("Goodbye.");
+
+      $ hare run
+      Hello!
+      Goodbye.
   details: |
-      TODO
+      We can also organize our code into several modules of our own. Each time a
+      sample has included a line like `use fmt`, it is *importing* the fmt
+      module into the current namespace.
+
+      We can define our own modules as well, simply by making a new directory at
+      the appropriate path. `use foo::bar::baz` will look at `foo/bar/baz/`, and
+      compile any Hare files there, and make their *exported* symbols available
+      in the current namespace under `baz::*`. In our example, we put a few
+      functions into a directory called "greetings", and then exported the
+      "hello" and "goodbye" functions for use in our main module. Note that we
+      did not export the "say" function, so `main.ha` cannot use
+      "greetings::say" to print arbitrary greetings.
+
+      Hare actually searches through several paths to find modules, including
+      the standard library. On most Unix systems, the standard library is
+      installed at `/usr/share/src/hare/stdlib`, so "fmt" is found at
+      `/usr/share/src/hare/stdlib/fmt`. You are encouraged to read the standard
+      library code in the course of your learning and debugging.
+
+      You can also "shadow" the standard library by providing a directory named
+      after one of the standard modules in a path of higher precedence, such as
+      the current directory. The standard library uses the Mozilla Public
+      License, so you can even copy our modules from the standard path and into
+      your project, then make any changes you need, and use the updated version
+      in your program &mdash; so long as you publish the modified files with the
+      same MPL license.
 - title: External variables and conditional compilation
   sample: |
       TODO
