@@ -1275,6 +1275,7 @@ sections:
       	let func: *fn(_: int, _: int) int = switch (os::args[1]) {
       		"add" => &add,
       		"sub" => &sub,
+      		* => fmt::fatal("Usage: {} <add|sub> <x> <y>", os::args[0]),
       	};
       
       	fmt::println(func(x, y))!;
