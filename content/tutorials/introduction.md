@@ -163,10 +163,6 @@ sections:
       	let c: i8 = -42;
       	let d = 13.37;
       
-      	a + b; // OK!
-      	b + c; // NOT OK!
-      	c + d; // NOT OK!
-      
       	// Some arithmetic operations
       	2 + 2;
       	2 / 4;
@@ -216,15 +212,6 @@ sections:
       precedence to C, with the exception of changes to the precedence of binary
       and logical arithmetic operators (if you don't know what that means, don't
       worry about it).
-
-      Hare has strict guidelines regarding *type promotion*: see the "OK" and
-      "NOT OK" comments in the sample code. You can sometimes "promote" one type
-      to another in an expression, causing the value of lesser precision to
-      promote to one of higher precision. The "OK" example causes "b" to be
-      promoted from u8 to size, and the result of the operation is size. As a
-      rule of thumb, you can only promote mutual integer types of the same
-      signedness, and floating types can only promote to other floating types.
-      The compiler will let you know if you make any mistakes in this regard.
 
       Constants like "1234" are a little bit more flexible. A number typed out
       literally in the source code will infer its type from its surroundings, if
@@ -1249,50 +1236,83 @@ sections:
       parameter to `delete`.
 - title: Function pointers
   sample: |
-    use fmt;
-    use os;
-    use strconv;
-    
-    fn add(x: int, y: int) int = x + y;
-    fn sub(x: int, y: int) int = x - y;
-    
-    export fn main() void = {
-    	if (len(os::args) < 4) {
-    		fmt::fatal("Usage: {} <add|sub> <x> <y>", os::args[0]);
-    	};
-    	let x = strconv::stoi(os::args[2])!;
-    	let y = strconv::stoi(os::args[3])!;
-    
-    	let func: *fn(_: int, _: int) int = switch (os::args[1]) {
-    		"add" => &add,
-    		"sub" => &sub,
-    	};
-    
-    	fmt::println(func(x, y))!;
-    };
+      use fmt;
+      use os;
+      use strconv;
+      
+      fn add(x: int, y: int) int = x + y;
+      fn sub(x: int, y: int) int = x - y;
+      
+      export fn main() void = {
+      	if (len(os::args) < 4) {
+      		fmt::fatal("Usage: {} <add|sub> <x> <y>", os::args[0]);
+      	};
+      	let x = strconv::stoi(os::args[2])!;
+      	let y = strconv::stoi(os::args[3])!;
+      
+      	let func: *fn(_: int, _: int) int = switch (os::args[1]) {
+      		"add" => &add,
+      		"sub" => &sub,
+      	};
+      
+      	fmt::println(func(x, y))!;
+      };
   details: |
-    Here we have a slightly more complex program to demonstrate the use of
-    function pointers. A function pointer type is defined similarly to a
-    function signature without the name, like so:
-
-    ```hare
-    let x: *fn(params...) type = // ...
-    ```
-
-    You may call a variable which has a function pointer type in the same manner
-    as you call any other function.
-
-    In our sample code, we've prepared an add function and a subtract function,
-    which take the same parameters and return the same result type, but which
-    perform different operations. Based on the user's input (via the command
-    line arguments), we choose add or sub and assign them to a function pointer
-    named "func", which we call later to perform the user's selected operation.
+      Here we have a slightly more complex program to demonstrate the use of
+      function pointers. A function pointer type is defined similarly to a
+      function signature without the name, like so:
+  
+      ```hare
+      let x: *fn(params...) type = // ...
+      ```
+  
+      You may call a variable which has a function pointer type in the same
+      manner as you call any other function.
+  
+      In our sample code, we've prepared an add function and a subtract
+      function, which take the same parameters and return the same result type,
+      but which perform different operations. Based on the user's input (via the
+      command line arguments), we choose add or sub and assign them to a
+      function pointer named "func", which we call later to perform the user's
+      selected operation.
 - section: Casts & value conversions
-- title: Type promotion
+- title: Type promotion & inference
   sample: |
-      TODO
+      export fn main() void = {
+      	// Implicit conversions
+      	let x: i32 = 10;	// Inferred precision
+      	let y: i64 = x;		// OK: No precision loss
+      	let z: i16 = x;		// NOT OK: Precision loss
+      	let q: u32 = x;		// NOT OK: Sign change
+      
+      	// Type promotion
+      	let a: size = 1337z;
+      	let b: u8 = 42u8;
+      	let c: i8 = -42;
+      	let d = 13.37;		// f64 by default
+      
+      	a + b; // OK!
+      	b + c; // NOT OK!
+      	c + d; // NOT OK!
+      };
   details: |
-      TODO
+      The type of a constant like "10" (see the initializer for x) is inferred
+      from context if possible. If we didn't specify a type for x in the binding
+      (i.e. `let x = 10`), it would default to `int`. You can also use an
+      explicit suffix to declare a constant with a specific type, like the "b"
+      binding uses with `42u8`. If this ever fails to make sense (for example,
+      `let x: u8 = -10` (sign change), or `let x: u8 = 1337` (insufficient
+      precision)), the compiler will let you know.
+
+      Hare has strict guidelines regarding *type promotion*: see the "OK" and
+      "NOT OK" comments in the sample code. You can sometimes "promote" one type
+      to another in an expression, causing the value of lesser precision to
+      promote to one of higher precision. The "OK" example causes "b" to be
+      promoted from u8 to size, and the result of the operation is size. As a
+      rule of thumb, you can only promote mutual integer types of the same
+      signedness, and floating types can only promote to other floating types.
+      Again, the compiler will let you know if you make any mistakes in this
+      regard.
 - title: Useful casts
   sample: |
       TODO
