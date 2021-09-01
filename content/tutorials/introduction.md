@@ -793,6 +793,54 @@ sections:
       slice, in this case `[]str`. We can also pass a slice to this function as
       if we had passed its values as multiple arguments &mdash; see the second
       call to `greet_users` in main.
+- title: Yield
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	let x = 10;
+      	let y = switch (x) {
+      		1 => "one",
+      		2 => "two",
+      		3 => "three",
+      		4 => "four",
+      		5 => "five",
+      		* => {
+      			fmt::printfln("Other number: {}", x)!;
+      			yield "(other)";
+      		},
+      	};
+      	fmt::printfln("y = {}", y)!; // y = (other)
+      };
+  details: |
+      Compound expressions, which use `{ ... }` to execute several expressions
+      in a sequence, do not have a result (or rather, their result is `void`).
+      However, it is possible to make them produce a result using the `yield`
+      keyword. This is useful, for example, if the initialization of a variable
+      requires complex logic, or when combining compound expressions with
+      branching expressions like "switch" or "if".
+
+      In this example, the "y" variable is equal to `"(other)"`, and
+      "Other number: 10" is printed. Without `yield`, this code couldn't be
+      implemented as a single expression.
+
+      It is also possible to specify which compund expression to yield from
+      using labels:
+
+      ```hare
+      export fn main() void = {
+      	let x = :outer {
+      		let y = :inner {
+      			yield :outer, 12;
+      		};
+      		// Unreachable
+      	};
+      	fmt::println(x)!; // 12
+      };
+      ```
+
+      If you ever find yourself using yield with a label, you should consider
+      refactoring your code first.
 
 - section: Tagged union types
 - title: Tagged unions & match statements
