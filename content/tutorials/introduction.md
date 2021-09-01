@@ -632,8 +632,8 @@ sections:
       		fmt::println("Hello world!")!;
       	};
       
-      	:outer for (let i = 0z; i < 5; i += 1) {
-      		:inner for (let j = 0z; j < 5; j += 1) {
+      	for (let i = 0z; i < 5; i += 1) :outer {
+      		for (let j = 0z; j < 5; j += 1) :inner {
       			fmt::printfln("i: {}, j: {}", i, j)!;
       			if (j == 3) {
       				continue :outer;
@@ -772,9 +772,9 @@ sections:
       type **int**, and returns an **int**. It also has a different style of
       *function body*: its body is simply an addition expression. This is not
       actually a special syntax for functions! All of the functions we've seen
-      so far have set their body to an "expression list", which is itself a kind
-      of expression. You can actually use these anywhere! Each one has its own
-      *scope*.
+      so far have set their body to a "compound expression", which is itself a
+      kind of expression. You can actually use these anywhere! Each one has its
+      own *scope*.
 
       ```hare
       export fn main() void = {
