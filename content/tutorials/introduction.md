@@ -350,7 +350,7 @@ sections:
       store: `(str, int, int)` stores a string and two integers. The desired
       value can be obtained with the `.` operator and the index: `x.0` gets the
       first value, `x.1` the second, and so on. This cannot be a variable - only
-      constant, positive integers can be used here.
+      constant, non-negative integers can be used here.
 
       Tuple *values* are written with parenthesis as well:
 
