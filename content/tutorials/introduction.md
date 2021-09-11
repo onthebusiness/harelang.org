@@ -962,7 +962,7 @@ sections:
   sample: |
       use fmt;
       
-      type invalid = void!;
+      type invalid = !void;
       
       fn fact(n: int) (int | invalid) = {
       	if (n < 0) {
