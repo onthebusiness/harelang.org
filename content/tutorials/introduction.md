@@ -1050,7 +1050,7 @@ sections:
       another kind of assertion: the static assertion. Unlike the other two,
       which are computed at runtime, a static assertion is verified at
       compile-time, and will cause your program to fail to compile if not
-      upheld. This example is somehwat trite, but there are more legitimate
+      upheld. This example is somewhat trite, but there are more legitimate
       uses. For instance:
 
       ```hare
