@@ -576,7 +576,7 @@ sections:
       
       	let z = if (x > 10) {
       		x += 10;
-      		x;
+      		yield x;
       	} else {
       		fmt::println("Expected x to be greater than 10")!;
       		abort();
