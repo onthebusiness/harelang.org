@@ -683,20 +683,30 @@ sections:
       export fn main() void = {
       	let x = 10;
       	switch (x) {
-      		1 => fmt::println("one")!,
-      		2 => fmt::println("many")!,
-      		3 => fmt::println("lots")!,
-      		* => fmt::println("too much")!,
+      	case 1 =>
+      		fmt::println("one")!;
+      	case 2 =>
+      		fmt::println("many")!;
+      	case 3 =>
+      		fmt::println("lots")!;
+      	case =>
+      		fmt::println("too much")!;
       	};
       
       	let color = colors::RED;
-      	let number = switch (x) {
-      		colors::RED    => 1,
-      		colors::ORANGE => 2,
-      		colors::YELLOW => 3,
-      		colors::GREEN  => abort("green is not a creative color"),
-      		colors::BLUE   => 5,
-      		colors::VIOLET => 6,
+      	let number = switch (color) {
+      	case colors::RED =>
+      		yield 1;
+      	case colors::ORANGE =>
+      		yield 2;
+      	case colors::YELLOW =>
+      		yield 3;
+      	case colors::GREEN =>
+      		abort("green is not a creative color");
+      	case colors::BLUE =>
+      		yield 5;
+      	case colors::VIOLET =>
+      		yield 6;
       	};
       	fmt::printfln("color number: {}", number)!;
       };
@@ -800,15 +810,19 @@ sections:
       export fn main() void = {
       	let x = 10;
       	let y = switch (x) {
-      		1 => "one",
-      		2 => "two",
-      		3 => "three",
-      		4 => "four",
-      		5 => "five",
-      		* => {
-      			fmt::printfln("Other number: {}", x)!;
-      			yield "(other)";
-      		},
+      	case 1 =>
+      		yield "one";
+      	case 2 =>
+      		yield "two";
+      	case 3 =>
+      		yield "three";
+      	case 4 =>
+      		yield "four";
+      	case 5 =>
+      		yield "five";
+      	case =>
+      		fmt::printfln("Other number: {}", x)!;
+      		yield "(other)";
       	};
       	fmt::printfln("y = {}", y)!; // y = (other)
       };
@@ -853,18 +867,25 @@ sections:
       	let x: (str | int | example | void) = "Hello!";
       
       	match (x) {
-      		s: str  => fmt::printfln("x is a str: {}", s)!,
-      		i: int  => fmt::printfln("x is an int: {}", i)!,
-      		example => fmt::printfln("x is example")!,
-      		void    => fmt::printfln("x is void")!,
+      	case s: str =>
+      		fmt::printfln("x is a str: {}", s)!;
+      	case i: int =>
+      		fmt::printfln("x is an int: {}", i)!;
+      	case example =>
+      		fmt::printfln("x is example")!;
+      	case void =>
+      		fmt::printfln("x is void")!;
       	};
 
       	x = example;
       
       	let y: int = match (x) {
-      		i: int  => i,
-      		example => -1,
-      		*       => abort(),
+      	case i: int  =>
+      		yield i;
+      	case example =>
+      		yield -1;
+      	case =>
+      		abort();
       	};
       	fmt::printfln("y is {}", y)!;
       };
@@ -933,8 +954,9 @@ sections:
       
       export fn main() void = {
       	match (hello()) {
-      		err: io::error => fmt::fatal("Error: {}", io::strerror(err)),
-      		void => void,
+      	case err: io::error =>
+      		fmt::fatal("Error: {}", io::strerror(err));
+      	case void => void;
       	};
       };
       
@@ -978,13 +1000,17 @@ sections:
       
       export fn main() void = {
       	match (fact(10)) {
-      		invalid => fmt::println("Invalid factorial")!,
-      		n: int  => fmt::printfln("n: {}", n)!,
+      	case invalid =>
+      		fmt::println("Invalid factorial")!;
+      	case n: int =>
+      		fmt::printfln("n: {}", n)!;
       	};
       
       	match (fact(-10)) {
-      		invalid => fmt::println("Invalid factorial")!,
-      		n: int  => fmt::printfln("n: {}", n)!,
+      	case invalid =>
+      		fmt::println("Invalid factorial")!;
+      	case n: int =>
+      		fmt::printfln("n: {}", n)!;
       	};
       };
   details: |
@@ -1120,8 +1146,10 @@ sections:
       
       	z = &x;
       	match (z) {
-      		null => fmt::println("z is null")!,
-      		z: *int => fmt::printfln("z is {}", *z)!,
+      	case null =>
+      		fmt::println("z is null")!;
+      	case z: *int =>
+      		fmt::printfln("z is {}", *z)!;
       	};
       };
   details: |
@@ -1320,9 +1348,12 @@ sections:
       	let y = strconv::stoi(os::args[3])!;
       
       	let func: *fn(_: int, _: int) int = switch (os::args[1]) {
-      		"add" => &add,
-      		"sub" => &sub,
-      		* => fmt::fatal("Usage: {} <add|sub> <x> <y>", os::args[0]),
+      	case "add" =>
+      		yield &add;
+      	case "sub" =>
+      		yield &sub;
+      	case =>
+      		fmt::fatal("Usage: {} <add|sub> <x> <y>", os::args[0]);
       	};
       
       	fmt::println(func(x, y))!;
