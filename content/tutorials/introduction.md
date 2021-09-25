@@ -573,14 +573,6 @@ sections:
       	};
       
       	let y = if (x < 10) x else 20;
-      
-      	let z = if (x > 10) {
-      		x += 10;
-      		yield x;
-      	} else {
-      		fmt::println("Expected x to be greater than 10")!;
-      		abort();
-      	};
       };
   details: |
       So far, we've written only linear programs, which execute each statement
@@ -593,22 +585,66 @@ sections:
 
       This is also our first example of Hare as an *expression-based* language.
       In many languages, the "if" statement has no result value, but in Hare,
-      this is not the case. The "y" and "z" variables here are initialized to
-      the result of whichever branch is taken. Hare doesn't have a "ternary"
-      operator like many other languages do &mdash; try this approach instead.
+      this is not the case. The "y" variable here are initialized to the result
+      of whichever branch is taken. Hare doesn't have a "ternary" operator like
+      many other languages do &mdash; try this approach instead.
 
-      Take special note of the "z" variable. In the "y" case, both branches of
-      the if statement have the same result type (int). In the "z" case, the
-      first branch gives "x" as the result (after adding ten to it), but the
-      second branch appears to have no result type (void). In the event that the
-      result types of an if statement are non-uniform, a tagged union is
-      typically produced, and we'll go into more detail on these later. But,
-      this case is different: the second branch *terminates*. Any terminating
-      expression, a kind of expression of which `abort()` is a member (also
-      `break`, `return`, and others), will not be considered for the result type.
+      In the event that the result types of an if statement are non-uniform, a
+      [tagged union](#tagged-union-types) is typically produced, and we'll go
+      into more detail on these later.
 
       One other note: the first if statement, with no "else" part &mdash; it
       always has a **void** result type.
+
+- title: Compound expressions & yield
+  sample: |
+      use fmt;
+
+      export fn main() void = {
+      	let x = 1337;
+      
+      	let y = if (x < 10) {
+      		fmt::println("x < 10")!;
+      		yield 10;
+      	} else if (x > 20) {
+      		fmt::println("x > 20")!;
+      		yield 20;
+      	} else {
+      		fmt::println("10 < x < 20")!;
+      		yield x;
+      	};
+
+      	let z = if (x > 10) {
+      		x += 10;
+      		yield x;
+      	} else {
+      		fmt::println("Expected x to be greater than 10")!;
+      		abort();
+      	};
+      };
+  details: |
+      In the introduction of if expressions, we used curly braces (`{ ... }`)
+      for some of the if statements. This introduces a _compound expression_,
+      which is a sequence of expressions which are executed in order. This
+      generalizes further than if expressions &mdash; for instance, most of the
+      "main" functions throughout this tutorial use a compound expression for
+      the function body.
+
+      By default, a compound expression does not produce a result (or rather,
+      the result is `void`). It is possible, however, to provide a result using
+      the `yield` keyword. This is useful, for example, if the initialization of
+      a variable requires complex logic (because you must provide the initial
+      value when you declare a variable), or when combining compound expressions
+      with branching expressions like "if" or "switch" (see below).
+
+      In this example, "y" is initialized to a value which depends on the value
+      of "x", and a message is printed for each case. Also take special note
+      of the "z" variable: the first branch gives "x + 10" as the result. The
+      second branch doesn't provide any result at all &mdash; it *terminates* by
+      calling "abort()", which causes its result type (void, in case you were
+      curious) to be discarded. This behavior is true of other terminating
+      expressions, such as `break` or `return`, and some others.
+
 - title: For loops
   sample: |
       use fmt;
@@ -721,13 +757,16 @@ sections:
       };
   details: |
       Switch statements allow you to "switch" branches on a single value. You
-      place each possible value in the switch body, followed by `=>` and the
-      expression to use for that *case*. A special `*` case is available for
-      when none of the options match.
+      preface each possible value in the switch body with the keyword `case`,
+      followed by `=>` and the expression to use for that *case*. The `case =>`
+      branch (called the "default" branch) is used when none of the other
+      choices match.
 
-      Like if statements, switch statements are expressions, and you can use the
-      result. Also similar to if statements, any branches which terminate are
-      not considered for the result.
+      A switch expression introduces a [compound expression](#compound-expressions--yield)
+      &mdash; note the <code>{&nbsp;...&nbsp;}</code> used here. Each branch is given its own scope,
+      and you may produce a result with the `yield` keyword. Similarly to if
+      statements, any branches which terminate (like "colors::GREEN" does in
+      this example code) are not considered for the result type.
 
       One important note about switch statements in Hare is that they must be
       *exhaustive* &mdash; every possible case *must* be handled in some way, or
@@ -803,59 +842,6 @@ sections:
       slice, in this case `[]str`. We can also pass a slice to this function as
       if we had passed its values as multiple arguments &mdash; see the second
       call to `greet_users` in main.
-- title: Yield
-  sample: |
-      use fmt;
-      
-      export fn main() void = {
-      	let x = 10;
-      	let y = switch (x) {
-      	case 1 =>
-      		yield "one";
-      	case 2 =>
-      		yield "two";
-      	case 3 =>
-      		yield "three";
-      	case 4 =>
-      		yield "four";
-      	case 5 =>
-      		yield "five";
-      	case =>
-      		fmt::printfln("Other number: {}", x)!;
-      		yield "(other)";
-      	};
-      	fmt::printfln("y = {}", y)!; // y = (other)
-      };
-  details: |
-      Compound expressions, which use `{ ... }` to execute several expressions
-      in a sequence, do not have a result (or rather, their result is `void`).
-      However, it is possible to make them produce a result using the `yield`
-      keyword. This is useful, for example, if the initialization of a variable
-      requires complex logic, or when combining compound expressions with
-      branching expressions like "switch" or "if".
-
-      In this example, the "y" variable is equal to `"(other)"`, and
-      "Other number: 10" is printed. Without `yield`, this code couldn't be
-      implemented as a single expression.
-
-      It is also possible to specify which compund expression to yield from
-      using labels:
-
-      ```hare
-      export fn main() void = {
-      	let x = :outer {
-      		let y = :inner {
-      			yield :outer, 12;
-      		};
-      		// Unreachable
-      	};
-      	fmt::println(x)!; // 12
-      };
-      ```
-
-      If you ever find yourself using yield with a label, you should consider
-      refactoring your code first.
-
 - section: Tagged union types
 - title: Tagged unions & match statements
   sample: |
@@ -904,14 +890,16 @@ sections:
       code &mdash; which is initialized to the tagged union's value as the
       selected type.
 
-      Like an if or switch statement, the result value of a match expression is
-      the value of the selected branch. If all of the branches do not have the
-      same value, the result is another tagged union of the possible results. In
-      the sample, the type of "y" is `int`, and each of the branches have an
-      integer result. Terminating branches are not considered, like the default
-      `*` branch of the second match expression. Like switch, match expressions
-      must be exhaustive &mdash; meaning every possible case is handled, or a
-      default is present.
+      Similarly to a switch statement, match expressions behave like a
+      [compound expression](#compound-expressions--yield), and each branch has
+      its own scope and may provide a result for the match expression with the
+      `yield` keyword. If all of the branches do not have the same result type,
+      the result is another tagged union of the possible results. In the sample,
+      the type of "y" is `int`, and each of the branches have an integer result.
+      Terminating branches are not considered, like the default `case =>` branch
+      of the second match expression. Like switch, match expressions must be
+      exhaustive &mdash; meaning every possible case is handled, or a default is
+      present.
 
       Another detail to be aware of: tagged unions are *commutative*,
       *associative*, and *reductive*. That means that the following types are
