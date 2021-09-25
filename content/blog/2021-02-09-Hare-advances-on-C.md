@@ -34,14 +34,16 @@ fn io::write(s: *stream, buf: const []u8) (size | io::error);
 // ...
 
 sum += match (io::write(s, buf)) {
-    err: io::error => match (err) {
-        unsupported => abort("Expected write to be supported"),
-        * => return err,
-    },
-    n: size => {
-        process(buf[..n]);
-        n;
-    },
+case err: io::error =>
+	match (err) {
+	case unsupported =>
+		abort("Expected write to be supported");
+	case =>
+		return err;
+	};
+case n: size =>
+	process(buf[..n]);
+	yield n;
 };
 ```
 
@@ -67,8 +69,10 @@ let z: nullable *int = y; // May be null!
 *z; // Error: main.ha:6:19: Cannot dereference nullable pointer type
 
 match (z) {
-    null => abort(),
-    z: *int => *z, // Valid
+case null =>
+	abort();
+case z: *int =>
+	yield *z; // Valid
 };
 ```
 
@@ -92,8 +96,8 @@ advantage of Hare's expression-based syntax to do so:
 
 ```hare
 let x: int = if (foo) {
-    let results = do_work();
-    results.x;
+	let results = do_work();
+	yield results.x;
 } else 42;
 ```
 
@@ -166,13 +170,13 @@ causes an error when used with the `...` operator. For example:
 
 ```hare
 type my_struct = {
-    x: *int,
-    y: *int,
+	x: *int,
+	y: *int,
 };
 
 export fn main() void = {
-    let foo = my_struct { ... };
-    // Error: main.ha:8:27: field 'x' has no default value
+	let foo = my_struct { ... };
+	// Error: main.ha:8:27: field 'x' has no default value
 };
 ```
 
@@ -250,20 +254,23 @@ fn format(
 	arg: formattable,
 	mod: *modifiers,
 ) void = match (arg) {
-	s: str => io::write(out, strings::to_utf8(s)),
-	r: rune => io::write(out, utf8::encode_rune(r)),
-	p: uintptr => {
-		let s = strconv::uptrtos(p);
-		io::write(out, strings::to_utf8(s));
-	},
-	v: nullable *void => match (v) {
-		v: *void => {
-			let mod = modifiers { base = base::LOWER_HEX, ... };
-			format(out, v: uintptr, &mod);
-		},
-		null => format(out, "(null)", mod),
-	},
-	n: types::numeric => // ...
+case s: str =>
+	io::write(out, strings::to_utf8(s));
+case r: rune =>
+	io::write(out, utf8::encode_rune(r));
+case p: uintptr =>
+	let s = strconv::uptrtos(p);
+	io::write(out, strings::to_utf8(s));
+case v: nullable *void =>
+	match (v) {
+	case v: *void =>
+		let mod = modifiers { base = base::LOWER_HEX, ... };
+		format(out, v: uintptr, &mod);
+	case null =>
+		format(out, "(null)", mod);
+	};
+case n: types::numeric =>
+	// ...
 };
 ```
 

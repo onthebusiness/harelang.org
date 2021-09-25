@@ -31,10 +31,10 @@ test for null first:
 ```hare
 let x: nullable *int = alloc(1337); // Returns null on OOM
 let x: *int = match (x) {
-    x: *int => x,
-    null => {
-        // Handle OOM here
-    },
+case x: *int =>
+	yield x;
+case null =>
+	// Handle OOM here
 };
 ```
 
@@ -66,15 +66,17 @@ put it on the heap, and deal with allocation failures there:
 ```hare
 let buf: nullable *[64]int = alloc([0...]);
 let buf = match (buf) {
-    null => // Handle OOM
-    buf: *[64]int => buf,
+case null =>
+	// Handle OOM
+case buf: *[64]int =>
+	yield buf;
 };
 
 // ...
 
 let x = buf[..0];
 if (len(x) + 2 > len(buf)) {
-    // Handle OOM
+	// Handle OOM
 };
 static append(x, 1337);
 static insert(x[0], 1337);
