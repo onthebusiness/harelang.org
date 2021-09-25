@@ -571,16 +571,14 @@ if (do_work(x) == y
 
 ## N. Match and switch expressions
 
-1. (*subjective*) Match and switch expressions MAY align the `=>` tokens on
-   subsequent lines, using spaces, if the programmer finds it to achieve better
-   balance.
-2. The optional alignment of `=>` tokens MAY be grouped into discrete alignment
-   sections as necessary to prevent overlong lines from placing an excessive
-   alignment burden on subsequent lines.
-3. A match or switch case MAY place the branch expression on the next line if it
-   were to exceed 80 columns. When breaking to a newline, place the `=>` token
-   on the first line, and indent the continuation line by one additional indent.
-4. If a default case (`* =>`) is given, it MUST be the last case.
+1. The preferred style is to align match and switch with their subordinate case
+   branches on the same column.
+2. The body of each case should be indented an additional level. Generally, `=>`
+   should be followed by a newline.
+3. If a default case (`case =>`) is given, it MUST be the last case.
+4. If a case shouldn't perform any action, the body should just be `void`, ie
+   `case ... => void;`. In these cases, the body may be on the same line as the
+   `case` keyword.
 5. (*subjective*) It is preferred to arrange any terminal cases (i.e. those that
    return, continue, break, call `os::exit` or `abort()`, etc) before any
    non-terminal cases. This groups the code which does not terminate closer to
@@ -590,21 +588,33 @@ if (do_work(x) == y
 
 ```hare
 match (x) {
-	foo => // ...
-	foobar => // ...
-	foobarbaz => // ...
+case foo =>
+	// ...
+case foobar =>
+	// ...
+case foobarbaz =>
+	// ...
+};
+
+let foobarbaz = match (x) {
+case foo =>
+	// ...
+	yield ...;
+case foobar =>
+	// ...
+	yield ...;
+case foobaz =>
+	// ...
+	yield ...;
 };
 
 match (x) {
-	foo    => // ...
-	foobar => // ...
-	foobaz => // ...
-};
-
-match (x) {
-	(foo | bar) => // ...
-	foobar => // ...
-	foobaz => // ...
+case (foo | bar) =>
+	// ...
+case foobar =>
+	// ...
+case foobaz =>
+	// ...
 };
 ```
 
