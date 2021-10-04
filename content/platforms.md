@@ -27,7 +27,7 @@ Hare does not, and will not, support any proprietary operating systems.
     </tr>
     <tr>
       <td>riscv64</td>
-      <td><span class="todo">…</span> Planned</td>
+      <td><span class="yes">✓</span> Supported</td>
     </tr>
     <tr>
       <td>ppc64le</td>
