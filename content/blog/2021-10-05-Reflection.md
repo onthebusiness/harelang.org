@@ -9,7 +9,7 @@ I've just merged support for reflection to Hare. Here's how it works!
 ## Background
 
 "Reflection" refers to the ability for a program to examine the type system of
-its programming langauge, and to dynamically manipulate types and their values
+its programming language, and to dynamically manipulate types and their values
 at runtime. You can learn more at [Wikipedia][0].
 
 [0]: https://en.wikipedia.org/wiki/Reflective_programming
