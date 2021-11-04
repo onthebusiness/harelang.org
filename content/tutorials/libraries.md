@@ -52,8 +52,7 @@ a Hare package, each for different use-cases:
 
 1. System-wide (`/usr/src` or equivalent) with your distribution's package manager
 2. System-wide (`/usr/local/src` or equivalent) with `make install`
-3. For personal use in your home directory (`~/.local/src`) with `make home-install`
-4. Vendored into your project (`./vendor`) with `git subtree`
+3. Vendored into your project (`./vendor`) with `git subtree`
 
 Generally, you should prefer to install the system package if one is available.
 Installing into `/usr/local` is a good alternative if not, but it requires admin
@@ -75,12 +74,6 @@ To install a library to your entire system without your distribution's package
 manager (*not recommended*), obtain the module source code (e.g. via git clone)
 and run `make install` as root from the source directory. You can remove it by
 running `make uninstall` as root.
-
-### make home-install
-
-To install a library to your home directory, obtain the module source code (e.g.
-via git clone) and run `make home-install` as root from the source directory.
-You can remove it by running `make home-uninstall` as root.
 
 ### Vendoring modules
 
