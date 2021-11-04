@@ -12,7 +12,7 @@ TODO: Docs for making new libraries
 
 Hare libraries live in the same namespace as the standard library, and to some
 extent, libraries are encouraged to extend the standard library where it makes
-sense to. For example, a library may add a new network prototol by adding a new
+sense to. For example, a library may add a new network protocol by adding a new
 namespace in `net::`, such as `net::irc`. Additionally, third-party modules can
 entirely replace standard library modules with their own (though they are
 expected to provide a compatible API). Some parts of the standard library are
