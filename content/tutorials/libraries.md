@@ -27,10 +27,10 @@ default search path is generally, in order of preference:
 
 1. `.` (the current working directory)
 1. `./vendor` (vendored modules)
-1. `/usr/local/src/stdlib` (local standard library)
-1. `/usr/local/src/third-party` (local third-party modules)
-1. `/usr/src/stdlib` (distribution standard library)
-1. `/usr/src/third-party` (distribution modules)
+1. `/usr/local/src/hare/stdlib` (local standard library)
+1. `/usr/local/src/hare/third-party` (local third-party modules)
+1. `/usr/src/hare/stdlib` (distribution standard library)
+1. `/usr/src/hare/third-party` (distribution modules)
 
 Hare modules are distributed in source form and can be found in these
 directories. Importing `os::exec` will check `./os/exec/`, then
