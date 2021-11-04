@@ -27,9 +27,10 @@ A short briefing on how to use third-party dependencies in Hare programs.
 
 <a href="/tutorials/dependencies" class="tutorial-link">Using dependencies</a>
 
-### Writing Hare libraries
+### Using and writing Hare libraries
 
-How to prepare your codebase as a library for other Hare programmers to use.
+How to prepare your codebase as a library for other Hare programmers to use, or
+use libraries others have developed.
 
 <a href="/tutorials/libraries" class="tutorial-link">Writing hare libraries</a>
 
