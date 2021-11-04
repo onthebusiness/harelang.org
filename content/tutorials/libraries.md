@@ -55,10 +55,9 @@ a Hare package, each for different use-cases:
 3. Vendored into your project (`./vendor`) with `git subtree`
 
 Generally, you should prefer to install the system package if one is available.
-Installing into `/usr/local` is a good alternative if not, but it requires admin
-access. You may install packages without special permissions by installing them
-in `~/.local/src`. Additionally, under certain circumstances, it may be
-desirable to "vendor" the package into your project's repository.
+Installing into `/usr/local` is a good alternative if not, but this is not
+recommended for most use-cases. Additionally, under certain circumstances, it
+may be desirable to "vendor" the package into your project's repository.
 
 ### Distribution packages
 
