@@ -12,6 +12,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~sircmpwn/hare-irc
 - https://git.sr.ht/~sircmpwn/hautils
 - https://git.sr.ht/~sircmpwn/toothbrush
+- https://git.sr.ht/~yerinalexey/git-walk.ha
 - https://git.sr.ht/~yerinalexey/kanji
 - https://git.sr.ht/~yerinalexey/stopwatch
 - https://git.sr.ht/~torresjrjr/ed
