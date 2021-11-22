@@ -658,6 +658,10 @@ fn io::read(stream: *io::stream, buf: []u8) (size | io::EOF | io::error);
 fn lex::init(in: *io::stream, path: str) lexer;
 ```
 
+Note the arrangement of parameters: the object being acted upon comes first. For
+example, if you have "source" and "destination" parameters, "destination" should
+be placed first in the parameter list.
+
 ### Verbs for allocation strategies
 
 It is useful to communicate the allocation strategy in function names, to lend
