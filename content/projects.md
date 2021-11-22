@@ -16,4 +16,5 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~yerinalexey/hare-libui
 - https://git.sr.ht/~yerinalexey/kanji
 - https://git.sr.ht/~yerinalexey/stopwatch
+- https://git.sr.ht/~torresjrjr/dc
 - https://git.sr.ht/~torresjrjr/ed
