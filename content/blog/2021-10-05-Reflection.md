@@ -6,6 +6,9 @@ date: 2021-10-05
 
 I've just merged support for reflection to Hare. Here's how it works!
 
+**Note**: This feature didn't make the cut, we rolled it back a few months
+later. Neat to see how it might have worked, though!
+
 ## Background
 
 "Reflection" refers to the ability for a program to examine the type system of
