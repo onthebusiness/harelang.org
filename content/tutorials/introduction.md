@@ -919,8 +919,8 @@ sections:
       
       export fn main() void = {
       	let x: (int | uint) = 1337u;
-      	fmt::printfln("x is uint: {}", x is uint);
-      	fmt::printfln("x as uint: {}", x as uint);
+      	fmt::printfln("x is uint: {}", x is uint)!;
+      	fmt::printfln("x as uint: {}", x as uint)!;
       };
   details: |
       Type assertions allow you to "assert" the value of a tagged union is of a
@@ -1178,7 +1178,7 @@ sections:
       
       export fn main() void = {
       	let x: *int = alloc(1234);
-      	fmt::printfln("x: {}", *x);
+      	fmt::printfln("x: {}", *x)!;
       	*x = 4321;
       	free(x);
       
@@ -1242,7 +1242,7 @@ sections:
       	};
       
       	defer if (*x == 1234) {
-      		fmt::println("x == 1234");
+      		fmt::println("x == 1234")!;
       	};
       };
   details: |
