@@ -853,9 +853,9 @@ sections:
       	let x: (str | int | example | void) = "Hello!";
       
       	match (x) {
-      	case s: str =>
+      	case let s: str =>
       		fmt::printfln("x is a str: {}", s)!;
-      	case i: int =>
+      	case let i: int =>
       		fmt::printfln("x is an int: {}", i)!;
       	case example =>
       		fmt::printfln("x is example")!;
@@ -866,7 +866,7 @@ sections:
       	x = example;
       
       	let y: int = match (x) {
-      	case i: int  =>
+      	case let i: int  =>
       		yield i;
       	case example =>
       		yield -1;
@@ -942,7 +942,7 @@ sections:
       
       export fn main() void = {
       	match (hello()) {
-      	case err: io::error =>
+      	case let err: io::error =>
       		fmt::fatal("Error: {}", io::strerror(err));
       	case void => void;
       	};
@@ -990,14 +990,14 @@ sections:
       	match (fact(10)) {
       	case invalid =>
       		fmt::println("Invalid factorial")!;
-      	case n: int =>
+      	case let n: int =>
       		fmt::printfln("n: {}", n)!;
       	};
       
       	match (fact(-10)) {
       	case invalid =>
       		fmt::println("Invalid factorial")!;
-      	case n: int =>
+      	case let n: int =>
       		fmt::printfln("n: {}", n)!;
       	};
       };
@@ -1136,7 +1136,7 @@ sections:
       	match (z) {
       	case null =>
       		fmt::println("z is null")!;
-      	case z: *int =>
+      	case let z: *int =>
       		fmt::printfln("z is {}", *z)!;
       	};
       };

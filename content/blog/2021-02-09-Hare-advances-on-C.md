@@ -34,14 +34,14 @@ fn io::write(s: *stream, buf: const []u8) (size | io::error);
 // ...
 
 sum += match (io::write(s, buf)) {
-case err: io::error =>
+case let err: io::error =>
 	match (err) {
 	case unsupported =>
 		abort("Expected write to be supported");
 	case =>
 		return err;
 	};
-case n: size =>
+case let n: size =>
 	process(buf[..n]);
 	yield n;
 };
@@ -71,7 +71,7 @@ let z: nullable *int = y; // May be null!
 match (z) {
 case null =>
 	abort();
-case z: *int =>
+case let z: *int =>
 	yield *z; // Valid
 };
 ```
@@ -254,22 +254,22 @@ fn format(
 	arg: formattable,
 	mod: *modifiers,
 ) void = match (arg) {
-case s: str =>
+case let s: str =>
 	io::write(out, strings::to_utf8(s));
-case r: rune =>
+case let r: rune =>
 	io::write(out, utf8::encode_rune(r));
-case p: uintptr =>
+case let p: uintptr =>
 	let s = strconv::uptrtos(p);
 	io::write(out, strings::to_utf8(s));
-case v: nullable *void =>
+case let v: nullable *void =>
 	match (v) {
-	case v: *void =>
+	case let v: *void =>
 		let mod = modifiers { base = base::LOWER_HEX, ... };
 		format(out, v: uintptr, &mod);
 	case null =>
 		format(out, "(null)", mod);
 	};
-case n: types::numeric =>
+case let n: types::numeric =>
 	// ...
 };
 ```
