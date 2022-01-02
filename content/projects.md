@@ -19,6 +19,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~torresjrjr/dc
 - https://git.sr.ht/~torresjrjr/ed
 - https://git.sr.ht/~torresjrjr/entr
+- https://git.sr.ht/~yerinalexey/carrot
 - https://git.sr.ht/~yerinalexey/git-walk.ha
 - https://git.sr.ht/~yerinalexey/hare-libui
 - https://git.sr.ht/~yerinalexey/kanji
