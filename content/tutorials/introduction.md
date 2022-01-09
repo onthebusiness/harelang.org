@@ -1274,14 +1274,15 @@ sections:
       	let x: []int = [];
       	defer free(x);
 
-      	append(x, 1, 3, 3, 7);
+      	append(x, 1);
+      	append(x, [3, 3, 7]...);
       	printslice(x);
       
       	let y: [_]int = [6, 5, 5, 3, 6];
       	append(x, y[..2]...);
       	printslice(x);
       
-      	insert(x[2], 2, 4);
+      	insert(x[2], 2);
       	printslice(x);
       
       	delete(x[0]);
@@ -1306,11 +1307,13 @@ sections:
       You can allocate a new slice by just using `[]` &mdash; it will be
       allocated the first time you append or insert values. Note that you can
       safely free an empty slice. You can also allocate slices with something
-      like `let x: []int = alloc([1, 2, 3])`.
+      like `let x: []int = alloc([1, 2, 3])`. It's also possible to allocate a
+      variable amount of slice items by using e.g. `alloc([0...], 10)`, which
+      will allocate a slice of 10 zeroes.
 
-      We'll start by appending several values to the slice using the `append`
-      keyword, which mutates the slice in-place. Also demonstrated is a variadic
-      append, which appends the contents of another slice.
+      We'll start by appending values to the slice using the `append` keyword,
+      which mutates the slice in-place. To append either multiple items or
+      contents of another slice, use the `...` syntax.
 
       Insertion works by specifying the index that you want to insert at, and
       will insert new items *before* that index (so, to insert at the start, you
