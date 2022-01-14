@@ -12,6 +12,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~sircmpwn/hare-irc
 - https://git.sr.ht/~sircmpwn/hare-sdl2
 - https://git.sr.ht/~sircmpwn/harebot
+- https://git.sr.ht/~sircmpwn/harsh
 - https://git.sr.ht/~sircmpwn/hautils
 - https://git.sr.ht/~sircmpwn/scheduled
 - https://git.sr.ht/~sircmpwn/tetrominoes
