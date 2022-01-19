@@ -70,10 +70,6 @@ pre {
   padding: 0.25rem 1rem;
   margin: 0 -1rem;
 
-  @media(prefers-color-scheme: dark) {
-    background-color: #1c1e20;
-  }
-
   @media(max-width: 1200px) {
     padding: 0;
     margin: 0;
@@ -95,6 +91,34 @@ pre {
   .s {
     color: #484;
     font-style: italic;
+  }
+
+  @media(prefers-color-scheme: dark) {
+    background-color: #16191c;
+
+    .mi {
+      color: #aac;
+    }
+
+    .c1 {
+      color: #999;
+    }
+
+    .cp {
+      color: #db8;
+    }
+
+    .kt {
+      color: #3cf;
+    }
+
+    .k {
+      color: #69f;
+    }
+
+    .s {
+      color: #f79;
+    }
   }
 }
 
@@ -162,7 +186,7 @@ code {
   padding: 0 0.3rem;
 
   @media(prefers-color-scheme: dark) {
-    background: #1c1e20;
+    background: #16191c;
   }
 }
 
@@ -214,7 +238,7 @@ details {
   }
 
   @media(prefers-color-scheme: dark) {
-    background: #1c1e20;
+    background: #16191c;
   }
 
   &[open] {
@@ -223,7 +247,7 @@ details {
       margin: auto -0.5rem -0.5rem calc(-0.5rem - 5px);
 
       @media(prefers-color-scheme: dark) {
-        background: #1c1e20;
+        background: #16191c;
       }
     }
 
@@ -233,7 +257,7 @@ details {
 
     @media(prefers-color-scheme: dark) {
       background: #121415;
-      border-left: 5px solid #1c1e20;
+      border-left: 5px solid #16191c;
     }
   }
 }
