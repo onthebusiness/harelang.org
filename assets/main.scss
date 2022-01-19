@@ -69,6 +69,7 @@ pre {
   background-color: #eee;
   padding: 0.25rem 1rem;
   margin: 0 -1rem;
+  overflow-x: auto;
 
   @media(max-width: 1200px) {
     padding: 0;
