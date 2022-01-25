@@ -6,9 +6,7 @@ summary: |
   This tutorial will introduce you to the Hare programming language. It
   should take an hour or two to complete. If you are already familiar with
   programming in other languages, it might take even less time — feel free to
-  jump around as you see fit. Once you're comfortable with the essential
-  language semantics, don't be afraid to supplement your knowledge with the
-  [Hare specification](/specification) as needs arise.
+  jump around as you see fit.
 
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
