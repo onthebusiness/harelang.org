@@ -7,6 +7,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.d2evs.net/~ecs/helios
 - https://git.d2evs.net/~ecs/himitsu
 - https://git.d2evs.net/~ecs/moarutils
+- https://git.sr.ht/~apreiml/bigc
 - https://git.sr.ht/~sircmpwn/echo
 - https://git.sr.ht/~sircmpwn/habf
 - https://git.sr.ht/~sircmpwn/hare-irc
@@ -22,6 +23,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~torresjrjr/ed
 - https://git.sr.ht/~torresjrjr/entr
 - https://git.sr.ht/~turminal/raytracing
+- https://git.sr.ht/~yerinalexey/box
 - https://git.sr.ht/~yerinalexey/carrot
 - https://git.sr.ht/~yerinalexey/git-walk.ha
 - https://git.sr.ht/~yerinalexey/hare-libui
