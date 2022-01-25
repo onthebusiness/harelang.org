@@ -218,7 +218,8 @@ sections:
       can create *local variables* which store values that we can use and
       (sometimes) modify. Variables are *bound* with the **const** and **let**
       keywords. A variable declared with const cannot be assigned to, and a
-      variable declared with let may be assigned to.
+      variable declared with let may be assigned to. All variables must be
+      *initialized* when they are declared.
 
       Though you cannot modify a const variable, you can *re-bind* it by
       creating another variable with the same name. A point of note is that when
@@ -334,9 +335,58 @@ sections:
 - section: Memory management
 - title: Stack allocation & pass by reference
   sample: |
-      TODO
+      use crypto::sha256;
+      use encoding::hex;
+      use hash;
+      use io;
+      use os;
+      use fmt;
+      
+      export fn main() void = {
+      	// Pointer basics
+      	let i = 10;
+      	fmt::println(i)!;
+      	increment(&i);
+      	fmt::println(i)!;
+      
+      	// Applied usage
+      	const hash = sha256::sha256();
+      	const file = os::open("main.ha")!;
+      	io::copy(&hash, file)!;
+      
+      	let sum: [sha256::SIZE]u8 = [0...];
+      	hash::sum(&hash, sum);
+      	hex::encode(os::stdout, sum)!;
+      	fmt::println()!;
+      };
+      
+      fn increment(ptr: *int) void = {
+      	*ptr = *ptr + 1;
+      };
   details: |
-      TODO
+      This sample demonstrates the use of *pointers* and *stack allocation*,
+      the latter of which is an important design pattern in Hare. First it
+      passes a copy of the "i" variable to the "increment" function by
+      *reference*, allowing the increment function to modify i from outside of
+      "main" by using the `*` operator.
+
+      When you call a function in Hare (or when the runtime calls "main" for
+      you), a *stack frame* is allocated to store all of the function's
+      variables and parameters. This is automatically cleaned up when you return
+      from the function, which makes it useful for getting rid of resources when
+      you're done using them. However, it's important not to allow a reference
+      to any stack-allocated variables to persist after the function ends.
+      Additionally, there is a limited amount of stack space, so it's often wise
+      to seek alternative strategies when allocating large objects &mdash; we'll
+      address that momentarily.
+
+      As a practical demonstration of stack allocation, this sample also
+      computes and prints the SHA-256 hash of its source code. A common pattern
+      in Hare is for a constructor like sha256::sha256 to return an object on
+      the stack, which you can then pass into other functions by reference using
+      `&`. This is convenient for many objects which can be cleaned up by simply
+      discarding their state on the stack, but other kinds of objects (such as
+      file handles) require additional steps.
 - title: Heap allocation & defer
   sample: |
       TODO
