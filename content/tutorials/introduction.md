@@ -105,7 +105,7 @@ sections:
       	greet(user);
       };
       
-      // Asks a user to provide their name.
+      // Asks the user to provide their name.
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
       	const name = bufio::scanline(os::stdin)! as []u8;
@@ -144,7 +144,7 @@ sections:
       	greet(user);
       };
       
-      // Asks a user to provide their name.
+      // Asks the user to provide their name.
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
       	const name = bufio::scanline(os::stdin)! as []u8;
@@ -186,9 +186,59 @@ sections:
       TODO: https://todo.sr.ht/~sircmpwn/hare/555
 - title: "Variables: const & let"
   sample: |
-      TODO
+      use fmt;
+      use io;
+      use os;
+      use strings;
+      
+      export fn main() void = {
+      	// Example A
+      	const source = os::open("main.ha")!;
+      	const source = io::drain(source)!;
+      	const source = strings::fromutf8(source);
+      	const source = strings::split(source, "\n");
+      	first3(source);
+      
+      	// Example B
+      	let i: int = 1337, j: int = 42;
+      	fmt::printfln("{} + {} = {}", i, j, i + j)!;
+      	j = i;
+      	fmt::printfln("{} + {} = {}", i, j, i + j)!;
+      };
+      
+      fn first3(lines: []str) void = {
+      	fmt::println("The first three lines of main.ha are:")!;
+      	fmt::println(lines[0])!;
+      	fmt::println(lines[1])!;
+      	fmt::println(lines[2])!;
+      };
   details: |
-      TODO
+      This sample is designed to illustrate a few ideas regarding the use of
+      variables in Hare. Like the parameters we've used in earlier examples, we
+      can create *local variables* which store values that we can use and
+      (sometimes) modify. Variables are *bound* with the **const** and **let**
+      keywords. A variable declared with const cannot be assigned to, and a
+      variable declared with let may be assigned to.
+
+      Though you cannot modify a const variable, you can *re-bind* it by
+      creating another variable with the same name. A point of note is that when
+      you re-bind a variable like this you can change it to a different type: in
+      this example "source" refers to an io::file, a []u8, a str, and a []str,
+      in that order. This is a useful pattern for building up a variable from a
+      series of intermediate values of various types.
+
+      <div class="alert">
+        <strong>Tip:</strong> Re-binding variables is a special case of the more
+        general concept of <em>shadowing</em>, which you may be familiar with
+        from other languages.
+      </div>
+
+      Take note of the syntax as well. Each of the bindings in Example A use
+      *type inference*, in which the variable automatically assumes the type of
+      the right-hand side of the statement. The 'let' examples demonstrate the
+      use of an explicit type (**int**). In some cases it may be necessary or
+      helpful to state the type explicitly, this can be done at your discretion
+      or when the compiler asks you to.
 - title: More about types
   sample: |
       TODO
