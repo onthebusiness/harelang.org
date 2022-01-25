@@ -63,7 +63,14 @@ sections:
       use it. The only thing that this function does is call the "println"
       function from the fmt module, printing our "Hello world!" message to the
       program's standard output.
-
+- title: Error handling in "Hello world!"
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	fmt::println("Hello world!")!;
+      };
+  details: |
       Note the `!` operator which follows the function call: this is the error
       assertion operator. It is possible for writing to the standard output to
       fail, and the programmer is required to address this scenario. Try
@@ -83,6 +90,8 @@ sections:
       as this often leads to security vulnerabilities or other undesirable
       behavior. We will go over better ways to deal with errors later on in the
       tutorial, but for now it's okay to use `!` to make the compiler happy.
+
+      Next, we'll dive a bit deeper with a slightly more complex example.
 - section: Hare basics
 - title: Functions & parameters
   sample: |
@@ -165,10 +174,6 @@ sections:
       assertions, the compiler will check our work and, if proven wrong, will
       cause the program to crash. You can simulate this case by pressing Ctrl+D
       in your terminal emulator instead of entering your name.
-
-      In Hare, str is a distinct type from []u8. A function is provided,
-      `strings::fromutf8`, which converts a UTF-8 byte slice into a str that we
-      can return from "askname".
 
       A key take-away from this should be the "haredoc" tool, which you should
       use liberally as you work with Hare. Try to use it to learn about the
