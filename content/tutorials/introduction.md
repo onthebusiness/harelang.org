@@ -241,14 +241,84 @@ sections:
       or when the compiler asks you to.
 - title: More about types
   sample: |
-      TODO
+      export fn main() void = {
+      	// Numeric types can be declared explicitly:
+      	let
+      		a: int = 10,	// Signed integer
+      		b: uint = 10,	// Unsigned integer
+      		c: u8 = 10,	// Unsigned 8-bit integer
+      		d: f32 = 13.37;	// 32-bit floating point number
+      
+      	// Or inferred from a suffix:
+      	let
+      		a = 10i,	// Signed integer
+      		b = 10u,	// Unsigned integer
+      		c = 10u8,	// Unsigned 8-bit integer
+      		d = 13.37f32;	// 32-bit floating point number
+      
+      	// Some other types:
+      	let
+      		a: str = "hi",			// String
+      		b: (int, int) = (42, 24),	// Tuple
+      		c: struct {
+      			x: int,
+      			y: int,
+      		} = struct {
+      			x: int = 10,
+      			y: int = 20,
+      		},				// Struct
+      		d: [4]int = [1, 2, 3, 4],	// Array
+      		e: []int = [1, 2, 3, 4];	// Slice
+      };
   details: |
-      TODO
+      Here is a small (non-comprehensive) sample of some other types supported
+      by Hare. Hare supports signed and unsigned integers of various sizes
+      (signed numbers are able to store negative values), as well as 32- and
+      64-bit floating point types (which can store a fractional component). The
+      exact type can be inferred from context, as in the first set of examples,
+      or specified with an appropriate suffix.
+
+      <p class="alert"><strong>Note</strong>: 
+      If you are not already familiar with binary floating point arithmetic, you
+      may be surprised when arithmetic using f32 and f64 types gives unexpected
+      results. Programmers unfamiliar with the subject are encouraged to read
+      the <a
+        href="https://en.wikipedia.org/wiki/Floating-point_arithmetic"
+      >Wikipedia page on Floating-point arithmetic</a>
+      to better understand the theory and tradeoffs.
+      </p>
+
+      Hare also supports a number of composite types, a few examples of which
+      are shown here. We'll go into more detail on how these work later. There
+      are also a number of more specialized types that are not shown here, such
+      as **size** and **uintptr**. Some of these are introduced later in this
+      tutorial, while others are not useful outside of specialized situations
+      and are left for you to discover when you need them.
 - title: Struct and tuple types
   sample: |
-      TODO
+      use fmt;
+      
+      type coords = struct { x: int, y: int };
+      
+      export fn main() void = {
+      	let player1 = struct {
+      		x: int = 10,
+      		y: int = 20,
+      	};
+      	let player2 = coords {
+      		y = 10,
+      		x = 20,
+      	};
+      	let player3: (int, int) = (42, 24);
+      	fmt::printfln("Player 1: ({}, {})", player1.x, player1.y)!;
+      	fmt::printfln("Player 2: ({}, {})", player2.x, player2.y)!;
+      	fmt::printfln("Player 3: ({}, {})", player3.0, player3.1)!;
+      };
   details: |
-      TODO
+      One of the composite types supported by Hare is structs, which define a
+      *structured* value which is made up of other values. In this example, we
+      show two ways of using structs: first manually, and then by using a
+      user-defined type.
 - section: Memory management
 - title: Stack allocation & pass by reference
   sample: |
