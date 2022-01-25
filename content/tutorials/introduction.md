@@ -315,10 +315,22 @@ sections:
       	fmt::printfln("Player 3: ({}, {})", player3.0, player3.1)!;
       };
   details: |
-      One of the composite types supported by Hare is structs, which define a
-      *structured* value which is made up of other values. In this example, we
-      show two ways of using structs: first manually, and then by using a
-      user-defined type.
+      Structs are one of the composite types supported by Hare. These define a
+      *structured* value which is made up of other values in a certain order. In
+      this example, we show two ways of using structs: first manually, and then
+      by using a user-defined type, for player1 and player2 respectively. We can
+      access the *fields* of the struct by using the `.` operator.
+
+      Note the "type coords" declaration above the main function: this defines a
+      type named "coords". This can be used for any type, not just structs. This
+      type is equivalent to the hand-written struct used for the player1
+      variable, but by giving it a name we can skip the types for each *field*
+      and re-order them if we so desire. The other player, player1, is using an
+      *anonymous*, or un-named, struct type.
+
+      player3 is defined with a *tuple* type, which is very similar to a struct,
+      but does not name its fields. They are accessed by their ordinal position,
+      starting from zero, instead of their names.
 - section: Memory management
 - title: Stack allocation & pass by reference
   sample: |
