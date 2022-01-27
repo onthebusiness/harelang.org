@@ -447,9 +447,78 @@ sections:
       TODO: Update me when handling allocation failures is mandatory
 - title: Static allocation
   sample: |
-      TODO
+      use fmt;
+      use io;
+      use os;
+      
+      let items: [4]int = [1, 3, 3, 7];
+      
+      export fn main() void = {
+      	// Example A: Static globals
+      	printitems();
+      	items[3] = 1;
+      	items[0] = 7;
+      	printitems();
+      
+      	// Example B: Static locals
+      	fmt::println(increment())!;
+      	fmt::println(increment())!;
+      	fmt::println(increment())!;
+      
+      	// Example C: Applied static allocation
+      	const file = os::open(os::args[1])!;
+      	static let buffer: [65535]u8 = [0...];
+      	const n = io::read(file, buffer)! as size;
+      	io::write(os::stdout, buffer[..n])!;
+      };
+      
+      fn printitems() void = {
+      	fmt::println(items[0], items[1], items[2], items[3])!;
+      };
+      
+      fn increment() int = {
+      	static let x: int = 41;
+      	x += 1;
+      	return x;
+      };
   details: |
-      TODO
+      The third major approach to allocation in Hare is *static* allocation.
+      This approach involves creating a single object (a *singleton*) for the
+      whole program to use. This never has to be cleaned up because it never
+      goes away. The most apparent drawback of this approach is that you have to
+      allocate all static resources in advance, when you write your program, and
+      cannot allocate more or fewer static resources at runtime as needs demand
+      them. This can increase the footprint of your program on RAM (and on disk,
+      in some cases), and there are special constraints imposed on the
+      initializers for static variables.
+
+      There are two ways to use static allocation in hare: static locals and
+      static globals. The first kind demonstrated in our example is a static
+      global, which is defined using **const** or **let** in a similar manner to
+      local variables (*local* here meaning *local to a function*). If we
+      declare them with **let**, we can modify them.
+
+      A static local is also declared with **const** or **let**, with the
+      addition of the **static** keyword. Note that, after being initially set
+      to 41, the value of x remains consistent across repeated calls to
+      "increment". Unlike a stack-allocated local, which is allocated space in
+      that specific *function call*'s stack frame, static locals are allocated
+      to the function itself.
+
+      A practical example of static allocation is shown in the third part of
+      this program, which, like the previous example, reads up to 64 KiB from
+      the file specified by the first command-line argument, and writes it to
+      stdout. In this case, however, instead of dynamically allocating a 64 KiB
+      buffer, we statically allocate the buffer. We do not have to clean it up
+      and the allocation cannot fail because the system is out of memory.
+
+      <div class="alert">
+        <strong>Note:</strong> Static variables must be initialized to a value
+        which can be computed at compile-time. You cannot, for example,
+        initialize a static variable based on the user's input at runtime. You
+        can initialize it to a sensible default value and modify it at runtime
+        instead.
+      </div>
 - title: Cleaning up other kinds of resources
   sample: |
       TODO
