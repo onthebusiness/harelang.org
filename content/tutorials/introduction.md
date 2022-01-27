@@ -575,11 +575,122 @@ sections:
         have other safety features, however, which will be addressed later on.
       </div>
 - section: Handling errors
-- title: Working with match
+- title: A few words about error handling
   sample: |
-      TODO
+      use errors;
+      use fmt;
+      use fs;
+      use fs::{flags};
+      use io;
+      use os;
+      use strings;
+      
+      export fn main() void = {
+      	const path = os::args[1];
+      	const oflags = flags::WRONLY | flags::TRUNC;
+      
+      	const file = match (os::create(path, 0o644, oflags)) {
+      	case let file: io::file =>
+      		yield file;
+      	case errors::noaccess =>
+      		fmt::fatal("Error opening {}: Access denied.", path);
+      	case let err: fs::error =>
+      		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
+      	};
+      
+      	const buf = strings::toutf8("Hello world!\n");
+      	match (io::write(file, buf)) {
+      	case let err: io::error =>
+      		fmt::fatal("Error writing file: {}", io::strerror(err));
+      	case let z: size =>
+      		assert(z == len(buf), "Unexpected short write");
+      	};
+      };
   details: |
-      TODO
+      Many operations can fail. For instance, writing a file could fail if the
+      disk is full, or a network connection could fail if the ethernet cable is
+      unplugged. In Hare, it is mandatory to consider these cases. In prior
+      examples, we have used the `!` operator, which causes the program to crash
+      when an error occurs. Let's explore some more effective ways of dealing
+      with errors.
+
+      This program uses os::create to create a file (named after the first
+      command line argument) and writes "Hello world!\n" to that file with
+      io::write. Both of these functions can fail for a variety of reasons. You
+      can try out some failure cases like so:
+
+      ```
+      $ hare run main.ha example.txt      # should work
+      $ mkdir test && chmod -w test       # make a directory we cannot write to
+      $ hare run main.ha test/example.txt # os::create fails
+      $ hare run main.ha /dev/full        # io::write fails
+      ```
+
+      Error handling is very important in Hare, so we're going look very closely
+      at this sample program over the next few setions.
+- title: Handling errors with match
+  sample: |
+      use errors;
+      use fmt;
+      use fs;
+      use fs::{flags};
+      use io;
+      use os;
+      use strings;
+      
+      export fn main() void = {
+      	const path = os::args[1];
+      	const oflags = flags::WRONLY | flags::TRUNC;
+      
+      	const file = match (os::create(path, 0o644, oflags)) {
+      	case let file: io::file =>
+      		yield file;
+      	case errors::noaccess =>
+      		fmt::fatal("Error opening {}: Access denied.", path);
+      	case let err: fs::error =>
+      		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
+      	};
+      
+      	const buf = strings::toutf8("Hello world!\n");
+      	match (io::write(file, buf)) {
+      	case let err: io::error =>
+      		fmt::fatal("Error writing file: {}", io::strerror(err));
+      	case let z: size =>
+      		assert(z == len(buf), "Unexpected short write");
+      	};
+      };
+  details: |
+      Let's look at the signature for os::create with haredoc:
+
+      ```hare
+      fn create(str, fs::mode, fs::flags...) (io::file | fs::error);
+      ```
+
+      This function can return one of two possible values: an "io::file", if the
+      file was successfully opened, or "fs::error" if not. You can look up both
+      of these types with haredoc if you like, and your attention is especially
+      drawn to "fs::error". This type is a *tagged union* which represents each
+      of the errors that can be caused during file operations.
+
+      One way of handling these errors is with `!`, which you already know how
+      to use. A more elegant way is to use **match**. A match expression takes
+      an expression between its parenthesis which can return one of several
+      types from a tagged union, and each **case** handles one of these types.
+      The first case in this example is the successful path, which we'll talk
+      about more momentarily. The second case handles a specific error:
+      "errors::noaccess", and the third case handles any other errors.
+
+      The **case let** syntax is used to bind the value for each case to a
+      variable. In the first branch, this value uses the **yield** keyword to
+      "yield" it to the parent expression, which causes it to be "returned", in
+      a manner of speaking, from the match expression. This assigns the desired
+      "io::file" value to the file variable.
+
+      The third case binds "fs::error" to an "err" variable, then passes it into
+      "fs::strerror" to convert it to a string that can be presented to the
+      user in an error message. This is a standard pattern in Hare: most modules
+      will provide a "strerror" function which stringifies all of the errors
+      which can be caused by that module.
 - title: Propagating errors
   sample: |
       TODO
