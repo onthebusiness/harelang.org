@@ -753,6 +753,15 @@ sections:
       use strconv;
       use strings;
       
+      export fn main() void = {
+      	match (prompt()) {
+      	case void =>
+      		yield;
+      	case let err: error =>
+      		fmt::fatal(strerror(err));
+      	};
+      };
+      
       // An invalid number was provided.
       type invalid = !(strconv::invalid | strconv::overflow);
       
@@ -761,15 +770,16 @@ sections:
       
       // Tagged union of all possible errors.
       type error = !(io::error | invalid | unexpectedeof);
-      
-      export fn main() void = {
-      	match (prompt()) {
-      	case void =>
-      		yield;
+
+      // Converts an error into a user-friendly string
+      fn strerror(err: error) str = {
+      	match (err) {
       	case invalid =>
-      		fmt::fatal("Error: expected a positive number");
+      		return "Expected a positive number";
       	case unexpectedeof =>
-      		fmt::fatal("Error: unexpected end of file");
+      		return "Unexpected end of file";
+      	case err: io::error =>
+      		return io::strerror(err);
       	};
       };
       
@@ -808,6 +818,13 @@ sections:
       (which is not ordinarily considered an error) from "bufio::scanline",
       which is propagated through prompt to "main". If an I/O error were to
       occur here, it would be propagated similarly.
+
+      We can use any type as an error type if we wish. Some errors are an int or
+      enum type containing an error code, or a struct with additional
+      information like a client IP address or a line and column number in a
+      file, and so on. We can also provide our own "strerror" functions which
+      provide helpful error strings, possibly incorporating information stored
+      in the error type.
 - title: Handling allocation failure
   sample: |
       TODO
