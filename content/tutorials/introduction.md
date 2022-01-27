@@ -746,9 +746,68 @@ sections:
       handle both cases in "main".
 - title: Defining new error types
   sample: |
-      TODO
+      use bufio;
+      use fmt;
+      use io;
+      use os;
+      use strconv;
+      use strings;
+      
+      // An invalid number was provided.
+      type invalid = !(strconv::invalid | strconv::overflow);
+      
+      // An error which indicates that [[io::EOF]] was unexpectedly encountered.
+      type unexpectedeof = !void;
+      
+      // Tagged union of all possible errors.
+      type error = !(io::error | invalid | unexpectedeof);
+      
+      export fn main() void = {
+      	match (prompt()) {
+      	case void =>
+      		yield;
+      	case invalid =>
+      		fmt::fatal("Error: expected a positive number");
+      	case unexpectedeof =>
+      		fmt::fatal("Error: unexpected end of file");
+      	};
+      };
+      
+      fn prompt() (void | error) = {
+      	fmt::println("Please enter a positive number:")!;
+      	const num = getnumber()?;
+      	fmt::printfln("{} + 2 is {}", num, num + 2)!;
+      };
+      
+      fn getnumber() (uint | error) = {
+      	const name = match (bufio::scanline(os::stdin)?) {
+      	case io::EOF =>
+      		return unexpectedeof;
+      	case let buf: []u8 =>
+      		yield strings::fromutf8(buf);
+      	};
+      	defer free(name);
+      	return strconv::stou(name)?;
+      };
   details: |
-      TODO
+      Here we have a somewhat more complex sample in which we prompt the user to
+      enter a number and then correctly all possible error cases, such as
+      entering something other than a number or pressing Ctrl+D to close the
+      input file without entering anything at all. Try doing these things
+      yourself and seeing how the program responds.
+
+      We can define new error types ourselves by using `!` to prefix the type
+      declaration. "invalid" is an error type which derives from the errors
+      which can be returned from "strconv::stou", and "unexpectedeof" is a
+      custom error based on the "void" type. The latter does not store any
+      additional state other than the type itself, so it has a size of zero. We
+      also define a tagged union containing each of these error types, plus
+      io::error, also using ! to indicate that it is an error type.
+
+      We can return our custom error from "getnumber" upon encountering io::EOF
+      (which is not ordinarily considered an error) from "bufio::scanline",
+      which is propagated through prompt to "main". If an I/O error were to
+      occur here, it would be propagated similarly.
 - title: Handling allocation failure
   sample: |
       TODO
