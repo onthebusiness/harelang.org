@@ -173,7 +173,7 @@ sections:
       we're interested in is []u8, which is a "slice" of bytes containing the
       line we want to read. It can also return io::EOF, which indicates that
       the "end of file" was reached, or io::error, which indicates that an I/O
-      error occured. The `!` operator deals with the error case as we described
+      error occurred. The `!` operator deals with the error case as we described
       before. Encountering the end of the file, however, is not considered an
       error.
 
@@ -288,7 +288,7 @@ sections:
       the <a
         href="https://en.wikipedia.org/wiki/Floating-point_arithmetic"
       >Wikipedia page on Floating-point arithmetic</a>
-      to better understand the theory and tradeoffs.
+      to better understand the theory and trade-offs.
       </p>
 
       Hare also supports a number of composite types, a few examples of which
@@ -608,7 +608,7 @@ sections:
       };
   details: |
       Many operations can fail. For instance, writing a file could fail if the
-      disk is full, or a network connection could fail if the ethernet cable is
+      disk is full, or a network connection could fail if the Ethernet cable is
       unplugged. In Hare, it is mandatory to consider these cases. In prior
       examples, we have used the `!` operator, which causes the program to crash
       when an error occurs. Let's explore some more effective ways of dealing
