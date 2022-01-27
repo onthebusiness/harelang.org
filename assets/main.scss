@@ -32,7 +32,8 @@ nav:not(#TableOfContents) {
     border-radius: 128px;
 
     @media(prefers-color-scheme: dark) {
-      filter: invert(.88);
+      filter: invert(.04);
+      box-shadow: 0 0 3px 3px #555;
     }
   }
 
