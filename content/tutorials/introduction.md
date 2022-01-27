@@ -627,8 +627,8 @@ sections:
       $ hare run main.ha /dev/full        # io::write fails
       ```
 
-      Error handling is very important in Hare, so we're going look very closely
-      at this sample program over the next few setions.
+      Error handling is very important in Hare, so we're going to go over this
+      sample in detail in the next few sections.
 - title: Handling errors with match
   sample: |
       use errors;
