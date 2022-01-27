@@ -3,10 +3,18 @@
 title: An introduction to the Hare programming language
 type: codetutorials
 summary: |
-  This tutorial will introduce you to the Hare programming language. It
-  should take an hour or two to complete. If you are already familiar with
-  programming in other languages, it might take even less time — feel free to
-  jump around as you see fit.
+  This tutorial will introduce you to the Hare programming language. It should
+  take an hour or two to complete. If you are already familiar with programming
+  in other languages, it might take even less time — feel free to jump around as
+  you see fit.
+
+  <div class="alert">
+    <strong>Note:</strong> When necessary, the sample code in this tutorial
+    prefers to be correct rather than simple, at times relying on concepts which
+    have yet to be introduced to do so. If you are unsure about anything about a
+    code sample which was not explained in the text, don't worry &mdash; it'll
+    come up later.
+  </div>
 
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
@@ -376,8 +384,8 @@ sections:
       you're done using them. However, it's important not to allow a reference
       to any stack-allocated variables to persist after the function ends.
       Additionally, there is a limited amount of stack space, so it's often wise
-      to seek alternative strategies when allocating large objects &mdash; we'll
-      address that momentarily.
+      to seek alternative strategies when allocating large objects&nbsp;&mdash;
+      which we'll address momentarily.
 
       As a practical demonstration of stack allocation, this sample also
       computes and prints the SHA-256 hash of its source code. A common pattern
@@ -386,11 +394,57 @@ sections:
       `&`. This is convenient for many objects which can be cleaned up by simply
       discarding their state on the stack, but other kinds of objects (such as
       file handles) require additional steps.
-- title: Heap allocation & defer
+- title: Dynamic memory allocation & defer
   sample: |
-      TODO
+      use fmt;
+      use io;
+      use os;
+      
+      export fn main() void = {
+      	// Allocation basics
+      	let x: *int = alloc(42);
+      	fmt::printfln(" x: {}", x)!;
+      	fmt::printfln("*x: {}", *x)!;
+      	free(x);
+      
+      	// Applied example
+      	const file = os::open(os::args[1])!;
+      	defer io::close(file);
+      
+      	let buffer: *[65535]u8 = alloc([0...]);
+      	defer free(buffer);
+      
+      	const n = io::read(file, buffer)! as size;
+      	io::write(os::stdout, buffer[..n])!;
+      };
   details: |
-      TODO
+      Another allocation strategy in Hare is *heap* or *dynamic* allocation of
+      resources. A simple sample program is provided here, which opens the file
+      referred to by its first command line argument, reads up to 64 KiB from
+      it, and writes it to the standard output. You can run it on itself like
+      so: `hare run main.ha main.ha`.
+
+      To allocate an object on the heap, use the **alloc** keyword along with an
+      initializer in parenthesis. The runtime will request the necessary memory
+      from the operating system, initialize it to the value you provide here,
+      and return a pointer to this value. The first "fmt" call in this example
+      prints the location (or *address*) of the allocated memory, and the second
+      call prints the value which was placed there.
+
+      Unlike stack-allocated resources, which clean themselves up when the
+      function exits, heap-allocated resources must be "freed" by the caller
+      using the **free** keyword. Another concept shown here is the use of
+      **defer** to *defer* the execution of an expression to the end of the
+      current scope (that is, the code bound by `{` and `}`). This is useful for
+      causing the code which cleans up an object to be written near the code
+      which creates an object.
+
+      There are other kinds of resources that have to be cleaned up when you're
+      done using them, such as open files. **defer** is useful for these cases,
+      too, and in this code sample we use it to call "io::close" to clean up the
+      file opened by "os::open".
+
+      TODO: Update me when handling allocation failures is mandatory
 - title: Static allocation
   sample: |
       TODO
@@ -413,6 +467,11 @@ sections:
   details: |
       TODO
 - title: Propagating errors
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Handling allocation failure
   sample: |
       TODO
   details: |
@@ -501,7 +560,12 @@ resources](/community):
   great place to ask questions
 - The [#hare](https://web.libera.chat/#hare) chat room on irc.libera.chat is a
   good place for IRC users to idle
-- The [stdlib documentation](#TODO) can fill you in on a lot of details about
-  the APIs we saw here and others you encounter on your journey
+
+If you want to read some more real-world Hare code samples, also check out the
+[hautils] project, which offers several small and straightforward
+implementations of common shell commands like "tee". This is also a great
+project to get started with&nbsp;&mdash; maybe you'll send us a patch?
+
+[hautils]: https://git.sr.ht/~sircmpwn/hautils
 
 The next tutorial is the [standard library introduction](tutorials/stdlib).
