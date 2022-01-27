@@ -723,13 +723,33 @@ sections:
       	io::write(file, buf)?;
       };
   details: |
-      TODO
-- title: Handling allocation failure
+      It is cumbersome to use match to enumerate every possible failure for
+      every function that might fail. To make it easier to deal with errors, the
+      `?` operator is generally useful. The purpose of this operator is to check
+      for errors and, if found, return them to a higher call frame, or if not,
+      proceed normally.
+
+      To use this functionality, it is necessary to establish some error
+      handling code somewhere in the program. In this sample, the "main"
+      function is responsible for all error handling. In more complex programs,
+      you may handle various kinds of errors at different levels throughout the
+      program. An HTTP server, for instance, might have some logic to handle
+      configuration errors by printing a message and stopping the server, but
+      could handle errors related to a specific client by sending them an error
+      response or disconnecting them.
+
+      "os::create" and "io::write" together can return either an fs::error or an
+      io::error, so the result type for our "writehello" function is a tagged
+      union of either "void" (nothing, indicating success), "fs::error", or
+      "io::error". We can then use `?` to return these errors immediately and
+      extract the useful types from the return values of these functions, and
+      handle both cases in "main".
+- title: Defining new error types
   sample: |
       TODO
   details: |
       TODO
-- title: Defining new error types
+- title: Handling allocation failure
   sample: |
       TODO
   details: |
