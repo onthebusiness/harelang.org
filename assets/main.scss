@@ -27,13 +27,9 @@ nav:not(#TableOfContents) {
 
   img {
     grid-area: logo;
-    position: relative;
-    right: 1rem;
-    border-radius: 128px;
 
     @media(prefers-color-scheme: dark) {
-      filter: invert(.04);
-      box-shadow: 0 0 3px 3px #555;
+      filter: invert(.92);
     }
   }
 
