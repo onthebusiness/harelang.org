@@ -597,6 +597,7 @@ sections:
       	case let err: fs::error =>
       		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
       	};
+      	defer io::close(file);
       
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
@@ -650,6 +651,7 @@ sections:
       	case let err: fs::error =>
       		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
       	};
+      	defer io::close(file);
       
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
@@ -693,7 +695,33 @@ sections:
       which can be caused by that module.
 - title: Propagating errors
   sample: |
-      TODO
+      use errors;
+      use fmt;
+      use fs;
+      use fs::{flags};
+      use io;
+      use os;
+      use strings;
+      
+      export fn main() void = {
+      	const path = os::args[1];
+      	match (writehello(path)) {
+      	case void =>
+      		yield;
+      	case let err: fs::error =>
+      		fmt::fatal("Error writing {}: {}", path, fs::strerror(err));
+      	case let err: io::error =>
+      		fmt::fatal("Error writing {}: {}", path, io::strerror(err));
+      	};
+      };
+      
+      fn writehello(path: str) (fs::error | io::error | void) = {
+      	const oflags = flags::WRONLY | flags::TRUNC;
+      	const file = os::create(path, 0o644, oflags)?;
+      	defer io::close(file);
+      	const buf = strings::toutf8("Hello world!\n");
+      	io::write(file, buf)?;
+      };
   details: |
       TODO
 - title: Handling allocation failure
