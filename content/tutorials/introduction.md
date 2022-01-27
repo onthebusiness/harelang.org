@@ -444,6 +444,13 @@ sections:
       too, and in this code sample we use it to call "io::close" to clean up the
       file opened by "os::open".
 
+      <div class="alert">
+        <strong>Note:</strong> Failing to free allocated memory causes a
+        <em>memory leak</em>, which is a bug in your program. Failing to close
+        files is another kind of leak. Several of the earlier samples have
+        memory leaks &mdash; can you identify and fix them?
+      </div>
+
       TODO: Update me when handling allocation failures is mandatory
 - title: Static allocation
   sample: |
@@ -519,16 +526,53 @@ sections:
         can initialize it to a sensible default value and modify it at runtime
         instead.
       </div>
-- title: Cleaning up other kinds of resources
-  sample: |
-      TODO
-  details: |
-      TODO
 - title: Thinking in terms of ownership
   sample: |
-      TODO
+      use fmt;
+      use io;
+      use os;
+      use strings;
+      
+      export fn main() void = {
+      	const file = os::open("main.ha")!;        // Opens file
+      	defer io::close(file);
+      	const buffer = io::drain(file)!;          // Allocates buffer
+      	defer free(buffer);
+      	const string = strings::fromutf8(buffer); // Borrows buffer
+      	fmt::print(string)!;
+      };
   details: |
-      TODO
+      Hare uses *manual memory management*, which means that you, the
+      programmer, are responsible for planning for and allocating the memory
+      your program uses. Some functions in the standard library, and elsewhere,
+      have consequences for memory management that you should be aware of. These
+      are addressed in the documentation for these functions using standardized
+      language of *ownership*, *transfers* and *assumption* of ownership, and
+      *borrowing* resources.
+
+      Examine the documentation for the functions in this sample code with
+      commands like "haredoc io::drain". This function allocates a buffer to
+      store the results into, and returns that buffer to the caller (you), who
+      *assumes ownership* over the object. You are responsible for destroying
+      this object when you are done with it, freeing resources like memory to be
+      used elsewhere.
+
+      Many functions *borrow* resources to make use of them without taking
+      responsibility for them. "strings::fromutf8" is an example of this, as we
+      can learn from its documentation. The return value, "string", does not
+      need to be (and should not be) freed, and will become invalid when the
+      buffer it's borrowed from is freed.
+
+      It is important to read the documentation for the functions you use to
+      understand the ownership semantics they require, and to plan for this in
+      your program. The standard library is extensively documented and "haredoc"
+      makes it easy to access this information.
+
+      <div class="alert">
+        <strong>Note:</strong> We use terms like "borrow" and "ownership" to
+        reason about memory, but this is not enforced at the language level. The
+        compiler does not prevent double-free or use-after-free bugs.
+      </div>
 - section: Handling errors
 - title: Working with match
   sample: |
