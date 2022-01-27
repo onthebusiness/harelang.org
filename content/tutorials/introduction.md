@@ -571,7 +571,8 @@ sections:
       <div class="alert">
         <strong>Note:</strong> We use terms like "borrow" and "ownership" to
         reason about memory, but this is not enforced at the language level. The
-        compiler does not prevent double-free or use-after-free bugs.
+        compiler does not prevent double-free or use-after-free bugs. Hare does
+        have other safety features, however, which will be addressed later on.
       </div>
 - section: Handling errors
 - title: Working with match
