@@ -184,7 +184,7 @@ sections:
       greet".
 
       TODO: https://todo.sr.ht/~sircmpwn/hare/555
-- title: "Variables: const & let"
+- title: Using const & let to define variables
   sample: |
       use fmt;
       use io;
@@ -213,26 +213,20 @@ sections:
       	fmt::println(lines[2])!;
       };
   details: |
-      This sample is designed to illustrate a few ideas regarding the use of
-      variables in Hare. Like the parameters we've used in earlier examples, we
-      can create *local variables* which store values that we can use and
-      (sometimes) modify. Variables are *bound* with the **const** and **let**
-      keywords. A variable declared with const cannot be assigned to, and a
-      variable declared with let may be assigned to. All variables must be
-      *initialized* when they are declared.
+      This sample is designed to illustrate a few common ways to use variables
+      in Hare with the **const** and **let** keywords. When declaring a
+      variable, you must provide the initial value with an *initializer*, such
+      as a constant value like "42" or an arbitrary expression like a function
+      call. A variable declared with **const** cannot be modified after it is
+      initialized, but you can modify **let** variables with the `=` operator.
 
-      Though you cannot modify a const variable, you can *re-bind* it by
-      creating another variable with the same name. A point of note is that when
-      you re-bind a variable like this you can change it to a different type: in
-      this example "source" refers to an io::file, a []u8, a str, and a []str,
-      in that order. This is a useful pattern for building up a variable from a
-      series of intermediate values of various types.
-
-      <div class="alert">
-        <strong>Tip:</strong> Re-binding variables is a special case of the more
-        general concept of <em>shadowing</em>, which you may be familiar with
-        from other languages.
-      </div>
+      However, though you cannot modify a const variable, you can *re-bind* it
+      by creating another variable with the same name. When re-binding a
+      variable, you may also change its type: in this example, "source" refers
+      to an io::file, a []u8, a str, and a []str, in that order. This is a
+      useful pattern for building up a variable from a series of intermediate
+      values of various types. This technique is more generally called
+      "shadowing" the variable.
 
       Take note of the syntax as well. Each of the bindings in Example A use
       *type inference*, in which the variable automatically assumes the type of
@@ -332,6 +326,11 @@ sections:
       player3 is defined with a *tuple* type, which is very similar to a struct,
       but does not name its fields. They are accessed by their ordinal position,
       starting from zero, instead of their names.
+- title: Using default values
+  sample: |
+      TODO
+  details: |
+      TODO
 - section: Memory management
 - title: Stack allocation & pass by reference
   sample: |
