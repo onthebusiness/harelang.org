@@ -35,7 +35,7 @@ default search path is generally, in order of preference:
 Hare modules are distributed in source form and can be found in these
 directories. Importing `os::exec` will check `./os/exec/`, then
 `./vendor/os/exec`, and so on. The full algorithm for module resolution is
-described by hare(1) man page.
+described by the hare(1) man page.
 
 You are strongly advised to add dependencies with caution. Hare is not an
 ecosystem where every little piece of functionality can be added with a separate
@@ -105,5 +105,5 @@ cp -R /usr/src/hare/stdlib/os/exec/* vendor/os/exec/
 
 **You are strongly advised to read the license of vendored projects**. The Hare
 standard library, for example, uses the Mozilla Public License, which *requires*
-you to release any changes you make to standard library files the same Mozilla
-Public License. Other licenses may have similar requirements. Read them!
+you to release any changes you make to standard library files under the same
+Mozilla Public License. Other licenses may have similar requirements. Read them!
