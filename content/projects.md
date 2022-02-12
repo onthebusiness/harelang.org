@@ -13,6 +13,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~sircmpwn/hare-irc
 - https://git.sr.ht/~sircmpwn/hare-redis
 - https://git.sr.ht/~sircmpwn/hare-sdl2
+- https://git.sr.ht/~sircmpwn/hare-virt
 - https://git.sr.ht/~sircmpwn/hare-wayland
 - https://git.sr.ht/~sircmpwn/harebot
 - https://git.sr.ht/~sircmpwn/harsh
