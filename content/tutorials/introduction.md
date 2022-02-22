@@ -340,6 +340,98 @@ sections:
       player3 is defined with a *tuple* type, which is very similar to a struct,
       but does not name its fields. They are accessed by their ordinal position,
       starting from zero, instead of their names.
+- title: Arrays and slices
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	let x: [_]int = [1, 3, 3, 7];
+      	assert(len(x) == 4);	// len() built-in
+      	assert(x[3] == 7);	// 0-indexed
+      	x[3] = 8;		// assignment
+      	assert(x[3] == 8);
+      
+      	let y: [1024]int = [1, 3, 3, 7, 42...];	// Fill remainder with 42
+      
+      	printvals(y[..4]);
+      	printvals(y[2..8]);
+      };
+      
+      fn printvals(in: []int) void = {
+      	fmt::printfln("input: {} integers", len(in))!;
+      	for (let i = 0z; i < len(in); i += 1) {
+      		fmt::printfln("in[{}]: {}", i, in[i])!;
+      	};
+      	fmt::println()!;
+      };
+  details: |
+      We'll introduce **array** and **slice** types next. Arrays store a
+      specific (determined at compile-time) number of ordered values of a
+      uniform subtype; slices store an arbitrary (determined at runtime) number
+      of ordered values of a uniform type.
+
+      An array may be declared with a specific length and subtype (e.g.
+      "[5]int"), or may infer the length from context using an underscore (e.g.
+      "[_]int"). A slice type leaves the length unwritten: "[]int". Values of a
+      slice or array type can be *indexed* to obtain the value of one of their
+      objects, numbered from zero, with the "[<em>index</em>]" operator as shown
+      in the samples. The length (number of items) of an array or slice may be
+      obtained with the "len" built-in.
+
+      Like all values, arrays must be initialized when they are declared. This
+      can be awkward for large arrays like "y". In such cases, the `...`
+      operator is often useful: it assigns all remaining values to the last
+      value. In this example, most of "y" is initialized to "42".
+- title: Arrays and slices, continued
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	let x: [_]int = [1, 3, 3, 7];
+      	assert(len(x) == 4);	// len() built-in
+      	assert(x[3] == 7);	// 0-indexed
+      	x[3] = 8;		// assignment
+      	assert(x[3] == 8);
+      
+      	let y: [1024]int = [1, 3, 3, 7, 42...];	// Fill remainder with 42
+      
+      	printvals(y[..4]);
+      	printvals(y[2..8]);
+      };
+      
+      fn printvals(in: []int) void = {
+      	fmt::printfln("input: {} integers", len(in))!;
+      	for (let i = 0z; i < len(in); i += 1) {
+      		fmt::printfln("in[{}]: {}", i, in[i])!;
+      	};
+      	fmt::println()!;
+      };
+  details: |
+      A *slicing expression* is used to "slice" arrays and slices with the with
+      ".." operator. This creates a new slice which references a subset of the
+      source object, such that "y[2..5]" will produce a slice whose 0th value is
+      the 2nd value of "x" with a length of 5 - 2 = 3. Slicing does not copy the
+      underlying data, so modifying the items in a slice will modify the
+      underlying array.
+
+      Accesses to arrays and slices are *bounds checked*, which means that
+      accessing a value beyond the end of their valid objects will cause your
+      program to abort.
+
+      ```hare
+      let x = [1, 2, 3];
+      x[4]; // Abort!
+      ```
+
+      It is occasionally useful (but risky!) to skip the bounds check, for
+      interop with code written in other languages, or in carefully reviewed,
+      performance-critical code. To disable bounds checking, use `*` in place of
+      the array length:
+
+      ```hare
+      let x: [*]int = [1, 2, 3];
+      x[4]; // Undefined behavior!
+      ```
 - title: Using default values
   sample: |
       TODO
@@ -862,18 +954,12 @@ sections:
       TODO
   details: |
       TODO
-- section: Working with slices
-- title: Array types
-  sample: |
-      TODO
-  details: |
-      TODO
-- title: Slicing arrays
-  sample: |
-      TODO
-  details: |
-      TODO
 - title: Dynamically allocated slices
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Static slice mutations
   sample: |
       TODO
   details: |
