@@ -9,6 +9,12 @@ summary: |
   you see fit.
 
   <div class="alert">
+    <strong>Note:</strong> This tutorial is in the process of being rewritten.
+    You may want to refer to <a href="/tutorials/old-introduction/">the old
+    tutorial</a> to fill in the gaps.
+  </div>
+
+  <div class="alert">
     <strong>Note:</strong> When necessary, the sample code in this tutorial
     prefers to be correct rather than simple, at times relying on concepts which
     have yet to be introduced to do so. If you are unsure about anything about a
