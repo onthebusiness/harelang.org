@@ -23,8 +23,18 @@ The Hare installation procedure is provided here:
 
 <a href="/installation" class="tutorial-link">Installing Hare</a>
 
+Instructions are also available for distribution package maintainers:
+
+<a href="/distributions" class="tutorial-link">Hare installation for distributions</a>
+
 ## Hare style guide
 
 The style guide defines the canonical coding style for Hare programs:
 
 <a href="/style" class="tutorial-link">Hare style guide</a>
+
+## Internationalization
+
+This guide provides suggestions for the localization of Hare programs:
+
+<a href="/i18n" class="tutorial-link">Internationalization recommendations for Hare programs</a>
