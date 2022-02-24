@@ -334,8 +334,9 @@ sections:
       type named "coords". This can be used for any type, not just structs. This
       type is equivalent to the hand-written struct used for the player1
       variable, but by giving it a name we can skip the types for each *field*
-      and re-order them if we so desire. The other player, player1, is using an
-      *anonymous*, or un-named, struct type.
+      (when creating a variable of that type) and re-order them if we so desire.
+      The other player, player1, is using an *anonymous*, or un-named, struct
+      type.
 
       player3 is defined with a *tuple* type, which is very similar to a struct,
       but does not name its fields. They are accessed by their ordinal position,
