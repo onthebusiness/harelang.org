@@ -8,6 +8,8 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.d2evs.net/~ecs/himitsu
 - https://git.d2evs.net/~ecs/moarutils
 - https://git.sr.ht/~apreiml/bigc
+- https://git.sr.ht/~chrisppy/hare-atom
+- https://git.sr.ht/~chrisppy/hare-scfg
 - https://git.sr.ht/~sircmpwn/echo
 - https://git.sr.ht/~sircmpwn/habf
 - https://git.sr.ht/~sircmpwn/hare-irc
