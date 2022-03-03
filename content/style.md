@@ -687,7 +687,7 @@ some other state associated with it, use the verb "finish".
 Consult `man haredoc` for technical details regarding documenting Hare
 interfaces through comments in the source code.
 
-It is useful to have some linguistic conventions for inline documentation.  The
+It is useful to have some linguistic conventions for inline documentation. The
 following guidelines provide such conventions for any programs which wish to be
 consistent with the rest of the Hare ecosystem in their approach to API
 documentation.
