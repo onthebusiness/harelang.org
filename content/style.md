@@ -471,7 +471,7 @@ let x = (
 1. Variables MUST be named in `lower_underscore_case`.
 2. If splitting a long binding list onto multiple lines, each line MUST be
    consistently either at the `=` token or the `,` token. The breaking token
-   shall be placed on the first line. An indent MUST precede each continuation
+   MUST be placed on the first line. An indent MUST precede each continuation
    line.
 
 **CORRECT**
@@ -494,7 +494,7 @@ let x: int =
    its operand.
 3. A space MUST NOT be placed between the `(` and `)` operators and the inner
    expression.
-4. When breaking a long line at a binary operator, the operator shall be placed
+4. When breaking a long line at a binary operator, the operator SHOULD be placed
    on the second line.
 
 **CORRECT**
