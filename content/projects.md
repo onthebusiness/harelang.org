@@ -11,6 +11,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~chrisppy/hare-atom
 - https://git.sr.ht/~chrisppy/hare-rss
 - https://git.sr.ht/~chrisppy/hare-scfg
+- https://git.sr.ht/~sebsite/haretags
 - https://git.sr.ht/~sircmpwn/echo
 - https://git.sr.ht/~sircmpwn/habf
 - https://git.sr.ht/~sircmpwn/hare-irc
