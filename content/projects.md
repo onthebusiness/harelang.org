@@ -4,7 +4,6 @@ title: List of known Hare projects
 
 This is a (temporary) list of all currently known projects written in Hare.
 
-- https://git.d2evs.net/~ecs/helios
 - https://git.d2evs.net/~ecs/himitsu
 - https://git.d2evs.net/~ecs/moarutils
 - https://git.sr.ht/~apreiml/bigc
@@ -22,6 +21,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~sircmpwn/harebot
 - https://git.sr.ht/~sircmpwn/harsh
 - https://git.sr.ht/~sircmpwn/hautils
+- https://sr.ht/~sircmpwn/helios
 - https://git.sr.ht/~sircmpwn/scheduled
 - https://git.sr.ht/~sircmpwn/tetrominoes
 - https://git.sr.ht/~sircmpwn/toothbrush
