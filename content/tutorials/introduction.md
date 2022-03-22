@@ -931,9 +931,45 @@ sections:
       TODO
 - title: Testing your code
   sample: |
-      TODO
+      fn sort(items: []int) void = {
+      	for (true) {
+      		let sorted = true;
+      		for (let i = 1z; i < len(items); i += 1) {
+      			if (items[i - 1] > items[i]) {
+      				const x = items[i - 1];
+      				items[i - 1] = items[i];
+      				items[i] = x;
+      				sorted = false;
+      			};
+      		};
+      		if (sorted) {
+      			break;
+      		};
+      	};
+      };
+      
+      @test fn sort() void = {
+      	let items = [5, 4, 3, 2, 1];
+      	sort(items);
+      	for (let i = 1z; i < len(items); i += 1) {
+      		assert(items[i - 1] <= items[i], "list is unsorted");
+      	};
+      };
   details: |
-      TODO
+      Hare has first-class support for tests via the `@test` attribute on
+      functions. You can run the tests for this sample program by running "hare
+      test" in the directory where this file is present.
+
+      Our simple sample here is a [bubble sort] implementation. You may already
+      know that this is not a very good sort algorithm &mdash; you will likely
+      wish to use the standard library's [sort] module in real-world code.
+
+      [bubble sort]: https://en.wikipedia.org/wiki/Bubble_sort
+      [sort]: https://docs.harelang.org/sort
+
+      Note that this code does not have a "main" function &mdash; `hare run`
+      will not work here. You can test code which is not strictly speaking a
+      "program", such as libraries written in Hare.
 - section: Control flow
 - title: "if & switch statements"
   sample: |
