@@ -970,6 +970,12 @@ sections:
       Note that this code does not have a "main" function &mdash; `hare run`
       will not work here. You can test code which is not strictly speaking a
       "program", such as libraries written in Hare.
+
+      Also take note of the use of the `assert` built-in: given a condition (a
+      `bool`), if the condition is false, the program is stopped and the
+      message is printed. You can also skip the message if you don't need to be
+      specific; the file name and line number will be printed and you can
+      generally figure out what went wrong regardless.
 - section: Control flow
 - title: "if & switch statements"
   sample: |
