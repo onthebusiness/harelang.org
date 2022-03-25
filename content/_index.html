@@ -28,7 +28,7 @@ Hare fits on a 3½" floppy disc, which are
 <a href="/floppies">available for purchase</a>.
 
 {{< highlight hare >}}
-use io;
+use fmt;
 
 export fn main() void = {
 	const greetings = [
@@ -39,7 +39,7 @@ export fn main() void = {
 		"こんにちは世界！",
 	];
 	for (let i = 0z; i < len(greetings); i += 1) {
-		io::println(greetings[i]);
+		fmt::println(greetings[i])!;
 	};
 };{{< / highlight >}}
 
