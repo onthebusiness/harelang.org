@@ -15,7 +15,7 @@ body {
 }
 
 nav:not(#TableOfContents) {
-  max-width: calc(800px + 128px * 2); // mascot.jpg
+  max-width: calc(800px + 128px * 2); // mascot.png
   margin: 1rem auto 0;
   display: grid;
   grid-template-rows: auto auto 1fr;
