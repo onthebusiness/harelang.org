@@ -979,9 +979,98 @@ sections:
 - section: Control flow
 - title: "if & switch statements"
   sample: |
-      TODO
+      use fmt;
+      
+      type color = enum {
+      	RED,
+      	ORANGE,
+      	YELLOW,
+      	GREEN,
+      	BLUE,
+      	VIOLET,
+      };
+      
+      export fn main() void = {
+      	let stock = [
+      		(color::RED, 1),
+      		(color::BLUE, 6),
+      		(color::VIOLET, 1),
+      		(color::ORANGE, 4),
+      	];
+      	fmt::println("Inventory:")!;
+      	printstock(stock[0]);
+      	printstock(stock[1]);
+      	printstock(stock[2]);
+      	printstock(stock[3]);
+      };
+      
+      fn printstock(item: (color, int)) void = {
+      	const color = item.0, amount = item.1;
+      	fmt::printfln("{} paint\t{} liter{}",
+      		colorstr(color), amount,
+      		if (amount != 1) "s" else "")!;
+      };
+      
+      fn colorstr(c: color) str = {
+      	switch (c) {
+      	case color::RED =>
+      		return "Red";
+      	case color::ORANGE =>
+      		return "Orange";
+      	case color::YELLOW =>
+      		return "Yellow";
+      	case color::GREEN =>
+      		return "Green";
+      	case color::BLUE =>
+      		return "Blue";
+      	case color::VIOLET =>
+      		return "Violet";
+      	};
+      };
   details: |
-      TODO
+      We have used these expressions many times without explanation, but now
+      we'll dive into control statements in depth. We'll begin with statements
+      that select from one or more "branches" of execution: if and switch.
+
+      An "if" statement selects from one or more branches based on the truth of
+      a boolean expression, such as `x > 5`. If this statement is true, the
+      corresponding branch is executed. Optionally, you may follow the "true"
+      branch with the `else` keyword and another branch, which is executed
+      should the conditional expression turn out to be false. Hare also supports
+      "else if" expressions, which execute their branch if the previous branch
+      is false and a second condition of their own is met.
+
+      ```hare
+      if (condition 1) {
+          // Executes if condition 1 is true
+      } else if (condition 2) {
+          // Executes if condition 1 is not true and condition 2 is true
+      } else if (condition N...) {
+          // And so on...
+      } else {
+          // Executes if all other conditions were false
+      };
+      ```
+
+      An important note is that if expressions, like most Hare expressions, can
+      appear in any expression and can compute a value. The "printstock"
+      function from this sample code uses this to determine if "liter" should be
+      written in the plural form by testing if the quantity is not one to select
+      between an \"s\" suffix and an empty string (\"\").
+
+      Switch expressions provide a more structured approach to branching. Based
+      on a single value, the *switch value*, one of several *cases* is selected.
+      The *switch value* can be any primitive type, such as ints or rune, as
+      well as str and enum values. The "colorstr" function in the sample uses a
+      switch expression to select a different branch based on the value of the
+      color parameter, then returns a string representing that value.
+
+      Note that switch expressions are required to be *exhaustive*, which means
+      that every possible value of the *switch value* should have a
+      corresponding branch. If you do not want to handle every possibility
+      individually, you can add a "default" branch by omitting the value `case
+      =>`. This branch will be executed should no more-specific branch suffice.
+      This is also possible with match cases that omit the match type.
 - title: Using yield
   sample: |
       TODO
