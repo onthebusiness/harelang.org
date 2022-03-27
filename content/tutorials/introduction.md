@@ -1075,23 +1075,23 @@ sections:
   sample: |
       TODO
   details: |
-      TODO
-- title: Terminating branches
-  sample: |
-      TODO
-  details: |
-      TODO
+      In many of the samples so far, we've seen the use of { and } to denote
+      blocks of expressions which are evaluated one after another. In many
+      languages, these are decorative, but in Hare they have a semantic meaning:
+      these introduce new *compound expressions*, and, like most other
+      expressions, these expressions can compute a result using the "yield"
+      keyword.
 - title: for loops
   sample: |
       TODO
   details: |
       TODO
-- title: Dynamically allocated slices
+- title: Flow control
   sample: |
       TODO
   details: |
       TODO
-- title: Static slice mutations
+- title: Terminating branches
   sample: |
       TODO
   details: |
@@ -1107,17 +1107,57 @@ sections:
       TODO
   details: |
       TODO
-- title: More on tagged unions
+- title: User-defined types
+  # const, error
   sample: |
       TODO
   details: |
       TODO
-- title: More pointer types
+- title: Type attributes
+  # const, error
   sample: |
       TODO
   details: |
       TODO
-- title: Structs, unions, and C compatibility
+- title: Tagged unions in depth
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Pointer types in depth
+  # nullable, null value, auto-dereference
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Struct sub-typing
+  sample: |
+      TODO
+  details: |
+      TODO
+- section: Working with slices
+- title: Growable slices
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Static slice operations
+  sample: |
+      TODO
+  details: |
+      TODO
+- section: Functions in depth
+- title: Variadic functions
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: Function pointers
+  sample: |
+      TODO
+  details: |
+      TODO
+- title: "@init, @fini, @noreturn"
   sample: |
       TODO
   details: |
