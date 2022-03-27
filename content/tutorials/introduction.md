@@ -1073,7 +1073,27 @@ sections:
       This is also possible with match cases that omit the match type.
 - title: Using yield
   sample: |
-      TODO
+      use fmt;
+      use fs;
+      use io;
+      use os;
+      
+      export fn main() void = {
+      	const file = match (os::open(os::args[1])) {
+      	case let f: io::file =>
+      		yield f;
+      	case let err: fs::error =>
+      		fmt::fatal("Unable to open {}: {}",
+      			os::args[1], fs::strerror(err));
+      	};
+      
+      	match (io::copy(os::stdout, file)) {
+      	case size =>
+      		yield;
+      	case let err: io::error =>
+      		fmt::fatal("copy: {}", fs::strerror(err));
+      	};
+      };
   details: |
       In many of the samples so far, we've seen the use of { and } to denote
       blocks of expressions which are evaluated one after another. In many
@@ -1081,6 +1101,21 @@ sections:
       these introduce new *compound expressions*, and, like most other
       expressions, these expressions can compute a result using the "yield"
       keyword.
+
+      The simple example given here is meant to show some simple usages of
+      yield, similar to ones we've seen and left unexplained in previous
+      samples. The only clarification we wish to add here is to draw your
+      attention to the { and } characters, and clarify that the yield keyword
+      causes the nearest compound expression to stop and to have the result of
+      that expression set to the value provided to yield. The sample code shown
+      here uses this to cause the value of "f" to be assigned to the "file"
+      variable for further use outside of the match expression.
+
+      This example keeps things simple, but, in the field, you will probably
+      find "yield" useful less frequently in less obvious situations. Getting
+      values out of match expressions is likely to be the most common use of
+      this feature in your code. But, keep yield in your tool belt and you might
+      end up using it to solve other problems every now and then, too.
 - title: for loops
   sample: |
       TODO
