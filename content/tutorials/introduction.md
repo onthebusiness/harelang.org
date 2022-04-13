@@ -1138,14 +1138,72 @@ sections:
       end up using it to solve other problems every now and then, too.
 - title: for loops
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	const items = [
+      		"Hello,",
+      		"world!",
+      		"Hare",
+      		"is",
+      		"cool!",
+      	];
+      	let i = 0z;
+      	for (i < len(items); i += 1) {
+      		if (items[i] == "Hare") {
+      			break;
+      		};
+      	};
+      	fmt::printfln(`"Hare" is at index {}`, i)!;
+      };
   details: |
-      TODO
+      All loops in Hare are written with the "for" keyword, which allows some
+      logic to repeat so long as a condition is met. The syntax is:
+
+      <pre>for (<em>binding</em>; <em>condition</em>; <em>afterthought</em>)</pre>
+
+      The *binding* allows you to declare and initialize a variable which only
+      exists within the loop. The *condition* determines when the loop
+      terminates &mdash; it's evaluated at the start of each loop iteration, and
+      will terminate the loop if false. The *afterthought* runs after each
+      iteration, and is a convenient place to update the variables used for the
+      loop condition.
+
+      Any of these elements may be omitted, such as the binding in this code
+      sample, which allows us to access the loop item (i) outside of the loop.
+      A loop which never terminates may be written like so:
+
+      ```hare
+      for (true) {
+      	// ...
+      };
+      ```
 - title: Flow control
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	const items = [
+      		"Hello,",
+      		"world!",
+      		"Hare",
+      		"is",
+      		"cool!",
+      	];
+      	for (let i = 0z; i < len(items); i += 1) {
+      		if (items[i] == "Hare") {
+      			continue;
+      		};
+      		fmt::println(items[i])!;
+      	};
+      };
   details: |
-      TODO
+      We can use the `break` and `continue` keywords to manipulate control flow
+      in Hare loops. In the previous sample, we used `break` to terminate the
+      loop early when encountering a string called "Hare"; in this sample we
+      stop that loop iteration and continue with the next iteration.
+
+      Both of these keywords are "terminating expressions". What does that mean?
 - title: Terminating branches
   sample: |
       TODO
