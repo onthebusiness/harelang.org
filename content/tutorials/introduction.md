@@ -1206,9 +1206,56 @@ sections:
       Both of these keywords are "terminating expressions". What does that mean?
 - title: Terminating branches
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	const color = color::BLUE;
+      	const name = switch (color) {
+      	case color::RED =>
+      		yield "red";
+      	case color::ORANGE =>
+      		yield "orange";
+      	case color::YELLOW =>
+      		yield "yellow";
+      	case color::GREEN =>
+      		abort("green is not a creative color");
+      	case color::BLUE =>
+      		yield "blue";
+      	case color::VIOLET =>
+      		yield "violet";
+      	};
+      	fmt::println("your color is", name)!;
+      };
+      
+      type color = enum {
+      	RED,
+      	ORANGE,
+      	YELLOW,
+      	GREEN,
+      	BLUE,
+      	VIOLET,
+      };
   details: |
-      TODO
+      Some expressions, such as return, break, and continue, as well as
+      others like abort() and calling @noreturn functions like [os::exit][0],
+      cause the control flow to "terminate" and prevent future expressions in
+      that compound expression from executing.
+
+      [0]: https://docs.harelang.org/os#exit
+
+      This becomes more important when you consider that Hare is an
+      expression-oriented language. In the sample here, each branch of our
+      switch expression provides a value (the name of the color) to serve as the
+      result of the switch expression &mdash; except for `color::GREEN`. The use
+      of a terminating expression here, abort(), prevents the code from
+      continuing after this point, so this branch is not required to provide a
+      result and is not considered when determining the switch expression's
+      result type.
+
+      We have taken advantage of this behavior many times throughout the
+      tutorial. For example, in [Using yield](#using-yield), the branch which
+      calls fmt::fatal terminates, allowing us to only provide a value in one
+      case.
 - section: Types in depth
 - title: Promotion and type inference
   sample: |
