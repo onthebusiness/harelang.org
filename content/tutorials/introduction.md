@@ -14,14 +14,6 @@ summary: |
     tutorial</a> to fill in the gaps.
   </div>
 
-  <div class="alert">
-    <strong>Note:</strong> When necessary, the sample code in this tutorial
-    prefers to be correct rather than simple, at times relying on concepts which
-    have yet to be introduced to do so. If you are unsure about anything about a
-    code sample which was not explained in the text, don't worry &mdash; it'll
-    come up later.
-  </div>
-
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
 sections:
@@ -168,6 +160,12 @@ sections:
       the function which calls them, such as "askname", which returns a "str".
       Our main function makes use of the return value by storing it in a
       *variable* and *passing* it to "greet".
+
+      <div class="alert">
+        <strong>Note:</strong> Many code samples in this tutorial makes use of
+        concepts which are introduced later on. If you're unsure about how
+        something works, don't worry &mdash; it will be explained later.
+      </div>
 - title: A closer look at bufio::scanline
   sample: |
       use bufio;
