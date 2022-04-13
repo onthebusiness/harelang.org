@@ -25,6 +25,28 @@ summary: |
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
 sections:
+- title: How to get help
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	fmt::println("Hello world!")!;
+      };
+  details: |
+      We want you to leverage the Hare community to maximize your odds of
+      success with Hare. We are a community which wants to help each other build
+      the best Hare programs possible, together. Please join our mailing lists,
+      chat rooms, and so on, and do not hesitate to ask for help, discuss your
+      problems, and offer your knowledge and insights to others.
+
+      Here are some quick links to our [community resources](/community):
+
+      - [hare-users](https://lists.sr.ht/~sircmpwn/hare-users) is a great place
+        to ask questions
+      - [#hare](https://web.libera.chat/#hare) on irc.libera.chat is a good
+        place for IRC users to idle
+
+      Please join us!
 - title: Getting started
   sample: |
       use fmt;
@@ -1201,7 +1223,7 @@ sections:
 ---
 
 And that's the Hare programming language! Nice work getting through all of
-that. Now would probably be a good time to introduce you to some [community
+that. Now would probably be a good time to remind you about our [community
 resources](/community):
 
 - The [hare-users](https://lists.sr.ht/~sircmpwn/hare-users) mailing list is a
@@ -1212,7 +1234,8 @@ resources](/community):
 If you want to read some more real-world Hare code samples, also check out the
 [hautils] project, which offers several small and straightforward
 implementations of common shell commands like "tee". This is also a great
-project to get started with&nbsp;&mdash; maybe you'll send us a patch?
+project to get started with writing some real-world Hare code&nbsp;&mdash; maybe
+you'll send us a patch?
 
 [hautils]: https://git.sr.ht/~sircmpwn/hautils
 
