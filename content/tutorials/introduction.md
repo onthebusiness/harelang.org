@@ -1336,6 +1336,53 @@ sections:
       is important is for tagged unions: even if two types share the same
       underlying representation (such as "index" and "offs" in our sample code),
       they can be considered distinct types in a tagged union.
+- title: Pointer types in depth
+  # nullable, null value, auto-dereference
+  sample: |
+      use fmt;
+      
+      type coords = struct {
+      	x: int,
+      	y: int,
+      };
+      
+      export fn main() void = {
+      	let pos = coords { x = 10, y = 20 };
+      	printcoords(null);
+      	printcoords(&pos);
+      };
+      
+      fn printcoords(pos: nullable *coords) void = {
+      	match (pos) {
+      	case null =>
+      		fmt::println("(null)")!;
+      	case let pos: *coords =>
+      		fmt::printfln("({}, {})", pos.x, pos.y)!;
+      	};
+      };
+  details: |
+      Pointers in Hare, by default, cannot be "null". In other words, all
+      pointers must refer to a valid address. However, it is often useful to
+      signal the absence of a value, and we can do this with a *nullable*
+      pointer type.
+
+      The "printcoords" function in the sample code accepts an argument of type
+      "nullable *coords". We cannot *deference* this type with the `*` or `.`
+      operators like we ordinarily can: we must first test if it is valid. One
+      way to do this is to match against "null", as shown here.
+
+      Hare also includes a feature called "auto-dereferencing", which allows you
+      to do things like using the `.` operator to access struct members via a
+      pointer. This allows us to use "pos.x" rather than "(*pos).x". Many other
+      features work similarly &mdash; indexing arrays, append et al (covered
+      later), and so on. This works for any level of indirection: pointers to
+      pointers to pointers to pointers... can also be dereferenced
+      automatically.
+- title: Struct sub-typing
+  sample: |
+      TODO
+  details: |
+      TODO
 - title: Tagged unions in depth
   # TODO: Revisit this code sample once we finish updating parsing et al
   sample: |
@@ -1410,17 +1457,6 @@ sections:
       union. We're not going to go into detail here on how any of this works,
       but feel free to browse the relevant modules with haredoc if you're
       curious.
-- title: Pointer types in depth
-  # nullable, null value, auto-dereference
-  sample: |
-      TODO
-  details: |
-      TODO
-- title: Struct sub-typing
-  sample: |
-      TODO
-  details: |
-      TODO
 - section: Working with slices
 - title: Growable slices
   sample: |
