@@ -921,7 +921,7 @@ sections:
       };
   details: |
       Here we have a somewhat more complex sample in which we prompt the user to
-      enter a number and then correctly all possible error cases, such as
+      enter a number and then enumerate all possible error cases, such as
       entering something other than a number or pressing Ctrl+D to close the
       input file without entering anything at all. Try doing these things
       yourself and seeing how the program responds.
