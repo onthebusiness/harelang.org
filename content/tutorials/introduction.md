@@ -1380,9 +1380,62 @@ sections:
       automatically.
 - title: Struct sub-typing
   sample: |
-      TODO
+     use fmt;
+     use io;
+     use os;
+     
+     type limitstream = struct {
+     	io::stream,
+     	source: io::handle,
+     	limit: size,
+     };
+     
+     fn limitwriter(in: io::handle, limit: size) limitstream = {
+     	return limitstream {
+     		writer = &limit_write,
+     		source = in,
+     		limit = limit,
+     		...
+     	};
+     };
+     
+     fn limit_write(st: *io::stream, buf: const []u8) (size | io::error) = {
+     	const st = st: *limitstream;
+     	const buf = if (len(buf) > st.limit) {
+     		yield buf[..st.limit];
+     	} else {
+     		yield buf;
+     	};
+     	st.limit -= len(buf);
+     	return io::write(st.source, buf)?;
+     };
+     
+     export fn main() void = {
+     	const limit = limitwriter(os::stdout, 5);
+     	fmt::fprintln(&limit, "Hello world!")!;
+     };
   details: |
-      TODO
+     Pointers to structs enjoy a special feature in Hare: automatic sub-typing.
+     Essentially, a pointer to one type can be automatically cast to a pointer
+     of another type so long as the second type appears at the beginning of the
+     first type. This is useful for implementing abstract interfaces in Hare
+     programs.
+
+     This sample program takes advantage of this by implementing a custom
+     [io::stream][0] that limits the total amount of data which can be written,
+     essentially demonstrating a slimmed down version of the standard library's
+     built-in [limitwriter][1]. Running this program only writes the first five
+     bytes to stdout: "Hello".
+
+     The pointer to &limit passed to the fmt::fprintln call is of type
+     *limitstream, which embeds the io::stream type as the first field.
+     Thus, we can safely pass it to a function expecting an *io::stream
+     pointer, such as fmt::fprintln. In the "limit_write" function, we cast this
+     pointer back to *limitstream so that we can access additional data we need
+     to store to implement the limit writer functionality.
+
+     [0]: https://docs.harelang.org/io#stream
+     [1]: https://docs.harelang.org/io#limitwriter
 - title: Tagged unions in depth
   # TODO: Revisit this code sample once we finish updating parsing et al
   sample: |
