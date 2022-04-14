@@ -52,7 +52,9 @@
   {{ else }}
   <section>
     <h3 id="{{ .title | anchorize }}">{{.title}}</h3>
+    {{ if .sample }}
     {{ highlight .sample "hare" "" }}
+    {{ end }}
     <div class="details">
       {{ .details | markdownify }}
     </div>

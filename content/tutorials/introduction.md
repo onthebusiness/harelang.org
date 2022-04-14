@@ -12,12 +12,6 @@ summary: |
   [standard library introduction](/tutorials/stdlib).
 sections:
 - title: How to get help
-  sample: |
-      use fmt;
-      
-      export fn main() void = {
-      	fmt::println("Hello world!")!;
-      };
   details: |
       We want you to leverage the Hare community to maximize your odds of
       success with Hare. Our community strives to help each other build the best
