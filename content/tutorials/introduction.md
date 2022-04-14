@@ -1513,14 +1513,122 @@ sections:
 - section: Working with slices
 - title: Growable slices
   sample: |
-      TODO
+      use bufio;
+      use fmt;
+      use io;
+      use os;
+      use sort;
+      use strings;
+      
+      export fn main() void = {
+      	fmt::println("Enter a list of strings, then press <Ctrl+D>:")!;
+      
+      	let lines: []str = [];
+      	defer free(lines);
+      
+      	for (true) {
+      		const line = match (bufio::scanline(os::stdin)!) {
+      		case let line: []u8 =>
+      			yield line;
+      		case io::EOF =>
+      			break;
+      		};
+      		append(lines, strings::fromutf8(line));
+      	};
+      
+      	insert(lines[0], "test line");
+      
+      	for (let i = 0z; i < len(lines); i += 1) {
+      		if (lines[i] == "foobar") {
+      			delete(lines[i]);
+      		};
+      	};
+      
+      	sort::strings(lines);
+      
+      	fmt::println("Your strings, sorted:")!;
+      	for (let i = 0z; i < len(lines); i += 1) {
+      		fmt::println(lines[i])!;
+      	};
+      };
   details: |
-      TODO
+      Slices in Hare can grow and shrink dynamically via the use of the
+      "append", "insert", and "delete" keywords. The code sample shown here
+      makes use of all of these features to sort a user-provided list of
+      strings.
+
+      You can create an empty slice by simply using `[]` in the initializer as
+      shown here. You can also create a slice pre-filled with data with the
+      "alloc" keyword, such as `let x: []int = alloc([1, 2, 3])`. In either
+      case, once you have a dynamically allocated slice, you must free it. You
+      can pass a slice directly to "free", but in this sample we also need to
+      free the strings returned by bufio &mdash; so we use strings::freeall,
+      which frees both the slice and the strings inside of it.
+
+      There's another form of "delete" which is not shown here: you can delete
+      more than one element of a slice at a time by specifying a slicing
+      expression rather than an indexing expression, such as `delete(x[1..4])`.
 - title: Static slice operations
   sample: |
-      TODO
+      use bufio;
+      use fmt;
+      use io;
+      use os;
+      use sort;
+      use strings;
+      
+      export fn main() void = {
+      	fmt::println("Enter no more than 10 strings, then press <Ctrl+D>:")!;
+      
+      	let buf: [10]str = [""...];
+      	let lines = buf[..0];
+      	defer for (let i = 0z; i < len(lines); i += 1) {
+      		free(lines[i]);
+      	};
+      
+      	for (true) {
+      		const line = match (bufio::scanline(os::stdin)!) {
+      		case let line: []u8 =>
+      			yield line;
+      		case io::EOF =>
+      			break;
+      		};
+      		static append(lines, strings::fromutf8(line));
+      	};
+      
+      	static insert(lines[0], "test line");
+      
+      	for (let i = 0z; i < len(lines); i += 1) {
+      		if (lines[i] == "foobar") {
+      			static delete(lines[i]);
+      		};
+      	};
+      
+      	sort::strings(lines);
+      
+      	fmt::println("Your strings, sorted:")!;
+      	for (let i = 0z; i < len(lines); i += 1) {
+      		fmt::println(lines[i])!;
+      	};
+      };
   details: |
-      TODO
+      The slice operations introduced in the prior sample cover *dynamic*
+      allocations, where the data required to store the slice is allocated at
+      runtime. Hare also supports static slice operations, where the underlying
+      storage is provided for by the user. This is useful for many situations
+      where memory allocation is undesirable, such as in kernels or embedded
+      programming.
+
+      In this example, instead of letting the runtime allocate an arbitrary
+      number of strings, we start with a fixed buffer of ten empty strings, and
+      create a zero-length slice from it: `buf[..0]`. Each of our append,
+      delete, and insert operations is prefixed with the "static" keyword here,
+      which prevents Hare from re-allocating a slice with insufficient storage
+      space to perform the desired operation.
+
+      When using static slices, the burden lies with you to ensure that the
+      program will not exceed the allocated space. Try entering more than 10
+      items: the program will terminate with an error.
 - section: Functions in depth
 - title: Variadic functions
   sample: |
