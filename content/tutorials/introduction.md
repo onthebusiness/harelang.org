@@ -8,12 +8,6 @@ summary: |
   in other languages, it might take even less time — feel free to jump around as
   you see fit.
 
-  <div class="alert">
-    <strong>Note:</strong> This tutorial is in the process of being rewritten.
-    You may want to refer to <a href="/tutorials/old-introduction/">the old
-    tutorial</a> to fill in the gaps.
-  </div>
-
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
 sections:
