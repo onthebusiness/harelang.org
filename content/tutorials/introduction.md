@@ -513,6 +513,7 @@ sections:
       `&`. This is convenient for many objects which can be cleaned up by simply
       discarding their state on the stack, but other kinds of objects (such as
       file handles) require additional steps.
+  # TODO: introduce nullable pointers here
 - title: Dynamic memory allocation & defer
   sample: |
       use fmt;
