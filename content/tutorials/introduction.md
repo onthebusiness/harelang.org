@@ -1692,9 +1692,64 @@ sections:
      number of arguments throughout the tutorial.
 - title: Function pointers
   sample: |
-      TODO
+      use fmt;
+      use os;
+      use strconv;
+      
+      @noreturn fn usage() void = fmt::fatal("usage: {} <add|sub> <x> <y>", os::args[0]);
+      
+      export fn main() void = {
+      	if (len(os::args) != 4) usage();
+      
+      	const func: *fn(_: int, _: int) int = switch (os::args[1]) {
+      	case "add" =>
+      		yield &add;
+      	case "sub" =>
+      		yield &sub;
+      	case => usage();
+      	};
+      
+      	const x = match (strconv::stoi(os::args[2])) {
+      	case let i: int =>
+      		yield i;
+      	case => usage();
+      	};
+
+      	const y = match (strconv::stoi(os::args[3])) {
+      	case let i: int =>
+      		yield i;
+      	case => usage();
+      	};
+
+      	fmt::println(func(x, y))!;
+      };
+      
+      fn add(x: int, y: int) int = x + y;
+      fn sub(x: int, y: int) int = x - y;
   details: |
-      TODO
+      Much like other objects in Hare, it is possible to take the address of a
+      function with the & operator. You may then call this variable like you
+      would any ordinary function. This allows you to choose between different
+      behaviors at runtime.
+
+      In this sample, we take the address of the add and sub functions and store
+      it in a variable which has a *function pointer* type. The type is optional
+      here &mdash; it could be inferred &mdash; but we chose to spell it out
+      here to illustrate how these types are written. You can include these
+      types in structs fields, function parameters, and so on, like you could
+      with any other value.
+
+      <div class="alert">
+        <strong>Note:</strong> This code sample violates a few of the guidelines
+        set forth by the <a href="/style/">style guide</a> &mdash; can you spot
+        them? The guidelines are not set in stone: if your code is better when
+        you ignore some of them, do it.
+      </div>
+
+      We also make use of @noreturn here to make calling "usage" a terminating
+      expression, which excludes the switch and match branches that use it from
+      the result type selection as explained earlier. We'll talk more about
+      @noreturn and other function decorators in the next section.
 - title: "@init, @fini, @noreturn"
   sample: |
       TODO
