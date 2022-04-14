@@ -1264,9 +1264,57 @@ sections:
       TODO
 - title: Casting & type assertions
   sample: |
-      TODO
+      use fmt;
+      
+      export fn main() void = {
+      	// Casting between numeric types allows for lossy conversions:
+      	fmt::println(13.37f32: int)!;
+      
+      	// Type assertions let you examine the type of a tagged union:
+      	let x: (int | uint) = 42i;
+      	assert(x is int);
+      	fmt::println(x as int)!;
+      
+      	let y: nullable *(int | uint) = &x;
+      	assert(!(y is null)); // And nullable pointers
+      
+      	// You can also use casts for pointer arithmetic, ill-advised as that
+      	// may be:
+      	fmt::printfln("{:x} {:x}", y, y: uintptr + 10)!;
+      
+      	// Casts can also be used to change pointer types, ill-advised as that
+      	// may be:
+      	let z = (y: uintptr + size(int): uintptr): *int;
+      	assert(*z == 42);
+      };
   details: |
-      TODO
+      This sample introduces various ways of working with types explicitly in
+      Hare. One such example is *casting* types from one to another. One
+      use-case for this is given in the first example: converting between
+      numeric types. Since the fractional part is lost, this conversion is
+      lossy, and therefore must be done explicitly. Converting between signed
+      and unsigned types must also be explicit.
+
+      Hare also supports *type tests* and *type assertions* via the "is" and
+      "as" keywords, which can be used to work with the selected type of a
+      tagged union at runtime. An "is" expression returns a bool, true if the
+      tagged union is set to a value of the given member type. The "as"
+      expression is useful for when you *know* that a tagged union has a
+      particular type and you want to treat it as that type &mdash; this
+      "assertion" is tested at runtime and will cause your program to abort if
+      found to be untrue (try swapping "x as int" for "x as uint" to demonstrate
+      this).
+
+      Casts are tested at compile time to ensure that the desired conversion is
+      generally *possible*, but no attempt is made to test that it is
+      *advisable*. Thus, casting can be used to override Hare's type system when
+      the programmer believes that they know better, and this comes with risks.
+      In the simplest case, converting an f32 to an int might lead to some bugs
+      because you wanted to round instead of truncate. A more dangerous example
+      is shown here as well: pointer arithmetic and conversions between pointer
+      types. Using casts, you can instruct Hare to treat some memory as if it
+      were a given type, regardless of if it actually is or not. Use with
+      cation.
 - title: User-defined types
   # const, error
   sample: |
