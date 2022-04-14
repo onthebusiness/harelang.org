@@ -1317,11 +1317,25 @@ sections:
       were a given type, regardless of if it actually is or not. Use with
       cation.
 - title: User-defined types
-  # const, error
   sample: |
-      TODO
+      type index = size;
+      type offs = size;
+      
+      export fn main() void = {
+      	let z: (index | offs) = 1337: offs;
+      	assert(z is offs);
+      };
   details: |
-      TODO
+      You have already seen user-defined types several times throughout this
+      tutorial, defining types like player coordinates, enums for colors, and so
+      on. You have likely already gathered how this works: use the `type`
+      keyword to begin a new type declaration.
+
+      We want to illustrate one additional point here: each user-defined type
+      creates a distinct type identity in the Hare type system. One reason this
+      is important is for tagged unions: even if two types share the same
+      underlying representation (such as "index" and "offs" in our sample code),
+      they can be considered distinct types in a tagged union.
 - title: Type attributes
   # const, error
   sample: |
