@@ -1392,7 +1392,11 @@ sections:
       An exception to this occurs when using type aliases: a tagged union which
       contains a type alias referring to another tagged union does not reduce,
       unless you use the `...` operator. The "integer" and "numeric" types in
-      our sample make use of this behavior.
+      our sample make use of this behavior. This reduces the size of the final
+      type (by not nesting tagged unions), but is undesirable when the
+      underlying representations should be distinct &mdash; two error types
+      which are type aliases for `!void` would not be distinguishable if you
+      used `...` to incorporate them into the same tagged union.
 
       The rest of the sample is not important to understand, but does illuminate
       some of the internal implementation details of tagged unions. Each type in
@@ -1403,7 +1407,9 @@ sections:
       The Hare standard library provides access to tools for parsing and
       introspecting Hare programs, which the sample makes use of to find the
       type ID of "int" and compare it against the one stored in the tagged
-      union.
+      union. We're not going to go into detail here on how any of this works,
+      but feel free to browse the relevant modules with haredoc if you're
+      curious.
 - title: Pointer types in depth
   # nullable, null value, auto-dereference
   sample: |
