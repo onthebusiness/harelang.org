@@ -20,9 +20,9 @@ sections:
       };
   details: |
       We want you to leverage the Hare community to maximize your odds of
-      success with Hare. We are a community which wants to help each other build
-      the best Hare programs possible, together. Please join our mailing lists,
-      chat rooms, and so on, and do not hesitate to ask for help, discuss your
+      success with Hare. Our community strives to help each other build the best
+      Hare programs possible, together. Please join our mailing lists, chat
+      rooms, and so on, and do not hesitate to ask for help, discuss your
       problems, and offer your knowledge and insights to others.
 
       Here are some quick links to our [community resources](/community):
