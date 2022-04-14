@@ -1629,6 +1629,28 @@ sections:
       When using static slices, the burden lies with you to ensure that the
       program will not exceed the allocated space. Try entering more than 10
       items: the program will terminate with an error.
+- title: Slice assignment
+  sample: |
+      use fmt;
+      
+      export fn main() void = {
+      	let x: []int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      	printints(x);
+      	x[2..8] = [0, 0, 0, 0, 0, 0];
+      	printints(x);
+      };
+      
+      fn printints(x: []int) void = {
+      	for (let i = 0z; i < len(x); i += 1) {
+      		fmt::printf("{}{}", x[i], if (i + 1 < len(x)) ", " else "\n")!;
+      	};
+      };
+  details: |
+      It is often useful in Hare programs to copy data from one slice to
+      another. We can accomplish this using the *slice assignment* syntax by
+      placing a slicing expression on the left side of an assignment (=). Like
+      other operations involving slices, this is bounds-checked: the right value
+      must have a length equal to the length of the slice on the left.
 - section: Functions in depth
 - title: Variadic functions
   sample: |
