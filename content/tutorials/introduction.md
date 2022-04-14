@@ -1336,17 +1336,74 @@ sections:
       is important is for tagged unions: even if two types share the same
       underlying representation (such as "index" and "offs" in our sample code),
       they can be considered distinct types in a tagged union.
-- title: Type attributes
-  # const, error
-  sample: |
-      TODO
-  details: |
-      TODO
 - title: Tagged unions in depth
+  # TODO: Revisit this code sample once we finish updating parsing et al
   sample: |
-      TODO
+      use bufio;
+      use hare::ast;
+      use hare::lex;
+      use hare::parse;
+      use hare::types;
+      use io;
+      use strings;
+      
+      type signed = (int | i8 | i16 | i32 | i64);
+      // equivalent to:
+      // type signed = (i64 | (i32 | (i16 | (i8 | int | int | int))));
+      type unsigned = (uint | u8 | u16 | u32 | u64);
+      type integer = (...unsigned | ...signed);
+      type floating = (f32 | f64);
+      type numeric = (...integer | ...floating);
+      
+      type numeric_repr = struct {
+      	id: u32,
+      	union {
+      		_int: int,
+      		_i8: i8,
+      		_i16: i16,
+      		_i32: i32,
+      		_i64: i64,
+      		// ...
+      	},
+      };
+      
+      export fn main() void = {
+      	const input = bufio::fixed(strings::toutf8("int"), io::mode::READ);
+      	const lexer = lex::init(&input, "<string>");
+      	const _type = parse::_type(&lexer)!;
+      	defer ast::type_free(_type);
+      	const store = types::store(types::x86_64, null, null);
+      	defer types::store_free(store);
+      	const itype = types::lookup(store, &_type) as const *types::_type;
+      
+      	const obj: numeric = 1337;
+      	const ptr = &obj: *numeric_repr;
+      	assert(ptr.id == itype.id);
+      	assert(ptr._int == 1337);
+      };
   details: |
-      TODO
+      Let's take a closer look at tagged unions in Hare. Tagged union types have
+      three important properties: they are *commutative*, *associative*, and
+      *reductive*. This is illustrated by the commented-out version of the
+      "signed" type in the sample code &mdash; the order of types, inclusion of
+      the same type more than once, or use of nested tagged unions has no effect
+      on the final type.
+
+      An exception to this occurs when using type aliases: a tagged union which
+      contains a type alias referring to another tagged union does not reduce,
+      unless you use the `...` operator. The "integer" and "numeric" types in
+      our sample make use of this behavior.
+
+      The rest of the sample is not important to understand, but does illuminate
+      some of the internal implementation details of tagged unions. Each type in
+      Hare is assigned a unique ID, which is stored as the first field of a
+      tagged union type to indicate which type is stored there. Following the
+      tag, a union of all of the possible types is stored.
+
+      The Hare standard library provides access to tools for parsing and
+      introspecting Hare programs, which the sample makes use of to find the
+      type ID of "int" and compare it against the one stored in the tagged
+      union.
 - title: Pointer types in depth
   # nullable, null value, auto-dereference
   sample: |
