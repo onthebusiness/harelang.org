@@ -1651,6 +1651,9 @@ sections:
       placing a slicing expression on the left side of an assignment (=). Like
       other operations involving slices, this is bounds-checked: the right value
       must have a length equal to the length of the slice on the left.
+
+      This behaves similarly to C's memmove function: it's safe to copy data
+      from a slice to itself using this technique.
 - section: Functions in depth
 - title: Variadic functions
   sample: |
