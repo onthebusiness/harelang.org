@@ -529,7 +529,7 @@ sections:
       
       	// Applied example
       	const file = os::open(os::args[1])!;
-      	defer io::close(file);
+      	defer io::close(file)!;
       
       	let buffer: *[65535]u8 = alloc([0...]);
       	defer free(buffer);
@@ -655,7 +655,7 @@ sections:
       
       export fn main() void = {
       	const file = os::open("main.ha")!;        // Opens file
-      	defer io::close(file);
+      	defer io::close(file)!;
       	const buffer = io::drain(file)!;          // Allocates buffer
       	defer free(buffer);
       	const string = strings::fromutf8(buffer); // Borrows buffer
@@ -717,7 +717,7 @@ sections:
       	case let err: fs::error =>
       		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
       	};
-      	defer io::close(file);
+      	defer io::close(file)!;
       
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
@@ -771,7 +771,7 @@ sections:
       	case let err: fs::error =>
       		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
       	};
-      	defer io::close(file);
+      	defer io::close(file)!;
       
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
@@ -838,7 +838,7 @@ sections:
       fn writehello(path: str) (fs::error | io::error | void) = {
       	const oflags = flags::WRONLY | flags::TRUNC;
       	const file = os::create(path, 0o644, oflags)?;
-      	defer io::close(file);
+      	defer io::close(file)!;
       	const buf = strings::toutf8("Hello world!\n");
       	io::write(file, buf)?;
       };
@@ -1765,7 +1765,7 @@ sections:
       @init fn init() void = {
       	os::init_cwd(); // TODO: https://todo.sr.ht/~sircmpwn/hare/616
       	const file = os::open("main.ha")!;
-      	defer io::close(file);
+      	defer io::close(file)!;
       	const data = io::drain(file)!;
       	src = strings::fromutf8(data);
       };
