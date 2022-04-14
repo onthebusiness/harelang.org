@@ -1657,9 +1657,39 @@ sections:
 - section: Functions in depth
 - title: Variadic functions
   sample: |
-      TODO
+     use fmt;
+     
+     export fn main() void = {
+     	printints("args ", 1, 2, 3, 4, 5);
+     	let x: []int = [5, 4, 3, 2, 1];
+     	printints("slice ", x...);
+     };
+     
+     fn printints(prefix: str, x: int...) void = {
+     	fmt::print(prefix)!;
+     	for (let i = 0z; i < len(x); i += 1) {
+     		fmt::printf("{}{}", x[i], if (i + 1 < len(x)) ", " else "\n")!;
+     	};
+     };
   details: |
-      TODO
+     The functions we have written so far have a *fixed arity*. Functions taking
+     one arguments are *unary*, two arguments *binary*, three arguments
+     *trinary*, and so on. Hare also supports functions with a *variable arity*;
+     such functions are called *variadic*.
+
+     To declare a function as variadic, place a `...` after the type of its
+     final parameter. This will cause the type of the paramter to be a slice of
+     this type; in the example x becomes type `[]int`. Each additional parameter
+     passed to the function is appended to this slice.
+
+     We can also call variadic functions in one of two ways: either by listing
+     all of the parameters we want to pass directly, as in the first call to
+     "printints", or by passing a slice with the `...` operator again, as in the
+     second example.
+
+     The "fmt" family of functions we've been using throughout this tutorial is
+     also variadic, which is why we have been able to pass it an arbitrary
+     number of arguments throughout the tutorial.
 - title: Function pointers
   sample: |
       TODO
