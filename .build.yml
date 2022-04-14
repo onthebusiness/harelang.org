@@ -1,17 +1,16 @@
-image: alpine/latest
+image: alpine/edge
 packages:
   - rsync
   - go
 sources:
   - https://git.sr.ht/~sircmpwn/harelang.org
-  - https://git.sr.ht/~sircmpwn/hugo
 secrets:
   - 160a72cf-34d6-47b7-928b-c13b42b4d4f6
 tasks:
 - hugo: |
-    cd hugo
-    go build --tags extended
-    sudo cp hugo /usr/local/bin/
+    curl -O https://mirror.drewdevault.com/hugo
+    chmod +x hugo
+    sudo mv hugo /usr/local/bin/
 - build: |
     cd harelang.org
     /usr/local/bin/hugo
