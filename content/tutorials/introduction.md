@@ -1649,7 +1649,12 @@ sections:
 ---
 
 And that's the Hare programming language! Nice work getting through all of
-that. Now would probably be a good time to remind you about our [community
+that. We didn't cover everything here &mdash; check out the
+[Hare specification](/specification) if you want the comprehensive reference. If
+you encounter any unusual code out there in the wild that you don't understand,
+don't hesitate to reach out for help.
+
+Speaking of which, this is a good time to remind you about our [community
 resources](/community):
 
 - The [hare-users](https://lists.sr.ht/~sircmpwn/hare-users) mailing list is a
