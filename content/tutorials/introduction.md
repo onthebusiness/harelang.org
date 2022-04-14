@@ -1785,6 +1785,11 @@ sections:
       Hare, but they're generally only useful in specific, uncommon situations
       &mdash; you'll know if you need it.
 - section: Modules
+- title: Organizing your code in many files
+  sample: |
+      TODO
+  details: |
+      TODO
 ---
 
 And that's the Hare programming language! Nice work getting through all of
