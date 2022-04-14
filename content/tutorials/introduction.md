@@ -1752,9 +1752,44 @@ sections:
       @noreturn and other function decorators in the next section.
 - title: "@init, @fini, @noreturn"
   sample: |
-      TODO
+      use io;
+      use os;
+      use strings;
+      
+      export fn main() void = {
+      	io::write(os::stdout, strings::toutf8(src))!;
+      };
+      
+      let src: str = "";
+      
+      @init fn init() void = {
+      	os::init_cwd(); // TODO: https://todo.sr.ht/~sircmpwn/hare/616
+      	const file = os::open("main.ha")!;
+      	defer io::close(file);
+      	const data = io::drain(file)!;
+      	src = strings::fromutf8(data);
+      };
+      
+      @fini fn fini() void = {
+      	free(src);
+      };
   details: |
-      TODO
+      We have already seen some function attributes throughout this tutorial.
+      We'd like to explain the ones you've already seen, and introduce two more:
+      @init and @fini.
+
+      Decorating a function with @init causes it to be run when your program
+      starts, and is useful for initializing your application state. @fini is
+      run when your program is terminated, which is useful for the opposite. In
+      this sample, we use it to prepare the global "src" variable with the
+      program's own source code.
+
+      You've already seen @test: this marks a function as a test function, which
+      is only used when you run "hare test". We have also referred to @noreturn
+      a few times: calling a function marked @noreturn causes the call
+      expression to "terminate". There are a few other attributes supported by
+      Hare, but they're generally only useful in specific, uncommon situations
+      &mdash; you'll know if you need it.
 - section: Modules
 ---
 
