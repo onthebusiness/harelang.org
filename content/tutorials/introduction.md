@@ -1407,7 +1407,7 @@ sections:
      		yield buf;
      	};
      	st.limit -= len(buf);
-     	return io::write(st.source, buf)?;
+     	return io::write(st.source, buf);
      };
      
      export fn main() void = {
