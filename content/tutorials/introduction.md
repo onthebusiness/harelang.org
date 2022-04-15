@@ -1782,10 +1782,105 @@ sections:
       &mdash; you'll know if you need it.
 - section: Modules
 - title: Organizing your code in many files
-  sample: |
-      TODO
+  htmlsample: |
+      <style>
+        ul.dirs li {
+          list-style: none;
+        }
+
+        ul.dirs {
+          font-family: monospace;
+          background-color: #eee;
+          padding: 0.5rem;
+        }
+
+        @media(prefers-color-scheme: dark) {
+          ul.dirs {
+            background-color: #24272b;
+          }
+        }
+      </style>
+      <p style="margin-top: 0">Sample project layout:</p>
+      <ul class="dirs">
+        <li>
+          ./
+          <ul>
+            <li>main.ha</li>
+            <li>hello.ha</li>
+            <li>
+              example/
+              <ul>
+                <li>print.ha</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          /usr/src/hare/stdlib
+          <ul>
+            <li>
+              fmt/
+              <ul>
+                <li>README</li>
+                <li>fmt.ha</li>
+              </ul>
+              ...
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      ```hare
+      // main.ha
+      use example;
+
+      export fn main() void = {
+      	example::print(hello);
+      };
+      ```
+
+      ```hare
+      // hello.ha
+      const hello: str = "Hello world!";
+      ```
+
+      ```hare
+      // example/print.ha
+      use fmt;
+      
+      export fn print(what: str) void = fmt::println(what)!;
+      ```
   details: |
-      TODO
+      So far we've been putting all of our code into the same file, but as you
+      step out into the world to write real Hare code you would be well advised
+      to organize your code somewhat more carefully.
+
+      Each Hare module exists in a directory on your filesystem and contains
+      some or all of the ".ha" files in that directory. Each file in this
+      directory can use each other's private declarations (types, functions, and
+      so on), and has its own separate namespace of imports (use statements).
+      Thus, to expand your program into multiple files, you can simply write
+      your code into several files in a directory and pass that path to `hare
+      build` or `hare run`. You can also omit the path entirely and these
+      commands will assume you want to use the current directory.
+
+      When you "use" a module, Hare will search for that module in your
+      `HAREPATH`, which is a colon-delimited list of directories to look
+      through. The first directory is always the current directory, so if you
+      want to add a private module called "example" you can place its files at
+      ./example/*.ha. The standard library is usually installed (on Unix
+      systems) at /usr/src/hare/stdlib, and third-party modules are installed at
+      /usr/src/hare/third-party, both of which are configured in your HAREPATH
+      by default. We recommend that you make liberal use of these resources in
+      your work &mdash; don't hesitiate to read the source code for your
+      dependencies.
+
+      These are the basics &mdash; enough to get started with real-world Hare
+      programs. If you want to learn more, about how to organize large projects,
+      how to write Hare libraries, how to compile different code for each
+      platform, and so on, check out the [modules tutorial][0] next.
+
+      [0]: /tutorials/modules
 ---
 
 And that's the Hare programming language! Nice work getting through all of

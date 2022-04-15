@@ -21,18 +21,12 @@ features.
 
 <a href="/tutorials/stdlib" class="tutorial-link">Standard library introduction</a>
 
-### Using dependencies
+### Using Hare modules
 
-A short briefing on how to use third-party dependencies in Hare programs.
+A short briefing on how to use Hare modules to organize your projects,
+incorporate third-party dependencies, or develop new Hare libraries.
 
-<a href="/tutorials/dependencies" class="tutorial-link">Using dependencies</a>
-
-### Using and writing Hare libraries
-
-How to prepare your codebase as a library for other Hare programmers to use, or
-use libraries others have developed.
-
-<a href="/tutorials/libraries" class="tutorial-link">Writing hare libraries</a>
+<a href="/tutorials/modules" class="tutorial-link">Using Hare modules</a>
 
 ### Incremental rewrites of C code
 

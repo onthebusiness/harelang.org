@@ -55,6 +55,11 @@
     {{ if .sample }}
     {{ highlight .sample "hare" "" }}
     {{ end }}
+    {{ if .htmlsample }}
+    <div class="highlight htmlsample">
+      {{ .htmlsample | markdownify }}
+    </div>
+    {{ end }}
     <div class="details">
       {{ .details | markdownify }}
     </div>
