@@ -1524,7 +1524,7 @@ sections:
       		append(lines, strings::fromutf8(line));
       	};
       
-      	insert(lines[0], "test line");
+      	insert(lines[0], strings::dup("test line"));
       
       	for (let i = 0z; i < len(lines); i += 1) {
       		if (lines[i] == "foobar") {
@@ -1551,7 +1551,9 @@ sections:
       case, once you have a dynamically allocated slice, you must free it. You
       can pass a slice directly to "free", but in this sample we also need to
       free the strings returned by bufio &mdash; so we use strings::freeall,
-      which frees both the slice and the strings inside of it.
+      which frees both the slice and the strings inside of it. To meet the
+      criteria of strings being allocated, we had to copy a literal string to
+      the heap using strings::dup.
 
       There's another form of "delete" which is not shown here: you can delete
       more than one element of a slice at a time by specifying a slicing
@@ -1584,7 +1586,7 @@ sections:
       		static append(lines, strings::fromutf8(line));
       	};
       
-      	static insert(lines[0], "test line");
+      	static insert(lines[0], strings::dup("test line"));
       
       	for (let i = 0z; i < len(lines); i += 1) {
       		if (lines[i] == "foobar") {
