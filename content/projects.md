@@ -24,7 +24,7 @@ This is a (temporary) list of all currently known projects written in Hare.
 - https://git.sr.ht/~sircmpwn/harsh
 - https://git.sr.ht/~sircmpwn/hautils
 - https://sr.ht/~sircmpwn/helios
-- https://git.sr.ht/~sircmpwn/himitsu
+- https://sr.ht/~sircmpwn/himitsu
 - https://git.sr.ht/~sircmpwn/scheduled
 - https://git.sr.ht/~sircmpwn/tetrominoes
 - https://git.sr.ht/~sircmpwn/toothbrush
