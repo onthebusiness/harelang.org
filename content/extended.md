@@ -12,6 +12,11 @@ fit within the standard library mandate.
 These modules have less stringent requirements for portability, stability, and
 completeness compared to the standard library.
 
+## Algorithms
+
+- [hare-compress](https://git.sr.ht/~sircmpwn/hare-compress): compression
+  algorithms for Hare
+
 ## Databases
 
 - [hare-redis](https://git.sr.ht/~sircmpwn/hare-redis): redis support for Hare
