@@ -11,6 +11,14 @@ details), or online:
 
 <a href="https://docs.harelang.org" class="tutorial-link">Reference documentation</a>
 
+## Hare extended support libraries
+
+The extended support libraries provides official support for use-cases which
+fall outside of the standard library mandate, but are nevertheless declared
+important or usefel for the community.
+
+<a href="/extended" class="tutorial-link">Hare extended support libraries</a>
+
 ## Language specification
 
 The language specification is available here:
