@@ -33,8 +33,8 @@ The style guide defines the canonical coding style for Hare programs:
 
 <a href="/style" class="tutorial-link">Hare style guide</a>
 
-## Internationalization
+## Hare developer resources
 
-This guide provides suggestions for the localization of Hare programs:
+Resources for developers working on Hare itself:
 
-<a href="/i18n" class="tutorial-link">Internationalization recommendations for Hare programs</a>
+<a href="/developers" class="tutorial-link">Hare developer resources</a>

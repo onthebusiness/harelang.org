@@ -1,6 +1,8 @@
 ---
-title: Development hosts
+title: Resources developers working on Hare
 ---
+
+## Development hosts
 
 List of hosts available for Hare development:
 
