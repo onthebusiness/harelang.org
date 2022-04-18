@@ -14,12 +14,16 @@ completeness compared to the standard library.
 
 ## Algorithms
 
-- [hare-compress](https://git.sr.ht/~sircmpwn/hare-compress): compression
+- [hare-compress](https://git.sr.ht/~sircmpwn/hare-compress): Compression
   algorithms for Hare
 
 ## Databases
 
-- [hare-redis](https://git.sr.ht/~sircmpwn/hare-redis): redis support for Hare
+- [hare-redis](https://git.sr.ht/~sircmpwn/hare-redis): Redis support for Hare
+
+## Formats
+
+- [hare-xml](https://git.sr.ht/~sircmpwn/hare-xml): XML support for Hare
 
 ## Graphics
 
@@ -27,5 +31,5 @@ completeness compared to the standard library.
 
 ## Operating systems
 
-- [hare-linux](https://git.sr.ht/~sircmpwn/hare-linux): extended support for
+- [hare-linux](https://git.sr.ht/~sircmpwn/hare-linux): Extended support for
   Linux
