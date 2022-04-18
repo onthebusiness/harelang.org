@@ -1303,7 +1303,7 @@ sections:
       is shown here as well: pointer arithmetic and conversions between pointer
       types. Using casts, you can instruct Hare to treat some memory as if it
       were a given type, regardless of if it actually is or not. Use with
-      cation.
+      caution.
 - title: User-defined types
   sample: |
       type index = size;
