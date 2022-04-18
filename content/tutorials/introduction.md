@@ -1,5 +1,5 @@
 ---
-# vim: ts=2 sw=2 et :
+# vim: ts=2 sw=2 tw=80 et :
 title: An introduction to the Hare programming language
 type: codetutorials
 summary: |
