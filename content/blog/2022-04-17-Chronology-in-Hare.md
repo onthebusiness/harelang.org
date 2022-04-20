@@ -105,7 +105,7 @@ Where Hare differs from most other languages is the feature of
 *timescales*, the notion of a "dimension" on which instants exist, a
 dimension of reference and measure.
 
-The [chrono::timescale][ts] type embodies this notion. It's role allows
+The [chrono::timescale][ts] type embodies this notion. Its role allows
 for careful and deliberate handling of things like leap seconds at a
 stock exchange, or timekeeping in scientific contexts at an astronomic
 observatory.
