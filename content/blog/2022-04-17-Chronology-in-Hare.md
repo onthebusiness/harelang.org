@@ -67,7 +67,7 @@ default timezones, like LOCAL (Local time), UTC, TAI, MTC, etc. A
 [TZif][tzif] parser is used to read the system's installed [Olson/IANA
 Timezone database][tzdb], utilised by the [chrono::tz][tzfn] function.
 
-```
+```hare
 use time::chrono;
 
 // A new moment equivalent to 2022-04-17 15:30 UTC
@@ -138,7 +138,7 @@ contains leap seconds.
 MTC ([Coordinated Mars Time][mtcw]) also makes a notable appearance as
 [chrono::mtc][mtc]. Martian seconds run ~3% slower, as a "sol" (Martian
 solar day) takes 24 hours and 39 minutes in Earth time. Hare is not yet
-a space-faring language, but we can take small steps to get there.
+a space-faring language, but we can take small steps to get there[^mars].
 
 Hare allows for the conversion of instants between timescales, and
 leverages the [time::error][e] types if and when users decide to deal
@@ -201,11 +201,11 @@ specify the timezone and zone offset first, then its fields.
 
 ```hare
 // short form
-// 1970-01-01 00:00:00.000000000 +0000 UTC, UTC
+// 0000-01-01 00:00:00.000000000 +0000 UTC, UTC
 let dt = datetime::new(chrono::UTC, 0000);
 
-// 2038-01-01 00:00:00.000000000 +0000 UTC, UTC
-let dt = datetime::new(chrono::UTC, 0000, 2038, 01);
+// 1995-09-01 00:00:00.000000000 +0000 UTC, UTC
+let dt = datetime::new(chrono::UTC, 0000, 1995, 09);
 
 // long form
 // 2038-01-19 03:14:07.000000000 +0000 UTC, UTC
@@ -259,7 +259,7 @@ show([
 This is the same datetime, the same moment in time, under different
 timezones. Nepal's quirky UTC offset is handled just fine.
 
-```hare
+```
 Sat, 23 Sep 1995 15:00:00 -1000 HST      Pacific/Honolulu
 Sat, 23 Sep 1995 21:00:00 -0400 EDT      America/New_York
 Sun, 24 Sep 1995 02:00:00 +0100 CET      Europe/Amsterdam
@@ -527,6 +527,12 @@ write to us at:
 - "Vlad-Stefan Harbuz" <vlad@vladh.net>
 
 Happy time-travelling.
+
+
+  [^mars]: Authur David Olson: "Although the tz database does not
+  support time on other planets, it is documented here in the hopes that
+  support will be added eventually." --
+  https://data.iana.org/time-zones/theory.html#planets
 
 
   [t]: https://docs.harelang.org/time
