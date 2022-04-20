@@ -1378,14 +1378,19 @@ sections:
      use os;
      
      type limitstream = struct {
-     	io::stream,
+     	stream: io::stream,
      	source: io::handle,
      	limit: size,
+     };
+
+     const limit_vtable: io::vtable = io::vtable {
+     	writer = &limit_write,
+     	...
      };
      
      fn limitwriter(in: io::handle, limit: size) limitstream = {
      	return limitstream {
-     		writer = &limit_write,
+     		stream = &limit_vtable,
      		source = in,
      		limit = limit,
      		...
