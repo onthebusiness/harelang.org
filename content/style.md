@@ -701,11 +701,7 @@ reading the reference documentation are usually in a hurry, but they also
 appreciate comprehensive explanations. Aim to be as short as possible without
 omitting necessary details.
 
-If you can summarize an interface in one sentence, you may omit the period at
-the end. If you need several sentences, include a final period after the last
-sentence. Regardless of the approach, be consistent with similar members in the
-same context; if one enum value can be described in one sentence, include the
-final period if the rest of the values use several sentences.
+Include a period after the last sentence.
 
 Function documentation should complete the following thought: "This function
 [does, will, is used to]...". Examples:
