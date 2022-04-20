@@ -187,9 +187,14 @@ sections:
       we're interested in is []u8, which is a "slice" of bytes containing the
       line we want to read. It can also return io::EOF, which indicates that
       the "end of file" was reached, or io::error, which indicates that an I/O
-      error occurred. The `!` operator deals with the error case as we described
-      before. Encountering the end of the file, however, is not considered an
-      error.
+      error occurred.
+
+      Run the "haredoc io::error" command, and note the "!" *error flag* which
+      prepends the signature, which signifies that io::error is an *error type*.
+      Now run the "haredoc io::EOF" command and note the absence of the "!"
+      error flag. Encountering the end of the file is not considered an error.
+      The `!` in our program is an *error assertion operator*, which deals with
+      the error case as we described before, leaving []u8 and io::EOF remaining.
 
       To address this, we use the `as` operator to interpret the value as if it
       were a []u8 &mdash; this is called a type assertion. Like other
