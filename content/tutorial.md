@@ -1,5 +1,5 @@
 ---
-title: Hare Tutorial
+title: Hare Tutorials
 ---
 
 A number of Hare programming tutorials are available.
