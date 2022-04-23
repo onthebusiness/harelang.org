@@ -1,8 +1,6 @@
 ---
-# TODO: This tutorial probably does not work well in the codetutorials template,
-# should just be structured normally + table of contents
 title: An introduction to the Hare standard library
-type: codetutorials
+type: tutorials
 summary: |
   This tutorial introduces you to the Hare standard library. It assumes
   familiarity with most of the fundamental language concepts, which you can
@@ -26,50 +24,94 @@ summary: |
   </div>
 
   [language introduction tutorial]: /tutorials/introduction/
-sections:
-- section: Input and output
-- title: "Hare's I/O abstraction"
-- title: "Hare's filesystem abstraction"
-- title: "Host I/O primitives"
-- title: "Host filesystem primitives"
-- title: "Buffered I/O"
-- title: "I/O multiplexing"
-- title: "Custom I/O interfaces"
-- section: Working with strings
-- title: "Formatting text"
-- title: "String manipulation"
-- title: "Converting to and from strings"
-- title: "Efficient string I/O"
-- title: "base64, base32, and hex"
-- section: More filesystem utilities
-- title: "Using user directories"
-- title: "Using temporary files and directories"
-- title: "Working with paths"
-- section: "Handling command line arguments"
-- title: "getopt"
-- section: Executing other programs
-- title: "os::exec basics"
-- title: Waiting on children
-- title: Setting environment variables
-- title: Pipes and file descriptors
-- section: Sorted slices
-- title: Sorting a slice
-- title: Working with sorted slices
-- section: Regular expressions
-- title: Working with POSIX ERE
-- section: Networking
-- title: IP addresses
-- title: TCP and Unix sockets
-- title: UDP support
-- title: "net::dial"
-- section: Date and time
-- title: Basic timekeeping
-- title: Working with time zones and chronologies
-- title: Calendars
-- title: Formatting and parsing
-- section: Cryptography
-- title: Encrypting and decrypting data
-- title: Signing and validation
-- title: Key derivation
-- title: Low-level cryptographic primitives
 ---
+
+## Input and output
+
+### Hare's I/O abstraction
+
+### Hare's filesystem abstraction
+
+### Host I/O primitives
+
+### Host filesystem primitives
+
+### Buffered I/O
+
+### I/O multiplexing
+
+### Custom I/O interfaces
+
+## Working with strings
+
+### Formatting text
+
+### String manipulation
+
+### Converting to and from strings
+
+### Efficient string I/O
+
+### base64, base32, and hex
+
+## More filesystem utilities
+
+### Using user directories
+
+### Using temporary files and directories
+
+### Working with paths
+
+## Handling command line arguments
+
+### getopt
+
+## Executing other programs
+
+### os::exec basics
+
+### Waiting on children
+
+### Setting environment variables
+
+### Pipes and file descriptors
+
+## Sorted slices
+
+### Sorting a slice
+
+### Working with sorted slices
+
+## Regular expressions
+
+### Working with POSIX ERE
+
+## Networking
+
+### IP addresses
+
+### TCP and Unix sockets
+
+### UDP support
+
+### net::dial
+
+## Date and time
+
+### Basic timekeeping
+
+### Working with time zones and chronologies
+
+### Calendars
+
+### Formatting and parsing
+
+## Cryptography
+
+### Encrypting and decrypting data
+
+### Signing and validation
+
+### Key derivation
+
+### Low-level cryptographic primitives
