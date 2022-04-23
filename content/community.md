@@ -4,14 +4,18 @@ title: Community resources
 
 We have a small community, but we're happy to talk to you.
 
-**Notice**: While Hare is still under private development, access to these
-mailing lists is restricted. Please [email Drew DeVault](mailto:sir@cmpwn.com)
-to request list access.
+### hare-announce
 
-### User mailing list
+All Hare users are encouraged to subscribe to the [hare-announce] mailing list
+to receive important updates regarding changes to the Hare language, release
+announcements, and security advisories.
 
-To ask questions about Hare, please email [hare-users][hare-users], or [browse
-the archives][hare-users-archive].
+[hare-announce]: https://lists.sr.ht/~sircmpwn/hare-announce
+
+### hare-users
+
+To ask questions about Hare, please email [hare-users], or [browse the
+archives][hare-users-archive].
 
 [hare-users]: mailto:~sircmpwn/hare-users@lists.sr.ht
 [hare-users-archive]: https://lists.sr.ht/~sircmpwn/hare-users
@@ -19,7 +23,7 @@ the archives][hare-users-archive].
 ### Development mailing list
 
 Please send patches and development questions for the Hare standard library and
-compilers to [hare-dev][hare-dev], or [browse the archives][hare-dev-archive].
+compilers to [hare-dev], or [browse the archives].
 
 [hare-dev]: mailto:~sircmpwn/hare-dev@lists.sr.ht
 [hare-dev-archive]: https://lists.sr.ht/~sircmpwn/hare-dev
