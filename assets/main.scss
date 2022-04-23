@@ -390,3 +390,9 @@ dl {
 .htmlsample pre {
   margin-bottom: 1rem !important;
 }
+
+iframe, video {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+}
