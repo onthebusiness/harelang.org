@@ -21,24 +21,21 @@ easy):
 
 Bootstrapping Hare only takes a few minutes.
 
-#### Pre-requisites
+#### Step 0: Pre-requisites
 
 - A POSIX-compatible environment with a C11 compiler
 - [QBE](https://c9x.me/compile/)
 
-#### Building the bootstrap compiler
+#### Step 1: Building the bootstrap compiler
 
 1. Obtain [the bootstrap compiler source code](https://git.sr.ht/~sircmpwn/harec)
 2. `./configure`
 3. `make`
 
-Optionally run `make check` to compile and run the test suite as well.
+Optionally run `make check` to compile and run the test suite as well, then run
+`make install` as root to install it to your system.
 
-This program is not designed to be installed to your system. Run `. ./harec.sh`
-to make it temporarily available in your shell before moving on to the next
-step.
-
-#### Building the build driver
+#### Step 2: Building the build driver & standard library
 
 1. Obtain [the build driver source code](https://git.sr.ht/~sircmpwn/hare)
 2. Copy `config.example.mk` to `config.mk` and edit to taste
@@ -47,13 +44,4 @@ step.
 <!-- TODO: make stage-2 -->
 
 Optionally run `make check` to build & run the standard library test suite as
-well.
-
-Run `. ./hare.sh` and the new hare toolchain will become available in your
-shell, so you can begin using it without a formal installation. ~~If you wish to
-install Hare to your system, run `make install` as root.~~ An install target is
-not available yet &mdash; stick with `hare.sh` to make it easier to keep your
-system up-to-date while Hare matures.
-
-**Note**: For the time being, you will also need to source `harec.sh` from the
-bootstrap compiler step before using Hare.
+well, then run `make install` as root to install it to your system.
