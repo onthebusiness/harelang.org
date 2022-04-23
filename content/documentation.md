@@ -4,6 +4,12 @@ title: Hare Documentation
 
 Hare ships with man pages for its commands. Run `man hare` to get started.
 
+## Hare tutorials
+
+A number of tutorials are available introducing users to various Hare concepts.
+
+<a href="/tutorial" class="tutorial-link">Hare tutorials</a>
+
 ## Standard library reference documentation
 
 The reference documentation is available in your terminal (see haredoc(1) for
