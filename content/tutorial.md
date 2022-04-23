@@ -20,17 +20,3 @@ with the design of the Hare standard library and some of its more important
 features.
 
 <a href="/tutorials/stdlib" class="tutorial-link">Standard library introduction</a>
-
-### Using Hare modules
-
-A short briefing on how to use Hare modules to organize your projects,
-incorporate third-party dependencies, or develop new Hare libraries.
-
-<a href="/tutorials/modules" class="tutorial-link">Using Hare modules</a>
-
-### Incremental rewrites of C code
-
-Hare can be used for file-by-file or even function-by-function rewrites of C
-codebases, if you so desire.
-
-<a href="/tutorials/rewrites" class="tutorial-link">Incremental rewrites of C code</a>
