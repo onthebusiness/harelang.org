@@ -1,5 +1,5 @@
 ---
-title: Hare Tutorials
+title: Hare tutorials
 ---
 
 A number of Hare programming tutorials are available.
@@ -20,3 +20,11 @@ with the design of the Hare standard library and some of its more important
 features.
 
 <a href="/tutorials/stdlib" class="tutorial-link">Standard library introduction</a>
+
+### Hare modules tutorial
+
+The modules tutorial explains how to organize your projects into several files
+and directories, and how to create new Hare libraries for other users to take
+advantage of.
+
+<a href="/tutorials/modules" class="tutorial-link">Hare modules tutorial</a>
