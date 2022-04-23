@@ -10,12 +10,14 @@ Additional resources:
 
 ### Installing from packages
 
-Hare is young, so packages are generally not yet available. Once the language is
-more commonly supported throughout the ecosystem, installing Hare from your
-system package manager will be the recommended approach.
+Installing Hare from your distribution's package manager is the recommended
+approach. The suggested name for the Hare package is "hare", but your package
+manager may differ.
 
-For now, continue to the bootstrapping steps (which, thankfully, are quite
-easy):
+- [Alpine Linux](https://pkgs.alpinelinux.org/package/edge/community/x86_64/hare)
+
+Hare is young, so packages are not yet available for many distributions. If
+yours is unsupported, continue to the bootstrapping steps.
 
 ### Bootstrapping Hare from source
 
