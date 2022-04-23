@@ -15,6 +15,16 @@ summary: |
   introduce you to the most important parts of the standard library, and give
   you an idea of its general design and use.
 
+  <div class="alert">
+    <strong>Note:</strong> As you can tell, much of this tutorial remains to be
+    written! However, comprehensive reference documentation is available for the
+    standard library. You can browse it in your terminal via the "haredoc"
+    command, or online at
+    <a href="https://docs.harelang.org">docs.harelang.org</a>.
+    If you have any questions, do not hestitate to
+    <a href="/community">connect with the Hare community</a>.
+  </div>
+
   [language introduction tutorial]: /tutorials/introduction/
 sections:
 - section: Input and output
