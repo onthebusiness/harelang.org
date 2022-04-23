@@ -192,6 +192,10 @@ support if desired.
 The largest to-do item for the standard library is the completion of our
 cryptography implementation. Our target is to support TLS 1.2 and TLS 1.3.
 
+You can see more details about our future plans on the [roadmap].
+
+[roadmap]: /roadmap
+
 ## We need your help
 
 We need your help! We are looking for volunteers to work specifically on the
