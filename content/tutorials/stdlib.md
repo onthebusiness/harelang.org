@@ -27,7 +27,7 @@ sections:
 - title: "Custom I/O interfaces"
 - section: Working with strings
 - title: "Formatting text"
-- title: "String operations via 'strings'"
+- title: "String manipulation"
 - title: "Converting to and from strings"
 - title: "Efficient string I/O"
 - title: "base64, base32, and hex"
