@@ -19,6 +19,12 @@ manager may differ.
 Hare is young, so packages are not yet available for many distributions. If
 yours is unsupported, continue to the bootstrapping steps.
 
+If you add Hare to your distribution, please [let us know][0] so we can add
+yours to this list. Instructions for package maintainers [are available
+here](/distributions).
+
+[0]: mailto:~sircmpwn/hare-dev@lists.sr.ht
+
 ### Bootstrapping Hare from source
 
 Bootstrapping Hare only takes a few minutes.
