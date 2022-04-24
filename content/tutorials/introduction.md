@@ -176,7 +176,9 @@ sections:
       };
       
       // Greets a user by name.
-      fn greet(user: str) void = fmt::printfln("Hello, {}!", user)!;
+      fn greet(user: str) void = {
+      	fmt::printfln("Hello, {}!", user)!;
+      };
   details: |
       Like "askname", many standard library functions can return values.
       bufio::scanline is interesting example of this. We can read the
