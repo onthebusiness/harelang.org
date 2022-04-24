@@ -129,7 +129,9 @@ sections:
       };
       
       // Greets a user by name.
-      fn greet(user: str) void = fmt::printfln("Hello, {}!", user)!;
+      fn greet(user: str) void = {
+      	fmt::printfln("Hello, {}!", user)!;
+      };
   details: |
       The sample program shown here is a bit more complex, and we're going to
       examine it in detail over the next few headings. This program prints a
