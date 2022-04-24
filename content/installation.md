@@ -14,16 +14,14 @@ Installing Hare from your distribution's package manager is the recommended
 approach. The suggested name for the Hare package is "hare", but your package
 manager may differ.
 
-- [Alpine Linux](https://pkgs.alpinelinux.org/package/edge/community/x86_64/hare): `apk add hare`
-
-Hare is young, so packages are not yet available for many distributions. If
-yours is unsupported, continue to the bootstrapping steps.
-
 If you add Hare to your distribution, please [let us know][0] so we can add
 yours to this list. Instructions for package maintainers [are available
 here](/distributions).
 
 [0]: mailto:~sircmpwn/hare-dev@lists.sr.ht
+
+Hare is young, so packages are not yet available for many distributions. If
+yours is unsupported, continue to the bootstrapping steps.
 
 ### Bootstrapping Hare from source
 
