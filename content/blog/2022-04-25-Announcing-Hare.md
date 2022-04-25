@@ -1,10 +1,8 @@
 ---
 title: Announcing the Hare programming language
 author: Drew DeVault
-date: 2022-04-23
+date: 2022-04-25
 ---
-
-**This is a draft for release on Monday. Please do not share.**
 
 Hare is a systems programming language designed to be simple, stable, and
 robust. Hare uses a static type system, manual memory management, and a minimal
