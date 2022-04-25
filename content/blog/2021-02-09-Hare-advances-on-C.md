@@ -203,7 +203,7 @@ specification again:
 > purpose.
 
 There are many areas that C leaves undefined that we've decided to define. An
-octet is always 8 bits. Shifting greater than the width of a value is defined.
+byte is always 8 bits. Shifting greater than the width of a value is defined.
 Signed overflow and underflow is defined. Hare programs always have predictable
 behavior.
 
