@@ -1919,4 +1919,4 @@ you'll send us a patch?
 
 [hautils]: https://git.sr.ht/~sircmpwn/hautils
 
-The next tutorial is the [standard library introduction](tutorials/stdlib).
+The next tutorial is the [standard library introduction](/tutorials/stdlib).
