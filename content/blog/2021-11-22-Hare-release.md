@@ -17,16 +17,6 @@ already like, or your project's release situation demands special attention, you
 can skip this tool entirely. But, if you choose to use it, you can ship the
 first version of your software by running `hare release 1.0.0`. If you want to
 ship a pre-release, something like `hare release 0.0.1` may be more appropriate.
-The experience ends up being something like this:
-
-<iframe
-  src="https://asciinema.org/a/K9aLybXGVzrj5QfNGpDSrrzuJ/embed?"
-  id="asciicast-iframe-K9aLybXGVzrj5QfNGpDSrrzuJ"
-  name="asciicast-iframe-K9aLybXGVzrj5QfNGpDSrrzuJ"
-  scrolling="no"
-  allowfullscreen="true"
-  style="overflow: hidden; margin: 0 auto; border: 0px none; display: block; width: 640px; float: none; visibility: visible; height: 436px;"
-></iframe>
 
 This process automatically runs a number of sanity checks to avoid common
 mistakes, such as:
@@ -85,19 +75,10 @@ version increments for major, minor, and patch releases. In short:
 
 hare release then uses [git-shortlog(1)][shortlog] to pre-generate release
 notes for you. If you've been using [good commit discipline][discipline], you
-might not have to edit them at all! Check it out:
+might not have to edit them at all!
 
 [shortlog]: https://git-scm.com/docs/git-shortlog
 [discipline]: https://drewdevault.com/2019/02/25/Using-git-with-discipline.html
-
-<iframe
-  src="https://asciinema.org/a/HbvwvnoFW4kJUyitcy1YKDZ3E/embed?"
-  id="asciicast-iframe-HbvwvnoFW4kJUyitcy1YKDZ3E"
-  name="asciicast-iframe-HbvwvnoFW4kJUyitcy1YKDZ3E"
-  scrolling="no"
-  allowfullscreen="true"
-  style="overflow: hidden; margin: 0 auto; border: 0px none; display: block; width: 640px; float: none; visibility: visible; height: 436px;"
-></iframe>
 
 In the future, we hope to be able to analyze the difference between versions and
 automatically detect if you have made breaking changes, and choose the
