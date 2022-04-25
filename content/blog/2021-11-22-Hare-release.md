@@ -103,6 +103,4 @@ same wide breadth of software in our ecosystem. Per our steadfast commitment to
 stability and reliability, large changes along these lines will be scarce, but
 rest assured that we are not painted into a corner by choosing these tools.
 
-I hope you find this tool useful for your projects! Check out the man pages if
-you want to learn more about the design and usage of hare release. Go forth
-and ship!
+I hope you find this tool useful for your projects!
