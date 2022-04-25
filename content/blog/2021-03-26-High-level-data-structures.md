@@ -68,13 +68,9 @@ The standard library provides `hash::fnv`, which is a good algorithm to use to
 produce hashes for our map. We're keying this map based on the module identifier
 (`ast::ident`), so we need to write a function which hashes an identifier.
 
-<!-- TODO: This code sample should be updated if/when we update fnv32() to avoid
-allocating a hash structure on the heap -->
-
 ```hare
 fn ident_hash(ident: ast::ident) u32 = {
-	let hash = fnv::fnv32();
-	defer hash::close(hash);
+	let hash = fnv::fnv32a();
 	for (let i = 0z; i < len(ident); i += 1) {
 		hash::write(hash, strings::toutf8(ident[i]));
 		hash::write(hash, [0]);
@@ -99,11 +95,11 @@ fn sched_module(plan: *plan, ident: ast::ident, link: *[]*task) *task = {
 			return bucket[i].task;
 		};
 	};
-  
+
 	// ...
 
 	let obj = sched_hare_object(plan, ver, ident, depends...);
-	append(*bucket, modcache {
+	append(bucket, modcache {
 		hash = hash,
 		task = obj,
 		ident = ident,
