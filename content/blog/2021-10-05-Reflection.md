@@ -163,7 +163,7 @@ the typeinfo data structure into the program and returns a pointer to it, which
 is then wrapped up in the opaque "type" meta-type. The "reflect" function simply
 converts it to a useful pointer. Here's the generated IR for this:
 
-```hare
+```
 %binding.4 =l alloc8 8
 storel $rt.builtin_int, %binding.4
 ```
@@ -192,16 +192,20 @@ export fn main() void = {
 ```
 
 ```
-data $strdata.7 = section ".data.strdata.7" { b "x" }
+section ".data.strdata.7"
+data $strdata.7 = { b "x" }
 
-data $strdata.8 = section ".data.strdata.8" { b "y" }
+section ".data.strdata.8"
+data $strdata.8 ={ b "y" }
 
-data $sldata.6 = section ".data.sldata.6" {
+section ".data.sldata.6"
+data $sldata.6 = {
   l $strdata.7, l 1, l 1, l 0, l $rt.builtin_int,
   l $strdata.8, l 1, l 1, l 4, l $rt.builtin_int,
 }
 
-data $typeinfo.5 = section ".data.typeinfo.5" {
+section ".data.typeinfo.5"
+data $typeinfo.5 = {
   w 2617358403, z 4,
   l 8,
   l 4,
@@ -211,7 +215,8 @@ data $typeinfo.5 = section ".data.typeinfo.5" {
   l $sldata.6, l 2, l 2,
 }
 
-export function section ".text.main" "ax" $main() {
+section ".text.main" "ax" export
+function $main() {
 @start.0
 	%binding.4 =l alloc8 8
 @body.1
@@ -236,20 +241,26 @@ export fn main() void = {
 ```
 
 ```
-data $strdata.1 = section ".data.strdata.1" { b "coords" }
+section ".data.strdata.1"
+data $strdata.1 = { b "coords" }
 
-data $sldata.0 = section ".data.sldata.0" { l $strdata.1, l 6, l 6 }
+section ".data.sldata.0"
+data $sldata.0 = { l $strdata.1, l 6, l 6 }
 
-data $strdata.4 = section ".data.strdata.4" { b "x" }
+section ".data.strdata.4"
+data $strdata.4 = { b "x" }
 
-data $strdata.5 = section ".data.strdata.5" { b "y" }
+section ".data.strdata.5"
+data $strdata.5 = { b "y" }
 
-data $sldata.3 = section ".data.sldata.3" {
+section ".data.sldata.3"
+data $sldata.3 = {
   l $strdata.4, l 1, l 1, l 0, l $rt.builtin_int,
   l $strdata.5, l 1, l 1, l 4, l $rt.builtin_int,
 }
 
-data $typeinfo.2 = section ".data.typeinfo.2" {
+section ".data.typeinfo.2"
+data $typeinfo.2 = {
   w 2617358403, z 4,
   l 8,
   l 4,
@@ -259,8 +270,10 @@ data $typeinfo.2 = section ".data.typeinfo.2" {
   l $sldata.3, l 2, l 2,
 }
 
-data $type.1491593906 = section ".data.type.1491593906" {
+section ".data.type.1491593906"
+data $type.1491593906 = {
   w 1491593906, z 4,
+export function section ".text.main" "ax" $main() {
   l 8,
   l 4,
   w 0, z 4,
@@ -269,7 +282,8 @@ data $type.1491593906 = section ".data.type.1491593906" {
   l $typeinfo.2
 }
 
-export function section ".text.main" "ax" $main() {
+section ".text.main" "ax" export
+function $main() {
 @start.6
 	%binding.10 =l alloc8 8
 @body.7
