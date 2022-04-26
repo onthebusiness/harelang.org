@@ -125,11 +125,11 @@ be able to store your SSH private key and act as an SSH agent.
 ### Helios: a microkernel for x86\_64
 
 [Helios](https://sr.ht/~sircmpwn/helios/) is a micro-kernel for x86\_64 systems,
-and will ideally other architectures in the future (we already have another
-working kernel for RISC-V, for example). It's pretty basic at the moment &mdash;
-it can boot to long mode, has a couple of serial drivers, and sets up paging.
-There's a lot of work to be done, but this is a great project for demonstrating
-Hare's ability to do low-level work.
+and will ideally support other architectures in the future (we already have
+another working kernel for RISC-V, for example). It's pretty basic at the moment
+&mdash; it can boot to long mode, has a couple of serial drivers, and sets up
+paging. There's a lot of work to be done, but this is a great project for
+demonstrating Hare's ability to do low-level work.
 
 ![A screenshot of a page fault in Helios](https://l.sr.ht/LHZ2.png)
 
