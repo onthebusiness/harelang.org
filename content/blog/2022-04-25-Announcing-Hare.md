@@ -22,7 +22,7 @@ use os;
 export fn main() void = {
 	const hash = sha256::sha256();
 	const file = os::open("main.ha")!;
-	defer io::close(file);
+	defer io::close(file)!;
 	io::copy(&hash, file)!;
 
 	let sum: [sha256::SIZE]u8 = [0...];

@@ -526,7 +526,7 @@ sections:
       
       	// Applied example
       	const file = os::open(os::args[1])!;
-      	defer io::close(file);
+      	defer io::close(file)!;
       
       	// XXX: There is a known bug here:
       	// https://todo.sr.ht/~sircmpwn/hare/657
