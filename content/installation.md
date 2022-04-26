@@ -31,6 +31,7 @@ Bootstrapping Hare only takes a few minutes.
 
 - A POSIX-compatible environment with a C11 compiler
 - [QBE](https://c9x.me/compile/)
+- [scdoc](https://sr.ht/~sircmpwn/scdoc)
 
 #### Step 1: Building the bootstrap compiler
 
