@@ -1864,7 +1864,7 @@ sections:
       // example/print.ha
       use fmt;
       
-      export fn print(what: str) void = fmt::println(what)!;
+      export fn print(what: str) size = fmt::println(what)!;
       ```
   details: |
       So far we've been putting all of our code into the same file, but as you
