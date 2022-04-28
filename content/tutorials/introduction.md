@@ -897,7 +897,7 @@ sections:
       		return "Expected a positive number";
       	case unexpectedeof =>
       		return "Unexpected end of file";
-      	case err: io::error =>
+      	case let err: io::error =>
       		return io::strerror(err);
       	};
       };
