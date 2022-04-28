@@ -1475,7 +1475,7 @@ sections:
       	const input = bufio::fixed(strings::toutf8("int"), io::mode::READ);
       	const lexer = lex::init(&input, "<string>");
       	const _type = parse::_type(&lexer)!;
-      	defer ast::type_free(_type);
+      	defer ast::type_finish(&_type);
       	const store = types::store(types::x86_64, null, null);
       	defer types::store_free(store);
       	const itype = types::lookup(store, &_type) as const *types::_type;
