@@ -497,14 +497,14 @@ sections:
       "main" by using the `*` operator.
 
       When you call a function in Hare (or when the runtime calls "main" for
-      you), a *stack frame* is allocated to store all of the function's
-      variables and parameters. This is automatically cleaned up when you return
-      from the function, which makes it useful for getting rid of resources when
-      you're done using them. However, it's important not to allow a reference
-      to any stack-allocated variables to persist after the function ends.
-      Additionally, there is a limited amount of stack space, so it's often wise
-      to seek alternative strategies when allocating large objects&nbsp;&mdash;
-      which we'll address momentarily.
+      you), a small block of memory called a *stack frame* is allocated to store
+      all of the function's variables and parameters. This is automatically
+      cleaned up when you return from the function, which makes it useful for
+      getting rid of resources when you're done using them. However, it's
+      important not to allow a reference to any stack-allocated variables to
+      persist after the function ends. Additionally, there is a limited amount
+      of stack space, so it's often wise to seek alternative strategies when
+      allocating large objects&nbsp;&mdash; which we'll address momentarily.
 
       As a practical demonstration of stack allocation, this sample also
       computes and prints the SHA-256 hash of its source code. A common pattern
@@ -848,8 +848,8 @@ sections:
       It is cumbersome to use match to enumerate every possible failure for
       every function that might fail. To make it easier to deal with errors, the
       `?` operator is generally useful. The purpose of this operator is to check
-      for errors and, if found, return them to a higher call frame, or if not,
-      proceed normally.
+      for errors and, if found, return them to a higher call frame. If there are
+      no errors, execution will proceed normally.
 
       To use this functionality, it is necessary to establish some error
       handling code somewhere in the program. In this sample, the "main"
@@ -1136,10 +1136,10 @@ sections:
       variable for further use outside of the match expression.
 
       This example keeps things simple, but, in the field, you will probably
-      find "yield" useful less frequently in less obvious situations. Getting
-      values out of match expressions is likely to be the most common use of
-      this feature in your code. But, keep yield in your tool belt and you might
-      end up using it to solve other problems every now and then, too.
+      find "yield" useful less frequently in situations that are less obvious.
+      Getting values out of match expressions is likely to be the most common
+      use of this feature in your code. But, keep yield in your tool belt and
+      you might end up using it to solve other problems every now and then, too.
 - title: for loops
   sample: |
       use fmt;
