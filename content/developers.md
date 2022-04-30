@@ -1,5 +1,5 @@
 ---
-title: Resources developers working on Hare
+title: Resources for developers working on Hare
 ---
 
 ## Development hosts
