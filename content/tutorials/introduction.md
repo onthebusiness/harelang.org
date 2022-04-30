@@ -145,9 +145,9 @@ sections:
       to format text for printing.
 
       Functions may accept a list of parameters by placing them between the `()`
-      tokens when declaring the function. "greet" accepts a "str" (string)
+      tokens when declaring the function. "greet" accepts a `str` (string)
       parameter, which it names "user". Functions can also *return* values to
-      the function which calls them, such as "askname", which returns a "str".
+      the function which calls them, such as "askname", which returns a `str`.
       Our main function makes use of the return value by storing it in a
       *variable* and *passing* it to "greet".
 
@@ -181,27 +181,28 @@ sections:
       };
   details: |
       Like "askname", many standard library functions can return values.
-      bufio::scanline is an interesting example of this. We can read the
-      documentation for this function in our terminal by running the "haredoc
-      bufio::scanline" command&nbsp;&mdash; try this now.
+      `bufio::scanline` is an interesting example of this. We can read the
+      documentation for this function in our terminal by running the `haredoc
+      bufio::scanline` command&nbsp;&mdash; try this now.
 
       This function's signature (the combination of its parameters and return
       type) is a bit more complex in that it can return one of several kinds, or
-      *types*, of values, forming what's referred to as a *tagged union*. The one
-      we're interested in is []u8, which is a "slice" of bytes containing the
-      line we want to read. It can also return io::EOF, which indicates that
-      the "end of file" was reached, or io::error, which indicates that an I/O
-      error occurred.
+      *types*, of values, forming what's referred to as a *tagged union*. The
+      one we're interested in is `[]u8`, which is a "slice" of bytes containing
+      the line we want to read. It can also return `io::EOF`, which indicates
+      that the "end of file" was reached, or `io::error`, which indicates that
+      an I/O error occurred.
 
-      Run the "haredoc io::error" command, and note the "!" *error flag* which
+      Run the `haredoc io::error` command, and note the `!` *error flag* which
       prepends the signature, which signifies that io::error is an *error type*.
-      Now run the "haredoc io::EOF" command and note the absence of the "!"
+      Now run the `haredoc io::EOF` command and note the absence of the `!`
       error flag. Encountering the end of the file is not considered an error.
       The `!` in our program is an *error assertion operator*, which deals with
-      the error case as we described before, leaving []u8 and io::EOF remaining.
+      the error case as we described before, leaving `[]u8` and `io::EOF`
+      remaining.
 
       To address this, we use the `as` operator to interpret the value as if it
-      were a []u8&nbsp;&mdash; this is called a type assertion. Like other
+      were a `[]u8`&nbsp;&mdash; this is called a type assertion. Like other
       assertions, the compiler will check our work and, if proven wrong, will
       cause the program to crash. You can simulate this case by pressing Ctrl+D
       in your terminal emulator instead of entering your name.
@@ -209,7 +210,7 @@ sections:
       A key take-away from this should be the "haredoc" tool, which you should
       use liberally as you work with Hare. Try to use it to learn about the
       other standard library functions we're using in this sample, such as
-      strings::fromutf8. You can also use it to browse the modules
+      `strings::fromutf8`. You can also use it to browse the modules
       themselves &nbsp;&mdash; try `haredoc fmt` or `haredoc strings`.
       
       <!-- Lastly, you can use it to
@@ -248,25 +249,25 @@ sections:
       };
   details: |
       This sample is designed to illustrate a few common ways to use variables
-      in Hare with the **const** and **let** keywords. When declaring a
+      in Hare with the `const` and `let` keywords. When declaring a
       variable, you must provide the initial value with an *initializer*, such
-      as a constant value like "42" or an arbitrary expression like a function
-      call. A variable declared with **const** cannot be modified after it is
-      initialized, but you can modify **let** variables with the `=` operator.
+      as a constant value like `42` or an arbitrary expression like a function
+      call. A variable declared with `const` cannot be modified after it is
+      initialized, but you can modify `let` variables with the `=` operator.
 
       However, though you cannot modify a const variable, you can *re-bind* it
       by creating another variable with the same name. When re-binding a
       variable, you may also change its type: in this example, "source" refers
-      to an io::file, a []u8, a str, and a []str, in that order. This is a
-      useful pattern for building up a variable from a series of intermediate
+      to an `io::file`, a `[]u8`, a `str`, and a `[]str`, in that order. This is
+      a useful pattern for building up a variable from a series of intermediate
       values of various types. This technique is more generally called
       "shadowing" the variable.
 
       Take note of the syntax as well. Each of the bindings in Example A use
       *type inference*, in which the variable automatically assumes the type of
-      the right-hand side of the statement. The 'let' examples demonstrate the
-      use of an explicit type (**int**). In some cases it may be necessary or
-      helpful to state the type explicitly, this can be done at your discretion
+      the right-hand side of the statement. The `let` examples demonstrate the
+      use of an explicit type (`int`). In some cases it may be necessary or
+      helpful to state the type explicitly. This can be done at your discretion
       or when the compiler asks you to.
 - title: More about types
   sample: |
@@ -320,7 +321,7 @@ sections:
       Hare also supports a number of composite types, a few examples of which
       are shown here. We'll go into more detail on how these work later. There
       are also a number of more specialized types that are not shown here, such
-      as **size** and **uintptr**. Some of these are introduced later in this
+      as `size` and `uintptr`. Some of these are introduced later in this
       tutorial, while others are not useful outside of specialized situations
       and are left for you to discover when you need them.
 - title: Struct and tuple types
@@ -347,20 +348,20 @@ sections:
       Structs are one of the composite types supported by Hare. These define a
       *structured* value which is made up of other values in a certain order. In
       this example, we show two ways of using structs: first manually, and then
-      by using a user-defined type, for player1 and player2 respectively. We can
-      access the *fields* of the struct by using the `.` operator.
+      by using a user-defined type, for "player1" and "player2" respectively. We
+      can access the *fields* of the struct by using the `.` operator.
 
       Note the "type coords" declaration above the main function: this defines a
       type named "coords". This can be used for any type, not just structs. This
-      type is equivalent to the hand-written struct used for the player1
+      type is equivalent to the hand-written struct used for the "player1"
       variable, but by giving it a name we can skip the types for each *field*
       (when creating a variable of that type) and re-order them if we so desire.
-      The other player, player1, is using an *anonymous*, or un-named, struct
+      The other player, "player1", is using an *anonymous*, or un-named, struct
       type.
 
-      player3 is defined with a *tuple* type, which is very similar to a struct,
-      but does not name its fields. They are accessed by their ordinal position,
-      starting from zero, instead of their names.
+      "player3" is defined with a *tuple* type, which is very similar to a
+      struct, but does not name its fields. They are accessed by their ordinal
+      position, starting from zero, instead of their names.
 - title: Arrays and slices
   sample: |
       use fmt;
@@ -392,17 +393,17 @@ sections:
       of ordered values of a uniform type.
 
       An array may be declared with a specific length and subtype (e.g.
-      "[5]int"), or may infer the length from context using an underscore (e.g.
-      "[_]int"). A slice type leaves the length unwritten: "[]int". Values of a
+      `[5]int`), or may infer the length from context using an underscore (e.g.
+      `[_]int`). A slice type leaves the length unwritten: `[]int`. Values of a
       slice or array type can be *indexed* to obtain the value of one of their
-      objects, numbered from zero, with the "[<em>index</em>]" operator as shown
-      in the samples. The length (number of items) of an array or slice may be
-      obtained with the "len" built-in.
+      objects, numbered from zero, with the <code>[<em>index</em>]</code>
+      operator as shown in the samples. The length (number of items) of an array
+      or slice may be obtained with the `len` built-in.
 
       Like all values, arrays must be initialized when they are declared. This
       can be awkward for large arrays like "y". In such cases, the `...`
       operator is often useful: it assigns all remaining values to the last
-      value. In this example, most of "y" is initialized to "42".
+      value. In this example, most of "y" is initialized to `42`.
 - title: Arrays and slices, continued
   sample: |
       use fmt;
@@ -429,8 +430,8 @@ sections:
       };
   details: |
       A *slicing expression* is used to "slice" arrays and slices with the with
-      ".." operator. This creates a new slice which references a subset of the
-      source object, such that "y[2..5]" will produce a slice whose 0th value is
+      `..` operator. This creates a new slice which references a subset of the
+      source object, such that `y[2..5]` will produce a slice whose 0th value is
       the 2nd value of "x" with a length of 5 - 2 = 3. Slicing does not copy the
       underlying data, so modifying the items in a slice will modify the
       underlying array.
@@ -508,11 +509,11 @@ sections:
 
       As a practical demonstration of stack allocation, this sample also
       computes and prints the SHA-256 hash of its source code. A common pattern
-      in Hare is for a constructor like sha256::sha256 to return an object on
-      the stack, which you can then pass into other functions by reference using
-      `&`. This is convenient for many objects which can be cleaned up by simply
-      discarding their state on the stack, but other kinds of objects (such as
-      file handles) require additional steps.
+      in Hare is for a constructor like `sha256::sha256` to return an object
+      on the stack, which you can then pass into other functions by reference
+      using `&`. This is convenient for many objects which can be cleaned up by
+      simply discarding their state on the stack, but other kinds of objects
+      (such as file handles) require additional steps.
   # TODO: introduce nullable pointers here
 - title: Dynamic memory allocation & defer
   sample: |
@@ -546,7 +547,7 @@ sections:
       it, and writes it to the standard output. You can run it on itself like
       so: `hare run main.ha main.ha`.
 
-      To allocate an object on the heap, use the **alloc** keyword along with an
+      To allocate an object on the heap, use the `alloc` keyword along with an
       initializer in parentheses. The runtime will request the necessary memory
       from the operating system, initialize it to the value you provide here,
       and return a pointer to this value. The first "fmt" call in this example
@@ -555,16 +556,16 @@ sections:
 
       Unlike stack-allocated resources, which clean themselves up when the
       function exits, heap-allocated resources must be "freed" by the caller
-      using the **free** keyword. Another concept shown here is the use of
-      **defer** to *defer* the execution of an expression to the end of the
-      current scope (that is, the code bound by `{` and `}`). This is useful for
-      causing the code which cleans up an object to be written near the code
-      which creates an object.
+      using the `free` keyword. Another concept shown here is the use of
+      `defer` to *defer* the execution of an expression to the end of the
+      current scope (that is, the code bound by `{` and `}`). This gives you the
+      ability to write the code which cleans up an object right next to the code
+      which creates that object.
 
       There are other kinds of resources that have to be cleaned up when you're
-      done using them, such as open files. **defer** is useful for these cases,
-      too, and in this code sample we use it to call "io::close" to clean up the
-      file opened by "os::open".
+      done using them, such as open files. `defer` is useful for these cases,
+      too, and in this code sample we use it to call `io::close` to clean up the
+      file opened by `os::open`.
 
       <div class="alert">
         <strong>Note:</strong> Failing to free allocated memory causes a
@@ -621,15 +622,15 @@ sections:
       in some cases), and there are special constraints imposed on the
       initializers for static variables.
 
-      There are two ways to use static allocation in hare: static locals and
+      There are two ways to use static allocation in Hare: static locals and
       static globals. The first kind demonstrated in our example is a static
-      global, which is defined using **const** or **let** in a similar manner to
+      global, which is defined using `const` or `let` in a similar manner to
       local variables (*local* here meaning *local to a function*). If we
-      declare them with **let**, we can modify them.
+      declare them with `let`, we can modify them.
 
-      A static local is also declared with **const** or **let**, with the
-      addition of the **static** keyword. Note that, after being initially set
-      to 41, the value of x remains consistent across repeated calls to
+      A static local is also declared with `const` or `let`, with the
+      addition of the `static` keyword. Note that, after being initially set
+      to 41, the value of "x" remains consistent across repeated calls to
       "increment". Unlike a stack-allocated local, which is allocated space in
       that specific *function call*'s stack frame, static locals are allocated
       to the function itself.
@@ -673,15 +674,15 @@ sections:
       *borrowing* resources.
 
       Examine the documentation for the functions in this sample code with
-      commands like "haredoc io::drain". This function allocates a buffer to
+      commands like `haredoc io::drain`. This function allocates a buffer to
       store the results into, and returns that buffer to the caller (you), who
       *assumes ownership* over the object. You are responsible for destroying
       this object when you are done with it, freeing resources like memory to be
       used elsewhere.
 
       Many functions *borrow* resources to make use of them without taking
-      responsibility for them. "strings::fromutf8" is an example of this, as we
-      can learn from its documentation. The return value, "string", does not
+      responsibility for them. `strings::fromutf8` is an example of this, as
+      we can learn from its documentation. The return value, "string", does not
       need to be (and should not be) freed, and will become invalid when the
       buffer it's borrowed from is freed.
 
@@ -737,7 +738,7 @@ sections:
       when an error occurs. Let's explore some more effective ways of dealing
       with errors.
 
-      This program uses os::create to create a file (named after the first
+      This program uses `os::create` to create a file (named after the first
       command line argument) and writes "Hello world!\n" to that file with
       io::write. Both of these functions can fail for a variety of reasons. You
       can try out some failure cases like so:
@@ -790,28 +791,28 @@ sections:
       fn create(str, fs::mode, fs::flags...) (io::file | fs::error);
       ```
 
-      This function can return one of two possible values: an "io::file", if the
-      file was successfully opened, or "fs::error" if not. You can look up both
+      This function can return one of two possible values: an `io::file` if the
+      file was successfully opened, or `fs::error` if not. You can look up both
       of these types with haredoc if you like, and your attention is especially
-      drawn to "fs::error". This type is a *tagged union* which represents each
+      drawn to `fs::error`. This type is a *tagged union* which represents each
       of the errors that can be caused during file operations.
 
       One way of handling these errors is with `!`, which you already know how
-      to use. A more elegant way is to use **match**. A match expression takes
+      to use. A more elegant way is to use `match`. A match expression takes
       an expression between its parentheses which can return one of several
-      types from a tagged union, and each **case** handles one of these types.
+      types from a tagged union, and each `case` handles one of these types.
       The first case in this example is the successful path, which we'll talk
       about more momentarily. The second case handles a specific error:
-      "errors::noaccess", and the third case handles any other errors.
+      `errors::noaccess`, and the third case handles any other errors.
 
-      The **case let** syntax is used to bind the value for each case to a
-      variable. In the first branch, this value uses the **yield** keyword to
-      "yield" it to the parent expression, which causes it to be "returned", in
+      The `case let` syntax is used to bind the value for each case to a
+      variable. In the first branch, this value uses the `yield` keyword to
+      yield it to the parent expression, which causes it to be "returned", in
       a manner of speaking, from the match expression. This assigns the desired
-      "io::file" value to the file variable.
+      `io::file` value to the file variable.
 
-      The third case binds "fs::error" to an "err" variable, then passes it into
-      "fs::strerror" to convert it to a string that can be presented to the
+      The third case binds `fs::error` to an "err" variable, then passes it into
+      `fs::strerror` to convert it to a string that can be presented to the
       user in an error message. This is a standard pattern in Hare: most modules
       will provide a "strerror" function which stringifies all of the errors
       which can be caused by that module.
@@ -845,7 +846,7 @@ sections:
       	io::write(file, buf)?;
       };
   details: |
-      It is cumbersome to use match to enumerate every possible failure for
+      It is cumbersome to use `match` to enumerate every possible failure for
       every function that might fail. To make it easier to deal with errors, the
       `?` operator is generally useful. The purpose of this operator is to check
       for errors and, if found, return them to a higher call frame. If there are
@@ -860,10 +861,10 @@ sections:
       could handle errors related to a specific client by sending them an error
       response or disconnecting them.
 
-      "os::create" and "io::write" together can return either an fs::error or an
-      io::error, so the result type for our "writehello" function is a tagged
-      union of either "void" (nothing, indicating success), "fs::error", or
-      "io::error". We can then use `?` to return these errors immediately and
+      `os::create` and `io::write` together can return either an `fs::error` or
+      an `io::error`, so the result type for our "writehello" function is a
+      tagged union of either `void` (nothing, indicating success), `fs::error`,
+      or `io::error`. We can then use `?` to return these errors immediately and
       extract the useful types from the return values of these functions, and
       handle both cases in "main".
 - title: Defining new error types
@@ -929,17 +930,17 @@ sections:
       yourself and seeing how the program responds.
 
       We can define new error types ourselves by using `!` to prefix the type
-      declaration. "invalid" is an error type which derives from the errors
-      which can be returned from "strconv::stou", and "unexpectedeof" is a
-      custom error based on the "void" type. The latter does not store any
+      declaration. `invalid` is an error type which derives from the errors
+      which can be returned from `strconv::stou`, and `unexpectedeof` is a
+      custom error based on the `void` type. The latter does not store any
       additional state other than the type itself, so it has a size of zero. We
       also define a tagged union containing each of these error types, plus
-      io::error, also using ! to indicate that it is an error type.
+      `io::error`, also using `!` to indicate that it is an error type.
 
-      We can return our custom error from "getnumber" upon encountering io::EOF
-      (which is not ordinarily considered an error) from "bufio::scanline",
-      which is propagated through prompt to "main". If an I/O error were to
-      occur here, it would be propagated similarly.
+      We can return our custom error from "getnumber" upon encountering
+      `io::EOF` (which is not ordinarily considered an error) from
+      `bufio::scanline`, which is propagated through prompt to "main". If an I/O
+      error were to occur here, it would be propagated similarly.
 
       We can use any type as an error type if we wish. Some errors are an int or
       enum type containing an error code, or a struct with additional
@@ -980,8 +981,8 @@ sections:
       };
   details: |
       Hare has first-class support for tests via the `@test` attribute on
-      functions. You can run the tests for this sample program by running "hare
-      test" in the directory where this file is present.
+      functions. You can run the tests for this sample program by running `hare
+      test` in the directory where this file is present.
 
       Our simple sample here is a [bubble sort] implementation. You may already
       know that this is not a very good sort algorithm&nbsp;&mdash; you will
@@ -996,7 +997,7 @@ sections:
       a "program", such as libraries written in Hare.
 
       Also take note of the use of the `assert` built-in: given a condition (a
-      `bool`), if the condition is false, the program is stopped and the
+      bool), if the condition is false, the program is stopped and the
       message is printed. You can also skip the message if you don't need to be
       specific; the file name and line number will be printed and you can
       generally figure out what went wrong regardless.
@@ -1056,12 +1057,12 @@ sections:
       we'll dive into control statements in depth. We'll begin with statements
       that select from one or more "branches" of execution: if and switch.
 
-      An "if" statement selects from one or more branches based on the truth of
+      An `if` statement selects from one or more branches based on the truth of
       a boolean expression, such as `x > 5`. If this statement is true, the
       corresponding branch is executed. Optionally, you may follow the "true"
       branch with the `else` keyword and another branch, which is executed
       should the conditional expression turn out to be false. Hare also supports
-      "else if" expressions, which execute their branch if the previous branch
+      `else if` expressions, which execute their branch if the previous branch
       is false and a second condition of their own is met.
 
       ```hare
@@ -1076,11 +1077,11 @@ sections:
       };
       ```
 
-      An important note is that if expressions, like most Hare expressions, can
-      appear in any expression and can compute a value. The "printstock"
+      An important note is that `if` expressions, like most Hare expressions,
+      can appear in any expression and can compute a value. The "printstock"
       function from this sample code uses this to determine if "liter" should be
-      written in the plural form by testing if the quantity is not one to select
-      between an \"s\" suffix and an empty string (\"\").
+      written in the plural form by testing if the quantity is not one, then
+      selecting between an `"s"` suffix and an empty string (`""`).
 
       Switch expressions provide a more structured approach to branching. Based
       on a single value, the *switch value*, one of several *cases* is selected.
@@ -1092,7 +1093,7 @@ sections:
       Note that switch expressions are required to be *exhaustive*, which means
       that every possible value of the *switch value* should have a
       corresponding branch. If you do not want to handle every possibility
-      individually, you can add a "default" branch by omitting the value `case
+      individually, you can add a "default" branch by omitting the value: `case
       =>`. This branch will be executed should no more-specific branch suffice.
       This is also possible with match cases that omit the match type.
 - title: Using yield
@@ -1119,26 +1120,26 @@ sections:
       	};
       };
   details: |
-      In many of the samples so far, we've seen the use of { and } to denote
+      In many of the samples so far, we've seen the use of `{` and `}` to denote
       blocks of expressions which are evaluated one after another. In many
       languages, these are decorative, but in Hare they have a semantic meaning:
       these introduce new *compound expressions*, and, like most other
-      expressions, these expressions can compute a result using the "yield"
+      expressions, these expressions can compute a result using the `yield`
       keyword.
 
       The simple example given here is meant to show some simple usages of
-      yield, similar to ones we've seen and left unexplained in previous
+      `yield`, similar to ones we've seen and left unexplained in previous
       samples. The only clarification we wish to add here is to draw your
-      attention to the { and } characters, and clarify that the yield keyword
-      causes the nearest compound expression to stop and to have the result of
-      that expression set to the value provided to yield. The sample code shown
-      here uses this to cause the value of "f" to be assigned to the "file"
-      variable for further use outside of the match expression.
+      attention to the `{` and `}` characters, and clarify that the `yield`
+      keyword causes the nearest compound expression to stop and to have the
+      result of that expression set to the value provided to `yield`. The sample
+      code shown here uses this to cause the value of "f" to be assigned to the
+      "file" variable for further use outside of the match expression.
 
       This example keeps things simple, but, in the field, you will probably
-      find "yield" useful less frequently in situations that are less obvious.
+      find `yield` useful less frequently in situations that are less obvious.
       Getting values out of match expressions is likely to be the most common
-      use of this feature in your code. But, keep yield in your tool belt and
+      use of this feature in your code. But, keep `yield` in your tool belt and
       you might end up using it to solve other problems every now and then, too.
 - title: for loops
   sample: |
@@ -1161,7 +1162,7 @@ sections:
       	fmt::printfln(`"Hare" is at index {}`, i)!;
       };
   details: |
-      All loops in Hare are written with the "for" keyword, which allows some
+      All loops in Hare are written with the `for` keyword, which allows some
       logic to repeat so long as a condition is met. The syntax is:
 
       <pre>for (<em>binding</em>; <em>condition</em>; <em>afterthought</em>)</pre>
@@ -1174,7 +1175,7 @@ sections:
       used for the loop condition.
 
       Any of these elements may be omitted, such as the binding in this code
-      sample, which allows us to access the loop item (i) outside of the loop.
+      sample, which allows us to access the loop item ("i") outside of the loop.
       A loop which never terminates may be written like so:
 
       ```hare
@@ -1240,10 +1241,10 @@ sections:
       	VIOLET,
       };
   details: |
-      Some expressions, such as return, break, and continue, as well as
-      others like abort() and calling @noreturn functions like [os::exit][0],
-      cause the control flow to "terminate" and prevent future expressions in
-      that compound expression from executing.
+      Some expressions, such as `return`, `break`, and `continue`, as well as
+      others like `abort()` and calling `@noreturn` functions like
+      [os::exit][0], cause the control flow to "terminate" and prevent future
+      expressions in that compound expression from executing.
 
       [0]: https://docs.harelang.org/os#exit
 
@@ -1251,14 +1252,14 @@ sections:
       expression-oriented language. In the sample here, each branch of our
       switch expression provides a value (the name of the color) to serve as the
       result of the switch expression&nbsp;&mdash; except for `color::GREEN`.
-      The use of a terminating expression here, abort(), prevents the code
+      The use of a terminating expression here, `abort()`, prevents the code
       from continuing after this point, so this branch is not required to
       provide a result and is not considered when determining the switch
       expression's result type.
 
       We have taken advantage of this behavior many times throughout the
       tutorial. For example, in [Using yield](#using-yield), the branch which
-      calls fmt::fatal terminates, allowing us to only provide a value in one
+      calls `fmt::fatal` terminates, allowing us to only provide a value in one
       case.
 - section: Types in depth
 - title: Promotion and type inference
@@ -1299,14 +1300,14 @@ sections:
       lossy, and therefore must be done explicitly. Converting between signed
       and unsigned types must also be explicit.
 
-      Hare also supports *type tests* and *type assertions* via the "is" and
-      "as" keywords, which can be used to work with the selected type of a
-      tagged union at runtime. An "is" expression returns a bool, true if the
-      tagged union is set to a value of the given member type. The "as"
+      Hare also supports *type tests* and *type assertions* via the `is` and
+      `as` keywords, which can be used to work with the selected type of a
+      tagged union at runtime. An `is` expression returns a bool, true if the
+      tagged union is set to a value of the given member type. The `as`
       expression is useful for when you *know* that a tagged union has a
       particular type and you want to treat it as that type&nbsp;&mdash; this
       "assertion" is tested at runtime and will cause your program to abort if
-      found to be untrue (try swapping "x as int" for "x as uint" to demonstrate
+      found to be untrue (try swapping `x as int` for `x as uint` to demonstrate
       this).
 
       Casts are tested at compile time to ensure that the desired conversion is
@@ -1370,13 +1371,13 @@ sections:
       pointer type.
 
       The "printcoords" function in the sample code accepts an argument of type
-      "nullable *coords". We cannot *deference* this type with the `*` or `.`
+      `nullable *coords`. We cannot *deference* this type with the `*` or `.`
       operators like we ordinarily can: we must first test if it is valid. One
-      way to do this is to match against "null", as shown here.
+      way to do this is to match against `null`, as shown here.
 
       Hare also includes a feature called "auto-dereferencing", which allows you
       to do things like using the `.` operator to access struct members via a
-      pointer. This allows us to use "pos.x" rather than "(*pos).x". Many other
+      pointer. This allows us to use `pos.x` rather than `(*pos).x`. Many other
       features work similarly&nbsp;&mdash; indexing arrays, append et al
       (covered later), and so on. This works for any level of indirection:
       pointers to pointers to pointers to pointers... can also be dereferenced
@@ -1435,12 +1436,12 @@ sections:
      built-in [limitwriter][1]. Running this program only writes the first five
      bytes to stdout: "Hello".
 
-     The pointer to &limit passed to the fmt::fprintln call is of type
-     *limitstream, which embeds the io::stream type as the first field.
-     Thus, we can safely pass it to a function expecting an *io::stream
-     pointer, such as fmt::fprintln. In the "limit_write" function, we cast this
-     pointer back to *limitstream so that we can access additional data we need
-     to store to implement the limit writer functionality.
+     The pointer to `&limit` passed to the `fmt::fprintln` call is of type
+     `*limitstream`, which embeds the `io::stream` type as the first field.
+     Thus, we can safely pass it to a function expecting an `*io::stream`
+     pointer, such as `fmt::fprintln`. In the "limit_write" function, we cast
+     this pointer back to `*limitstream` so that we can access additional data
+     we need to store to implement the limit writer functionality.
 
      [0]: https://docs.harelang.org/io#stream
      [1]: https://docs.harelang.org/io#limitwriter
@@ -1514,7 +1515,7 @@ sections:
 
       The Hare standard library provides access to tools for parsing and
       introspecting Hare programs, which the sample makes use of to find the
-      type ID of "int" and compare it against the one stored in the tagged
+      type ID of `int` and compare it against the one stored in the tagged
       union. We're not going to go into detail here on how any of this works,
       but feel free to browse the relevant modules with haredoc if you're
       curious.
@@ -1561,21 +1562,21 @@ sections:
       };
   details: |
       Slices in Hare can grow and shrink dynamically via the use of the
-      "append", "insert", and "delete" keywords. The code sample shown here
+      `append`, `insert`, and `delete` keywords. The code sample shown here
       makes use of all of these features to sort a user-provided list of
       strings.
 
       You can create an empty slice by simply using `[]` in the initializer as
       shown here. You can also create a slice pre-filled with data with the
-      "alloc" keyword, such as `let x: []int = alloc([1, 2, 3])`. In either
+      `alloc` keyword, such as `let x: []int = alloc([1, 2, 3])`. In either
       case, once you have a dynamically allocated slice, you must free it. You
-      can pass a slice directly to "free", but in this sample we also need to
+      can pass a slice directly to `free`, but in this sample we also need to
       free the strings returned by bufio&nbsp;&mdash; so we use
-      strings::freeall, which frees both the slice and the strings inside of
+      `strings::freeall`, which frees both the slice and the strings inside of
       it. To meet the criteria of strings being allocated, we had to copy a
-      literal string to the heap using strings::dup.
+      literal string to the heap using `strings::dup`.
 
-      There's another form of "delete" which is not shown here: you can delete
+      There's another form of `delete` which is not shown here: you can delete
       more than one element of a slice at a time by specifying a slicing
       expression rather than an indexing expression, such as `delete(x[1..4])`.
 - title: Static slice operations
@@ -1632,7 +1633,7 @@ sections:
       In this example, instead of letting the runtime allocate an arbitrary
       number of strings, we start with a fixed buffer of ten empty strings, and
       create a zero-length slice from it: `buf[..0]`. Each of our append,
-      delete, and insert operations is prefixed with the "static" keyword here,
+      delete, and insert operations is prefixed with the `static` keyword here,
       which prevents Hare from re-allocating a slice with insufficient storage
       space to perform the desired operation.
 
@@ -1658,11 +1659,11 @@ sections:
   details: |
       It is often useful in Hare programs to copy data from one slice to
       another. We can accomplish this using the *slice assignment* syntax by
-      placing a slicing expression on the left side of an assignment (=). Like
+      placing a slicing expression on the left side of an assignment (`=`). Like
       other operations involving slices, this is bounds-checked: the right value
       must have a length equal to the length of the slice on the left.
 
-      This behaves similarly to C's memmove function: it's safe to copy data
+      This behaves similarly to C's `memmove` function: it's safe to copy data
       from a slice to itself using this technique.
 - section: Functions in depth
 - title: Variadic functions
@@ -1689,8 +1690,8 @@ sections:
 
      To declare a function as variadic, place a `...` after the type of its
      final parameter. This will cause the type of the paramter to be a slice of
-     this type; in the example x becomes type `[]int`. Each additional parameter
-     passed to the function is appended to this slice.
+     this type; in the example, "x" becomes type `[]int`. Each additional
+     parameter passed to the function is appended to this slice.
 
      We can also call variadic functions in one of two ways: either by listing
      all of the parameters we want to pass directly, as in the first call to
@@ -1738,7 +1739,7 @@ sections:
       fn sub(x: int, y: int) int = x - y;
   details: |
       Much like other objects in Hare, it is possible to take the address of a
-      function with the & operator. You may then call this variable like you
+      function with the `&` operator. You may then call this variable like you
       would any ordinary function. This allows you to choose between different
       behaviors at runtime.
 
@@ -1756,10 +1757,10 @@ sections:
         when you ignore some of them, do it.
       </div>
 
-      We also make use of @noreturn here to make calling "usage" a terminating
+      We also make use of `@noreturn` here to make calling "usage" a terminating
       expression, which excludes the switch and match branches that use it from
       the result type selection as explained earlier. We'll talk more about
-      @noreturn and other function decorators in the next section.
+      `@noreturn` and other function decorators in the next section.
 - title: "@init, @fini, @noreturn"
   sample: |
       use io;
@@ -1786,17 +1787,17 @@ sections:
   details: |
       We have already seen some function attributes throughout this tutorial.
       We'd like to explain the ones you've already seen, and introduce two more:
-      @init and @fini.
+      `@init` and `@fini`.
 
-      Decorating a function with @init causes it to be run when your program
-      starts, and is useful for initializing your application state. @fini is
+      Decorating a function with `@init` causes it to be run when your program
+      starts, and is useful for initializing your application state. `@fini` is
       run when your program is terminated, which is useful for the opposite. In
       this sample, we use it to prepare the global "src" variable with the
       program's own source code.
 
-      You've already seen @test: this marks a function as a test function,
+      You've already seen `@test`: this marks a function as a test function,
       which is only used when you run "hare test". We have also referred to
-      @noreturn a few times: calling a function marked @noreturn causes the
+      `@noreturn` a few times: calling a function marked `@noreturn` causes the
       call expression to "terminate". There are a few other attributes supported
       by Hare, but they're generally only useful in specific, uncommon
       situations&nbsp;&mdash; you'll know if you need it.
@@ -1876,7 +1877,7 @@ sections:
       to organize your code somewhat more carefully.
 
       Each Hare module exists in a directory on your filesystem and contains
-      some or all of the ".ha" files in that directory. Each file in this
+      some or all of the `.ha` files in that directory. Each file in this
       directory can use each other's private declarations (types, functions, and
       so on), and has its own separate namespace of imports (use statements).
       Thus, to expand your program into multiple files, you can simply write
@@ -1884,14 +1885,14 @@ sections:
       build` or `hare run`. You can also omit the path entirely and these
       commands will assume you want to use the current directory.
 
-      When you "use" a module, Hare will search for that module in your
+      When you `use` a module, Hare will search for that module in your
       `HAREPATH`, which is a colon-delimited list of directories to look
       through. The first directory is always the current directory, so if you
       want to add a private module called "example" you can place its files at
-      ./example/*.ha. The standard library is usually installed (on Unix
-      systems) at /usr/src/hare/stdlib, and third-party modules are installed
-      at /usr/src/hare/third-party, both of which are configured in your
-      HAREPATH by default. We recommend that you make liberal use of these
+      `./example/*.ha`. The standard library is usually installed (on Unix
+      systems) at `/usr/src/hare/stdlib`, and third-party modules are installed
+      at `/usr/src/hare/third-party`, both of which are configured in your
+      `HAREPATH` by default. We recommend that you make liberal use of these
       resources in your work&nbsp;&mdash; don't hesitiate to read the source
       code for your dependencies.
 
