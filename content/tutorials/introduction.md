@@ -5,8 +5,8 @@ type: codetutorials
 summary: |
   This tutorial will introduce you to the Hare programming language. It should
   take an hour or two to complete. If you are already familiar with programming
-  in other languages, it might take even less time — feel free to jump around as
-  you see fit.
+  in other languages, it might take even less time&nbsp;&mdash; feel free to
+  jump around as you see fit.
 
   After you complete this tutorial, you should move on to the
   [standard library introduction](/tutorials/stdlib).
@@ -64,10 +64,10 @@ sections:
       more detail throughout the remainder of the tutorial.
 
       The first line is an *import* which pulls in the [fmt] module from the
-      standard library &mdash; click that link to view the documentation for
-      this module. The purpose of this module is formatting text, and one of the
-      functions it provides is [println], which formats some text and prints it
-      to the program's output along with a new line.
+      standard library&nbsp;&mdash; click that link to view the documentation
+      for this module. The purpose of this module is formatting text, and one of
+      the functions it provides is [println], which formats some text and prints
+      it to the program's output along with a new line.
 
       [fmt]: https://docs.harelang.org/fmt
       [println]: https://docs.harelang.org/fmt#println
@@ -90,8 +90,8 @@ sections:
       Note the `!` operator which follows the function call: this is the error
       assertion operator. It is possible for writing to the standard output to
       fail, and the programmer is required to address this scenario. Try
-      removing it and compiling this program again &mdash; the compiler will
-      complain. The simplest approach to error handling, though usually
+      removing it and compiling this program again&nbsp;&mdash; the compiler
+      will complain. The simplest approach to error handling, though usually
       incorrect, is to use this operator to promise the compiler that the error
       will never occur. The compiler will hold you to this: if an error does
       occur, the program will crash. You can see this in action by simulating an
@@ -154,7 +154,7 @@ sections:
       <div class="alert">
         <strong>Note:</strong> Many code samples in this tutorial makes use of
         concepts which are introduced later on. If you're unsure about how
-        something works, don't worry &mdash; it will be explained later.
+        something works, don't worry&nbsp;&mdash; it will be explained later.
       </div>
 - title: A closer look at bufio::scanline
   sample: |
@@ -183,7 +183,7 @@ sections:
       Like "askname", many standard library functions can return values.
       bufio::scanline is interesting example of this. We can read the
       documentation for this function in our terminal by running the "haredoc
-      bufio::scanline" command &mdash; try this now.
+      bufio::scanline" command&nbsp;&mdash; try this now.
 
       This function's signature (the combination of its parameters and return
       type) is a bit more complex in that it can return one of several kinds, or
@@ -201,7 +201,7 @@ sections:
       the error case as we described before, leaving []u8 and io::EOF remaining.
 
       To address this, we use the `as` operator to interpret the value as if it
-      were a []u8 &mdash; this is called a type assertion. Like other
+      were a []u8&nbsp;&mdash; this is called a type assertion. Like other
       assertions, the compiler will check our work and, if proven wrong, will
       cause the program to crash. You can simulate this case by pressing Ctrl+D
       in your terminal emulator instead of entering your name.
@@ -209,10 +209,10 @@ sections:
       A key take-away from this should be the "haredoc" tool, which you should
       use liberally as you work with Hare. Try to use it to learn about the
       other standard library functions we're using in this sample, such as
-      strings::fromutf8. You can also use it to browse the modules themselves
-      &mdash; try "haredoc fmt" or "haredoc strings". Lastly, you can use it to
-      browse your *own* documentation: try "haredoc askname" and "haredoc
-      greet".
+      strings::fromutf8. You can also use it to browse the modules
+      themselves&nbsp;&mdash; try "haredoc fmt" or "haredoc strings". Lastly,
+      you can use it to browse your *own* documentation: try "haredoc askname"
+      and "haredoc greet".
 
       TODO: https://todo.sr.ht/~sircmpwn/hare/555
 - title: Using const & let to define variables
@@ -981,15 +981,16 @@ sections:
       test" in the directory where this file is present.
 
       Our simple sample here is a [bubble sort] implementation. You may already
-      know that this is not a very good sort algorithm &mdash; you will likely
-      wish to use the standard library's [sort] module in real-world code.
+      know that this is not a very good sort algorithm&nbsp;&mdash; you will
+      likely wish to use the standard library's [sort] module in real-world
+      code.
 
       [bubble sort]: https://en.wikipedia.org/wiki/Bubble_sort
       [sort]: https://docs.harelang.org/sort
 
-      Note that this code does not have a "main" function &mdash; `hare run`
-      will not work here. You can test code which is not strictly speaking a
-      "program", such as libraries written in Hare.
+      Note that this code does not have a "main" function&nbsp;&mdash; `hare
+      run` will not work here. You can test code which is not strictly speaking
+      a "program", such as libraries written in Hare.
 
       Also take note of the use of the `assert` built-in: given a condition (a
       `bool`), if the condition is false, the program is stopped and the
@@ -1164,10 +1165,10 @@ sections:
 
       The *binding* allows you to declare and initialize a variable which only
       exists within the loop. The *condition* determines when the loop
-      terminates &mdash; it's evaluated at the start of each loop iteration, and
-      will terminate the loop if false. The *afterthought* runs after each
-      iteration, and is a convenient place to update the variables used for the
-      loop condition.
+      terminates&nbsp;&mdash; it's evaluated at the start of each loop
+      iteration, and will terminate the loop if false. The *afterthought* runs
+      after each iteration, and is a convenient place to update the variables
+      used for the loop condition.
 
       Any of these elements may be omitted, such as the binding in this code
       sample, which allows us to access the loop item (i) outside of the loop.
@@ -1246,11 +1247,11 @@ sections:
       This becomes more important when you consider that Hare is an
       expression-oriented language. In the sample here, each branch of our
       switch expression provides a value (the name of the color) to serve as the
-      result of the switch expression &mdash; except for `color::GREEN`. The use
-      of a terminating expression here, abort(), prevents the code from
-      continuing after this point, so this branch is not required to provide a
-      result and is not considered when determining the switch expression's
-      result type.
+      result of the switch expression&nbsp;&mdash; except for `color::GREEN`.
+      The use of a terminating expression here, abort(), prevents the code
+      from continuing after this point, so this branch is not required to
+      provide a result and is not considered when determining the switch
+      expression's result type.
 
       We have taken advantage of this behavior many times throughout the
       tutorial. For example, in [Using yield](#using-yield), the branch which
@@ -1300,7 +1301,7 @@ sections:
       tagged union at runtime. An "is" expression returns a bool, true if the
       tagged union is set to a value of the given member type. The "as"
       expression is useful for when you *know* that a tagged union has a
-      particular type and you want to treat it as that type &mdash; this
+      particular type and you want to treat it as that type&nbsp;&mdash; this
       "assertion" is tested at runtime and will cause your program to abort if
       found to be untrue (try swapping "x as int" for "x as uint" to demonstrate
       this).
@@ -1373,9 +1374,9 @@ sections:
       Hare also includes a feature called "auto-dereferencing", which allows you
       to do things like using the `.` operator to access struct members via a
       pointer. This allows us to use "pos.x" rather than "(*pos).x". Many other
-      features work similarly &mdash; indexing arrays, append et al (covered
-      later), and so on. This works for any level of indirection: pointers to
-      pointers to pointers to pointers... can also be dereferenced
+      features work similarly&nbsp;&mdash; indexing arrays, append et al
+      (covered later), and so on. This works for any level of indirection:
+      pointers to pointers to pointers to pointers... can also be dereferenced
       automatically.
 - title: Struct sub-typing
   sample: |
@@ -1489,16 +1490,16 @@ sections:
       Let's take a closer look at tagged unions in Hare. Tagged union types have
       three important properties: they are *commutative*, *associative*, and
       *reductive*. This is illustrated by the commented-out version of the
-      "signed" type in the sample code &mdash; the order of types, inclusion of
-      the same type more than once, or use of nested tagged unions has no effect
-      on the final type.
+      "signed" type in the sample code&nbsp;&mdash; the order of types,
+      inclusion of the same type more than once, or use of nested tagged unions
+      has no effect on the final type.
 
       An exception to this occurs when using type aliases: a tagged union which
       contains a type alias referring to another tagged union does not reduce,
       unless you use the `...` operator. The "integer" and "numeric" types in
       our sample make use of this behavior. This reduces the size of the final
       type (by not nesting tagged unions), but is undesirable when the
-      underlying representations should be distinct &mdash; two error types
+      underlying representations should be distinct&nbsp;&mdash; two error types
       which are type aliases for `!void` would not be distinguishable if you
       used `...` to incorporate them into the same tagged union.
 
@@ -1566,10 +1567,10 @@ sections:
       "alloc" keyword, such as `let x: []int = alloc([1, 2, 3])`. In either
       case, once you have a dynamically allocated slice, you must free it. You
       can pass a slice directly to "free", but in this sample we also need to
-      free the strings returned by bufio &mdash; so we use strings::freeall,
-      which frees both the slice and the strings inside of it. To meet the
-      criteria of strings being allocated, we had to copy a literal string to
-      the heap using strings::dup.
+      free the strings returned by bufio&nbsp;&mdash; so we use
+      strings::freeall, which frees both the slice and the strings inside of
+      it. To meet the criteria of strings being allocated, we had to copy a
+      literal string to the heap using strings::dup.
 
       There's another form of "delete" which is not shown here: you can delete
       more than one element of a slice at a time by specifying a slicing
@@ -1740,16 +1741,16 @@ sections:
 
       In this sample, we take the address of the add and sub functions and store
       it in a variable which has a *function pointer* type. The type is optional
-      here &mdash; it could be inferred &mdash; but we chose to spell it out
-      here to illustrate how these types are written. You can include these
-      types in structs fields, function parameters, and so on, like you could
-      with any other value.
+      here&nbsp;&mdash; it could be inferred&nbsp;&mdash; but we chose to spell
+      it out here to illustrate how these types are written. You can include
+      these types in struct fields, function parameters, and so on, like you
+      could with any other value.
 
       <div class="alert">
         <strong>Note:</strong> This code sample violates a few of the guidelines
-        set forth by the <a href="/style/">style guide</a> &mdash; can you spot
-        them? The guidelines are not set in stone: if your code is better when
-        you ignore some of them, do it.
+        set forth by the <a href="/style/">style guide</a>&nbsp;&mdash; can you
+        spot them? The guidelines are not set in stone: if your code is better
+        when you ignore some of them, do it.
       </div>
 
       We also make use of @noreturn here to make calling "usage" a terminating
@@ -1790,12 +1791,12 @@ sections:
       this sample, we use it to prepare the global "src" variable with the
       program's own source code.
 
-      You've already seen @test: this marks a function as a test function, which
-      is only used when you run "hare test". We have also referred to @noreturn
-      a few times: calling a function marked @noreturn causes the call
-      expression to "terminate". There are a few other attributes supported by
-      Hare, but they're generally only useful in specific, uncommon situations
-      &mdash; you'll know if you need it.
+      You've already seen @test: this marks a function as a test function,
+      which is only used when you run "hare test". We have also referred to
+      @noreturn a few times: calling a function marked @noreturn causes the
+      call expression to "terminate". There are a few other attributes supported
+      by Hare, but they're generally only useful in specific, uncommon
+      situations&nbsp;&mdash; you'll know if you need it.
 - section: Modules
 - title: Organizing your code in many files
   htmlsample: |
@@ -1885,22 +1886,22 @@ sections:
       through. The first directory is always the current directory, so if you
       want to add a private module called "example" you can place its files at
       ./example/*.ha. The standard library is usually installed (on Unix
-      systems) at /usr/src/hare/stdlib, and third-party modules are installed at
-      /usr/src/hare/third-party, both of which are configured in your HAREPATH
-      by default. We recommend that you make liberal use of these resources in
-      your work &mdash; don't hesitiate to read the source code for your
-      dependencies.
+      systems) at /usr/src/hare/stdlib, and third-party modules are installed
+      at /usr/src/hare/third-party, both of which are configured in your
+      HAREPATH by default. We recommend that you make liberal use of these
+      resources in your work&nbsp;&mdash; don't hesitiate to read the source
+      code for your dependencies.
 
-      These are the basics &mdash; enough to get started with real-world Hare
-      programs. If you want to learn more, about how to organize large projects,
-      how to write Hare libraries, how to compile different code for each
-      platform, and so on, check out the [modules tutorial][0] next.
+      These are the basics&nbsp;&mdash; enough to get started with real-world
+      Hare programs. If you want to learn more, about how to organize large
+      projects, how to write Hare libraries, how to compile different code for
+      each platform, and so on, check out the [modules tutorial][0] next.
 
       [0]: /tutorials/modules
 ---
 
 And that's the Hare programming language! Nice work getting through all of
-that. We didn't cover everything here &mdash; check out the
+that. We didn't cover everything here&nbsp;&mdash; check out the
 [Hare specification](/specification) if you want the comprehensive reference. If
 you encounter any unusual code out there in the wild that you don't understand,
 don't hesitate to reach out for help.
