@@ -1371,7 +1371,7 @@ sections:
       pointer type.
 
       The "printcoords" function in the sample code accepts an argument of type
-      `nullable *coords`. We cannot *deference* this type with the `*` or `.`
+      `nullable *coords`. We cannot *dereference* this type with the `*` or `.`
       operators like we ordinarily can: we must first test if it is valid. One
       way to do this is to match against `null`, as shown here.
 
