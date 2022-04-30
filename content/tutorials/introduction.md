@@ -210,11 +210,14 @@ sections:
       use liberally as you work with Hare. Try to use it to learn about the
       other standard library functions we're using in this sample, such as
       strings::fromutf8. You can also use it to browse the modules
-      themselves&nbsp;&mdash; try "haredoc fmt" or "haredoc strings". Lastly,
-      you can use it to browse your *own* documentation: try "haredoc askname"
-      and "haredoc greet".
-
+      themselves &nbsp;&mdash; try `haredoc fmt` or `haredoc strings`.
+      
+      <!-- Lastly, you can use it to
+      browse your *own* documentation: try `haredoc askname` and `haredoc
+      greet`.
       TODO: https://todo.sr.ht/~sircmpwn/hare/555
+      -->
+
 - title: Using const & let to define variables
   sample: |
       use fmt;
@@ -570,7 +573,7 @@ sections:
         memory leaks &mdash; can you identify and fix them?
       </div>
 
-      TODO: Update me when handling allocation failures is mandatory
+      <!-- TODO: Update me when handling allocation failures is mandatory -->
 - title: Static allocation
   sample: |
       use fmt;
