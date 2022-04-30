@@ -152,7 +152,7 @@ sections:
       *variable* and *passing* it to "greet".
 
       <div class="alert">
-        <strong>Note:</strong> Many code samples in this tutorial makes use of
+        <strong>Note:</strong> Many code samples in this tutorial make use of
         concepts which are introduced later on. If you're unsure about how
         something works, don't worry&nbsp;&mdash; it will be explained later.
       </div>
@@ -181,7 +181,7 @@ sections:
       };
   details: |
       Like "askname", many standard library functions can return values.
-      bufio::scanline is interesting example of this. We can read the
+      bufio::scanline is an interesting example of this. We can read the
       documentation for this function in our terminal by running the "haredoc
       bufio::scanline" command&nbsp;&mdash; try this now.
 
@@ -544,7 +544,7 @@ sections:
       so: `hare run main.ha main.ha`.
 
       To allocate an object on the heap, use the **alloc** keyword along with an
-      initializer in parenthesis. The runtime will request the necessary memory
+      initializer in parentheses. The runtime will request the necessary memory
       from the operating system, initialize it to the value you provide here,
       and return a pointer to this value. The first "fmt" call in this example
       prints the location (or *address*) of the allocated memory, and the second
@@ -795,7 +795,7 @@ sections:
 
       One way of handling these errors is with `!`, which you already know how
       to use. A more elegant way is to use **match**. A match expression takes
-      an expression between its parenthesis which can return one of several
+      an expression between its parentheses which can return one of several
       types from a tagged union, and each **case** handles one of these types.
       The first case in this example is the successful path, which we'll talk
       about more momentarily. The second case handles a specific error:
