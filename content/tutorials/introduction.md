@@ -1533,7 +1533,7 @@ sections:
       	fmt::println("Enter a list of strings, then press <Ctrl+D>:")!;
       
       	let lines: []str = [];
-      	defer free(lines);
+      	defer strings::freeall(lines);
       
       	for (true) {
       		const line = match (bufio::scanline(os::stdin)!) {
