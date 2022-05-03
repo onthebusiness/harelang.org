@@ -39,6 +39,9 @@ up today and start writing interesting and useful systems software with. If
 you'd like to try it out, check out the [installation procedure], then the [Hare
 tutorial].
 
+Hare is most similar to C, and almost all programs written in C can also be
+written in Hare. Hare is simpler than C, however.
+
 [installation procedure]: /installation/
 [Hare tutorial]: /tutorials/introduction/
 
@@ -53,18 +56,6 @@ stream:
 [Techinc in Amsterdam]: https://wiki.techinc.nl/Introducing_the_Hare_programming_language
 
 <iframe title="Introducing the Hare programming language" src="https://spacepub.space/videos/embed/2adb775e-aa66-4b61-aeb0-f3f8b601fcc8" allowfullscreen="" sandbox="allow-same-origin allow-scripts allow-popups" width="560" height="315" frameborder="0"></iframe>
-
-## Hare's values
-
-Hare is most similar to C, and almost all programs written in C can also be
-written in Hare. Hare is simpler than C, however.
-
-Our design principles are:
-
-1. Trust the programmer.
-2. Provide tools the programmer may use when they don't trust themselves.
-3. Prefer explicit behavior over implicit behavior.
-4. A good program must be both correct and simple.
 
 ## Bootstrapping Hare
 
