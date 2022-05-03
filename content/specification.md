@@ -10,19 +10,27 @@ The Hare specification (DRAFT) is available in the following formats:
 This is a DRAFT specification. It is incomplete and will be updated without
 notice.
 
-<iframe src="/web/viewer.html?file=/specification.pdf"
-    width="800px" height="800px" style="border: none;"></iframe>
+<div id="spec">
+<iframe
+	src="/web/viewer.html?file=/specification.pdf"
+	width="800px" height="800px"
+></iframe>
+</div>
 
 <style>
-iframe {
-    margin-left: -25rem;
-    width: calc(100% + 50rem);
+#spec iframe {
+	max-height: 90vh;
+	margin: 5vh auto;
+	border: none;
 }
-
-@media(max-width: calc(1200px)) {
-    iframe {
-      width: calc(100% - 2rem);
-      margin-left: 1rem;
-    }
+@media(min-width: 900px) {
+	#spec {
+		position: absolute;
+		left: 5vw;
+		width: 90vw;
+	}
+	#spec iframe {
+		width: 100%;
+	}
 }
 </style>
