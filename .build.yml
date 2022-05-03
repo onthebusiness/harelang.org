@@ -15,6 +15,11 @@ tasks:
     cd harelang.org
     /usr/local/bin/hugo
 - upload: |
+    if [ $BUILD_SUBMITTER != "git.sr.ht" ]
+    then
+        echo "Skipping upload for non-git.sr.ht build"
+        exit
+    fi
     cd harelang.org
     echo "StrictHostKeyChecking=no" >> ~/.ssh/config
     rsync -rP public/ deploy@drewdevault.com:/var/www/harelang.org/
