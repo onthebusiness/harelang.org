@@ -716,16 +716,16 @@ sections:
       	case let file: io::file =>
       		yield file;
       	case errors::noaccess =>
-      		fmt::fatal("Error opening {}: Access denied.", path);
+      		fmt::fatalf("Error opening {}: Access denied.", path);
       	case let err: fs::error =>
-      		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
+      		fmt::fatalf("Error opening {}: {}", path, fs::strerror(err));
       	};
       	defer io::close(file)!;
       
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
       	case let err: io::error =>
-      		fmt::fatal("Error writing file: {}", io::strerror(err));
+      		fmt::fatalf("Error writing file: {}", io::strerror(err));
       	case let z: size =>
       		assert(z == len(buf), "Unexpected short write");
       	};
@@ -770,16 +770,16 @@ sections:
       	case let file: io::file =>
       		yield file;
       	case errors::noaccess =>
-      		fmt::fatal("Error opening {}: Access denied.", path);
+      		fmt::fatalf("Error opening {}: Access denied.", path);
       	case let err: fs::error =>
-      		fmt::fatal("Error opening {}: {}", path, fs::strerror(err));
+      		fmt::fatalf("Error opening {}: {}", path, fs::strerror(err));
       	};
       	defer io::close(file)!;
       
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
       	case let err: io::error =>
-      		fmt::fatal("Error writing file: {}", io::strerror(err));
+      		fmt::fatalf("Error writing file: {}", io::strerror(err));
       	case let z: size =>
       		assert(z == len(buf), "Unexpected short write");
       	};
@@ -832,9 +832,9 @@ sections:
       	case void =>
       		yield;
       	case let err: fs::error =>
-      		fmt::fatal("Error writing {}: {}", path, fs::strerror(err));
+      		fmt::fatalf("Error writing {}: {}", path, fs::strerror(err));
       	case let err: io::error =>
-      		fmt::fatal("Error writing {}: {}", path, io::strerror(err));
+      		fmt::fatalf("Error writing {}: {}", path, io::strerror(err));
       	};
       };
       
@@ -1108,7 +1108,7 @@ sections:
       	case let f: io::file =>
       		yield f;
       	case let err: fs::error =>
-      		fmt::fatal("Unable to open {}: {}",
+      		fmt::fatalf("Unable to open {}: {}",
       			os::args[1], fs::strerror(err));
       	};
       
@@ -1116,7 +1116,7 @@ sections:
       	case size =>
       		yield;
       	case let err: io::error =>
-      		fmt::fatal("copy: {}", fs::strerror(err));
+      		fmt::fatalf("copy: {}", fs::strerror(err));
       	};
       };
   details: |
@@ -1259,7 +1259,7 @@ sections:
 
       We have taken advantage of this behavior many times throughout the
       tutorial. For example, in [Using yield](#using-yield), the branch which
-      calls `fmt::fatal` terminates, allowing us to only provide a value in one
+      calls `fmt::fatalf` terminates, allowing us to only provide a value in one
       case.
 - section: Types in depth
 - title: Promotion and type inference
@@ -1707,7 +1707,7 @@ sections:
       use os;
       use strconv;
       
-      @noreturn fn usage() void = fmt::fatal("usage: {} <add|sub> <x> <y>", os::args[0]);
+      @noreturn fn usage() void = fmt::fatalf("usage: {} <add|sub> <x> <y>", os::args[0]);
       
       export fn main() void = {
       	if (len(os::args) != 4) usage();
