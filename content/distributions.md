@@ -3,8 +3,8 @@ title: Hare Installation for Distributions
 ---
 
 Hare depends on a POSIX-compatible C11 environment, and our compiler backend,
-[qbe]. To provided the minimum support for Hare, you need qbe, [harec], and
-[hare] packages.
+[qbe]. To provide the minimum level of support for Hare, you need qbe, [harec],
+and [hare] packages.
 
 [qbe]: https://c9x.me/compile/
 [harec]: https://git.sr.ht/~sircmpwn/harec
