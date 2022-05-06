@@ -33,3 +33,11 @@ compilers to [hare-dev], or [browse the archives][hare-dev-archive].
 We meet on IRC at [#hare on irc.libera.chat][#hare].
 
 [#hare]: irc://irc.libera.chat/#hare
+
+### Fediverse
+
+We have a community-maintained presence on the Fediverse supernetwork at
+[\@hare\@fosstodon.org][fedi]. Follow us from any Fediverse server for
+Hare news and updates.
+
+[fedi]: https://fosstodon.org/@hare
