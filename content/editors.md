@@ -8,6 +8,7 @@ title: Editor integrations
 - Kakoune: [hare.kak](https://git.sr.ht/~c7s/hare.kak)
 - Tree-sitter: [tree-sitter-hare](https://git.sr.ht/~ecmma/tree-sitter-hare)
 - VS Code (TmLanguage): [hare-highlighing-vscode](https://github.com/aDotInTheVoid/hare-highlighing-vscode)
+- Nano: [nano-hare](https://git.sr.ht/~lmarz/nano-hare)
 - LSP: TODO
 
 Hare programs use 8-column wide hard tabs.
