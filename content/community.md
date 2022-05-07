@@ -37,7 +37,5 @@ We meet on IRC at [#hare on irc.libera.chat][#hare].
 ### Fediverse
 
 We have a community-maintained presence on the Fediverse supernetwork at
-[\@hare\@fosstodon.org][fedi]. Follow us from any Fediverse server for
-Hare news and updates.
-
-[fedi]: https://fosstodon.org/@hare
+<a href="https://fosstodon.org/@hare" rel="me">@hare@fosstodon.org</a>.
+Follow us from any Fediverse server for Hare news and updates.
