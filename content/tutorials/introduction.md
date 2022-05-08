@@ -1549,7 +1549,9 @@ sections:
       
       	for (let i = 0z; i < len(lines); i += 1) {
       		if (lines[i] == "foobar") {
+      			free(lines[i]);
       			delete(lines[i]);
+      			i -= 1;
       		};
       	};
       
@@ -1611,7 +1613,9 @@ sections:
       
       	for (let i = 0z; i < len(lines); i += 1) {
       		if (lines[i] == "foobar") {
+      			free(lines[i]);
       			static delete(lines[i]);
+      			i -= 1;
       		};
       	};
       
