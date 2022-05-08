@@ -1684,7 +1684,7 @@ sections:
      };
   details: |
      The functions we have written so far have a *fixed arity*. Functions taking
-     one arguments are *unary*, two arguments *binary*, three arguments
+     one argument are *unary*, two arguments *binary*, three arguments
      *trinary*, and so on. Hare also supports functions with a *variable arity*;
      such functions are called *variadic*.
 
@@ -1893,7 +1893,7 @@ sections:
       systems) at `/usr/src/hare/stdlib`, and third-party modules are installed
       at `/usr/src/hare/third-party`, both of which are configured in your
       `HAREPATH` by default. We recommend that you make liberal use of these
-      resources in your work&nbsp;&mdash; don't hesitiate to read the source
+      resources in your work&nbsp;&mdash; don't hesitate to read the source
       code for your dependencies.
 
       These are the basics&nbsp;&mdash; enough to get started with real-world
