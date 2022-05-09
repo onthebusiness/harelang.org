@@ -1,7 +1,6 @@
 image: alpine/edge
 packages:
   - rsync
-  - go
 sources:
   - https://git.sr.ht/~sircmpwn/harelang.org
 secrets:
