@@ -1174,9 +1174,9 @@ sections:
       after each iteration, and is a convenient place to update the variables
       used for the loop condition.
 
-      Any of these elements may be omitted, such as the binding in this code
-      sample, which allows us to access the loop item ("i") outside of the loop.
-      A loop which never terminates may be written like so:
+      The binding and the afterthought may be omitted, such as in this code
+      sample which omits the binding, allowing us to access the loop item ("i")
+      outside of the loop. A loop which never terminates may be written like so:
 
       ```hare
       for (true) {
