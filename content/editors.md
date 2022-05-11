@@ -10,5 +10,6 @@ title: Editor integrations
 - VS Code (TmLanguage): [hare-highlighing-vscode](https://github.com/aDotInTheVoid/hare-highlighing-vscode)
 - Nano: [nano-hare](https://git.sr.ht/~lmarz/nano-hare)
 - LSP: TODO
+- IntelliJ: [harelang-intellij-plugin](https://plugins.jetbrains.com/plugin/19131-harelang)
 
 Hare programs use 8-column wide hard tabs.
