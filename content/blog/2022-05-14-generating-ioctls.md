@@ -198,7 +198,7 @@ let typedefre: regex::regex = regex::regex { ... };
 
 This sets aside two regular expressions: one that identifies type aliases (so
 that we can parse them to determine their size later), and one that identifies
-our @\_IO\* psuedo-macros. I also defined some types to store each of the
+our @\_IO\* pseudo-macros. I also defined some types to store each of the
 details necessary to compute the ioctl assignment:
 
 ```hare
@@ -309,7 +309,7 @@ def TUNGETFILTER: u32 = @_IOR('T', 219, sock_fprog);
 ```
 
 Back to the main loop, we have another regex test to check if we're looking at a
-line with one of these psuedo-macros:
+line with one of these pseudo-macros:
 
 ```hare
 let groups = match (regex::find(&ioctlre, line)!) {
@@ -500,7 +500,7 @@ I think this is a nice case study in a few useful features available from the
 Hare standard library. In addition to POSIX Extended Regular Expression support
 via the [regex] module, the [hare namespace] offers many tools to provide Hare
 programs with relatively deep insights into the language itself. We can use
-hare::lex to parse the custom grammar for our psuedo-macros, use hare::parse to
+hare::lex to parse the custom grammar for our pseudo-macros, use hare::parse to
 parse type declarations, and use hare::types to compute the semantic details
 of each type. I also like many of the "little things" on display here, such as
 unreading data back into the buffered stdin reader, or using io::tee to copy
