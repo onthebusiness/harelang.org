@@ -1390,7 +1390,7 @@ sections:
      
      type limitstream = struct {
      	stream: io::stream,
-     	source: io::handle,
+     	sink: io::handle,
      	limit: size,
      };
 
@@ -1399,12 +1399,11 @@ sections:
      	...
      };
      
-     fn limitwriter(in: io::handle, limit: size) limitstream = {
+     fn limitwriter(sink: io::handle, limit: size) limitstream = {
      	return limitstream {
      		stream = &limit_vtable,
-     		source = in,
+     		sink = sink,
      		limit = limit,
-     		...
      	};
      };
      
@@ -1416,7 +1415,7 @@ sections:
      		yield buf;
      	};
      	st.limit -= len(buf);
-     	return io::write(st.source, buf);
+     	return io::write(st.sink, buf);
      };
      
      export fn main() void = {
