@@ -31,6 +31,14 @@ places:
 The source code for Hare dependencies must be present to build Hare packages or
 read their documentation.
 
+## Timekeeping requirements
+
+Hare's timekeeping support in the standard library relies on a local
+installation of the IANA time zone database. **Important**: Hare uses the local
+leap second list as well, at `/usr/share/zoneinfo/leap-seconds.list` by default,
+which is often not installed by many distributions. Please update your tzdata
+package accordingly when packaging Hare.
+
 ## Customizing Hare builds
 
 The build driver chooses its linker and such via the LD, AS, and similar
