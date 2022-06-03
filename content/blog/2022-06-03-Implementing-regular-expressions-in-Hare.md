@@ -163,7 +163,7 @@ meaning of each instruction:
 * `branch(n)`: Create a new branch starting from instruction `n`, which executes
   _in parallel_ with the original branch
 * `jump(n)`: Go to instruction `n`
-* `match`: Declare we've successfully mactched the string
+* `match`: Declare we've successfully matched the string
 
 The branch part is important. After running `1: branch(4)` above, we will have
 _two execution threads_ instead of one, running simultaneously.[^1] This means
