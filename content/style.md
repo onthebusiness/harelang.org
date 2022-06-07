@@ -300,7 +300,7 @@ type my_union = (...my_results | ...my_errors);
 
 1. Tuple types may be specified in either a single-line or multi-line style. If
    the type would fit on a single line within 80 columns, the single-line style
-   must be used.
+   MUST be used.
 2. A tuple type MUST NOT place a space after `(` or before `)`.
 3. In the short form, a tuple type MUST NOT place a space before each `,`, and
    MUST place a space after each `,`, except for the last, which MUST be
