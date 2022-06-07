@@ -429,11 +429,11 @@ sections:
       	fmt::println()!;
       };
   details: |
-      A *slicing expression* is used to "slice" arrays and slices with the with
-      `..` operator. This creates a new slice which references a subset of the
-      source object, such that `y[2..5]` will produce a slice whose 0th value is
-      the 2nd value of "x" with a length of 5 - 2 = 3. Slicing does not copy the
-      underlying data, so modifying the items in a slice will modify the
+      A *slicing expression* is used to "slice" arrays and slices with the `..`
+      operator. This creates a new slice which references a subset of the
+      source object, such that `y[2..5]` will produce a slice whose 0th value
+      is the 2nd value of "x" with a length of 5 - 2 = 3. Slicing does not copy
+      the underlying data, so modifying the items in a slice will modify the
       underlying array.
 
       Accesses to arrays and slices are *bounds checked*, which means that
