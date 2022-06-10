@@ -146,7 +146,7 @@ here, and that's implementing each part of the regex as an "instruction",
 treating the whole regex as a virtual machine.
 
 To avoid going into too many details, here's a quick example to show you what I
-mean. Let's look at how we would compile the expression `/ab+/`.
+mean. Let's look at how we would compile the expression `/ab*/`.
 
 ```
 0: literal(a)
