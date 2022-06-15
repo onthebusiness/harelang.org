@@ -242,8 +242,8 @@ struct {
 
 ### iii. Array & slice types
 
-1. There MUST NOT be a space the `[` token, length expression (if present), `]`
-   token, and member type.
+1. There MUST NOT be a space between the `[` token, length expression (if
+   present), `]` token, and member type.
 2. The use of arrays is preferred when possible, as the extra indirection of a
    slice type incurs a performance cost.
 
