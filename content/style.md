@@ -398,8 +398,8 @@ let x = my_struct {
 
 1. Array values MAY be defined in either a single-line form or a multi-line
    form.
-2. There MUST NOT be a space between the `[` and `]` tokens and the array
-   members.
+2. In the single-line form, there MUST NOT be a space between the `[` and `]`
+   tokens and the array members.
 3. In the single-line form, a space MUST follow each `,` token, except for the
    last.
 4. In the multi-line form, a `,` must be used after the final token.
