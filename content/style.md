@@ -464,9 +464,9 @@ let x = (foo(),
 
 1. Variables MUST be named in `lower_underscore_case`.
 2. If splitting a long binding list onto multiple lines, each line MUST be
-   consistently either at the `=` token or the `,` token. The breaking token
-   MUST be placed on the first line. An indent MUST precede each continuation
-   line.
+   consistently broken either at the `=` token or the `,` token. The breaking
+   token MUST be placed on the first line. An indent MUST precede each
+   continuation line.
 
 **CORRECT**
 
