@@ -381,6 +381,8 @@ let z = [&x: nullable *size, null: nullable *size];
 **CORRECT**
 
 ```hare
+let x = struct { x: int = 10i, y: int = 10i };
+
 let x = struct {
 	x: int = 10,
 	y: int = 10,
