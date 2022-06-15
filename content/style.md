@@ -569,11 +569,11 @@ if (do_work(x) == y
 
 1. The preferred style is to align match and switch with their subordinate case
    branches on the same column.
-2. The body of each case should be indented an additional level. Generally, `=>`
-   should be followed by a newline.
+2. The body of each case SHOULD be indented an additional level. Generally, `=>`
+   SHOULD be followed by a newline.
 3. If a default case (`case =>`) is given, it MUST be the last case.
-4. If a case shouldn't perform any action, the body should just be `void`, ie
-   `case ... => void;`. In these cases, the body may be on the same line as the
+4. If a case shouldn't perform any action, the body SHOULD just be `void`, ie
+   `case ... => void;`. In these cases, the body MAY be on the same line as the
    `case` keyword.
 5. (*subjective*) It is preferred to arrange any terminal cases (i.e. those that
    return, continue, break, call `os::exit` or `abort()`, etc) before any
