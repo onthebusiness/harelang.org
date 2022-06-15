@@ -347,7 +347,7 @@ let x = 0z;
 
 let y: [_]u8 = [1, 2, 3];
 
-let z: nullable *size = [&x, null];
+let z: [_]nullable *size = [&x, null];
 ```
 
 **INCORRECT**
