@@ -203,11 +203,11 @@ Rules governing the format of types. Not to be confused with the rules governing
 ### i. Struct types
 
 1. Structs MUST be defined with a space between the `struct` and `{` tokens.
-3. Structs MAY be defined in either a single-line form or a multi-line form.
-4. In the multi-line form, a newline MUST follow the `{` token, followed by the
+3. Structs MAY be defined in either single-line or multi-line style.
+4. In the multi-line style, a newline MUST follow the `{` token, followed by the
    struct fields indented once, followed by the `}` token without indentation.
-   The final field MUST include the optional `,` token in this form.
-5. In the single-line form, the `{` token MUST be followed by a space, followed
+   The final field MUST include the optional `,` token in this style.
+5. In the single-line style, the `{` token MUST be followed by a space, followed
    by the struct fields (each separated by a space following the `,` token,
    except for the final field, which MUST omit the `,` token), then a space and
    the `}` token.
@@ -302,11 +302,11 @@ type my_union = (...my_results | ...my_errors);
    the type would fit on a single line within 80 columns, the single-line style
    MUST be used.
 2. A tuple type MUST NOT place a space after `(` or before `)`.
-3. In the short form, a tuple type MUST NOT place a space before each `,`, and
-   MUST place a space after each `,`, except for the last, which MUST be
-   omitted.
-5. In the long form, a tuple type MUST NOT place a space before each `,`, and
-   MUST place a space after each `,`, except for the last, which MUST NOT be
+3. In the single-line style, a tuple type MUST NOT place a space before each
+   `,`, and MUST place a space after each `,`, except for the last, which MUST
+   be omitted.
+5. In the multi-line style, a tuple type MUST NOT place a space before each `,`,
+   and MUST place a space after each `,`, except for the last, which MUST NOT be
    omitted.
 4. (*subjective*) In the multi-line style, the programmer MAY use their
    discretion to distribute the member types to achieve "balance" as described
@@ -364,11 +364,10 @@ let z = [&x: nullable *size, null: nullable *size];
 
 1. Struct values MUST be defined with a space between the `struct` and `{`
    tokens, or between the type alias name and the `{` token.
-3. Struct values MAY be defined in either a single-line form or a multi-line
-   form.
-4. In the multi-line form, a newline MUST follow the `{` token, followed by the
+3. Struct values MAY be defined in either single-line or multi-line style.
+4. In the multi-line style, a newline MUST follow the `{` token, followed by the
    struct fields indented once, followed by the `}` token without indentation.
-5. In the single-line form, the `{` token MUST be followed by a space, followed
+5. In the single-line style, the `{` token MUST be followed by a space, followed
    by the struct fields (each separated by a space following the `,` token,
    except for the final field, which MUST omit the `,` token), then a space and
    the `}` token.
@@ -396,16 +395,15 @@ let x = my_struct {
 
 ### ii. Array values
 
-1. Array values MAY be defined in either a single-line form or a multi-line
-   form.
-2. In the single-line form, there MUST NOT be a space between the `[` and `]`
+1. Array values MAY be defined in either single-line or multi-line style.
+2. In the single-line style, there MUST NOT be a space between the `[` and `]`
    tokens and the array members.
-3. In the single-line form, a space MUST follow each `,` token, except for the
+3. In the single-line style, a space MUST follow each `,` token, except for the
    last.
-4. In the multi-line form, a `,` must be used after the final token.
-5. In the mulit-line form, a newline MUST follow the `[` token, and each
+4. In the multi-line style, a `,` must be used after the final token.
+5. In the mulit-line style, a newline MUST follow the `[` token, and each
    subsequent line up to but not including the `]` token MUST be indented.
-6. In the multi-line form, values may be grouped onto the same line. They must
+6. In the multi-line style, values may be grouped onto the same line. They must
    be separated by spaces per rule 3.
 7. When using array initialization shorthand, the `...` token MUST NOT be
    separated from the last value by a space.
@@ -437,12 +435,12 @@ let x: [10]int = [1, 2, 3, 4, 5...];
    the value would fit on a single line within 80 columns, the single-line style
    must be used.
 2. A tuple value MUST NOT place a space after `(` or before `)`.
-3. In the short form, a tuple value MUST NOT place a space before each `,`, and
-   MUST place a space after each `,`, except for the last, which MUST be
-   omitted.
-4. In the long form, a tuple value MUST NOT place a space before each `,`, and
-   MUST place a space after each `,`, except for the last, which MUST NOT be
-   omitted.
+3. In the single-line style, a tuple value MUST NOT place a space before each
+   `,`, and MUST place a space after each `,`, except for the last, which MUST
+   be omitted.
+4. In the multi-line style, a tuple value MUST NOT place a space before each
+   `,`, and MUST place a space after each `,`, except for the last, which MUST
+   NOT be omitted.
 5. (*subjective*) In the multi-line style, the programmer MAY use their
    discretion to distribute the member value to achieve "balance" as described
    by rule A.4.
