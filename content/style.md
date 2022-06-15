@@ -433,39 +433,31 @@ let x: [10]int = [1, 2, 3, 4, 5...];
 
 ### iii. Tuple values
 
-1. Tuple values may be specified in either a single-line or multi-line style. If
+1. Tuple values MAY be specified in either a single-line or multi-line style. If
    the value would fit on a single line within 80 columns, the single-line style
    must be used.
 2. A tuple value MUST NOT place a space after `(` or before `)`.
 3. In the short form, a tuple value MUST NOT place a space before each `,`, and
    MUST place a space after each `,`, except for the last, which MUST be
    omitted.
-5. In the long form, a tuple value MUST NOT place a space before each `,`, and
+4. In the long form, a tuple value MUST NOT place a space before each `,`, and
    MUST place a space after each `,`, except for the last, which MUST NOT be
    omitted.
-4. (*subjective*) In the multi-line style, the programmer MAY use their
+5. (*subjective*) In the multi-line style, the programmer MAY use their
    discretion to distribute the member value to achieve "balance" as described
    by rule A.4.
-5. When breaking to a new line, place the `,` on the first line. Place the final
+6. When breaking to a new line, place the `,` on the first line. Place the final
    `)` token on the same line as the final members.
 
 **CORRECT**
 
 ```hare
 let x = (1, 2);
-let x = (
-	1,
-	2,
-	3,
-	4,
-	5,
-);
+let x = (1, 2,
+	3, 4, 5);
 let x = (foo(), bar());
-let x = (
-	foo(),
-	bar(),
-	1337,
-);
+let x = (foo(),
+	bar(), 1337);
 ```
 
 ## I. Variables
