@@ -480,16 +480,15 @@ let x: int =
 	do_work(lots, of, parameters);
 ```
 
-## J. Arithmetic expressions
+## J. Expressions and operators
 
-1. Spaces MUST be placed before and after binary arithmetic operators
-   (e.g. `/`).
-2. A space MUST NOT be placed between a unary arithmetic operator (e.g. `!`) and
-   its operand.
+1. Spaces MUST be placed before and after binary operators (e.g. `/`, `&&`).
+2. A space MUST NOT be placed between a unary operator (e.g. `-`, `!`) and its
+   operand.
 3. A space MUST NOT be placed between the `(` and `)` operators and the inner
    expression.
-4. When breaking a long line at a binary operator, the operator SHOULD be placed
-   on the second line.
+4. When breaking a long line at a binary operator, the operator SHOULD be
+   placed on the second line.
 
 **CORRECT**
 
@@ -502,6 +501,9 @@ let x: int = 2
 	+ 2
 	+ 2
 	+ 2;
+
+let x = foo
+	&& (bar || baz);
 ```
 
 ## K. Casts
