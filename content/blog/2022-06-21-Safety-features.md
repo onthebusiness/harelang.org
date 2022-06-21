@@ -224,7 +224,7 @@ Finally, the Hare specification includes the following:
 This effectively shuts down compilers from giving their optimizers endless
 leverage. For a Hare program to be fast, it must be written with performance in
 mind, rather than relying on the compiler to do it for you. This plays into
-Hare's goals for explicitness and transparency, and improves the saftey and
+Hare's goals for explicitness and transparency, and improves the safety and
 predictability of the language.
 
 ### ASLR, W^X, pledge, etc
