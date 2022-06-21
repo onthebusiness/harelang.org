@@ -54,7 +54,7 @@ the standard library or third-party libraries. Rather than passing a separate
 "length" parameter to any function accepting a slice, it's baked into the type,
 which reduces the odds for error.
 
-Of course, there are many use-cases in low-level programming which requries the
+Of course, there are many use-cases in low-level programming which requrie the
 use of unbounded arrays or which stores the length in a manner incompatible with
 our type system. For this purpose, we offer the `[*]type` syntax for declaring
 arrays of unbounded length, which are not bounds-checked. However, it's often
