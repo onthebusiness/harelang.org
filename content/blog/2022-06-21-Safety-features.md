@@ -54,7 +54,7 @@ the standard library or third-party libraries. Rather than passing a separate
 "length" parameter to any function accepting a slice, it's baked into the type,
 which reduces the odds for error.
 
-Of course, there are many use-cases in low-level programming which requrie the
+Of course, there are many use-cases in low-level programming which require the
 use of unbounded arrays or which stores the length in a manner incompatible with
 our type system. For this purpose, we offer the `[*]type` syntax for declaring
 arrays of unbounded length, which are not bounds-checked. However, it's often
@@ -356,7 +356,7 @@ A non-nullable pointer type cannot contain null, unless you use a cast to force
 the situation. If you tell the compiler that you know better, it will believe
 you, but at your own risk. Many conversions will require multiple casts for each
 dangerous step &mdash; for example, casting a rune to a pointer is possible, but
-requries several casts to get there (rune → u32 → u64 → uintptr → \*whatever).
+requires several casts to get there (rune → u32 → u64 → uintptr → \*whatever).
 The riskier the cast, the more work it takes to do.
 
 These features are important and necessary for many use-cases, which is why they
