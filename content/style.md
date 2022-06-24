@@ -66,9 +66,9 @@ A Hare module is made up of one or more files in a directory.
 1. Hare source files SHOULD be named in `lower_underscore_case`, with the `.ha`
    file extension. Their mimetype is `text/x-hare`.
 2. Hare source files may be named with only a tag (e.g. `+linux.ha`) if
-   appropriate, but MUST not be named `.ha`.
+   appropriate, but MUST NOT be named `.ha`.
 3. Each Hare source file MUST list its imports, followed by its declarations,
-   with one empty line between them. This empty line MUST not be included if
+   with one empty line between them. This empty line MUST NOT be included if
    there are no imports.
 4. Use statements MUST be sorted alphabetically.
 5. Declarations which require a single line MAY follow one after the other; but
