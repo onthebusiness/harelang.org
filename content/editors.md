@@ -12,5 +12,6 @@ title: Editor integrations
 - Nano: [nano-hare](https://git.sr.ht/~lmarz/nano-hare)
 - LSP: TODO
 - IntelliJ: [harelang-intellij-plugin](https://plugins.jetbrains.com/plugin/19131-harelang)
+- Sublime: [hare-highlight](https://github.com/artursartamonovs/hare-highlight)
 
 Hare programs use 8-column wide hard tabs.
