@@ -913,14 +913,14 @@ sections:
       };
       
       fn getnumber() (uint | error) = {
-      	const name = match (bufio::scanline(os::stdin)?) {
+      	const num = match (bufio::scanline(os::stdin)?) {
       	case io::EOF =>
       		return unexpectedeof;
       	case let buf: []u8 =>
       		yield strings::fromutf8(buf);
       	};
-      	defer free(name);
-      	return strconv::stou(name)?;
+      	defer free(num);
+      	return strconv::stou(num)?;
       };
   details: |
       Here we have a somewhat more complex sample in which we prompt the user to
