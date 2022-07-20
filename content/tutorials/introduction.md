@@ -1627,7 +1627,7 @@ sections:
       };
   details: |
       The slice operations introduced in the prior sample cover *dynamic*
-      allocations, where the data required to store the slice is allocated at
+      allocations, where the memory required to store the slice is allocated at
       runtime. Hare also supports static slice operations, where the underlying
       storage is provided for by the user. This is useful for many situations
       where memory allocation is undesirable, such as in kernels or embedded
