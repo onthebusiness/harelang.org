@@ -56,7 +56,7 @@ fn checkgroup() bool = {
 	case let grent: passwd::grent =>
 		yield grent;
 	case void =>
-		fmt::fatal("Error: {} power group missing from /etc/group", POWER_GROUP);
+		fmt::fatal("Error: {} group missing from /etc/group", POWER_GROUP);
 	};
 	defer passwd::grent_finish(&group);
 
