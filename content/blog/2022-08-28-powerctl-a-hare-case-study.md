@@ -49,7 +49,7 @@ fn checkgroup() bool = {
 	if (uid == 0) {
 		return true;
 	} else if (euid != 0) {
-		fmt::fatal("Error: this program must be installed with setuid (chmod a+s)");
+		fmt::fatal("Error: this program must be installed with setuid (chmod u+s)");
 	};
 
 	const group = match (passwd::getgroup(POWER_GROUP)) {
