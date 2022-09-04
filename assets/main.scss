@@ -25,9 +25,11 @@ nav:not(#TableOfContents) {
     "logo nav"
     "logo none";
 
-  img {
+  a[href="/"] {
     grid-area: logo;
+  }
 
+  img {
     @media(prefers-color-scheme: dark) {
       filter: invert(.92);
     }
