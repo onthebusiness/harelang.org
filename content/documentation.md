@@ -25,6 +25,12 @@ important or useful for the community.
 
 <a href="/extended" class="tutorial-link">Hare extended support libraries</a>
 
+## Notes on third-party tools and Hare
+
+A guide to debugging, profiling, linking, and more:
+
+<a href="/tools" class="tutorial-link">Notes on third-party tools and Hare</a>
+
 ## Language specification
 
 The language specification is available here:
