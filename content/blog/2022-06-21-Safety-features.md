@@ -216,9 +216,9 @@ Finally, the Hare specification includes the following:
 > side-effects to occur in the same order, it may rewrite or re-order the
 > expressions or sub-expressions to produce the same results more optimally.
 >
-> *The interpretation of this constraint shall be conservative. Implementations
+> *The interpretation of this constraint should be conservative. Implementations
 > should prefer to be predictable over being fast. Programs which require
-> greater performance shall prefer to hand-optimize their source code for this
+> greater performance should prefer to hand-optimize their source code for this
 > purpose.*
 
 This effectively shuts down compilers from giving their optimizers endless
