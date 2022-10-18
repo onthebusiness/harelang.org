@@ -125,7 +125,7 @@ sections:
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
       	const name = bufio::scanline(os::stdin)! as []u8;
-      	return strings::fromutf8(name);
+      	return strings::fromutf8(name)!;
       };
       
       // Greets a user by name.
@@ -172,7 +172,7 @@ sections:
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
       	const name = bufio::scanline(os::stdin)! as []u8;
-      	return strings::fromutf8(name);
+      	return strings::fromutf8(name)!;
       };
       
       // Greets a user by name.
@@ -230,7 +230,7 @@ sections:
       	// Example A
       	const source = os::open("main.ha")!;
       	const source = io::drain(source)!;
-      	const source = strings::fromutf8(source);
+      	const source = strings::fromutf8(source)!;
       	const source = strings::split(source, "\n");
       	first3(source);
       
@@ -661,7 +661,7 @@ sections:
       	defer io::close(file)!;
       	const buffer = io::drain(file)!;          // Allocates buffer
       	defer free(buffer);
-      	const string = strings::fromutf8(buffer); // Borrows buffer
+      	const string = strings::fromutf8(buffer)!; // Borrows buffer
       	fmt::print(string)!;
       };
   details: |
@@ -917,7 +917,7 @@ sections:
       	case io::EOF =>
       		return unexpectedeof;
       	case let buf: []u8 =>
-      		yield strings::fromutf8(buf);
+      		yield strings::fromutf8(buf)!;
       	};
       	defer free(num);
       	return strconv::stou(num)?;
@@ -1541,7 +1541,7 @@ sections:
       		case io::EOF =>
       			break;
       		};
-      		append(lines, strings::fromutf8(line));
+      		append(lines, strings::fromutf8(line)!);
       	};
       
       	insert(lines[0], strings::dup("test line"));
@@ -1605,7 +1605,7 @@ sections:
       		case io::EOF =>
       			break;
       		};
-      		static append(lines, strings::fromutf8(line));
+      		static append(lines, strings::fromutf8(line)!);
       	};
       
       	static insert(lines[0], strings::dup("test line"));
@@ -1781,7 +1781,7 @@ sections:
       	const file = os::open("main.ha")!;
       	defer io::close(file)!;
       	const data = io::drain(file)!;
-      	src = strings::fromutf8(data);
+      	src = strings::fromutf8(data)!;
       };
       
       @fini fn fini() void = {
