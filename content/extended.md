@@ -23,6 +23,7 @@ completeness compared to the standard library.
 
 ## Formats
 
+- [hare-json](https://sr.ht/~sircmpwn/hare-json): JSON support for Hare
 - [hare-xml](https://git.sr.ht/~sircmpwn/hare-xml): XML support for Hare
 
 ## Graphics
