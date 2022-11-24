@@ -447,13 +447,18 @@ sections:
 
       It is occasionally useful (but risky!) to skip the bounds check, for
       interop with code written in other languages, or in carefully reviewed,
-      performance-critical code. To disable bounds checking, use `*` in place of
-      the array length:
+      performance-critical code. To do this, you can use a pointer to an array
+      type with `*` in place of the array length:
 
       ```hare
-      let x: [*]int = [1, 2, 3];
-      x[4]; // Undefined behavior!
+      let x: [_]int = [1, 2, 3];
+      let y: *[*]int = &x[0];
+      y[4]; // Undefined behavior!
       ```
+
+      You have to use \*[\*]int here &mdash; not [\*]int directly &mdash;
+      because otherwise we would not be able to determine the size of the
+      required stack allocation.
 - title: Using default values
   sample: |
       TODO
