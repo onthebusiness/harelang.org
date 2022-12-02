@@ -7,7 +7,7 @@ date: 2022-11-27
 Hare is a boring programming language. It has relatively few features,
 exhaustively detailed in a short 67-page [language specification][spec]. There
 are no macros, generics, or metaprogramming features. You just write the code
-and it does what you said to. Hare aims to never surprises you.
+and it does what you said to. Hare aims to never surprise you.
 
 [spec]: https://harelang.org/specification.pdf
 
