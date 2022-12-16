@@ -89,6 +89,9 @@ Hare can also run on the bare metal, without a host operating system.
 
 ## Third-party support
 
-Third parties may provide support for additional platforms.
+Third parties may provide support for additional platforms. These ports are not
+supported by Hare upstream. Do not file tickets, write to the mailing lists, or
+ask questions on IRC related to these ports; see each port's own resources for
+support.
 
 - [macOS](https://github.com/hshq/harelang)
