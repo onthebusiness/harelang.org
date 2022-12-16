@@ -64,11 +64,11 @@ Hare does not, and will not, support any proprietary operating systems.
     </tr>
     <tr>
       <td>NetBSD</td>
-      <td><span class="todo">…</span> Planned</td>
+      <td><span class="todo">…</span> In progress</td>
     </tr>
     <tr>
       <td>OpenBSD</td>
-      <td><span class="todo">…</span> Planned</td>
+      <td><span class="todo">…</span> In progress</td>
     </tr>
     <tr>
       <td>Illumos</td>
@@ -86,3 +86,9 @@ Hare does not, and will not, support any proprietary operating systems.
 </table>
 
 Hare can also run on the bare metal, without a host operating system.
+
+## Third-party support
+
+Third parties may provide support for additional platforms.
+
+- [macOS](https://github.com/hshq/harelang)
