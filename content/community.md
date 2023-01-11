@@ -30,9 +30,11 @@ compilers to [hare-dev], or [browse the archives][hare-dev-archive].
 
 ### Real-time chat
 
-We meet on IRC at [#hare on irc.libera.chat][#hare].
+We meet on IRC at [#hare on irc.libera.chat][#hare]. Discussion about Hare
+development happens on [#hare-dev][#hare-dev].
 
 [#hare]: irc://irc.libera.chat/#hare
+[#hare-dev]: irc://irc.libera.chat/#hare-dev
 
 ### Fediverse
 
