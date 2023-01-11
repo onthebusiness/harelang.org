@@ -726,7 +726,7 @@ Each module should provide an `error` type which is a tagged union of all
 possible errors which might be returned by functions in that module, and an
 `strerror` function which explains the error as a string. These strings should
 be written with "Sentence case" and should not end with a period. It should also
-be written so that it makes sense when passed to `fmt::fatal("Error: {}",
+be written so that it makes sense when passed to `fmt::fatal("Error:",
 example::strerror(err))`.
 
 Write programmer-facing error messages in English. This includes the return
