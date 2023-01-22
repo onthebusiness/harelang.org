@@ -555,7 +555,11 @@ sections:
       from the operating system, initialize it to the value you provide here,
       and return a pointer to this value. The first "fmt" call in this example
       prints the location (or *address*) of the allocated memory, and the second
-      call prints the value which was placed there.
+      call prints the value which was placed there. Even though uses of `alloc`
+      look like function calls, `alloc` is not a function and does not work like
+      one. Among the special things it does is automatic size calculation - when
+      allocating a slice of 4 `int`s, you should write `alloc([0...], 4)`, not
+      `alloc([0...], 4*size(int))`.
 
       Unlike stack-allocated resources, which clean themselves up when the
       function exits, heap-allocated resources must be "freed" by the caller
