@@ -42,7 +42,7 @@ package accordingly when packaging Hare.
 ## Customizing Hare builds
 
 The build driver chooses its linker and such via the LD, AS, and similar
-environment variables, and also supports setting flags for each via LDFLAGS et
+environment variables, and also supports setting flags for each via LDLINKFLAGS et
 al.
 
 Hare programs are statically linked. We know you're not a fan of this. We're
