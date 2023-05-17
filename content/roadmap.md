@@ -39,8 +39,6 @@ will be "done".
 
 - Build driver rewrite (w/parallel builds, better flags, etc)
 - Better +libc support, hare.ini
-- A better test driver
-- Cross compiling
 
 ## Ports
 
