@@ -825,7 +825,6 @@ sections:
       which can be caused by that module.
 - title: Propagating errors
   sample: |
-      use errors;
       use fmt;
       use fs;
       use fs::{flags};
