@@ -282,18 +282,19 @@ struct {
 6. (*subjective*) When using a tagged union with many member types, consider
    categorizing them into additional aliases and using the `...` operator to
    unwrap them.
+7. Tagged union aliases SHOULD be named in the singular.
 
 **CORRECT**
 
 ```hare
 type my_union = (type_a | type_b | type_d | type_e | type_f | type_g);
 
-type my_results = (result_type_a | result_type_b | result_type_c |
+type my_result = (result_type_a | result_type_b | result_type_c |
 	result_type_d | result_type_e);
 
-type my_errors = (error_type_a | error_type_b | error_type_d | error_type_c);
+type my_error = (error_type_a | error_type_b | error_type_d | error_type_c);
 
-type my_union = (...my_results | ...my_errors);
+type my_union = (...my_result | ...my_error);
 ```
 
 ### v. Tuple types
@@ -332,6 +333,21 @@ type my_tuple = (type_a, type_b, type_c,
    parameter list.
 4. Function pointer types MAY omit the parameter name from each parameter in the
    parameter list.
+
+### vii. Enum types
+
+1. Enum aliases SHOULD be named in the singular.
+2. Members MUST be named in ALL_CAPS.
+
+**CORRECT**
+
+```hare
+type character_flag = enum {
+	BIG,
+	FRIENDLY,
+	GIANT,
+};
+```
 
 ## H. Values
 
