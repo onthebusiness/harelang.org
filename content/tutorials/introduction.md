@@ -452,7 +452,7 @@ sections:
 
       ```hare
       let x: [_]int = [1, 2, 3];
-      let y: *[*]int = &x[0];
+      let y: *[*]int = &x;
       y[4]; // Undefined behavior!
       ```
 
