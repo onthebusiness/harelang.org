@@ -4,6 +4,13 @@ title: Community resources
 
 We have a small community, but we're happy to talk to you.
 
+### Code of conduct
+
+Community members in all community spaces and beyond are expected to act in
+accordance with the [Hare code of conduct][conduct].
+
+[conduct]: /conduct
+
 ### hare-announce
 
 All Hare users are encouraged to subscribe to the [hare-announce] mailing list
