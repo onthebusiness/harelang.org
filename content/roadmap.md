@@ -18,14 +18,12 @@ will be "done".
 - Improvements to const
 - Defers which execute when propagating errors (e.g. to free obsolete objects)
 - More robust error handling for OOM scenarios
+- Linear types research
 
 ## Standard library
 
 - Cryptography: TLS support
-- More comprehensive Unix support (e.g. termios)
 - Raw IP sockets
-- dirfd abstraction
-- ioctls
 - wordexp
 
 ## Extended library
@@ -37,8 +35,8 @@ will be "done".
 
 ## Tooling
 
-- Build driver rewrite (w/parallel builds, better flags, etc)
-- Better +libc support, hare.ini
+- Better +libc support
+- hare.ini
 
 ## Ports
 
