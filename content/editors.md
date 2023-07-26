@@ -13,5 +13,6 @@ title: Editor integrations
 - LSP: TODO
 - IntelliJ: [harelang-intellij-plugin](https://plugins.jetbrains.com/plugin/19131-harelang)
 - Sublime: [hare-highlight](https://github.com/artursartamonovs/hare-highlight)
+- Kate: [hare.xml](https://kate-editor.org/syntax/data/syntax/hare.xml)
 
 Hare programs use 8-column wide hard tabs.
