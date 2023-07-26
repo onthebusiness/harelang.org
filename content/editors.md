@@ -7,7 +7,7 @@ title: Editor integrations
   - [vim-haredoc](https://git.sr.ht/~torresjrjr/vim-haredoc)
 - Vis: [hare.lua](https://git.d2evs.net/~ecs/hare.lua)
 - Kakoune: [hare.kak](https://git.sr.ht/~c7s/hare.kak)
-- Tree-sitter: [tree-sitter-hare](https://git.sr.ht/~ecmma/tree-sitter-hare)
+- Tree-sitter: [tree-sitter-hare](https://git.d2evs.net/~ecs/tree-sitter-hare)
 - VS Code (TmLanguage): [hare-highlighing-vscode](https://github.com/aDotInTheVoid/hare-highlighing-vscode)
 - Nano: [nano-hare](https://git.sr.ht/~lmarz/nano-hare)
 - LSP: TODO
