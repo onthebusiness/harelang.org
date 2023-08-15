@@ -710,14 +710,14 @@ sections:
       use errors;
       use fmt;
       use fs;
-      use fs::{flags};
+      use fs::{flag};
       use io;
       use os;
       use strings;
 
       export fn main() void = {
       	const path = os::args[1];
-      	const oflags = flags::WRONLY | flags::TRUNC;
+      	const oflags = flag::WRONLY | flag::TRUNC;
 
       	const file = match (os::create(path, 0o644, oflags)) {
       	case let file: io::file =>
@@ -764,14 +764,14 @@ sections:
       use errors;
       use fmt;
       use fs;
-      use fs::{flags};
+      use fs::{flag};
       use io;
       use os;
       use strings;
 
       export fn main() void = {
       	const path = os::args[1];
-      	const oflags = flags::WRONLY | flags::TRUNC;
+      	const oflags = flag::WRONLY | flag::TRUNC;
 
       	const file = match (os::create(path, 0o644, oflags)) {
       	case let file: io::file =>
@@ -827,7 +827,7 @@ sections:
   sample: |
       use fmt;
       use fs;
-      use fs::{flags};
+      use fs::{flag};
       use io;
       use os;
       use strings;
@@ -845,7 +845,7 @@ sections:
       };
 
       fn writehello(path: str) (fs::error | io::error | void) = {
-      	const oflags = flags::WRONLY | flags::TRUNC;
+      	const oflags = flag::WRONLY | flag::TRUNC;
       	const file = os::create(path, 0o644, oflags)?;
       	defer io::close(file)!;
       	const buf = strings::toutf8("Hello world!\n");
