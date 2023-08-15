@@ -30,7 +30,7 @@ sections:
 - title: Getting started
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	fmt::println("Hello world!")!;
       };
@@ -48,14 +48,14 @@ sections:
           $ hare build -o example main.ha
           $ ./example
           Hello world!
-      
+
       Hare programs use 8-column-wide tab characters for indentation. See the <a
       href="/style">style guide</a> for details, and consider installing an <a
       href="/editors">editor plugin</a>.
 - title: Breaking down "Hello world!"
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	fmt::println("Hello world!")!;
       };
@@ -71,7 +71,7 @@ sections:
 
       [fmt]: https://docs.harelang.org/fmt
       [println]: https://docs.harelang.org/fmt#println
-      
+
       The program's *entry point* is "main", which executes after the program's
       environment is initialized. The shape of this function is defined by the
       Hare standard: it accepts no parameters and returns no values (this is
@@ -82,7 +82,7 @@ sections:
 - title: Error handling in "Hello world!"
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	fmt::println("Hello world!")!;
       };
@@ -115,19 +115,19 @@ sections:
       use fmt;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	const user = askname();
       	greet(user);
       };
-      
+
       // Asks the user to provide their name.
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
       	const name = bufio::scanline(os::stdin)! as []u8;
       	return strings::fromutf8(name)!;
       };
-      
+
       // Greets a user by name.
       fn greet(user: str) void = {
       	fmt::printfln("Hello, {}!", user)!;
@@ -162,19 +162,19 @@ sections:
       use fmt;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	const user = askname();
       	greet(user);
       };
-      
+
       // Asks the user to provide their name.
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
       	const name = bufio::scanline(os::stdin)! as []u8;
       	return strings::fromutf8(name)!;
       };
-      
+
       // Greets a user by name.
       fn greet(user: str) void = {
       	fmt::printfln("Hello, {}!", user)!;
@@ -212,7 +212,7 @@ sections:
       other standard library functions we're using in this sample, such as
       `strings::fromutf8`. You can also use it to browse the modules
       themselves &nbsp;&mdash; try `haredoc fmt` or `haredoc strings`.
-      
+
       <!-- Lastly, you can use it to
       browse your *own* documentation: try `haredoc askname` and `haredoc
       greet`.
@@ -225,7 +225,7 @@ sections:
       use io;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	// Example A
       	const source = os::open("main.ha")!;
@@ -233,14 +233,14 @@ sections:
       	const source = strings::fromutf8(source)!;
       	const source = strings::split(source, "\n");
       	first3(source);
-      
+
       	// Example B
       	let i: int = 1337, j: int = 42;
       	fmt::printfln("{} + {} = {}", i, j, i + j)!;
       	j = i;
       	fmt::printfln("{} + {} = {}", i, j, i + j)!;
       };
-      
+
       fn first3(lines: []str) void = {
       	fmt::println("The first three lines of main.ha are:")!;
       	fmt::println(lines[0])!;
@@ -278,14 +278,14 @@ sections:
       		b: uint = 10,	// Unsigned integer
       		c: u8 = 10,	// Unsigned 8-bit integer
       		d: f32 = 13.37;	// 32-bit floating point number
-      
+
       	// Or inferred from a suffix:
       	let
       		a = 10i,	// Signed integer
       		b = 10u,	// Unsigned integer
       		c = 10u8,	// Unsigned 8-bit integer
       		d = 13.37f32;	// 32-bit floating point number
-      
+
       	// Some other types:
       	let
       		a: str = "hi",			// String
@@ -308,7 +308,7 @@ sections:
       exact type can be inferred from context, as in the first set of examples,
       or specified with an appropriate suffix.
 
-      <p class="alert"><strong>Note</strong>: 
+      <p class="alert"><strong>Note</strong>:
       If you are not already familiar with binary floating point arithmetic, you
       may be surprised when arithmetic using f32 and f64 types gives unexpected
       results. Programmers unfamiliar with the subject are encouraged to read
@@ -327,9 +327,9 @@ sections:
 - title: Struct and tuple types
   sample: |
       use fmt;
-      
+
       type coords = struct { x: int, y: int };
-      
+
       export fn main() void = {
       	let player1 = struct {
       		x: int = 10,
@@ -365,20 +365,20 @@ sections:
 - title: Arrays and slices
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	let x: [_]int = [1, 3, 3, 7];
       	assert(len(x) == 4);	// len() built-in
       	assert(x[3] == 7);	// 0-indexed
       	x[3] = 8;		// assignment
       	assert(x[3] == 8);
-      
+
       	let y: [1024]int = [1, 3, 3, 7, 42...];	// Fill remainder with 42
-      
+
       	printvals(y[..4]);
       	printvals(y[2..8]);
       };
-      
+
       fn printvals(in: []int) void = {
       	fmt::printfln("input: {} integers", len(in))!;
       	for (let i = 0z; i < len(in); i += 1) {
@@ -407,20 +407,20 @@ sections:
 - title: Arrays and slices, continued
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	let x: [_]int = [1, 3, 3, 7];
       	assert(len(x) == 4);	// len() built-in
       	assert(x[3] == 7);	// 0-indexed
       	x[3] = 8;		// assignment
       	assert(x[3] == 8);
-      
+
       	let y: [1024]int = [1, 3, 3, 7, 42...];	// Fill remainder with 42
-      
+
       	printvals(y[..4]);
       	printvals(y[2..8]);
       };
-      
+
       fn printvals(in: []int) void = {
       	fmt::printfln("input: {} integers", len(in))!;
       	for (let i = 0z; i < len(in); i += 1) {
@@ -432,7 +432,7 @@ sections:
       A *slicing expression* is used to "slice" arrays and slices with the `..`
       operator. This creates a new slice which references a subset of the
       source object, such that `y[2..5]` will produce a slice whose 0th value
-      is the 2nd value of "x" with a length of 5 - 2 = 3. Slicing does not copy
+      is the 2nd value of "y", and whose length is 5 - 2 = 3. Slicing does not copy
       the underlying data, so modifying the items in a slice will modify the
       underlying array.
 
@@ -473,25 +473,25 @@ sections:
       use io;
       use os;
       use fmt;
-      
+
       export fn main() void = {
       	// Pointer basics
       	let i = 10;
       	fmt::println(i)!;
       	increment(&i);
       	fmt::println(i)!;
-      
+
       	// Applied usage
       	const hash = sha256::sha256();
       	const file = os::open("main.ha")!;
       	io::copy(&hash, file)!;
-      
+
       	let sum: [sha256::SIZE]u8 = [0...];
       	hash::sum(&hash, sum);
       	hex::encode(os::stdout, sum)!;
       	fmt::println()!;
       };
-      
+
       fn increment(ptr: *int) void = {
       	*ptr = *ptr + 1;
       };
@@ -525,21 +525,21 @@ sections:
       use fmt;
       use io;
       use os;
-      
+
       export fn main() void = {
       	// Allocation basics
       	let x: *int = alloc(42);
       	fmt::printfln(" x: {}", x)!;
       	fmt::printfln("*x: {}", *x)!;
       	free(x);
-      
+
       	// Applied example
       	const file = os::open(os::args[1])!;
       	defer io::close(file)!;
 
       	let buffer: *[65535]u8 = alloc([0...]);
       	defer free(buffer);
-      
+
       	const n = io::read(file, buffer)! as size;
       	io::write(os::stdout, buffer[..n])!;
       };
@@ -587,32 +587,32 @@ sections:
       use fmt;
       use io;
       use os;
-      
+
       let items: [4]int = [1, 3, 3, 7];
-      
+
       export fn main() void = {
       	// Example A: Static globals
       	printitems();
       	items[3] = 1;
       	items[0] = 7;
       	printitems();
-      
+
       	// Example B: Static locals
       	fmt::println(increment())!;
       	fmt::println(increment())!;
       	fmt::println(increment())!;
-      
+
       	// Example C: Applied static allocation
       	const file = os::open(os::args[1])!;
       	static let buffer: [65535]u8 = [0...];
       	const n = io::read(file, buffer)! as size;
       	io::write(os::stdout, buffer[..n])!;
       };
-      
+
       fn printitems() void = {
       	fmt::println(items[0], items[1], items[2], items[3])!;
       };
-      
+
       fn increment() int = {
       	static let x: int = 41;
       	x += 1;
@@ -662,7 +662,7 @@ sections:
       use io;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	const file = os::open("main.ha")!;        // Opens file
       	defer io::close(file)!;
@@ -714,11 +714,11 @@ sections:
       use io;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	const path = os::args[1];
       	const oflags = flags::WRONLY | flags::TRUNC;
-      
+
       	const file = match (os::create(path, 0o644, oflags)) {
       	case let file: io::file =>
       		yield file;
@@ -728,7 +728,7 @@ sections:
       		fmt::fatalf("Error opening {}: {}", path, fs::strerror(err));
       	};
       	defer io::close(file)!;
-      
+
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
       	case let err: io::error =>
@@ -768,11 +768,11 @@ sections:
       use io;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	const path = os::args[1];
       	const oflags = flags::WRONLY | flags::TRUNC;
-      
+
       	const file = match (os::create(path, 0o644, oflags)) {
       	case let file: io::file =>
       		yield file;
@@ -782,7 +782,7 @@ sections:
       		fmt::fatalf("Error opening {}: {}", path, fs::strerror(err));
       	};
       	defer io::close(file)!;
-      
+
       	const buf = strings::toutf8("Hello world!\n");
       	match (io::write(file, buf)) {
       	case let err: io::error =>
@@ -831,7 +831,7 @@ sections:
       use io;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	const path = os::args[1];
       	match (writehello(path)) {
@@ -843,7 +843,7 @@ sections:
       		fmt::fatalf("Error writing {}: {}", path, io::strerror(err));
       	};
       };
-      
+
       fn writehello(path: str) (fs::error | io::error | void) = {
       	const oflags = flags::WRONLY | flags::TRUNC;
       	const file = os::create(path, 0o644, oflags)?;
@@ -881,7 +881,7 @@ sections:
       use os;
       use strconv;
       use strings;
-      
+
       export fn main() void = {
       	match (prompt()) {
       	case void =>
@@ -890,13 +890,13 @@ sections:
       		fmt::fatal(strerror(err));
       	};
       };
-      
+
       // An invalid number was provided.
       type invalid = !(strconv::invalid | strconv::overflow);
-      
+
       // An error which indicates that [[io::EOF]] was unexpectedly encountered.
       type unexpectedeof = !void;
-      
+
       // Tagged union of all possible errors.
       type error = !(io::error | invalid | unexpectedeof);
 
@@ -911,13 +911,13 @@ sections:
       		return io::strerror(err);
       	};
       };
-      
+
       fn prompt() (void | error) = {
       	fmt::println("Please enter a positive number:")!;
       	const num = getnumber()?;
       	fmt::printfln("{} + 2 is {}", num, num + 2)!;
       };
-      
+
       fn getnumber() (uint | error) = {
       	const num = match (bufio::scanline(os::stdin)?) {
       	case io::EOF =>
@@ -977,7 +977,7 @@ sections:
       		};
       	};
       };
-      
+
       @test fn sort() void = {
       	let items = [5, 4, 3, 2, 1];
       	sort(items);
@@ -1011,7 +1011,7 @@ sections:
 - title: "if & switch statements"
   sample: |
       use fmt;
-      
+
       type color = enum {
       	RED,
       	ORANGE,
@@ -1020,7 +1020,7 @@ sections:
       	BLUE,
       	VIOLET,
       };
-      
+
       export fn main() void = {
       	let stock = [
       		(color::RED, 1),
@@ -1034,14 +1034,14 @@ sections:
       	printstock(stock[2]);
       	printstock(stock[3]);
       };
-      
+
       fn printstock(item: (color, int)) void = {
       	const color = item.0, amount = item.1;
       	fmt::printfln("{} paint\t{} liter{}",
       		colorstr(color), amount,
       		if (amount != 1) "s" else "")!;
       };
-      
+
       fn colorstr(c: color) str = {
       	switch (c) {
       	case color::RED =>
@@ -1108,7 +1108,7 @@ sections:
       use fs;
       use io;
       use os;
-      
+
       export fn main() void = {
       	const file = match (os::open(os::args[1])) {
       	case let f: io::file =>
@@ -1117,7 +1117,7 @@ sections:
       		fmt::fatalf("Unable to open {}: {}",
       			os::args[1], fs::strerror(err));
       	};
-      
+
       	match (io::copy(os::stdout, file)) {
       	case size =>
       		yield;
@@ -1150,7 +1150,7 @@ sections:
 - title: for loops
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	const items = [
       		"Hello,",
@@ -1192,7 +1192,7 @@ sections:
 - title: Flow control
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	const items = [
       		"Hello,",
@@ -1218,7 +1218,7 @@ sections:
 - title: Terminating branches
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	const color = color::BLUE;
       	const name = switch (color) {
@@ -1237,7 +1237,7 @@ sections:
       	};
       	fmt::println("your color is", name)!;
       };
-      
+
       type color = enum {
       	RED,
       	ORANGE,
@@ -1276,23 +1276,23 @@ sections:
 - title: Casting & type assertions
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	// Casting between numeric types allows for lossy conversions:
       	fmt::println(13.37f32: int)!;
-      
+
       	// Type assertions let you examine the type of a tagged union:
       	let x: (int | uint) = 42i;
       	assert(x is int);
       	fmt::println(x as int)!;
-      
+
       	let y: nullable *(int | uint) = &x;
       	assert(!(y is null)); // And nullable pointers
-      
+
       	// You can also use casts for pointer arithmetic, ill-advised as that
       	// may be:
       	fmt::printfln("{:x} {:x}", y, y: uintptr + 10)!;
-      
+
       	// Casts can also be used to change pointer types, ill-advised as that
       	// may be:
       	let z = (y: uintptr + size(int): uintptr): *int;
@@ -1330,7 +1330,7 @@ sections:
   sample: |
       type index = size;
       type offs = size;
-      
+
       export fn main() void = {
       	let z: (index | offs) = 1337: offs;
       	assert(z is offs);
@@ -1350,18 +1350,18 @@ sections:
   # nullable, null value, auto-dereference
   sample: |
       use fmt;
-      
+
       type coords = struct {
       	x: int,
       	y: int,
       };
-      
+
       export fn main() void = {
       	let pos = coords { x = 10, y = 20 };
       	printcoords(null);
       	printcoords(&pos);
       };
-      
+
       fn printcoords(pos: nullable *coords) void = {
       	match (pos) {
       	case null =>
@@ -1393,7 +1393,7 @@ sections:
      use fmt;
      use io;
      use os;
-     
+
      type limitstream = struct {
      	stream: io::stream,
      	sink: io::handle,
@@ -1404,7 +1404,7 @@ sections:
      	writer = &limit_write,
      	...
      };
-     
+
      fn limitwriter(sink: io::handle, limit: size) limitstream = {
      	return limitstream {
      		stream = &limit_vtable,
@@ -1412,7 +1412,7 @@ sections:
      		limit = limit,
      	};
      };
-     
+
      fn limit_write(st: *io::stream, buf: const []u8) (size | io::error) = {
      	const st = st: *limitstream;
      	const buf = if (len(buf) > st.limit) {
@@ -1423,7 +1423,7 @@ sections:
      	st.limit -= len(buf);
      	return io::write(st.sink, buf);
      };
-     
+
      export fn main() void = {
      	const limit = limitwriter(os::stdout, 5);
      	fmt::fprintln(&limit, "Hello world!")!;
@@ -1460,7 +1460,7 @@ sections:
       use hare::types;
       use io;
       use strings;
-      
+
       type signed = (int | i8 | i16 | i32 | i64);
       // equivalent to:
       // type signed = (i64 | (i32 | (i16 | (i8 | int | int | int))));
@@ -1468,7 +1468,7 @@ sections:
       type integer = (...unsigned | ...signed);
       type floating = (f32 | f64);
       type numeric = (...integer | ...floating);
-      
+
       type numeric_repr = struct {
       	id: u32,
       	union {
@@ -1480,7 +1480,7 @@ sections:
       		// ...
       	},
       };
-      
+
       export fn main() void = {
       	const input = bufio::fixed(strings::toutf8("int"), io::mode::READ);
       	const lexer = lex::init(&input, "<string>");
@@ -1489,7 +1489,7 @@ sections:
       	const store = types::store(types::x86_64, null, null);
       	defer types::store_free(store);
       	const itype = types::lookup(store, &_type) as const *types::_type;
-      
+
       	const obj: numeric = 1337;
       	const ptr = &obj: *numeric_repr;
       	assert(ptr.id == itype.id);
@@ -1533,13 +1533,13 @@ sections:
       use os;
       use sort;
       use strings;
-      
+
       export fn main() void = {
       	fmt::println("Enter a list of strings, then press <Ctrl+D>:")!;
-      
+
       	let lines: []str = [];
       	defer strings::freeall(lines);
-      
+
       	for (true) {
       		const line = match (bufio::scanline(os::stdin)!) {
       		case let line: []u8 =>
@@ -1549,9 +1549,9 @@ sections:
       		};
       		append(lines, strings::fromutf8(line)!);
       	};
-      
+
       	insert(lines[0], strings::dup("test line"));
-      
+
       	for (let i = 0z; i < len(lines); i += 1) {
       		if (lines[i] == "foobar") {
       			free(lines[i]);
@@ -1559,9 +1559,9 @@ sections:
       			i -= 1;
       		};
       	};
-      
+
       	sort::strings(lines);
-      
+
       	fmt::println("Your strings, sorted:")!;
       	for (let i = 0z; i < len(lines); i += 1) {
       		fmt::println(lines[i])!;
@@ -1594,16 +1594,16 @@ sections:
       use os;
       use sort;
       use strings;
-      
+
       export fn main() void = {
       	fmt::println("Enter no more than 10 strings, then press <Ctrl+D>:")!;
-      
+
       	let buf: [10]str = [""...];
       	let lines = buf[..0];
       	defer for (let i = 0z; i < len(lines); i += 1) {
       		free(lines[i]);
       	};
-      
+
       	for (true) {
       		const line = match (bufio::scanline(os::stdin)!) {
       		case let line: []u8 =>
@@ -1613,9 +1613,9 @@ sections:
       		};
       		static append(lines, strings::fromutf8(line)!);
       	};
-      
+
       	static insert(lines[0], strings::dup("test line"));
-      
+
       	for (let i = 0z; i < len(lines); i += 1) {
       		if (lines[i] == "foobar") {
       			free(lines[i]);
@@ -1623,9 +1623,9 @@ sections:
       			i -= 1;
       		};
       	};
-      
+
       	sort::strings(lines);
-      
+
       	fmt::println("Your strings, sorted:")!;
       	for (let i = 0z; i < len(lines); i += 1) {
       		fmt::println(lines[i])!;
@@ -1652,14 +1652,14 @@ sections:
 - title: Slice assignment
   sample: |
       use fmt;
-      
+
       export fn main() void = {
       	let x: []int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       	printints(x);
       	x[2..8] = [0, 0, 0, 0, 0, 0];
       	printints(x);
       };
-      
+
       fn printints(x: []int) void = {
       	for (let i = 0z; i < len(x); i += 1) {
       		fmt::printf("{}{}", x[i], if (i + 1 < len(x)) ", " else "\n")!;
@@ -1678,13 +1678,13 @@ sections:
 - title: Variadic functions
   sample: |
      use fmt;
-     
+
      export fn main() void = {
      	printints("args ", 1, 2, 3, 4, 5);
      	let x: []int = [5, 4, 3, 2, 1];
      	printints("slice ", x...);
      };
-     
+
      fn printints(prefix: str, x: int...) void = {
      	fmt::print(prefix)!;
      	for (let i = 0z; i < len(x); i += 1) {
@@ -1715,12 +1715,12 @@ sections:
       use fmt;
       use os;
       use strconv;
-      
+
       @noreturn fn usage() void = fmt::fatalf("usage: {} <add|sub> <x> <y>", os::args[0]);
-      
+
       export fn main() void = {
       	if (len(os::args) != 4) usage();
-      
+
       	const func: *fn(_: int, _: int) int = switch (os::args[1]) {
       	case "add" =>
       		yield &add;
@@ -1728,7 +1728,7 @@ sections:
       		yield &sub;
       	case => usage();
       	};
-      
+
       	const x = match (strconv::stoi(os::args[2])) {
       	case let i: int =>
       		yield i;
@@ -1743,7 +1743,7 @@ sections:
 
       	fmt::println(func(x, y))!;
       };
-      
+
       fn add(x: int, y: int) int = x + y;
       fn sub(x: int, y: int) int = x - y;
   details: |
@@ -1775,13 +1775,13 @@ sections:
       use io;
       use os;
       use strings;
-      
+
       export fn main() void = {
       	io::write(os::stdout, strings::toutf8(src))!;
       };
-      
+
       let src: str = "";
-      
+
       @init fn init() void = {
       	os::init_cwd(); // TODO: https://todo.sr.ht/~sircmpwn/hare/616
       	const file = os::open("main.ha")!;
@@ -1789,7 +1789,7 @@ sections:
       	const data = io::drain(file)!;
       	src = strings::fromutf8(data)!;
       };
-      
+
       @fini fn fini() void = {
       	free(src);
       };
@@ -1877,7 +1877,7 @@ sections:
       ```hare
       // example/print.ha
       use fmt;
-      
+
       export fn print(what: str) size = fmt::println(what)!;
       ```
   details: |
