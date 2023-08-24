@@ -200,13 +200,18 @@ finished product in Hare.
 
 The most important functions in [regex::][docs] are:
 
-* `compile(str) (regex | error)` compiles a string into a `regex::regex`
-* `find(*regex, str) (void | []capture)` returns the first match for the regex
-  in the given string
-* `findall(*regex, str) (void | [][]capture)` returns all matches for the regex
-  in the given string
-* `test(*regex, str) bool` returns whether or not the given string matches the
-  regex
+* `fn compile(expr: str) (regex | error)` compiles a string into a `regex`
+* `fn find(re: *regex, string: str) result` returns the first match for the
+  regex in the given string
+* `fn findall(re: *regex, string: str) []result` returns all matches for the
+  regex in the given string
+* `fn test(re: *regex, string: str) bool` returns whether or not the given
+  string matches the regex
+* `fn replace(re: *regex, string: str, targetstr: str) (str | error)` returns a
+  string with all non-overlapping matches of a regex replaced with `targetstr`,
+  supporting escape sequences for specifying captures
+* `fn rawreplace(re: *regex, string: str, targetstr: str) str` returns a string
+  with all non-overlapping matches of a regex replaced with `targetstr`
 
 The only thing that might not be fully clear is: what's a `capture`? It's
 extremely straightforward to understand with an example.
@@ -240,10 +245,8 @@ Here's a more complete example, which shows how to use the `findall()` function
 to find all matches, as well as how to manage memory and handle errors.
 
 ```
-const all_matches = regex::findall(&re, "Hello Hare, hello Hare.");
-match (all_matches) {
-case void => void;
-case let matches: [][]regex::capture =>
+const matches = regex::findall(&re, "Hello Hare, hello Hare.");
+if (len(matches) > 0) {
 	defer regex::free_matches(matches);
 	// matches[0]: All captures for the first match.
 	// matches[0][0]: The full matching string for the first match.
