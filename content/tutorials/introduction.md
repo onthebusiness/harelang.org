@@ -1721,7 +1721,7 @@ sections:
       export fn main() void = {
       	if (len(os::args) != 4) usage();
 
-      	const func: *fn(_: int, _: int) int = switch (os::args[1]) {
+      	const func: *fn(int, int) int = switch (os::args[1]) {
       	case "add" =>
       		yield &add;
       	case "sub" =>
