@@ -233,6 +233,50 @@ non-blocking I/O, open a file with fs::flag::NONBLOCK and test for
 
 ### Working with paths
 
+The [path](https://docs.harelang.org/path) module provides utilities for
+normalizing and modifying filesystem paths. The paradigm of this module
+is centered around the [path::buffer](https://docs.harelang.org/path), which
+represents a normalized path. A path buffer can be converted to or from a
+string at any time, but the advantage of using a buffer is that it is
+mutable, and none of the functions in the path module will ever perform
+heap allocation (unlike many string manipulations). Additionally, the path
+buffer will ensure that the right path separators for the system are used, and
+that the buffer does not exceed the system's maximum path length.
+
+Most effective use of the path module involves creating one buffer and
+passing around a pointer to that buffer, only converting it to a string when a
+string is required. This prevents excessive copying and re-normalizing of the
+buffer.
+
+Below is a simple recursive filetree traversal program.
+
+```hare
+use fmt;
+use fs;
+use os;
+use path;
+
+fn walk(buf: *path::buffer) void = {
+	let iter = os::iter(path::string(buf))!;
+	defer os::finish(iter);
+	for (true) match (fs::next(iter)) {
+	case void => break;
+	case let d: fs::dirent =>
+		if (d.name == "." || d.name == "..") continue;
+		path::push(buf, d.name)!;
+		fmt::println(path::string(buf))!;
+		if (fs::isdir(d.ftype)) walk(buf);
+		path::pop(buf);
+	};
+};
+
+export fn main() void = {
+	const root = if (len(os::args) <= 1) "." else os::args[1];
+	let buf = path::init(root)!;
+	walk(&buf);
+};
+```
+
 ## Handling command line arguments
 
 ### getopt
