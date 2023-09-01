@@ -37,13 +37,13 @@ compilers to [hare-dev], or [browse the archives][hare-dev-archive].
 
 ### Real-time chat
 
-We meet on [libera.chat][https://libera.chat/] in various channels:
+We meet on [libera.chat](https://libera.chat/) in various channels:
 
-- [#hare][irc://irc.libera.chat/#hare]: Questions and general discussion about
+- [#hare](irc://irc.libera.chat/#hare): Questions and general discussion about
   Hare.
-- [#hare-dev][irc://irc.libera.chat/#hare-dev]: Discussion about Hare
+- [#hare-dev](irc://irc.libera.chat/#hare-dev): Discussion about Hare
   development.
-- [#hare-soc][irc://irc.libera.chat/#hare-soc]: Social channel, for light and
+- [#hare-soc](irc://irc.libera.chat/#hare-soc): Social channel, for light and
   possibly off-topic discussion.
 
 ### Fediverse
