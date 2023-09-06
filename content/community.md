@@ -27,13 +27,21 @@ archives][hare-users-archive].
 [hare-users]: mailto:~sircmpwn/hare-users@lists.sr.ht
 [hare-users-archive]: https://lists.sr.ht/~sircmpwn/hare-users
 
-### Development mailing list
+### Development mailing lists
 
 Please send patches and development questions for the Hare standard library and
 compilers to [hare-dev], or [browse the archives][hare-dev-archive].
 
 [hare-dev]: mailto:~sircmpwn/hare-dev@lists.sr.ht
 [hare-dev-archive]: https://lists.sr.ht/~sircmpwn/hare-dev
+
+If you have a proposal for a change to Hare, you can send it to [hare-rfc] (or
+[browse the archives][hare-rfc-archive]), but please read the
+["RFC process"][rfc] document to ensure this is the appropriate list for you.
+
+[hare-rfc]: mailto:~sircmpwn/hare-rfc@lists.sr.ht
+[hare-rfc-archive]: https://lists.sr.ht/~sircmpwn/hare-rfc
+[rfc]: https://git.sr.ht/~sircmpwn/hare/tree/master/item/docs/rfc.md
 
 ### Real-time chat
 
