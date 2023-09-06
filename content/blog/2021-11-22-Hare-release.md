@@ -10,6 +10,9 @@ common mistakes and establishes common packaging standards for use throughout
 the Hare ecosystem, making releases easy, consistent, and [difficult to screw
 up][0]. Let me explain how it works, and how to use it for your own releases.
 
+**Note**: We've now gotten rid of hare release. This blog post is still here for
+historical purposes, but it no longer reflects the current state of Hare.
+
 [0]: https://drewdevault.com/2019/10/12/how-to-fuck-up-releases.html
 
 First of all, this tool is totally optional. If you have a release process you
