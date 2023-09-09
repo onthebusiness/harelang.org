@@ -536,7 +536,7 @@ behavior of the formatting operation. The simplest option is re-ordering
 paramters by including an index between the braces:
 
 ```hare
-fmt::println("{2} + {1} = {0}", 15, 10, 5)!; // Prints "5 + 10 = 15"
+fmt::printfln("{2} + {1} = {0}", 15, 10, 5)!; // Prints "5 + 10 = 15"
 ```
 
 Additional format specifiers may be added by the addition of a `:` character,
@@ -544,7 +544,7 @@ followed by a sequence of characters describing the desired format. For example,
 to print values in hexadecimal:
 
 ```hare
-fmt::println("My favorite number is 0x{:x}", 4919)!; // "My favorite number is 0x1337"
+fmt::printfln("My favorite number is 0x{:x}", 4919)!; // "My favorite number is 0x1337"
 ```
 
 Additional format modifiers can be used for other bases (octal and binary), to
