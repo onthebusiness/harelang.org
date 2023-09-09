@@ -171,6 +171,7 @@ mode; [fs::mode] is provided to make the construction of the desired mode, and
 interpretation of file modes, easier.
 
 [os]: https://docs.harelang.org/os
+[os::create]: https://docs.harelang.org/os#create
 [fs::flag]: https://docs.harelang.org/fs::flag
 [fs::mode]: https://docs.harelang.org/fs::flag
 
@@ -207,11 +208,282 @@ non-blocking I/O, open a file with fs::flag::NONBLOCK and test for
 
 ### Buffered I/O
 
+Many I/O operations are most efficient when performed in bulk, by reading or
+writing large amounts of data at a time. However, it is often much more
+convenient to write your code with many small reads or writes rather than
+buffering it yourself to perform I/O in large batches.
+
+The "[bufio]" module aims to make the process of buffering I/O operations into
+fewer, larger operations easier. This module also includes a number of tools for
+working with buffers and I/O efficiently, for example efficiently scanning lines
+of text from an input.
+
+[bufio::init] accepts an arbitrary I/O handle, as well as a buffer for reads and
+a buffer for writes (one can omit either for a read-only or write-only stream),
+and then will batch reads and writes using these buffers. The following example
+illustrates its use and the performance advantages of the approach; comment out
+the "bufio::init" line to see the difference in performance.
+
+```hare
+use bufio;
+use fmt;
+use fs;
+use io;
+use os;
+use time;
+
+export fn main() void = {
+	const input = match (os::open(os::args[1])) {
+	case let file: io::file =>
+		yield file;
+	case let err: fs::error =>
+		fmt::fatalf("Error opening {}: {}",
+			os::args[1], fs::strerror(err));
+	};
+	defer io::close(input)!;
+
+	// Create a buffered stream
+	let rdbuf: [os::BUFSZ]u8 = [0...];
+	let input = &bufio::init(input, rdbuf, []);
+
+	const start = time::now(time::clock::MONOTONIC);
+
+	// Read entire file one byte at a time
+	let buf: [1]u8 = [0];
+	for (!(io::read(input, buf)! is io::EOF)) void;
+
+	const stop = time::now(time::clock::MONOTONIC);
+	const elapsed = time::diff(start, stop);
+	const sec = elapsed / 1000000000;
+	const nsec = elapsed % 1000000000;
+	fmt::printfln("Took {}.{:09}s to read file", sec, nsec)!;
+};
+```
+
+The standard file descriptors [os::stdin] and [os::stdout] are buffered. You can
+access the underlying files via [os::stdin_file] and [os::stdout_file]. stderr
+is unbuffered.
+
+[bufio]: https://docs.harelang.org/bufio
+[bufio::init]: https://docs.harelang.org/bufio#init
+[os::stdin]: https://docs.harelang.org/os#stdin
+[os::stdout]: https://docs.harelang.org/os#stdout
+[os::stdin_file]: https://docs.harelang.org/os#stdin_file
+[os::stdout_file]: https://docs.harelang.org/os#stdout_file
+
+#### Token scanners
+
+The bufio module also provides a "scanner", which scans an input stream for
+certain kinds of tokens, such as new lines, and internally manages a buffer to
+batch smaller reads into fewer I/O operations. You can create a new scanner with
+[bufio::newscanner], then use the various scanner functions, such as:
+
+* [bufio::scan_byte]: reads a single byte from the input
+* [bufio::scan_rune]: reads a single UTF-8 rune from the input
+* [bufio::scan_bytes]: reads a number of bytes up to a provided delimiter
+* [bufio::scan_string]: reads a UTF-8 string up to a provided delimiter
+* [bufio::scan_line]: reads a UTF-8 string up the next newline
+
+[bufio::newscanner]: https://docs.harelang.org/bufio#newscanner
+[bufio::newscanner_static]: https://docs.harelang.org/bufio#newscanner_static
+[bufio::scan_byte]: https://docs.harelang.org/bufio#scan_byte
+[bufio::scan_rune]: https://docs.harelang.org/bufio#scan_rune
+[bufio::scan_bytes]: https://docs.harelang.org/bufio#scan_bytes
+[bufio::scan_string]: https://docs.harelang.org/bufio#scan_string
+[bufio::scan_line]: https://docs.harelang.org/bufio#scan_line
+[bufio::scan_buffer]: https://docs.harelang.org/bufio#scan_buffer
+
+The scanner can be configured to allocate and resize its own internal buffers,
+up to a limit specified in the [bufio::newscanner] call, or you can supply your
+own fixed-size buffer with [bufio::newscanner_static].
+
+Note that the scanner reads data from the underlying source *ahead* of the last
+value returned from each of the `scan_*` calls, so if you abandon the scanner
+and resume reading directly from the underlying file, you will miss any data
+which was read ahead. To mitigate this, you can access the read-ahead buffer via
+[bufio::scan_buffer].
+
+Here is an example program which efficiently reads lines of text from a file and
+numbers them:
+
+```hare
+use bufio;
+use fmt;
+use fs;
+use io;
+use os;
+use types;
+
+export fn main() void = {
+	const input = match (os::open(os::args[1])) {
+	case let file: io::file =>
+		yield file;
+	case let err: fs::error =>
+		fmt::fatalf("Error opening {}: {}",
+			os::args[1], fs::strerror(err));
+	};
+	defer io::close(input)!;
+
+	const scan = bufio::newscanner(input, types::SIZE_MAX);
+	for (let i = 1u; true; i += 1) {
+		const line = match (bufio::scan_line(&scan)!) {
+		case io::EOF =>
+			break;
+		case let line: const str =>
+			yield line;
+		};
+		fmt::printfln("{}\t{}", i, line)!;
+	};
+};
+```
+
+### Memory I/O
+
+It is often useful to use I/O operations to work with buffers of data. For
+instance, one might wish to prepare a `[]u8` or a `str` for some operation by
+using [io::write], [fmt::fprintf], etc. You may have a buffer of data from some
+source as a `[]u8` and wish to pass it to functions which use I/O semantics;
+imagine you have a tarball in a memory buffer and wish to process it with
+[format::tar]. The [memio] module is designed to facilitate these use-cases.
+
+The two main entry points to this module are [memio::dynamic] and
+[memio::fixed], which respectively create an [io::stream] which performs reads
+and writes against an internally managed, dynamically allocated buffer and a
+user-managed fixed-length buffer. One can obtain the buffer as a `[]u8` with
+[memio::buffer] or as a string with [memio::string].
+
+[fmt::fprintf]: https://docs.harelang.org/fmt#fprintf
+[format::tar]: https://docs.harelang.org/format/ini
+[memio]: https://docs.harelang.org/memio
+[memio::fixed]: https://docs.harelang.org/memio#fixed
+[memio::dynamic]: https://docs.harelang.org/memio#dynamic
+[memio::buffer]: https://docs.harelang.org/memio#buffer
+[memio::string]: https://docs.harelang.org/memio#string
+
+```hare
+use fmt;
+use io;
+use memio;
+
+export fn main() void = {
+	const sink = &memio::dynamic();
+	defer io::close(sink)!; // Frees the underlying buffer
+
+	const username = "Drew";
+	fmt::fprint(sink, "Hello, ")!;
+	fmt::fprint(sink, username)!;
+	fmt::fprint(sink, "!")!;
+
+	fmt::println(memio::string(sink)!)!;
+};
+```
+
+memio does not hold any dynamically allocated state aside from the buffer
+itself, so you can skip [io::close] and use [memio::buffer] to claim ownership
+of the buffer (freeing it yourself later with `free()`) without leaking memory.
+
 ### I/O multiplexing
+
+If you have several sources of I/O to read from or write to, you may wish to
+know which operations can be performed without blocking. Programmers familiar
+with NONBLOCK usage on Unix systems can take advantage of it as described in [an
+earlier section](#access-to-the-host-filesystem), but the recommended approach
+on Unix uses [unix::poll], which is a wrapper around the portable
+[poll](https://pubs.opengroup.org/onlinepubs/9699919799/functions/poll.html)
+syscall. Be aware that this module only works with [io::file], rather than
+[io::stream].
+
+[unix::poll]: https://docs.harelang.org/unix/poll
+
+If you are familiar with the syscall you will already have a generally strong
+understanding of the usage of the Hare module. Otherwise, examples of unix::poll
+usage will be covered in the networking section later in this tutorial.
+
+For more complex use-cases (those covered by non-portable tools such as epoll(2)
+on Linux or kqueue on \*BSD), see the extended library [hare-ev] project, which
+provides more comprehensive event loop support.
+
+[hare-ev]: https://git.sr.ht/~sircmpwn/hare-ev
 
 ### Custom I/O streams
 
+It is often useful to create custom implementations of the I/O abstraction,
+writing I/O objects that provide your own implementations of read, write, etc,
+which can be passed into any function that expects an I/O object. [io::stream]
+is provided for this use, which is used to implement many userspace I/O
+operations throughout the standard library, but which can also be used in your
+own code to implement custom streams.
+
+One must define the implementation using an [io::vtable], filling in whichever
+I/O operations you wish to support, then place an io::stream (initialized as a
+pointer to this table) at the start of an object to create a custom stream. You
+can fill in the remainder of the object with your custom state.
+
+A simple illustrative example of such a stream is provided by the standard
+library's [io::limitreader], which only allows a user-defined number of bytes to
+be read from an underlying source of input. The implementation is concise:
+
+[io::vtable]: https://docs.harelang.org/io#vtable
+[io::limitreader]: https://docs.harelang.org/io#vtable
+[io::limitwriter]: https://docs.harelang.org/io#writer
+
+```hare
+export type limitstream = struct {
+	vtable: stream,
+	source: handle,
+	limit: size,
+};
+
+const limit_vtable_reader: vtable = vtable {
+	reader = &limit_read,
+	...
+};
+
+// Create an overlay stream that only allows a limited amount of bytes to be
+// read from the underlying stream. This stream does not need to be closed, and
+// closing it does not close the underlying stream. Reading any data beyond the
+// given limit causes the reader to return [[EOF]].
+export fn limitreader(source: handle, limit: size) limitstream = {
+	return limitstream {
+		vtable = &limit_vtable_reader,
+		source = source,
+		limit = limit,
+	};
+};
+
+fn limit_read(s: *stream, buf: []u8) (size | EOF | error) = {
+	let stream = s: *limitstream;
+	if (stream.limit == 0) {
+		return EOF;
+	};
+	if (len(buf) > stream.limit) {
+		buf = buf[..stream.limit];
+	};
+	match (read(stream.source, buf)) {
+	case EOF =>
+		return EOF;
+	case let z: size =>
+		stream.limit -= z;
+		return z;
+	};
+};
+```
+
 ### I/O utilities
+
+[io::limitreader] is an example of a simple I/O utility provided by the standard
+library to facilitate common I/O usage scenarios. [io::limitwriter] is similar.
+Additional useful utilities provided include:
+
+* [io::tee]: a stream which copies reads and writes from an underling source to a secondary handle
+* [io::empty]: a stream which always reads EOF and discards writes
+* [io::zero]: a stream which always reads zeroes and discards writes
+* [io::drain]: reads an entire I/O object into a []u8 slice
+
+[io::tee]: https://docs.harelang.org/io#tee
+[io::empty]: https://docs.harelang.org/io#empty
+[io::zero]: https://docs.harelang.org/io#zero
+[io::drain]: https://docs.harelang.org/io#drain
 
 ## Working with strings
 
