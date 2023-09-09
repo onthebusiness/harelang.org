@@ -678,13 +678,15 @@ export fn main() void = {
 
 ## Networking
 
+### net::dial
+
 ### IP addresses
 
 ### TCP and Unix sockets
 
 ### UDP support
 
-### net::dial
+### DNS support
 
 ## Date and time
 
