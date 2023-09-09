@@ -254,8 +254,8 @@ export fn main() void = {
 
 	const stop = time::now(time::clock::MONOTONIC);
 	const elapsed = time::diff(start, stop);
-	const sec = elapsed / 1000000000;
-	const nsec = elapsed % 1000000000;
+	const sec = elapsed / time::SECOND;
+	const nsec = elapsed % time::SECOND;
 	fmt::printfln("Took {}.{:09}s to read file", sec, nsec)!;
 };
 ```
