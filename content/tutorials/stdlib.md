@@ -479,11 +479,14 @@ Additional useful utilities provided include:
 * [io::empty]: a stream which always reads EOF and discards writes
 * [io::zero]: a stream which always reads zeroes and discards writes
 * [io::drain]: reads an entire I/O object into a []u8 slice
+* [io::readall] & [io::writeall]: reads or writes an entire buffer, without underreads
 
 [io::tee]: https://docs.harelang.org/io#tee
 [io::empty]: https://docs.harelang.org/io#empty
 [io::zero]: https://docs.harelang.org/io#zero
 [io::drain]: https://docs.harelang.org/io#drain
+[io::readall]: https://docs.harelang.org/io#readall
+[io::writeall]: https://docs.harelang.org/io#writeall
 
 ## Working with strings
 
