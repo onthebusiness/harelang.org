@@ -490,21 +490,121 @@ Additional useful utilities provided include:
 
 ## Working with strings
 
+The string type in Hare is deliberately limited in its language-level utility,
+and most string operations are deferred to the standard libraries. A number of
+standard library modules are provided to assist with these operations,
+including, among others:
+
+* [ascii]: working with ASCII text and character classes
+* [fmt]: formatting values as strings
+* [fnmatch]: simple pattern matching (wildcards)
+* [regex]: regular expression support (covered in detail later)
+* [strconv]: converting numbers to strings and vice-versa
+* [strings]: various string-related operations
+
+[ascii]: https://docs.harelang.org/ascii
+[fmt]: https://docs.harelang.org/fmt
+[fnmatch]: https://docs.harelang.org/fnmatch
+[regex]: https://docs.harelang.org/regex
+[strconv]: https://docs.harelang.org/strconv
+[strings]: https://docs.harelang.org/strings
+
+We'll cover a subset of this functionality in this part of the tutorial.
+
 ### Formatting text
+
+The [fmt] module provides support for formatting various kinds of values as
+text, and writing this text to strings, buffers, or I/O handles. This family of
+functions generally accepts a "format string", which is a constant string that
+has a series of "format specifiers" describing how to represent values as
+formatted text in their output.
+
+You've already seen some simple uses of fmt throughout the tutorial, from the
+very first "hello world" program.
+
+```hare
+fmt::println("Hello world!")!; // Write "Hello world!" to stdout, then a newline
+```
+
+Let's explain how it works in more detail.
+
+A format string contains characters that are represented literally in the
+output, as well as format sequences that are replaced with formatted values from
+the paramters to the fmt function. A format sequence begins with "{" and ends
+with "}", and characters between the braces can be used to customize the
+behavior of the formatting operation. The simplest option is re-ordering
+paramters by including an index between the braces:
+
+```hare
+fmt::println("{2} + {1} = {0}", 15, 10, 5)!; // Prints "5 + 10 = 15"
+```
+
+Additional format specifiers may be added by the addition of a `:` character,
+followed by a sequence of characters describing the desired format. For example,
+to print values in hexadecimal:
+
+```hare
+fmt::println("My favorite number is 0x{:x}", 4919)!; // "My favorite number is 0x1337"
+```
+
+Additional format modifiers can be used for other bases (octal and binary), to
+specify leading zeroes or spaces, floating point precision, aligning values to
+the left or right of a column, and so on. Consult the module documentation for
+the complete list of features.
 
 ### String manipulation
 
-### Converting to and from strings
+The [strings] module provides a number of general-purpose utilities for working
+with strings. Your attention is drawn to some of the highlights:
 
-### Efficient string I/O
+* [strings::concat]: concatenate strings
+* [strings::contains]: test for substrings
+* [strings::cut]: split a string in two by a delimiter
+* [strings::split], [strings::splitn]: split a string by a delimiter
+* [strings::dup]: duplicate a string on the heap
+* [strings::fromutf8], [strings::toutf8]: convert to/from UTF-8 byte slices
+* [strings::hasprefix], [strings::hassuffix]: test for prefix/suffix
+* [strings::index]: identify the first instance of a substring or rune
+* [strings::iter]: iterate over the runes in a string
+* [strings::join]: join several strings by a delimiter
+* [strings::ltrim], [strings::rtrim], [strings::trim]: remove prefixes and suffixes
+* [strings::replace]: replace instances of a sub-string in a larger string
+* [strings::sub]: extract a sub-string
+* [strings::tokenize]: iterate over tokens in a string by some delimiter
 
-### base64, base32, and hex
+strings::cut can be used to turn "key=value" into ("key", "value").
+strings::ltrim can remove the spaces from the start of a string.
+strings::tokenize can turn "x:y:z:q" into successive tokens of "x", "y", "z",
+and "q". Many other functions are available for a variety of string operations:
+consult the module documentation for the complete list.
+
+[strings::concat]: https://docs.harelang.org/strings#concat
+[strings::contains]: https://docs.harelang.org/strings#contains
+[strings::cut]: https://docs.harelang.org/strings#cut
+[strings::split]: https://docs.harelang.org/strings#split
+[strings::splitn]: https://docs.harelang.org/strings#splitn
+[strings::dup]: https://docs.harelang.org/strings#dup
+[strings::fromutf8]: https://docs.harelang.org/strings#fromutf8
+[strings::toutf8]: https://docs.harelang.org/strings#toutf8
+[strings::hasprefix]: https://docs.harelang.org/strings#hasprefix
+[strings::hassuffix]: https://docs.harelang.org/strings#hassuffix
+[strings::index]: https://docs.harelang.org/strings#index
+[strings::iter]: https://docs.harelang.org/strings#iter
+[strings::join]: https://docs.harelang.org/strings#join
+[strings::ltrim]: https://docs.harelang.org/strings#ltrim
+[strings::rtrim]: https://docs.harelang.org/strings#rtrim
+[strings::trim]: https://docs.harelang.org/strings#trim
+[strings::replace]: https://docs.harelang.org/strings#replace
+[strings::sub]: https://docs.harelang.org/strings#sub
+[strings::tokenize]: https://docs.harelang.org/strings#tokenize
+
+Note that efficient use of strings in Hare requires careful attention paid to
+memory usage. Each of these functions documents its memory semantics: for
+instance, using strings::tokenize may be more desirable than strings::split in
+many situations given that the latter must heap-allocate the return value. Often
+the most efficient means of building a complex string is via [memio] and [fmt].
 
 ## More filesystem utilities
-
-### Using user directories
-
-### Using temporary files and directories
 
 ### Working with paths
 
