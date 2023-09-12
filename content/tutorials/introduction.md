@@ -124,7 +124,7 @@ sections:
       // Asks the user to provide their name.
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
-      	const name = bufio::scanline(os::stdin)! as []u8;
+      	const name = bufio::read_line(os::stdin)! as []u8;
       	return strings::fromutf8(name)!;
       };
 
@@ -156,7 +156,7 @@ sections:
         concepts which are introduced later on. If you're unsure about how
         something works, don't worry&nbsp;&mdash; it will be explained later.
       </div>
-- title: A closer look at bufio::scanline
+- title: A closer look at bufio::read_line
   sample: |
       use bufio;
       use fmt;
@@ -171,7 +171,7 @@ sections:
       // Asks the user to provide their name.
       fn askname() str = {
       	fmt::println("Hello! Please enter your name:")!;
-      	const name = bufio::scanline(os::stdin)! as []u8;
+      	const name = bufio::read_line(os::stdin)! as []u8;
       	return strings::fromutf8(name)!;
       };
 
@@ -181,9 +181,9 @@ sections:
       };
   details: |
       Like "askname", many standard library functions can return values.
-      `bufio::scanline` is an interesting example of this. We can read the
+      `bufio::read_line` is an interesting example of this. We can read the
       documentation for this function in our terminal by running the `haredoc
-      bufio::scanline` command&nbsp;&mdash; try this now.
+      bufio::read_line` command&nbsp;&mdash; try this now.
 
       This function's signature (the combination of its parameters and return
       type) is a bit more complex in that it can return one of several kinds, or
@@ -919,7 +919,7 @@ sections:
       };
 
       fn getnumber() (uint | error) = {
-      	const num = match (bufio::scanline(os::stdin)?) {
+      	const num = match (bufio::read_line(os::stdin)?) {
       	case io::EOF =>
       		return unexpectedeof;
       	case let buf: []u8 =>
@@ -945,7 +945,7 @@ sections:
 
       We can return our custom error from "getnumber" upon encountering
       `io::EOF` (which is not ordinarily considered an error) from
-      `bufio::scanline`, which is propagated through prompt to "main". If an I/O
+      `bufio::read_line`, which is propagated through prompt to "main". If an I/O
       error were to occur here, it would be propagated similarly.
 
       We can use any type as an error type if we wish. Some errors are an int or
@@ -1541,7 +1541,7 @@ sections:
       	defer strings::freeall(lines);
 
       	for (true) {
-      		const line = match (bufio::scanline(os::stdin)!) {
+      		const line = match (bufio::read_line(os::stdin)!) {
       		case let line: []u8 =>
       			yield line;
       		case io::EOF =>
@@ -1605,7 +1605,7 @@ sections:
       	};
 
       	for (true) {
-      		const line = match (bufio::scanline(os::stdin)!) {
+      		const line = match (bufio::read_line(os::stdin)!) {
       		case let line: []u8 =>
       			yield line;
       		case io::EOF =>
