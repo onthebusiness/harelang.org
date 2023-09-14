@@ -4,7 +4,7 @@ date: 2021-03-14
 author: Drew DeVault
 ---
 
-Last night I applied Eyal Sawady's latest patch, implementing forward references
+Last night I applied Ember Sawady's latest patch, implementing forward references
 for the bootstrap compiler. With this completed, the hosted build driver is
 operational.  Compiling a Hare program is now one `hare build` command away,
 rather than a complex series of hacks to patch together a working toolchain on
@@ -64,7 +64,7 @@ builds and for building and running tests.
 We also have Michael Forney working in a paid part-time position on qbe, which
 we use for code generation, to help add support for new architectures: i686,
 riscv64, 32-bit ARM platforms, and ppc64 &mdash; and one of our newest
-contributors is a PowerPC expert who volunteered to help with the latter. Eyal
+contributors is a PowerPC expert who volunteered to help with the latter. Ember
 Sawady will be joining SourceHut as a part-time paid intern this week, and will
 mostly be focusing on Hare. I also plan on doing some exploratory work towards
 BSD and Haiku ports, and Michael will be looking into a Plan 9 port.

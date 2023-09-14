@@ -235,7 +235,7 @@ Hare so far.
 - Christopher M. Riedl
 - Drew DeVault
 - Evan Vogel
-- Eyal Sawady
+- Ember Sawady
 - Haelwenn Monnier
 - Humm Smith
 - Jonathan Halmen
