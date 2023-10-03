@@ -1214,8 +1214,9 @@ sections:
       loop early when encountering a string called "Hare"; in this sample we
       stop that loop iteration and continue with the next iteration.
 
-      Both of these keywords are "terminating expressions". What does that mean?
-- title: Terminating branches
+      Both `break` and `continue have the result type `never`. What does that
+      mean?
+- title: The `never` type
   sample: |
       use fmt;
 
@@ -1247,26 +1248,26 @@ sections:
       	VIOLET,
       };
   details: |
-      Some expressions, such as `return`, `break`, and `continue`, as well as
-      others like `abort()` and calling `@noreturn` functions like
-      [os::exit][0], cause the control flow to "terminate" and prevent future
-      expressions in that compound expression from executing.
+      Some expressions, such as `return`, `break`, `continue`, `yield`, and
+      `abort()`, as well as some function calls such as [os::exit][0], can never
+      return any value, either because the program is guaranteed to exit or
+      because control flow continues somewhere else. This is represented within
+      Hare's type system as the `never` type - a type that
+      [can never hold a value][1].
 
       [0]: https://docs.harelang.org/os#exit
+      [1]: https://en.wikipedia.org/wiki/Bottom_type
 
-      This becomes more important when you consider that Hare is an
-      expression-oriented language. In the sample here, each branch of our
-      switch expression provides a value (the name of the color) to serve as the
-      result of the switch expression&nbsp;&mdash; except for `color::GREEN`.
-      The use of a terminating expression here, `abort()`, prevents the code
-      from continuing after this point, so this branch is not required to
-      provide a result and is not considered when determining the switch
-      expression's result type.
+      This is important when you consider that Hare is an expression-oriented
+      language. In the sample here, each branch of our switch expression
+      yields a value (the name of the color) to serve as the result of the
+      switch expression&nbsp;&mdash; except for `color::GREEN`. Because
+      `abort()`'s result type is `never`, the branch doesn't yield a value at
+      all, and is ignored when determining the switch expression's result type.
 
       We have taken advantage of this behavior many times throughout the
-      tutorial. For example, in [Using yield](#using-yield), the branch which
-      calls `fmt::fatalf` terminates, allowing us to only provide a value in one
-      case.
+      tutorial. For example, in [Using yield](#using-yield), `fmt::fatalf`
+      returns `never`, allowing us to only provide a value in one case.
 - section: Types in depth
 - title: Promotion and type inference
   sample: |
@@ -1716,7 +1717,7 @@ sections:
       use os;
       use strconv;
 
-      @noreturn fn usage() void = fmt::fatalf("usage: {} <add|sub> <x> <y>", os::args[0]);
+      fn usage() never = fmt::fatalf("usage: {} <add|sub> <x> <y>", os::args[0]);
 
       export fn main() void = {
       	if (len(os::args) != 4) usage();
@@ -1766,11 +1767,10 @@ sections:
         when you ignore some of them, do it.
       </div>
 
-      We also make use of `@noreturn` here to make calling "usage" a terminating
-      expression, which excludes the switch and match branches that use it from
-      the result type selection as explained earlier. We'll talk more about
-      `@noreturn` and other function decorators in the next section.
-- title: "@init, @fini, @noreturn"
+      We also make use of `never` here so that switch and match branches which
+      call "usage" are excluded from result type selection, as explained
+      earlier.
+- title: "@init, @fini, @test"
   sample: |
       use io;
       use os;
@@ -1805,11 +1805,9 @@ sections:
       program's own source code.
 
       You've already seen `@test`: this marks a function as a test function,
-      which is only used when you run "hare test". We have also referred to
-      `@noreturn` a few times: calling a function marked `@noreturn` causes the
-      call expression to "terminate". There are a few other attributes supported
-      by Hare, but they're generally only useful in specific, uncommon
-      situations&nbsp;&mdash; you'll know if you need it.
+      which is only used when you run "hare test". There are a few other
+      attributes supported by Hare, but they're generally only useful in
+      specific, uncommon situations&nbsp;&mdash; you'll know if you need it.
 - section: Modules
 - title: Organizing your code in many files
   htmlsample: |
