@@ -486,7 +486,7 @@ sections:
       	const file = os::open("main.ha")!;
       	io::copy(&hash, file)!;
 
-      	let sum: [sha256::SIZE]u8 = [0...];
+      	let sum: [sha256::SZ]u8 = [0...];
       	hash::sum(&hash, sum);
       	hex::encode(os::stdout, sum)!;
       	fmt::println()!;
