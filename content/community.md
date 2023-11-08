@@ -59,3 +59,9 @@ We meet on [libera.chat](https://libera.chat/) in various channels:
 We have a community-maintained presence on the Fediverse supernetwork at
 <a href="https://fosstodon.org/@hare" rel="me">@hare@fosstodon.org</a>.
 Follow us from any Fediverse server for Hare news and updates.
+
+### Evangelizing Hare
+
+We have a page documenting efforts to bring Hare to the masses, which concerns
+how community members can participate in promoting and popularizing Hare among
+its target audience: [Hare evangelism](/evangelism).
