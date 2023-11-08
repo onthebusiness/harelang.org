@@ -4,7 +4,7 @@ author: Drew DeVault
 date: 2023-11-08
 ---
 
-There are a number of languages trying to something similar to what Hare is
+There are a number of languages attempting something similar to what Hare is
 doing by positioning itself as an alternative to C. However, there is an
 important trait which I think is necessary to understand Hare's ambitions in
 this space: Hare is explicitly attempting to emulate C's 50+ year staying power.
