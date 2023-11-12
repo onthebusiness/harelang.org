@@ -13,7 +13,7 @@ will be stable over a very long period of time, exceeding the lifetime of its
 authors: I think of Hare as a 100-year programming language.
 
 This goal imposes some important constraints on our design space, which is worth
-acknowledging and exploring a bit. What does our concious emphasis on long-term
+acknowledging and exploring a bit. What does our conscious emphasis on long-term
 stability imply for the language design?
 
 We have identified a number of points which are important for this purpose:
@@ -42,7 +42,7 @@ and therefore more risky.
 
 Hare instead aims to distill the as-of-this-decade state of the art in proven
 systems programming language design idioms to produce what we believe is the
-most robust language design *right now*. We have made the concious choice to
+most robust language design *right now*. We have made the conscious choice to
 leave more novel design and experimentation to other languages, so that Hare can
 fill a niche wherein it may be suboptimal in respects other than stability. Our
 goal is to make Hare the tool of choice when writing a program which needs to be
