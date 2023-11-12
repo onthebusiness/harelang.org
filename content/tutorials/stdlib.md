@@ -89,7 +89,7 @@ export fn main() void = {
 	const hash = sha256::sha256();
 	io::copy(&hash, file)!;
 
-	let sum: [sha256::SIZE]u8 = [0...];
+	let sum: [sha256::SZ]u8 = [0...];
 	hash::sum(&hash, sum);
 
 	fmt::println(hex::encodestr(sum))!;
