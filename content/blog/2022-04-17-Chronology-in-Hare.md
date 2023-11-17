@@ -26,7 +26,7 @@ enough, yet had a user-friendly API, was a mighty challenge.
 
 Nonetheless, we've tried our best to design our library to be
 easy-to-use, modular, performant, and above all else, correct. It will
-need a few tweaks before it reaches it's high aspirations, but today's
+need a few tweaks before it reaches its high aspirations, but today's
 library can handle the most common problems a user will come across.
 
 Let's go over Hare's new additions to the standard library.
@@ -131,7 +131,7 @@ There's also UTC ([Coordinated Universal Time][utcw]), as
 [chrono::utc][utc]. Note that we're referring to *the UTC timescale*,
 not the incidentally named "UTC" timezone, which could be more
 unambiguously referred to as "[UTC+00:00][utc0]" or "Zulu time". UTC is
-definitionally based upon TAI. The two are offsetted by variable number
+definitionally based upon TAI. The two are offsetted by a variable number
 of seconds (at the time of writing, 37). Thus, UTC is not continuous and
 contains leap seconds.
 
@@ -531,7 +531,7 @@ Happy time-travelling.
 
   [^mars]: Authur David Olson: "Although the tz database does not
   support time on other planets, it is documented here in the hopes that
-  support will be added eventually." --
+  support will be added eventually." &mdash;
   https://data.iana.org/time-zones/theory.html#planets
 
 

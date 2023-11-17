@@ -202,10 +202,10 @@ Tue, 16 Taur 0207 08:49:27 +0000 MTC
 Here we are making a pointer to `birt`, casting it to a
 [chrono::moment][mom] type, and dereferencing our new moment, which
 [chrono::in][cin] accepts. We're using a special property of
-[mbc::datetime](https://torresjrjr.com/archive/2022-08-01-hare-martian-time/docs#datetime) -- the fact that it embeds
-chrono::moment, just like the stdlib [datetime::datetime][dtdt] type.
+[mbc::datetime](https://torresjrjr.com/archive/2022-08-01-hare-martian-time/docs#datetime) &mdash; the fact that it
+embeds chrono::moment, just like the stdlib [datetime::datetime][dtdt] type.
 Third-party libraries like hare-mbc are expected to create their own
-datetime types like this, thus unifiing all datetime types.
+datetime types like this, thus unifying all datetime types.
 
 The chrono::moment type in turn embeds [time::instant][inst]. That is to
 say, every datetime is really a time::instant with extra information,

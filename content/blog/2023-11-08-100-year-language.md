@@ -165,17 +165,17 @@ language design is important and moves the industry forward, but Hare is going
 to step away from those innovations. The cost of long-term stability is that
 Hare will inevitably become the less optimal choice over time, as a new set of
 language ideas becomes proven and tested and enters the canon of essential
-language idioms -- essential idioms which might have been incorporated into Hare
-if they were proven today, but which will be left out in the interest of
+language idioms &mdash; essential idioms which might have been incorporated into
+Hare if they were proven today, but which will be left out in the interest of
 long-term stability. The next language can tackle these problems.
 
 In this respect, Hare is unlikely to be a 100-year language in the sense that it
-will still be the best choice in a century -- but rather because it will still
-*work* in a century. We believe that there is value in providing a language that
-can be depended on to work consistently for a very long time. If Hare succeeds
-in its ambitions, it will form an important part of the culture of long-term
-thinking and stability which provides a necessary counterweight to rapid
-innovation in software engineering.
+will still be the best choice in a century &mdash; but rather because it will
+still *work* in a century. We believe that there is value in providing a
+language that can be depended on to work consistently for a very long time. If
+Hare succeeds in its ambitions, it will form an important part of the culture of
+long-term thinking and stability which provides a necessary counterweight to
+rapid innovation in software engineering.
 
 This approach to innovation, and our near-rejection of it as a goal, is
 innovative in and of itself. If I were to point to one trait of Hare which sets

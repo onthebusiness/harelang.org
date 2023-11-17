@@ -19,7 +19,7 @@ details), or online:
 
 ## Hare extended support libraries
 
-The extended support libraries provides official support for use-cases which
+The extended support libraries provide official support for use-cases which
 fall outside of the standard library mandate, but are nevertheless declared
 important or useful for the community.
 

@@ -13,14 +13,14 @@ incorporate dozens of patches every week.
 Over the past several weeks, I have been working with the other maintainers and
 project leaders to discuss possible reforms to the community structure and
 workflow to reduce bottlenecks and streamline the work, to reduce frustration
-with slow patch approval and make it easier for people to work autonomously --
-and to reduce the, uh, "Drew bottleneck".
+with slow patch approval and make it easier for people to work autonomously
+&mdash; and to reduce the, uh, "Drew bottleneck".
 
 As Hare is organized with a mailing-list-based workflow for preparing,
 reviewing, and applying patches, we have drawn inspiration from how the largest
-mail-based project -- Linux -- scaled up to its massive size. I'm fond of the
-Linux model because it is both effective and simple, so it can be applied to a
-medium-size project and scale all the way up to the largest free software
+mail-based project &mdash; Linux &mdash; scaled up to its massive size. I'm fond
+of the Linux model because it is both effective and simple, so it can be applied
+to a medium-size project and scale all the way up to the largest free software
 project in the world.
 
 To this end, the changes are focused on:
@@ -179,16 +179,16 @@ in addition to working space. One of the foundational values of the Hare
 community is professionalism: the working spaces are kept on-topic and
 professional in tone, though they don't enforce any kind of overt formality.
 However, the community is also a fun place to be and many friendships have
-formed here -- that's something to be encouraged!
+formed here &mdash; that's something to be encouraged!
 
 We noticed a few groups of Hare contributors forming friendships and taking
-their social activities outside of the Hare spaces -- respecting the on-topic
-rules and professional attitude of these spaces. But, if you get a group of
-excited Hare contributors in a room they're eventually going to talk about Hare,
-and this started leading to cases where a few Hare contributors would talk
-outside of the Hare community about their ideas, form a consensus in their
-insular group, then get put out when this consensus does not translate to the
-broader community.
+their social activities outside of the Hare spaces &mdash; respecting the
+on-topic rules and professional attitude of these spaces. But, if you get a
+group of excited Hare contributors in a room they're eventually going to talk
+about Hare, and this started leading to cases where a few Hare contributors
+would talk outside of the Hare community about their ideas, form a consensus in
+their insular group, then get put out when this consensus does not translate to
+the broader community.
 
 To improve matters, we have established the #hare-soc IRC channel as a lighter
 social space for the Hare community on the Libera Chat IRC network, where we

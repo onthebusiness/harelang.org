@@ -44,9 +44,9 @@ so that we can talk about that.
 
 [0]: https://lists.sr.ht/~sircmpwn/hare-evangelism
 
-[^1]: Be careful not to abandon tutorials to bitrot -- consider updating them as
-    the language develops and they become outdated, or linking to official
-    (maintained) resources on the subject where possible.
+[^1]: Be careful not to abandon tutorials to bitrot &mdash; consider updating
+    them as the language develops and they become outdated, or linking to
+    official (maintained) resources on the subject where possible.
 
 ## Bad ideas
 
@@ -58,7 +58,7 @@ The following kinds of marketing activities are explicitly discouraged:
 
 When discussing Hare outside of Hare community spaces, the Hare [Code of
 Conduct][1] is not necessarily in effect. Nevertheless, you are strongly
-encouraged to behave as if it was, and to speak with kindness and empathy --
-don't get into flamewars!
+encouraged to behave as if it was, and to speak with kindness and empathy
+&mdash; don't get into flamewars!
 
 [1]: /conduct

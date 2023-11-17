@@ -257,7 +257,7 @@ symbol names, e.g. unix.passwd, and vice-versa.
 
 ## Closing thoughts
 
-Hare as a language provides many features which reduces the risk of bugs
+Hare as a language provides many features which reduce the risk of bugs
 occuring in the first place, such as bounds-tested arrays, mandatory error
 handling, and so on. Some problems, like buffer overflows, are very rare in
 Hare. Others are easier to overlook, like use-after-free bugs. In any case, it's
