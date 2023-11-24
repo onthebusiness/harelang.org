@@ -90,7 +90,7 @@ library mandate, so that we consciously balance the utility of any given module
 for standard library inclusion against our faith in our ability for it to have
 long-term staying power. The "extended library" (a set of important libraries in
 the Hare ecosystem which have explicit support from upstream Hare, this is for
-example where HTTP support lives) have separate, well-defined, but more flexible
+example where HTTP support lives) has separate, well-defined, but more flexible
 policies regarding long-term support and stability. We are also going to publish
 stability recommendations and best-practices for maintainers in the ecosystem at
 large.
@@ -101,7 +101,7 @@ large.
     separate tree from the standard library and may still be manually installed
     to build software which depends on obsolete crypto.
 
-Where we leave room for important changes will be made (for instance, the
+Where we leave room for important changes to be made (for instance, the
 deprecation of obsolete cryptography modules), we are also preparing policies
 for effective communication and implementation of those changes throughout the
 ecosystem, so that maintainers of Hare software have an effective line of
