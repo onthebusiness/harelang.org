@@ -63,11 +63,11 @@ Hare does not, and will not, support any proprietary operating systems.
       <td><span class="yes">✓</span> Supported</td>
     </tr>
     <tr>
-      <td>NetBSD</td>
-      <td><span class="todo">…</span> In progress</td>
+      <td>OpenBSD</td>
+      <td><span class="yes">…</span> Supported</td>
     </tr>
     <tr>
-      <td>OpenBSD</td>
+      <td>NetBSD</td>
       <td><span class="todo">…</span> In progress</td>
     </tr>
     <tr>

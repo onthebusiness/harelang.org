@@ -43,7 +43,7 @@ will be "done".
 - 32-bit: i486 family, 32-bit ARM, riscv32
 - PowerPC (incl. big endian)
 - MIPS
-- OpenBSD, NetBSD
+- NetBSD
 - Illumos
 - Haiku
 - Plan 9
