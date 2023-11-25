@@ -46,7 +46,7 @@ Optionally run `make check` to compile and run the test suite as well, then run
 #### Step 2: Building the build driver & standard library
 
 1. Obtain [the build driver source code](https://git.sr.ht/~sircmpwn/hare)
-2. Copy `config.example.mk` to `config.mk` and edit to taste
+2. Copy `configs/<platform>.mk` to `config.mk` and edit to taste
 3. Run `make`
 
 <!-- TODO: make stage-2 -->
