@@ -1214,7 +1214,7 @@ sections:
       loop early when encountering a string called "Hare"; in this sample we
       stop that loop iteration and continue with the next iteration.
 
-      Both `break` and `continue have the result type `never`. What does that
+      Both `break` and `continue` have the result type `never`. What does that
       mean?
 - title: The `never` type
   sample: |
