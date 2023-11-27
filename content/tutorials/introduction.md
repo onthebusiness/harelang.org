@@ -213,12 +213,6 @@ sections:
       `strings::fromutf8`. You can also use it to browse the modules
       themselves &nbsp;&mdash; try `haredoc fmt` or `haredoc strings`.
 
-      <!-- Lastly, you can use it to
-      browse your *own* documentation: try `haredoc askname` and `haredoc
-      greet`.
-      TODO: https://todo.sr.ht/~sircmpwn/hare/555
-      -->
-
 - title: Using const & let to define variables
   sample: |
       use fmt;
@@ -1783,7 +1777,6 @@ sections:
       let src: str = "";
 
       @init fn init() void = {
-      	os::init_cwd(); // TODO: https://todo.sr.ht/~sircmpwn/hare/616
       	const file = os::open("main.ha")!;
       	defer io::close(file)!;
       	const data = io::drain(file)!;
