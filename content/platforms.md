@@ -64,7 +64,7 @@ Hare does not, and will not, support any proprietary operating systems.
     </tr>
     <tr>
       <td>OpenBSD</td>
-      <td><span class="yes">…</span> Supported</td>
+      <td><span class="yes">✓</span> Supported</td>
     </tr>
     <tr>
       <td>NetBSD</td>
