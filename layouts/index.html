@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{$.Title}}</title>
     <link rel="icon" type="image/png" href="/mascot.png">
+    <meta property="og:image" content="https://harelang.org/mascot.png">
     {{ $style := resources.Get "main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
   </head>
