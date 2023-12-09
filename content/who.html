@@ -1,0 +1,230 @@
+---
+title: Who is Hare?
+---
+
+<style>
+.people {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin-top: 1rem;
+	gap: 8px;
+}
+
+.person {
+	border: 1px solid #888;
+	border-radius: 3px;
+	padding: 1rem;
+	display: grid;
+	grid:
+		"header header" auto
+		"image body" 1fr
+		/ auto 1fr;
+	gap: 8px;
+}
+
+.person h4 {
+	margin: 0;
+	grid-area: header;
+}
+
+.person img {
+	grid-area: image;
+	margin: 0;
+	width: 128px;
+	height: 128px;
+	max-width: none;
+}
+
+.person dl {
+	grid-area: body;
+	display: block;
+	margin: 0;
+}
+
+.specialization {
+	font-weight: normal;
+	float: right;
+}
+</style>
+
+<p>
+Hare is built for people, by people. Who are those people?
+
+<h2>Global maintainers</h2>
+
+<div class="people">
+
+	<div class="person">
+		<h4>Bor Grošelj Simić</h4>
+		<img
+			alt="Bor's avatar"
+			src="/bor.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:bgs@turminal.net">bgs@turminal.net</a></dd>
+			<dt>Location</dt>
+			<dd>Ljubljana</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Drew DeVault</h4>
+		<img
+			alt="Photo of Drew DeVault"
+			src="/drew.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:sir@cmpwn.com">sir@cmpwn.com</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://drewdevault.com">drewdevault.com</a></dd>
+			<dt>Location</dt>
+			<dd>Amsterdam</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Ember Sawady</h4>
+		<img
+			alt="Ember Sawady's avatar"
+			src="/ember.png" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:ecs@d2evs.net">ecs@d2evs.net</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://ecs.d2evs.net/">ecs.d2evs.net</a></dd>
+			<dt>Location</dt>
+			<dd>Boston</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Sebastian</h4>
+		<img
+			alt="Sebastian's avatar"
+			src="/seb.png" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:sebastian@sebsite.pw">sebastian@sebsite.pw</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://sebsite.pw/">sebsite.pw</a></dd>
+			<dt>Location</dt>
+			<dd>The Internet</dd>
+		</dl>
+	</div>
+
+</div>
+
+<h2>Subsystem maintainers</h2>
+
+<div class="people">
+
+	<div class="person">
+		<h4>Armin Preiml <span class="specialization">Cryptography</span></h4>
+		<img
+			alt="Photo of Armin"
+			src="/armin.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:apreiml@strohwolke.at">apreiml@strohwolke.at</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://denkmaschine.at/">denkmaschine.at</a></dd>
+			<dt>Location</dt>
+			<dd>Austria</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Bor Grošelj Simić <span class="specialization">Mathematical library</span></h4>
+		<img
+			alt="Bor's avatar"
+			src="/bor.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:bgs@turminal.net">bgs@turminal.net</a></dd>
+			<dt>Location</dt>
+			<dd>Ljubljana</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Byron Torres <span class="specialization">Date/time support</span></h4>
+		<img
+			alt="Byron's avatar"
+			src="/byron.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:b@torresjrjr.com">b@torresjrjr.com</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://torresjrjr.com">torresjrjr.com</a></dd>
+			<dt>Location</dt>
+			<dd>London</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Conrad Hoffmann <span class="specialization">DNS support</span></h4>
+		<img
+			alt="Photo of Conrad"
+			src="/conrad.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:ch@bitfehler.net">ch@bitfehler.net</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://bitfehler.net/">bitfehler.net</a></dd>
+			<dt>Location</dt>
+			<dd>Berlin</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Lorenz (xha) <span class="specialization">OpenBSD support</span></h4>
+		<img
+			alt="Lorenz's avatar"
+			src="/xha.png" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:me@xha.li">me@xha.li</a></dd>
+			<dt>Website</dt>
+			<dd><a href="http://xha.li">xha.li</a></dd>
+			<dt>Location</dt>
+			<dd>Germany</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Vlad-Stefan Harbuz <span class="specialization">Regular expressions</span></h4>
+		<img
+			alt="Photo of Vlad"
+			src="/vlad.webp" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:vlad@vladh.net">vlad@vladh.net</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://vladh.net">vladh.net</a></dd>
+			<dt>Location</dt>
+			<dd>Edinburgh</dd>
+		</dl>
+	</div>
+
+	<div class="person">
+		<h4>Willow Barraco <span class="specialization">AArch64 support</span></h4>
+		<img
+			alt="Photo of Willow"
+			src="/willow.jpg" />
+		<dl>
+			<dt>Email</dt>
+			<dd><a href="mailto:contact@willowbarraco.fr">contact@willowbarraco.fr</a></dd>
+			<dt>Website</dt>
+			<dd><a href="https://willowbarraco.fr">willowbarraco.fr</a></dd>
+			<dt>Location</dt>
+			<dd>Cyber Space, or France</dd>
+		</dl>
+	</div>
+
+</div>
+
+<h2>Hare contributors</h2>
+
+<p>Over 100 people have contributed to Hare, with contributions both large and
+small. It's more than just the people you see here &mdash; it's a thriving
+community that works thanks only to everyone's combined efforts.
