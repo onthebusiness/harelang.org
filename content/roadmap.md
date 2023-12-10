@@ -15,7 +15,7 @@ will be "done".
 
 - Matching against pointers to tagged unions
 - Match and switch exhaustivity analysis
-- Improvements to const
+- Improvements to mutability semantics
 - Defers which execute when propagating errors (e.g. to free obsolete objects)
 - More robust error handling for OOM scenarios
 - Linear types research
@@ -24,7 +24,6 @@ will be "done".
 
 - Cryptography: TLS support
 - Raw IP sockets
-- wordexp
 
 ## Extended library
 
