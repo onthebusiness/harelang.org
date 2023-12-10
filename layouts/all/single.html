@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All pages</title>
+  <link rel="icon" type="image/png" href="/mascot.png">
+  <meta property="og:image" content="https://harelang.org/mascot.png">
+  {{ $style := resources.Get "main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+</head>
+{{ partial "nav.html" }}
+<main>
+  <h2>All pages</h2>
+  <ul>
+      {{ range where .Site.Pages "Kind" "page" }}
+      {{ if ne .Type "all" "blog" }}
+      <li>
+        <a href="{{.Permalink}}">
+          {{.Title}}
+        </a>
+      </li>
+      {{ end }}
+      {{ end }}
+  </ul>
+</main>
