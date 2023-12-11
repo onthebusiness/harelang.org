@@ -207,13 +207,14 @@ main img {
 table {
   width: 100%;
   border-collapse: collapse;
+  margin: 1rem auto;
 
   th {
     text-align: left;
   }
 
   td, th {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #8888;
   }
 
   .yes, .todo {
