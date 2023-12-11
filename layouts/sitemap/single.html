@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>All pages</title>
+  <title>Sitemap</title>
   <link rel="icon" type="image/png" href="/mascot.png">
   <meta property="og:image" content="https://harelang.org/mascot.png">
   {{ $style := resources.Get "main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
@@ -11,10 +11,10 @@
 </head>
 {{ partial "nav.html" }}
 <main>
-  <h2>All pages</h2>
+  <h2>Sitemap</h2>
   <ul>
       {{ range where .Site.Pages "Kind" "page" }}
-      {{ if ne .Type "all" "blog" }}
+      {{ if ne .Type "sitemap" "blog" }}
       <li>
         <a href="{{.Permalink}}">
           {{.Title}}
@@ -24,3 +24,4 @@
       {{ end }}
   </ul>
 </main>
+{{ partial "footer.html" }}
