@@ -256,7 +256,7 @@ export fn main() void = {
 	const elapsed = time::diff(start, stop);
 	const sec = elapsed / time::SECOND;
 	const nsec = elapsed % time::SECOND;
-	fmt::printfln("Took {}.{:09}s to read file", sec, nsec)!;
+	fmt::printfln("Took {}.{:.09}s to read file", sec, nsec)!;
 };
 ```
 
