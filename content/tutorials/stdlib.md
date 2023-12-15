@@ -172,8 +172,8 @@ interpretation of file modes, easier.
 
 [os]: https://docs.harelang.org/os
 [os::create]: https://docs.harelang.org/os#create
-[fs::flag]: https://docs.harelang.org/fs::flag
-[fs::mode]: https://docs.harelang.org/fs::flag
+[fs::flag]: https://docs.harelang.org/fs#flag
+[fs::mode]: https://docs.harelang.org/fs#mode
 
 Manipulating the filesystem itself is also supported:
 
@@ -353,7 +353,7 @@ user-managed fixed-length buffer. One can obtain the buffer as a `[]u8` with
 [memio::buffer] or as a string with [memio::string].
 
 [fmt::fprintf]: https://docs.harelang.org/fmt#fprintf
-[format::tar]: https://docs.harelang.org/format/ini
+[format::tar]: https://docs.harelang.org/format/tar
 [memio]: https://docs.harelang.org/memio
 [memio::fixed]: https://docs.harelang.org/memio#fixed
 [memio::dynamic]: https://docs.harelang.org/memio#dynamic
@@ -424,8 +424,8 @@ library's [io::limitreader], which only allows a user-defined number of bytes to
 be read from an underlying source of input. The implementation is concise:
 
 [io::vtable]: https://docs.harelang.org/io#vtable
-[io::limitreader]: https://docs.harelang.org/io#vtable
-[io::limitwriter]: https://docs.harelang.org/io#writer
+[io::limitreader]: https://docs.harelang.org/io#limitreader
+[io::limitwriter]: https://docs.harelang.org/io#limitwriter
 
 ```hare
 export type limitstream = struct {
