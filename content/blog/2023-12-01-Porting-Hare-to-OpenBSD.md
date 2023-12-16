@@ -139,7 +139,7 @@ After days of debugging linker scripts, I gave up and looked into alternative
 ways of running early Hare initialization: when you are linking with libc, you
 also get something called crt0 which is basically setting up the environment
 before the actual program is ran. As it turns out, crt0 also has a concept of
-init functions which which we can use in Hare.
+init functions which we can use in Hare.
 
 Hare also has some special requirements for sourcing runtime information using
 the System-V ABI. Since \_start is provided by libc in this configuration, we
