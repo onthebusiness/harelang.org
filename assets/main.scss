@@ -327,6 +327,10 @@ ol li {
     margin: 0 auto;
   }
 
+  li .highlight {
+    margin-bottom: 1rem;
+  }
+
   section {
     display: grid;
     grid-template-rows: 1fr;

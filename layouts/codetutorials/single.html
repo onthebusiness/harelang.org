@@ -34,7 +34,11 @@
 
         {{ else }}
         <li>
+          {{ if .id }}
+          <a href="#{{ .id }}">{{ .title }}</a>
+          {{ else }}
           <a href="#{{ .title | anchorize }}">{{ .title }}</a>
+          {{ end }}
         </li>
         {{ end }}
 
@@ -53,7 +57,11 @@
   <h2 id="{{ .section | anchorize }}">{{.section}}</h2>
   {{ else }}
   <section>
+    {{ if .id }}
+    <h3 id="{{ .id }}">{{.title}}</h3>
+    {{ else }}
     <h3 id="{{ .title | anchorize }}">{{.title}}</h3>
+    {{ end }}
     {{ if .sample }}
     {{ highlight .sample "hare" "" }}
     {{ end }}
