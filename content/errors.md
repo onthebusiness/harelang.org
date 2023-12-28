@@ -221,7 +221,7 @@ sections:
       
       // Use `hare run main.ha >/dev/full` to simulate this error
       export fn main() void = {
-        fmt::println("Hello world!")!; // abort
+      	fmt::println("Hello world!")!; // abort
       };
   details: |
     The "error occurred" message is a **runtime assertion** which occurs when
