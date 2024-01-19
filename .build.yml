@@ -1,24 +1,15 @@
 image: alpine/edge
 packages:
-  - rsync
+  - hugo
+  - hut
+oauth: pages.sr.ht/PAGES:RW
 sources:
   - https://git.sr.ht/~sircmpwn/harelang.org
-secrets:
-  - 160a72cf-34d6-47b7-928b-c13b42b4d4f6
 tasks:
-- hugo: |
-    curl -O https://mirror.drewdevault.com/hugo
-    chmod +x hugo
-    sudo mv hugo /usr/local/bin/
+tasks:
 - build: |
     cd harelang.org
-    /usr/local/bin/hugo
+    hugo
 - upload: |
-    if [ $BUILD_SUBMITTER != "git.sr.ht" ]
-    then
-        echo "Skipping upload for non-git.sr.ht build"
-        exit
-    fi
     cd harelang.org
-    echo "StrictHostKeyChecking=no" >> ~/.ssh/config
-    rsync -rP public/ deploy@drewdevault.com:/var/www/harelang.org/
+    hut pages publish -d harelang.org ./public/
