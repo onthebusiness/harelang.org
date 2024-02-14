@@ -1,15 +1,25 @@
 image: alpine/edge
 packages:
-  - hugo
-  - hut
+- hugo
+- hut
+- texlive-xetex
+- texlive-dvi
+- ghostscript
+- texmf-dist-pstricks
+- texmf-dist-fontsextra
+- texmf-dist-latexextra
 oauth: pages.sr.ht/PAGES:RW
 sources:
-  - https://git.sr.ht/~sircmpwn/harelang.org
-tasks:
+- https://git.sr.ht/~sircmpwn/harelang.org
+- https://git.sr.ht/~sircmpwn/hare-specification
 tasks:
 - build: |
     cd harelang.org
     hugo
+- spec: |
+    cd hare-specification
+    make
+    cp specification.pdf ../harelang.org/public/
 - upload: |
     cd harelang.org
     hut pages publish -d harelang.org ./public/
