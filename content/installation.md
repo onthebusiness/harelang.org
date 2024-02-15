@@ -37,7 +37,7 @@ Bootstrapping Hare only takes a few minutes.
 #### Step 1: Building the bootstrap compiler
 
 1. Obtain [the bootstrap compiler source code](https://git.sr.ht/~sircmpwn/harec)
-2. `cp configs/$platform.mk config.mk`
+2. `cp configs/<platform>.mk config.mk`
 3. `make`
 
 Optionally run `make check` to compile and run the test suite as well, then run
